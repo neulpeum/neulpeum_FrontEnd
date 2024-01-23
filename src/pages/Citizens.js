@@ -1,10 +1,10 @@
 import React from 'react';
+import SearchBar from '../components/searchbar/SearchBar';
 
 const Citizens = () => {
   return (
     <div>
-      <h2>Citizens</h2>
-      <p>This is the content of the subpage.</p>
+      <SearchBar/>
     </div>
   );
 };
