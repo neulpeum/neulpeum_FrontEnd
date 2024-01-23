@@ -2,7 +2,7 @@ import React from 'react';
 import sort from './ic_sort.svg';
 import plus from './ic_plus.svg';
 import search from './ic_search.svg';
-import './SearchBar.css'; // 스타일링을 위한 CSS 파일
+import './SearchBar.css';
 
 const SearchBar = () => {
   return (
