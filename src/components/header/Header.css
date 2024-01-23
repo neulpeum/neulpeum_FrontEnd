@@ -24,6 +24,6 @@
       width: 20%;
   }
   .home-button {
-    visibility: hidden;
+    display: none;
   }
 }
