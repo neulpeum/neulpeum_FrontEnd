@@ -17,7 +17,7 @@ const SearchBar = () => {
         <img src={sort} className="sort-icon" alt="정렬"/>
       </div>
 
-      <img src={plus} className="plus-icon" art="주민 추가"/>
+      <img src={plus} className="plus-icon" alt="주민 추가"/>
     </div>
   );
 };

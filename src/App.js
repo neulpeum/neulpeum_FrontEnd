@@ -1,14 +1,14 @@
 import './App.css';
 import React from 'react';
-import HeaderComponent from "./components/header/Header";
 import { Routes, Route } from "react-router-dom";
-import Citizens from './pages/Citizens';
+import Citizens from './pages/citizens/Citizens';
+import Main from './pages/main/Main';
 
 const App = () => {
   return (
     <div className="app">
-      <HeaderComponent/>
       <Routes>
+        <Route path="/" element={<Main />} />
         <Route path="/citizens" element={<Citizens />} />
       </Routes>
     </div>
