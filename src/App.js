@@ -3,6 +3,8 @@ import React from 'react';
 import HeaderComponent from "./components/header/Header";
 import { Routes, Route } from "react-router-dom";
 import Citizens from './pages/Citizens';
+import Medicines from './pages/Medicines';
+
 
 const App = () => {
   return (
@@ -10,6 +12,7 @@ const App = () => {
       <HeaderComponent/>
       <Routes>
         <Route path="/citizens" element={<Citizens />} />
+        <Route path="/medicines" element={<Medicines />} />
       </Routes>
     </div>
   );
