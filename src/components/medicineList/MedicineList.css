@@ -22,24 +22,12 @@
 
 .table-cell button {
     border: 1px solid #000;
-    border-radius: 5px;
+    border-radius: 30px;
     padding: 5px 10px;
     cursor: pointer;
-    background-color: transparent;
-    color: #000;
+    background-color: #ade391;
+    color: white;
     position: relative;
     margin: 0 auto;
     display: block;
 }
-
-@media (max-width: 768px) {
-    .table-cell:nth-child(4),
-    .table-header:nth-child(4),
-    .table-cell:nth-child(5),
-    .table-header:nth-child(5),
-    .table-cell:nth-child(6),
-    .table-header:nth-child(6) {
-        display: none;
-    }
-}
-  

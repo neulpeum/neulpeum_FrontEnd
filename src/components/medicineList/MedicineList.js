@@ -2,9 +2,9 @@ import React from "react";
 import { useTable } from "react-table";
 import "./MedicineList.css";
 
+
 const MedicineList = ({ columns, data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
-  
   return (
     <div className="table-wrapper">
       <table {...getTableProps()} className="table">
@@ -26,11 +26,15 @@ const MedicineList = ({ columns, data }) => {
                 <tr {...row.getRowProps()} className="table-row">
                   {row.cells.map(cell => (
                     <td {...cell.getCellProps()} className="table-cell">
-                      {cell.column.id === 'action' ? (
-                        <button onClick={() => alert('조회 버튼 눌림')}>조회 {'>'}</button>
-                      ) : (
-                        cell.render('Cell')
-                      )}
+                      {cell.column.id === 'current_quantity' ? ( 
+                      <div style={{display:"flex"}}>
+                        <button onClick={() => cell.row.original.Add()}>+</button>
+                        {cell.render('Cell')}
+                        <button onClick={() => cell.row.original.Subtract()}>-</button>
+                      </div>
+                    ) : 
+                    ( cell.render('Cell')
+                    )}
                     </td>
                   ))}
                 </tr>
@@ -42,4 +46,4 @@ const MedicineList = ({ columns, data }) => {
   );
 };
   
-  export default MedicineList;
+export default MedicineList;
