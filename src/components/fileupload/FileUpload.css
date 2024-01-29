@@ -1,0 +1,37 @@
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 5px;
+  width: 90%;
+}
+.upload-tag-container{
+  align-self: flex-start;
+  justify-self: flex-start;
+}
+.ic-file {
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  vertical-align: middle;
+}
+.fileinput-container {
+  align-self: center;
+  justify-self: center;
+  cursor: move;
+}
+.fileinput-label {
+  font-weight: 300;
+}
+.save-button-container {
+  align-self:flex-end;
+  justify-self: flex-end;
+}
+.save-button {
+  color: white;
+  background-color: #aed391;
+  border: 0px;
+  cursor: pointer;
+}

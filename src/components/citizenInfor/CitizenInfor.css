@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+}
+
+.citizenInfor-wrapper {
+  width: 22.75rem;
+  height: 43.6875rem;
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.infor-wrapper {
+  height: 93%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.category-wrapper {
+  width: 18rem;
+  margin: 0 auto;
+  margin-bottom: 0.38rem;
+}
+
+.category-wrapper img {
+  margin-right: 0.31rem;
+}
+
+.category-wrapper p {
+  display: inline-block;
+  margin: 0;
+  color: #878485;
+}
+
+.content-wrapper {
+  width: 18rem;
+  margin: 0 auto;
+  border-bottom: 1px solid #000;
+  margin-bottom: 0.38rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-wrapper p {
+  display: inline-block;
+  margin: 0;
+  margin-bottom: 0.38rem;
+}
+
+.plus-btn {
+  width: 2.5625rem;
+  height: 1.3125rem;
+  font-size: 0.6875rem;
+}
+
+.btn-wrapper {
+  width: 18rem;
+  margin: 0 auto;
+  height: 7%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.37rem;
+}
+
+.btn-wrapper button {
+  width: 4.25rem;
+  height: 1.8125rem;
+  border-radius: 0.3125rem;
+  border: none;
+  background-color: #95d1d9;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .citizenInfor-wrapper {
+    border: none;
+  }
+}
