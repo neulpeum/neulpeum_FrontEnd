@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Medicines from './pages/Medicines';
 
 import { Link } from "react-router-dom";
-import Citizens from "./pages/Citizens";
+import Citizens from "./pages/citizens/Citizens";
 import CitizensDetails from "./pages/citizensDetails/CitizensDetails";
 import Main from './pages/main/Main';
 
