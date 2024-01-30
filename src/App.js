@@ -13,7 +13,6 @@ import Main from './pages/main/Main';
 const App = () => {
   return (
     <div className="app">
-      <HeaderComponent />
       <Routes>
         <Route path="/" element={<Main />} />{" "}
         <Route path="/citizens" element={<Citizens />} />{" "}
