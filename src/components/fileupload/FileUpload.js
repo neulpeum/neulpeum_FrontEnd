@@ -1,6 +1,4 @@
 import React from 'react';
-import './FileUpload.css';
-import ic_file from './ic_fileImg.svg';
 
 const FileUpload = () => {
   const handleFile = (selectedFile) => {
@@ -44,7 +42,7 @@ const FileUpload = () => {
   return (
     <div className="upload-container">
       <div className='upload-tag-container'>
-        <img src={ic_file} alt='파일 아이콘' className='ic-file' id='ic-file'/>
+        <img src="/icons/ic_fileImg.svg"alt='파일 아이콘' className='ic-file' id='ic-file'/>
         <label htmlFor='ic-file' className='ic-name'>파일 선택</label>
       </div>
 

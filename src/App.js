@@ -1,7 +1,8 @@
 import "./App.css";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Medicines from './pages/Medicines';
+import GlobalStyles from "./styles/GlobalStyles";
+import Medicines from './pages/medicines/Medicines';
 
 import { Link } from "react-router-dom";
 import Citizens from "./pages/citizens/Citizens";
@@ -9,9 +10,11 @@ import CitizensDetails from "./pages/citizensDetails/CitizensDetails";
 import Main from './pages/main/Main';
 
 
+
 const App = () => {
   return (
     <div className="app">
+      <GlobalStyles/>
       <Routes>
         <Route path="/" element={<Main />} />{" "}
         <Route path="/citizens" element={<Citizens />} />{" "}

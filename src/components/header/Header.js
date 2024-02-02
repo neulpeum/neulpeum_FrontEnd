@@ -1,17 +1,14 @@
-import logo from './ic_logo.svg';
-import home from './ic_home.svg';
-import './Header.css';
 import React from 'react';
 
-function createHeader() {
+const createHeader = () => {
   return(
-    <div class="header-container">
-      <div class="logo-container">
-        <img src={logo} alt="logo" class="logo"/>
+    <div className="header-container">
+      <div className="logo-container">
+        <img src="/icons/ic_logo.svg" alt="logo" className="logo"/>
       </div>
 
-      <a href="#!" class="home-button">
-          <img src={home} alt="Home"/>
+      <a href="#!" className="home-button">
+          <img src="/icons/ic_home.svg" alt="Home"/>
       </a>
     </div>
   )
