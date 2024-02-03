@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CitizenInfor from "../../components/citizenInfor/CitizenInfor";
 import CitizenCounselList from "../../components/citizenCounselList/CitizenCounselList";
-import "./CitizensDetails.css";
 
 const CitizensDetails = () => {
   const [isButtonClicked, setButtonClicked] = useState(false);

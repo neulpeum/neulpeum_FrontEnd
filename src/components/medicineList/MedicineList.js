@@ -1,7 +1,5 @@
 import React from "react";
 import { useTable } from "react-table";
-import "./MedicineList.css";
-
 
 const MedicineList = ({ columns, data }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
@@ -26,15 +24,7 @@ const MedicineList = ({ columns, data }) => {
                 <tr {...row.getRowProps()} className="table-row">
                   {row.cells.map(cell => (
                     <td {...cell.getCellProps()} className="table-cell">
-                      {cell.column.id === 'current_quantity' ? ( 
-                      <div style={{display:"flex"}}>
-                        <button onClick={() => cell.row.original.Add()}>+</button>
-                        {cell.render('Cell')}
-                        <button onClick={() => cell.row.original.Subtract()}>-</button>
-                      </div>
-                    ) : 
-                    ( cell.render('Cell')
-                    )}
+                      {cell.render('Cell')}
                     </td>
                   ))}
                 </tr>

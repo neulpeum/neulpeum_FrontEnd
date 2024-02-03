@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import search from "./ic_search.svg";
-import sort from "./ic_sort.svg";
-import "./CitizenCounselList.css";
 
 export default function CitizenCounselList() {
   const data = [
@@ -38,8 +35,8 @@ export default function CitizenCounselList() {
             value={value}
             onChange={handleChange}
           ></input>
-          <img src={search} alt="검색" className="search-img" />
-          <img src={sort} alt="정렬" />
+          <img src="/icons/ic_search.svg" alt="검색" className="search-img" />
+          <img src="/icons/ic_sort.svg" alt="정렬" />
         </div>
         <div className="list-wrapper">
           <table>
@@ -60,7 +57,7 @@ export default function CitizenCounselList() {
                   <td>{item.col3}</td>
                   <td>{item.col4}</td>
                   <td>
-                    <button className="inquiry-btn">조회 ></button>
+                    <button className="inquiry-btn">조회 </button>
                   </td>
                 </tr>
               ))}
