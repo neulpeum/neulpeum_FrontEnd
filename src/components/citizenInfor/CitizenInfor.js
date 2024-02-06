@@ -6,46 +6,59 @@ export default function CitizenInfor() {
       <div className="citizenInfor-wrapper">
         <div className="infor-wrapper">
           <div className="category-wrapper">
-            <img src="/icons/ic_name.svg" className="name-icon" alt="이름" />
+            <img
+              src="/icons/ic_citizenName.svg"
+              className="name-icon"
+              alt="이름"
+            />
             <p> 이름 </p>
           </div>
           <div className="content-wrapper">
             <p> 홍xx </p>
           </div>
           <div className="category-wrapper">
-            <img src="/icons/ic_regiNum.svg" className="regiNum-icon" alt="주민번호" />
+            <img
+              src="/icons/ic_regiNum.svg"
+              className="regiNum-icon"
+              alt="주민번호"
+            />
             <p> 주민번호 </p>
           </div>
           <div className="content-wrapper">
             <p> 4202111 - 1 ** ** ** </p>
           </div>
           <div className="category-wrapper">
-            <img src="/icons/ic_address.svg" className="address-icon" alt="주소" />
+            <img
+              src="/icons/ic_address.svg"
+              className="address-icon"
+              alt="주소"
+            />
             <p> 주소 </p>
           </div>
           <div className="content-wrapper">
             <p> 서울특별시 @ @구 @ @동 </p>
           </div>
           <div className="category-wrapper">
-            <img src="/icons/ic_phoneNum.svg" className="phoneNum-icon" alt="연락처" />
+            <img
+              src="/icons/ic_phoneNum.svg"
+              className="phoneNum-icon"
+              alt="연락처"
+            />
             <p> 연락처 </p>
           </div>
           <div className="content-wrapper">
             <p> 010 - 1234 - 5678 </p>{" "}
           </div>
           <div className="category-wrapper">
-            <img src="/icons/ic_disease.svg" className="disease-icon" alt="병력" />
+            <img
+              src="/icons/ic_disease.svg"
+              className="disease-icon"
+              alt="병력"
+            />
             <p> 병력 </p>
           </div>
           <div className="content-wrapper">
             <p> 당뇨 </p> <button className="plus-btn"> 추가 </button>
-          </div>
-          <div className="category-wrapper">
-            <img src="/icons/ic_medicine.svg" className="medicine-icon" alt="복용중인 약" />
-            <p> 복용중인 약 </p>
-          </div>
-          <div className="content-wrapper">
-            <p> 두통약, 진통제 </p> <button className="plus-btn"> 추가 </button>
           </div>
           <div className="category-wrapper">
             <img src="/icons/ic_etc.svg" className="etc-icon" alt="특이사항" />

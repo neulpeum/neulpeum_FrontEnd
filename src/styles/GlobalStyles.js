@@ -40,6 +40,7 @@ const GlobalStyles = createGlobalStyle`
     /* CitizensDetails.css */
     * {
         box-sizing: border-box;
+        font-family: "Gmarket Sans";
     }
     
     .components-wrapper {
@@ -92,12 +93,34 @@ const GlobalStyles = createGlobalStyle`
         flex-direction: column;
         margin-top: 7rem;
     }
+
+    .ment-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ment-wrapper p {
+        display: inline-block;
+        margin: 0 0 15px 0;
+    }
+
+    .citizenName {
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    .citizensCounList {
+        font-size: 16px;
+        font-weight: bold;
+    }
     
     .searchBar-wrapper {
         width: 41.5625rem;
         text-align: center;
         display: flex;
         justify-content: center;
+        margin: 0 auto;
         margin-bottom: 1.38rem;
     }
     
@@ -118,6 +141,7 @@ const GlobalStyles = createGlobalStyle`
     
     .list-wrapper {
         width: 41.5625rem;
+        margin: 0 auto;
     }
     
     table {
@@ -156,7 +180,6 @@ const GlobalStyles = createGlobalStyle`
     
     .citizenInfor-wrapper {
         width: 22.75rem;
-        height: 43.6875rem;
         border: 1px solid #000;
         display: flex;
         flex-direction: column;
@@ -165,6 +188,8 @@ const GlobalStyles = createGlobalStyle`
     .infor-wrapper {
         height: 93%;
         display: flex;
+        margin-top: 1.37rem;
+        margin-bottom: 1.62rem;
         flex-direction: column;
         justify-content: center;
     }
@@ -204,11 +229,13 @@ const GlobalStyles = createGlobalStyle`
         width: 2.5625rem;
         height: 1.3125rem;
         font-size: 0.6875rem;
+        display: none;
     }
     
     .btn-wrapper {
         width: 18rem;
         margin: 0 auto;
+        margin-bottom: 1.37rem;
         height: 7%;
         display: flex;
         justify-content: flex-end;
@@ -319,10 +346,6 @@ const GlobalStyles = createGlobalStyle`
     margin-right: 20px;
     }
 
-    .home-button {
-        display: none;
-    }
-    }
     /* MedicineList.css */
     .table-wrapper {
         width: 100%;
@@ -427,24 +450,30 @@ const GlobalStyles = createGlobalStyle`
     .footer-logo {
         width: 180px;
     }
+    
     .counselList {
         display: none;
     }
+
     .goto-citizens,
     .goto-counsel,
     .goto-citizensInformation {
         display: block;
     }
+
     .citizenCounselList-wrapper {
         margin-top: 1rem;
+        margin: 0 auto;
     }
+    
     .citizenCounselList-wrapper,
     .searchBar-wrapper,
     .searchBar,
     .search-img,
     .list-wrapper {
-        width: 100%;
+        width: 95%;
     }
+
     table,
     .inquiry-btn {
         font-size: 0.9rem;
@@ -474,4 +503,3 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 export default GlobalStyles;
-

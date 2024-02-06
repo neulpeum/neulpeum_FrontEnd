@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import CitizenInfor from "../../components/citizenInfor/CitizenInfor";
 import CitizenCounselList from "../../components/citizenCounselList/CitizenCounselList";
+import HeaderComponent from "../../components/header/Header";
 
 const CitizensDetails = () => {
   const [isButtonClicked, setButtonClicked] = useState(false);
-
-  const handleButtonClick = () => {
-    setButtonClicked(true);
-  };
 
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
@@ -41,35 +38,39 @@ const CitizensDetails = () => {
   }, [isLargeScreen]);
 
   return (
-    <div className="components-wrapper">
-      <div
-        className="citizensInformation"
-        style={{
-          display: isButtonClicked ? "none" : "block",
-        }}
-      >
-        <button className="goto-citizens">&lt; 주민 목록</button>
-        <CitizenInfor />
-        <button
-          className="goto-counsel"
-          onClick={() => setButtonClicked(!isButtonClicked)}
+    <div>
+      <HeaderComponent />
+
+      <div className="components-wrapper">
+        <div
+          className="citizensInformation"
+          style={{
+            display: isButtonClicked ? "none" : "block",
+          }}
         >
-          상담리스트 &gt;
-        </button>
-      </div>
-      <div
-        className="counselList"
-        style={{
-          display: isButtonClicked ? "block" : "none",
-        }}
-      >
-        <button
-          className="goto-citizensInformation"
-          onClick={() => setButtonClicked(!isButtonClicked)}
+          <button className="goto-citizens">&lt; 주민 목록</button>
+          <CitizenInfor />
+          <button
+            className="goto-counsel"
+            onClick={() => setButtonClicked(!isButtonClicked)}
+          >
+            상담리스트 &gt;
+          </button>
+        </div>
+        <div
+          className="counselList"
+          style={{
+            display: isButtonClicked ? "block" : "none",
+          }}
         >
-          &lt;
-        </button>
-        <CitizenCounselList />
+          <button
+            className="goto-citizensInformation"
+            onClick={() => setButtonClicked(!isButtonClicked)}
+          >
+            &lt;
+          </button>
+          <CitizenCounselList />
+        </div>
       </div>
     </div>
   );
