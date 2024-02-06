@@ -26,7 +26,11 @@ export default function CitizenCounselList() {
 
   return (
     <div className="citizenCounselList-wrapper">
-      <div>
+      <div className="counselList-wrapper">
+        <div className="ment-wrapper">
+          <p className="citizenName">홍xx</p>
+          <p className="citizensCounList">님의 상담 리스트</p>
+        </div>
         <div className="searchBar-wrapper">
           <input
             type="text"
@@ -35,8 +39,12 @@ export default function CitizenCounselList() {
             value={value}
             onChange={handleChange}
           ></input>
-          <img src="/icons/ic_search.svg" alt="검색" className="search-img" />
-          <img src="/icons/ic_sort.svg" alt="정렬" />
+          <img
+            src="/icons/ic_counSearch.svg"
+            alt="검색"
+            className="search-img"
+          />
+          <img src="/icons/ic_counSort.svg" alt="정렬" />
         </div>
         <div className="list-wrapper">
           <table>
@@ -57,7 +65,7 @@ export default function CitizenCounselList() {
                   <td>{item.col3}</td>
                   <td>{item.col4}</td>
                   <td>
-                    <button className="inquiry-btn">조회 </button>
+                    <button className="inquiry-btn">조회 &gt; </button>
                   </td>
                 </tr>
               ))}
