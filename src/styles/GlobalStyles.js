@@ -290,39 +290,53 @@ const GlobalStyles = createGlobalStyle`
     .upload-container {
         display: flex;
         flex-direction: column;
-        margin-top: 20px;
+        flex-grow: 1;
         border: 1px solid black;
-        padding: 10px;
+        padding: 5px;
         border-radius: 5px;
-        width: 90%;
+        gap: 5px;
     }
     .upload-tag-container{
-        align-self: flex-start;
-        justify-self: flex-start;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
     }
     .ic-file {
         width: 20px;
         height: 20px;
-        padding: 5px;
-        vertical-align: middle;
+        margin-right: 3px;
     }
-    .fileinput-container {
-        align-self: center;
-        justify-self: center;
+
+    .file-input-container {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        border: 0.5px dashed black;
+        border-radius: 5px;
+        padding: 10px;
         cursor: move;
     }
-    .fileinput-label {
-        font-weight: 300;
-    }
-    .save-button-container {
-        align-self:flex-end;
-        justify-self: flex-end;
+    .file-input-label {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.5);
     }
     .save-button {
+        align-self: flex-end;
+        width: fit-content;
+        height: auto;
         color: white;
         background-color: #aed391;
         border: 0px;
+        border-radius: 10px;
         cursor: pointer;
+    }
+    .ui-panel {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        //align-items: center;
+        margin: 5px;
     }
     /* Header.css */
     .header-container {
@@ -379,66 +393,6 @@ const GlobalStyles = createGlobalStyle`
         position: relative;
         margin: 0 auto;
         display: block;
-    }
-    /* searchbar.css */
-    .search-bar-container {
-        align-items: center;
-        gap: 10px;
-        padding: 10px;
-        display: flex;
-        justify-content: center;
-    }
-    
-    .search-input-container {
-        width: 50%;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        border: 1px solid black;
-    }
-
-    .search-input-container input {
-        width: 100%;
-        border: 1px solid white;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-left: 12px;
-    }
-
-    .sort-container {
-        width:fit-content;
-        height: fit-content;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        border: 1px solid black;
-        margin-left: 20px;
-    }
-
-    .sort-container p {
-        margin: 0;
-        padding-left: 12px;
-        padding-right: 12px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        border-right: 1px solid black;
-    }
-
-    .search-icon {
-        border-left: 1px solid black;
-        padding: 5px;
-        cursor: pointer;
-    }
-
-    .sort-icon {
-        padding: 5px;
-        cursor: pointer;
-    }
-
-    .plus-icon {
-        border: 1px solid black;
-        padding: 12px;
-        margin-left: 20px;
     }
 
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/

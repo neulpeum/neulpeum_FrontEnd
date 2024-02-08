@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import MedicineList from '../../components/medicineList/MedicineList';
-import FileUplaod from '../../components/fileupload/FileUpload';
-import SearchBar from '../../components/searchbar/SearchBar';
 import HeaderComponent from '../../components/header/Header';
+import SearchBar from '../../components/searchbar/SearchBar';
+import FileUplaod from '../../components/fileupload/FileUpload';
+
+const CreateUiPanel = () => {
+    return (
+        <div className='ui-panel'>
+            <FileUplaod/>
+            <SearchBar currentPage={'Drugs'}/>
+        </div>
+    )
+}
 
 const Medicines = () => {
     // TODO(데이터 로드해서 동적으로 MedicineList에 전달하기)
@@ -36,12 +45,11 @@ const Medicines = () => {
     }
 
     return (
-        <div>
+        <>
             < HeaderComponent />
-            < FileUplaod/>
-            < SearchBar/>
+            <CreateUiPanel />
             < MedicineList columns={columns} data={medicinesData} />
-        </div>
+        </>
     );
 };
 
