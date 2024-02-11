@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import HeaderComponent from "../../components/header/Header";
-import './CitizenAdd.css'; // CSS 파일을 임포트합니다. 이 파일에서 스타일을 정의해야 합니다.
 
 export default function CitizenAdd() {
   const [name, setName] = useState("");
