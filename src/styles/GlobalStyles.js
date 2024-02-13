@@ -607,11 +607,12 @@ const GlobalStyles = createGlobalStyle`
         margin-top: 1.74rem;
         margin-bottom: 1.74rem;
     }
+    // width: 1440 / 1172 height: 1024/ 487+100
     .account-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 0 10rem;
+        margin: 0 1rem;
     }
     .switch-button-container {
         height: 30%;
@@ -634,7 +635,7 @@ const GlobalStyles = createGlobalStyle`
     .account-input-wrapper {
         height: fit-content;
         width: 100%;
-        padding: 2.5rem 8rem;
+        padding: 2.5rem 4rem;
         border: 1px solid black;
     }
     .account-input-container {
@@ -642,6 +643,7 @@ const GlobalStyles = createGlobalStyle`
         flex-direction: column;
         align-items: center;
         gap: 1.5rem;
+        margin: auto 4rem;
     }
     .account-input-container span {
         font-weight: bold;

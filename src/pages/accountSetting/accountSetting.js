@@ -1,9 +1,31 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import HeaderComponent from '../../components/header/Header';
 
+const CreateAccountInputContainer = (forWho) => {
+
+    const setForWho = () => {
+
+    }
+    return (
+        <div className="account-input-container">
+            <span>관리자 계정 변경하기</span>
+            <input 
+            type='text' 
+            placeholder="새 아이디 입력" 
+            id="admin_id"/>
+            <input 
+            type='text' 
+            placeholder="새 비밀번호 입력" 
+            password="admin_password"/>
+            <button>계정 변경</button>
+        </div>
+    );
+};
+
 const AccountSetting = () => {
-    // const [adminId, setAdminId] = useState(null);
+    const [adminId, setAdminId] = useState({});
     // const [adminPd, setAdminPassword] = useState(null);
+    
     return (
         <div>
             <HeaderComponent/>
@@ -32,7 +54,7 @@ const AccountSetting = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default AccountSetting;
