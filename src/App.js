@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles";
-import Medicines from './pages/medicines/Medicines';
+import Drugs from './pages/drugs/Drugs';
 
 import Citizens from "./pages/citizens/Citizens";
 import CitizensDetails from "./pages/citizensDetails/CitizensDetails";
