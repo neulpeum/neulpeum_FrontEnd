@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles";
-import Medicines from './pages/medicines/Medicines';
+import Drugs from './pages/drugs/Drugs';
 
 import { Link } from "react-router-dom";
 import Citizens from "./pages/citizens/Citizens";
@@ -19,7 +19,7 @@ const App = () => {
         <Route path="/" element={<Main />} />{" "}
         <Route path="/citizens" element={<Citizens />} />{" "}
         <Route path="/citizensDetails" element={<CitizensDetails />} />{" "}
-        <Route path="/medicines" element={<Medicines />} />{" "}
+        <Route path="/drugs" element={<Drugs />} />{" "}
       </Routes>{" "}
     </div>
   );

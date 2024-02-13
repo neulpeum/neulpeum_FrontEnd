@@ -2,22 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SearchBarContainer = styled.div`
-  flex: ${(props) => props.isFlex};
   display: flex;
-  flex-direction: ${(props) => props.flexDirection};
+  flex-direction: ${(props) => (props.using === 'drugs' ? 'column' : 'row')};
+  width: ${(props) => (props.using === 'drugs' ? '50%' : '100%')};
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 10px;
 `;
 
 const SearchInputContainer = styled.div`
-  //width: 50%;
-  width: 100%;
+  width: ${(props) => (props.using === 'drugs' ? '100%' : '50%')};
   display: flex;
   align-items: center;
   gap: 5px;
   border: 1px solid black;
+  margin: 0;
 `;
 
 const SearchInput = styled.input`
@@ -31,11 +30,11 @@ const SearchInput = styled.input`
 const SortContainer = styled.div`
   width: fit-content;
   height: fit-content;
+  margin: ${(props) => (props.using === 'drugs' ? 'auto' : '0 0 0 20px')};
   display: flex;
   align-items: center;
   gap: 5px;
   border: 1px solid black;
-  margin-left: 20px;
 `;
 
 const SortContainerTag = styled.p`
@@ -46,6 +45,7 @@ const SortContainerTag = styled.p`
   padding-bottom: 20px;
   border-right: 1px solid black;
 `;
+
 const SearchIcon = styled.img`
   border-left: 1px solid black;
   padding: 5px;
@@ -65,43 +65,49 @@ const PlusIcon = styled.img`
     display: none;
   }
 `;
-const UnderContainer = styled.div`
-  display:flex;
-  flex-directon: row;
-  aling-items: center;
-  
+
+const SaveButton = styled.button`
+  text-align: center;
+  margin: auto;
+  width: fit-contet;
+  height: auto;
+  padding: 1rem;
+  border-left: 1px solid black;
+  border-radius: 12px;
+  color: white;
+  background-color: #aed391;
+  border: 0px;
+  cursor: pointer;
 `;
+
+
 const SearchBar = ({currentPage}) => {
   // 각 페이지 마다 달라지는 컴포넌트 구성 Drugs, Citizens
   const pageConfig = {
     Drugs: {
       content: (
-      <SearchBarContainer flexDirection='column' isFlex={1}>
-        <SearchInputContainer>
+      <SearchBarContainer using='drugs'>
+        <SearchInputContainer using='drugs'>
           <SearchInput type="text" placeholder='검색할 약 이름을 입력하세요.' />
           <SearchIcon src="/icons/ic_search.svg" alt="검색" />
         </SearchInputContainer>
-        <div className='under'>
-          <SortContainer>
+        <div className='under' style={{display: 'flex', flexDirection: 'row', width: '100%', justifyContent:'center'}} >
+          <SortContainer using='drugs'>
             <SortContainerTag>정렬 기준</SortContainerTag>
             <SortIcon src="/icons/ic_sort.svg" alt="정렬" />
           </SortContainer>
+          <SaveButton onClick={() => alert("저장 버튼 눌림")}>변경사항 저장</SaveButton>
         </div>
-        {/* <SortContainer>
-          <SortContainerTag>정렬 기준</SortContainerTag>
-          <SortIcon src="/icons/ic_sort.svg" alt="정렬" />
-        </SortContainer> */}
       </SearchBarContainer>
       ),
     },
     Citizens: {
       content: (
-      <SearchBarContainer flexDirection='row'>
-        <SearchInputContainer>
+      <SearchBarContainer using='citizens'>
+        <SearchInputContainer using='citizens'>
           <SearchInput type="text" placeholder='검색할 주민의 이름을 입력하세요.' />
           <SearchIcon src="/icons/ic_search.svg" alt="검색" />
         </SearchInputContainer>
-  
         <SortContainer>
           <SortContainerTag>역방향 정렬</SortContainerTag>
           <SortIcon src="/icons/ic_sort.svg" alt="정렬" />

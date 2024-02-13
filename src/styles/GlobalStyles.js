@@ -290,20 +290,20 @@ const GlobalStyles = createGlobalStyle`
     .upload-container {
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
+        width: 50%;
+        height: auto;
         border: 1px solid black;
         padding: 5px;
-        border-radius: 5px;
-        gap: 5px;
     }
     .upload-tag-container{
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        margin-bottom: 5px;
     }
     .ic-file {
-        width: 20px;
-        height: 20px;
+        width: 1rem;
+        height: 1rem;
         margin-right: 3px;
     }
 
@@ -311,33 +311,38 @@ const GlobalStyles = createGlobalStyle`
         display: flex;
         flex: 1;
         align-items: center;
+        margin-bottom: 5px;
         justify-content: center;
         border: 0.5px dashed black;
         border-radius: 5px;
-        padding: 10px;
-        cursor: move;
+        cursor: pointer;
     }
     .file-input-label {
         font-size: 14px;
         color: rgba(0, 0, 0, 0.5);
     }
-    .save-button {
+    .file-save-button {
         align-self: flex-end;
         width: fit-content;
         height: auto;
+        padding: 5px;
         color: white;
         background-color: #aed391;
         border: 0px;
         border-radius: 10px;
         cursor: pointer;
     }
-    .ui-panel {
+    .uipanel-wrapper {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        //align-items: center;
-        margin: 5px;
+        gap: 1rem;
+        width: 100%;
+        height: fit-content;
+        margin: 0 auto;
+        padding: 1rem 3rem;
     }
+
     /* Header.css */
     .header-container {
         margin-top: 20px;
