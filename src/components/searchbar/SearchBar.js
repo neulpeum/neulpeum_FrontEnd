@@ -30,7 +30,7 @@ const SearchInput = styled.input`
 const SortContainer = styled.div`
   width: fit-content;
   height: fit-content;
-  margin: ${(props) => (props.using === 'drugs' ? 'auto' : '0 0 0 20px')};
+  margin: ${(props) => (props.using === 'drugs' ? '0 auto' : '0 0 0 20px')};
   display: flex;
   align-items: center;
   gap: 5px;
@@ -68,12 +68,12 @@ const PlusIcon = styled.img`
 
 const SaveButton = styled.button`
   text-align: center;
-  margin: auto;
-  width: fit-contet;
-  height: auto;
-  padding: 1rem;
-  border-left: 1px solid black;
-  border-radius: 12px;
+  align-self: center;
+  margin-right: 0;
+  width: 50%;
+  height: 80%;
+  padding: 5px;
+  border-radius: 2px;
   color: white;
   background-color: #aed391;
   border: 0px;
@@ -108,7 +108,7 @@ const SearchBar = ({currentPage}) => {
           <SearchInput type="text" placeholder='검색할 주민의 이름을 입력하세요.' />
           <SearchIcon src="/icons/ic_search.svg" alt="검색" />
         </SearchInputContainer>
-        <SortContainer>
+        <SortContainer using='citizens'>
           <SortContainerTag>역방향 정렬</SortContainerTag>
           <SortIcon src="/icons/ic_sort.svg" alt="정렬" />
         </SortContainer>

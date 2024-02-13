@@ -400,6 +400,141 @@ const GlobalStyles = createGlobalStyle`
         display: block;
     }
 
+    // CitizenAdd.css
+    .citizenAdd-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center top;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .citizenAdd-title {
+        font-size: 24px;
+        margin-top: 90px;
+    }
+      
+    .input-field {
+        display: flex;
+        flex-direction: column;
+        margin-top: 21px;
+    }
+    
+    .input-field label {
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+    
+    .input-field input {
+        height: 60px;
+        width: 590px;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+    
+    .button-wrapper {
+        margin-top: 62px;
+    }
+    
+    .button-wrapper > * {
+        margin-right: 50px;
+    }
+    
+    .citizen-add-button {
+        background-color: #AED391;
+        color: white;
+        font-size: 20px;
+        padding-right: 24px;
+        padding-left: 24px;
+        padding-top: 18px;
+        padding-bottom: 18px;
+        border: none;
+        border-radius: 5px;
+    }
+    
+    .line-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 50%;
+        margin-top: 90px;
+        margin-bottom: 40px;
+    }
+      
+    .line {
+        flex-grow: 1;
+        height: 3px;
+        background-color: black;
+        align-self: center;
+        min-width: 0;
+    }
+    
+    .line-text span {
+        font-size: 24px;
+    }
+
+    // accountSetting.css
+    .account-wrapper {
+        width: 100%;
+        height: 100%;
+        margin-top: 1.74rem;
+        margin-bottom: 1.74rem;
+    }
+    .account-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 10rem;
+    }
+    .switch-button-container {
+        height: 30%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .switch-button-container button {
+        flex: 1;
+        text-align: center;
+        padding: 1rem 2rem;
+        border: 0.5px solid black;
+        border-radius: 1rem 1rem 0 0;
+        background-color: #aed391;
+        color: black;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+    .account-input-wrapper {
+        height: fit-content;
+        width: 100%;
+        padding: 2.5rem 8rem;
+        border: 1px solid black;
+    }
+    .account-input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .account-input-container span {
+        font-weight: bold;
+        white-space: nowrap;
+    }
+    .account-input-container input {
+        padding: 1rem;
+    }
+    .account-input-container button {
+        padding: 1rem 2rem;
+        background-color: #aed391;
+        border: 0px;
+        color: white;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/
     @media (max-width: 768px) {
     .logo {
