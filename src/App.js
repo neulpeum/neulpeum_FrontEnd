@@ -8,6 +8,7 @@ import Citizens from "./pages/citizens/Citizens";
 import CitizensDetails from "./pages/citizensDetails/CitizensDetails";
 import CitizenAdd from "./components/citizenAdd/CitizenAdd";
 import Main from './pages/main/Main';
+import Options from './pages/options/Options';
 
 
 
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/citizensDetails" element={<CitizensDetails />} />{" "}
         <Route path="/drugs" element={<Drugs />} />{" "}
         <Route path="/citizenAdd" element={<CitizenAdd />} />{" "}
+        <Route path="/options" element={<Options />} />{" "}
       </Routes>{" "}
     </div>
   );
