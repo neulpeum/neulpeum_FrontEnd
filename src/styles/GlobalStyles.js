@@ -366,14 +366,14 @@ const GlobalStyles = createGlobalStyle`
         color: rgba(0, 0, 0, 0.5);
     }
     .file-save-button {
+        font-size: 20px;
         align-self: flex-end;
-        width: fit-content;
         height: auto;
-        padding: 5px;
+        padding: 10px 14px;
         color: white;
         background-color: #aed391;
         border: 0px;
-        border-radius: 10px;
+        border-radius: 5px;
         cursor: pointer;
     }
     .uipanel-wrapper {
@@ -396,8 +396,8 @@ const GlobalStyles = createGlobalStyle`
     }
     
     .logo-container {
-    text-align: center;
-    flex-grow: 1;
+        text-align: center;
+        flex-grow: 1;
     }
 
     .logo {
@@ -602,64 +602,11 @@ const GlobalStyles = createGlobalStyle`
 
     // accountSetting.css
     .account-wrapper {
-        width: 100%;
-        height: 100%;
-        margin-top: 1.74rem;
-        margin-bottom: 1.74rem;
+        width: auto;
+        height: auto;
+        margin: 1.74rem 10rem;
     }
-    // width: 1440 / 1172 height: 1024/ 487+100
-    .account-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 0 1rem;
-    }
-    .switch-button-container {
-        height: 30%;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    .switch-button-container button {
-        flex: 1;
-        text-align: center;
-        padding: 1rem 2rem;
-        border: 0.5px solid black;
-        border-radius: 1rem 1rem 0 0;
-        background-color: #aed391;
-        color: black;
-        font-weight: bold;
-        white-space: nowrap;
-    }
-    .account-input-wrapper {
-        height: fit-content;
-        width: 100%;
-        padding: 2.5rem 4rem;
-        border: 1px solid black;
-    }
-    .account-input-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-        margin: auto 4rem;
-    }
-    .account-input-container span {
-        font-weight: bold;
-        white-space: nowrap;
-    }
-    .account-input-container input {
-        padding: 1rem;
-    }
-    .account-input-container button {
-        padding: 1rem 2rem;
-        background-color: #aed391;
-        border: 0px;
-        color: white;
-        font-weight: bold;
-        white-space: nowrap;
-    }
+
 
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/
     @media (max-width: 768px) {

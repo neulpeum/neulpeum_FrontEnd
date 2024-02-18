@@ -93,12 +93,12 @@ const SearchBar = ({ sort, search, currentPage, isReversed}) => {
           <SearchInput type="text" placeholder='검색할 약 이름을 입력하세요.' />
           <SearchIcon src="/icons/ic_search.svg" alt="검색" />
         </SearchInputContainer>
-        <div className='under' style={{display: 'flex', flexDirection: 'row', width: '100%', justifyContent:'center'}} >
+        <div className='under' style={{display: 'flex', flexDirection: 'row', width: '100%'}} >
           <SortContainer using='drugs'>
             <SortContainerTag>정렬 기준</SortContainerTag>
             <SortIcon src="/icons/ic_sort.svg" alt="정렬" />
           </SortContainer>
-          <SaveButton onClick={() => alert("저장 버튼 눌림")}>변경사항 저장</SaveButton>
+          <SaveButton onClick={() => alert("저장 버튼 눌림")} id='drugs_SaveButton'>변경사항 저장</SaveButton>
         </div>
       </SearchBarContainer>
       ),

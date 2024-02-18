@@ -6,6 +6,18 @@ import FileUpload from '../../components/fileupload/FileUpload';
 
 const Drugs = () => {
 
+    const btnStyle = {
+        fontSize: '20px',
+        fontWeight: 'bold',
+        borderRadius: '50%',
+        color: 'white',
+        backgroundColor: '#aed391',
+        leftPadding: '5px',
+        rightPadding: '5px',
+        cursor: 'pointer',
+        border: 'none',
+      };
+
     const [drugsData, setDrugsData] = useState([
         { drugName:'타이레놀', expireDate: "2025-01-27", usableAmount: 30, 
         drugEnrollDate: "2024-01-27", drugModifyDate:"2024-01-27" },
@@ -30,10 +42,10 @@ const Drugs = () => {
         { Header: "유통기한", accessor: 'expireDate'},
         { Header: "남은 재고", accessor: 'usableAmount',
             Cell: ({ row }) => (
-                <div style={{ display: "flex" }}>
-                    <span onClick={() => handleQuantityChange(row.index, 1)}>+</span>
+                <div style={{ display: "flex", alignItems:'center'}}>
+                    <button style={btnStyle} onClick={() => handleQuantityChange(row.index, 1) }>+</button>
                     {row.values.usableAmount}
-                    <span onClick={() => handleQuantityChange(row.index, -1)}>-</span>
+                    <button style={btnStyle} onClick={() => handleQuantityChange(row.index, -1)}>-</button>
                 </div>
             )
         },
@@ -42,6 +54,8 @@ const Drugs = () => {
     ];
 
     return (
+        // 약 재고 조회 GET 요청 url 주소: /api/drug
+        // 약 재고 검색 GET 요청 url 주소: /api/findDrug?drugName=타이레놀 :: Request 형태
         <div>
             < HeaderComponent />
             <div className='uipanel-wrapper'>
