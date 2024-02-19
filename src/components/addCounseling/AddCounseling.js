@@ -1,5 +1,4 @@
 import React from "react";
-import "./AddCounseling.css";
 
 export default function AddCounseling() {
   return (

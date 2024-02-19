@@ -334,40 +334,59 @@ const GlobalStyles = createGlobalStyle`
     .upload-container {
         display: flex;
         flex-direction: column;
-        margin-top: 20px;
+        width: 50%;
+        height: auto;
         border: 1px solid black;
-        padding: 10px;
-        border-radius: 5px;
-        width: 90%;
+        padding: 5px;
     }
     .upload-tag-container{
-        align-self: flex-start;
-        justify-self: flex-start;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 5px;
     }
     .ic-file {
-        width: 20px;
-        height: 20px;
+        width: 1rem;
+        height: 1rem;
+        margin-right: 3px;
+    }
+
+    .file-input-container {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        margin-bottom: 5px;
+        justify-content: center;
+        border: 0.5px dashed black;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .file-input-label {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.5);
+    }
+    .file-save-button {
+        align-self: flex-end;
+        width: fit-content;
+        height: auto;
         padding: 5px;
-        vertical-align: middle;
-    }
-    .fileinput-container {
-        align-self: center;
-        justify-self: center;
-        cursor: move;
-    }
-    .fileinput-label {
-        font-weight: 300;
-    }
-    .save-button-container {
-        align-self:flex-end;
-        justify-self: flex-end;
-    }
-    .save-button {
         color: white;
         background-color: #aed391;
         border: 0px;
+        border-radius: 10px;
         cursor: pointer;
     }
+    .uipanel-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+        width: 100%;
+        height: fit-content;
+        margin: 0 auto;
+        padding: 1rem 3rem;
+    }
+
     /* Header.css */
     .header-container {
         margin-top: 20px;
@@ -424,66 +443,87 @@ const GlobalStyles = createGlobalStyle`
         margin: 0 auto;
         display: block;
     }
-    /* searchbar.css */
-    .search-bar-container {
-        align-items: center;
-        gap: 10px;
-        padding: 10px;
-        display: flex;
-        justify-content: center;
-    }
-    
-    .search-input-container {
-        width: 50%;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        border: 1px solid black;
-    }
 
-    .search-input-container input {
-        width: 100%;
-        border: 1px solid white;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-left: 12px;
-    }
-
-    .sort-container {
-        width:fit-content;
-        height: fit-content;
+    /* AddCounseling.css */
+    .addCounseling-wrapper {
+        margin: 0 auto;
+        width: 19.25rem;
+        height: 31.3125rem;
+        border: 1px solid #000;
         display: flex;
-        align-items: center;
-        gap: 5px;
-        border: 1px solid black;
-        margin-left: 20px;
-    }
-
-    .sort-container p {
+        flex-direction: column;
+        margin-top: 1.005rem;
+      }
+      
+      .counselTitle {
+        display: inline-block;
+        margin: 0 auto;
+        margin-top: 0.44rem;
+      }
+      
+      .counsel-wrapper {
+        height: 93%;
+        display: flex;
+        margin-top: 3.25rem;
+        margin-bottom: 1.62rem;
+        flex-direction: column;
+      }
+      
+      .counsel-category-wrapper {
+        width: 16rem;
+        margin: 0 auto;
+        margin-bottom: 0.38rem;
+      }
+      
+      .counsel-category-wrapper p {
+        display: inline-block;
         margin: 0;
-        padding-left: 12px;
-        padding-right: 12px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        border-right: 1px solid black;
-    }
-
-    .search-icon {
-        border-left: 1px solid black;
-        padding: 5px;
+      }
+      
+      .counsel-content-wrapper {
+        width: 16rem;
+        margin: 0 auto;
+        border-bottom: 1px solid #000;
+        margin-bottom: 0.87rem;
+        display: flex;
+        justify-content: space-between;
+        color: #878485;
+      }
+      
+      .counsel-content-wrapper p {
+        display: inline-block;
+        color: #565656;
+        font-size: 0.875rem;
+        margin: 0;
+        padding: 0.19rem;
+      }
+      
+      .counsel-content-wrapper span {
+        display: inline-block;
+        margin: 0;
+        margin-bottom: 0.38rem;
+      }
+      
+      .counsel-btn-wrapper {
+        width: 18rem;
+        margin: 0 auto;
+        margin-bottom: 0.56rem;
+        height: 7%;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.69rem;
+      }
+      
+      .counsel-btn-wrapper button {
+        width: 4.25rem;
+        height: 1.8125rem;
+        border-radius: 3.125rem;
+        border: none;
+        background-color: #aed391;
+        color: #000;
         cursor: pointer;
-    }
-
-    .sort-icon {
-        padding: 5px;
-        cursor: pointer;
-    }
-
-    .plus-icon {
-        border: 1px solid black;
-        padding: 12px;
-        margin-left: 20px;
-    }
+      }
+      
 
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/
     @media (max-width: 768px) {

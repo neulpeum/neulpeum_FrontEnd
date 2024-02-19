@@ -1,0 +1,74 @@
+.citizenAdd-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center top;
+    align-items: center;
+    height: 100vh;
+}
+
+.citizenAdd-title {
+    font-size: 24px;
+    margin-top: 90px;
+}
+  
+.input-field {
+    display: flex;
+    flex-direction: column;
+    margin-top: 21px;
+}
+
+.input-field label {
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+
+.input-field input {
+    height: 60px;
+    width: 590px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-left: 17px;
+    padding-right: 17px;
+}
+
+.button-wrapper {
+    margin-top: 62px;
+}
+
+.button-wrapper > * {
+    margin-right: 50px;
+}
+
+.citizen-add-button {
+    background-color: #AED391;
+    color: white;
+    font-size: 20px;
+    padding-right: 24px;
+    padding-left: 24px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    border: none;
+    border-radius: 5px;
+}
+
+.line-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 50%;
+    margin-top: 90px;
+    margin-bottom: 40px;
+}
+  
+.line {
+    flex-grow: 1;
+    height: 3px;
+    background-color: black;
+    align-self: center;
+    min-width: 0;
+}
+
+.line-text span {
+    font-size: 24px;
+}

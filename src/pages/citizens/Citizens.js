@@ -22,7 +22,7 @@ const Citizens = () => {
   return (
     <div>
       <HeaderComponent/>
-      <SearchBar/>
+      <SearchBar currentPage={"Citizens"}/>
       <CitizenList columns={columns} data={data} />
     </div>
   );
