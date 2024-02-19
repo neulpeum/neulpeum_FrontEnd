@@ -1,6 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function CitizenInfor() {
+  const [isEditing, setIsEditing] = useState(false);
+  const [text, setText] = useState("초기 정보");
+  const [originalText, setOriginalText] = useState("");
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setOriginalText(text);
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    // 취소 버튼을 클릭하면 아무것도 하지 않습니다.
+    setText(originalText);
+  };
+
+  const handleSaveClick = () => {
+    setIsEditing(false);
+    // 여기에 정보 저장 로직을 추가할 수 있습니다.
+    console.log("저장됨:", text);
+  };
+
+  const handleChange = (e) => {
+    setText(e.target.value);
+  };
+
   return (
     <div>
       <div className="citizenInfor-wrapper">
@@ -14,7 +39,18 @@ export default function CitizenInfor() {
             <p> 이름 </p>
           </div>
           <div className="content-wrapper">
-            <p> 홍xx </p>
+            {isEditing ? (
+              <input
+                type="text"
+                value={text}
+                onChange={handleChange}
+                autoFocus // 수정 모드 진입 시 자동으로 포커스 설정
+              />
+            ) : (
+              <div>
+                <span>{text}</span>
+              </div>
+            )}
           </div>
           <div className="category-wrapper">
             <img
@@ -47,7 +83,7 @@ export default function CitizenInfor() {
             <p> 연락처 </p>
           </div>
           <div className="content-wrapper">
-            <p> 010 - 1234 - 5678 </p>{" "}
+            <p> 010 - 1234 - 5678 </p>
           </div>
           <div className="category-wrapper">
             <img
@@ -80,9 +116,18 @@ export default function CitizenInfor() {
             <p> 2023 - 12 - 25 </p>
           </div>
         </div>
-        <div className="btn-wrapper">
-          <button className=""> 확인 </button>
-          <button className=""> 취소 </button>
+        <div>
+          {isEditing ? (
+            <div className="btn-wrapper">
+              <button onClick={handleSaveClick}>확인</button>
+              <button onClick={handleCancelClick}>취소</button>
+            </div>
+          ) : (
+            <div className="btn-wrapper">
+              <button onClick={handleEditClick}>수정</button>
+              <button onClick={handleCancelClick}>취소</button>
+            </div>
+          )}
         </div>
       </div>
     </div>

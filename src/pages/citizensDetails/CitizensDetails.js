@@ -69,7 +69,9 @@ const CitizensDetails = () => {
           >
             &lt;
           </button>
-          <CitizenCounselList />
+          <div className="citiznesCounselList">
+            <CitizenCounselList />
+          </div>
         </div>
       </div>
     </div>

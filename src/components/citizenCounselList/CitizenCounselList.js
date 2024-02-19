@@ -16,6 +16,69 @@ export default function CitizenCounselList() {
       col3: "두통약",
       col4: "2024.01.05",
     },
+    {
+      id: 3,
+      col1: "3",
+      col2: "김xx",
+      col3: "두통약",
+      col4: "2024.01.05",
+    },
+    {
+      id: 4,
+      col1: "4",
+      col2: "김xx",
+      col3: "두통약",
+      col4: "2024.01.05",
+    },
+    {
+      id: 5,
+      col1: "5",
+      col2: "김xx",
+      col3: "두통약",
+      col4: "2024.01.05",
+    },
+    {
+      id: 6,
+      col1: "6",
+      col2: "김xx",
+      col3: "두통약",
+      col4: "2024.01.05",
+    },
+    {
+      id: 7,
+      col1: "7",
+      col2: "김xx",
+      col3: "두통약",
+      col4: "2024.01.05",
+    },
+    {
+      id: 8,
+      col1: "8",
+      col2: "김xx",
+      col3: "두통약",
+      col4: "2024.01.05",
+    },
+    {
+      id: 9,
+      col1: "9",
+      col2: "김xx",
+      col3: "두통약",
+      col4: "2024.01.05",
+    },
+    {
+      id: 10,
+      col1: "10",
+      col2: "김xx",
+      col3: "두통약",
+      col4: "2024.01.05",
+    },
+    {
+      id: 11,
+      col1: "11",
+      col2: "김xx",
+      col3: "두통약",
+      col4: "2024.01.05",
+    },
   ];
 
   const [value, setValue] = useState("");
@@ -44,10 +107,15 @@ export default function CitizenCounselList() {
             alt="검색"
             className="search-img"
           />
-          <img src="/icons/ic_counSort.svg" alt="정렬" />
+          <img src="/icons/ic_counSort.svg" alt="정렬" className="sort-img" />
+          <img
+            src="/icons/ic_counselWrite.svg"
+            alt="추가"
+            className="write-img"
+          />
         </div>
         <div className="list-wrapper">
-          <table>
+          <table className="counselTable">
             <thead>
               <tr>
                 <th>번호</th>
