@@ -45,8 +45,11 @@ const GlobalStyles = createGlobalStyle`
     
     .components-wrapper {
         width: 100%;
-        height: 100%;
-        margin-top: 1.74rem;
+        // height: 100%;
+        height: 37.5675rem;
+
+        margin-top: 5.62rem;
+        margin-bottom: 3rem;
         display: flex;
         justify-content: center;
         flex-direction: row;
@@ -58,6 +61,8 @@ const GlobalStyles = createGlobalStyle`
         border: none;
         background-color: white;
         display: none;
+        padding: 0;
+        margin-left: 2rem;
     }
     
     .goto-counsel {
@@ -67,16 +72,26 @@ const GlobalStyles = createGlobalStyle`
         background-color: white;
         display: none;
         cursor: pointer;
+        padding: 0;
+        margin-right: 2rem;
     }
     
     .goto-citizensInformation {
-        font-size: 1.25rem;
+        font-size: 1.75rem;
         border: none;
         background-color: white;
         display: none;
         cursor: pointer;
+        padding: 0;
+        margin-left: 2rem;
     }
-    
+
+    .citiznesInformation,
+    .citiznesCounselList {
+        height: 37.5675rem;
+        overflow: hidden;
+    }
+
     /* 위에 두개는 pages 폴더안에 들어있는 파일들만 */
     /* 아래부터는 components 하위폴더안에 있는 컴포넌트들 스타일시트 */
     /* CitizenCounselList */
@@ -86,33 +101,33 @@ const GlobalStyles = createGlobalStyle`
     
     .citizenCounselList-wrapper {
         width: 41.5625rem;
-        height: 29.9375rem;
         overflow: auto;
         overflow-x: hidden;
         display: flex;
         flex-direction: column;
-        margin-top: 7rem;
     }
 
     .ment-wrapper {
         display: flex;
+        height: 3rem;
         justify-content: center;
         align-items: center;
+        margin: 0 0 0.5rem 0;
     }
 
     .ment-wrapper p {
         display: inline-block;
-        margin: 0 0 15px 0;
+        font-weight: bold;
     }
 
     .citizenName {
-        font-size: 40px;
-        font-weight: bold;
+        font-size: 2.5rem;
+        margin: 0;
     }
 
     .citizensCounList {
-        font-size: 16px;
-        font-weight: bold;
+        font-size: 1rem;
+        margin: 1rem 0 0 0;
     }
     
     .searchBar-wrapper {
@@ -134,34 +149,50 @@ const GlobalStyles = createGlobalStyle`
     
     .search-img {
         height: 2.75rem;
+        padding: 0.3rem;
         border: 1px solid #000;
         border-left: none;
-        margin-right: 2rem;
+        margin-right: 1rem;
+        cursor: pointer;
+    }
+
+    .sort-img {
+        width: 2.1rem;
+        height: 2.1rem;
+    }
+
+    .write-img {
+        width: 2.1rem;
+        height: 2.1rem;
+        margin-left: 0.31rem;
+        display: none;
     }
     
     .list-wrapper {
         width: 41.5625rem;
+        height: 29.9375rem;
+        overflow: auto;
         margin: 0 auto;
     }
     
-    table {
+    .counselTable {
         width: 100%;
         border-collapse: collapse;
         border-spacing: 0;
         font-size: 1.25rem;
     }
     
-    th,
-    td {
+    .counselTable th,
+    .counselTable td {
         text-align: center;
         vertical-align: middle;
         border: 1px solid #000;
         padding: 8px;
     }
     
-    th {
-        padding-top: 20px;
-        padding-bottom: 20px;
+    .counselTable th {
+        padding-top: 1.3rem;
+        padding-bottom: 1.2rem;
     }
     
     .inquiry-btn {
@@ -171,6 +202,7 @@ const GlobalStyles = createGlobalStyle`
         border: 1px solid #000;
         font-size: 0.875rem;
         background-color: white;
+        cursor: pointer;
     }
     
     /* CitizenInfor.css*/
@@ -183,6 +215,7 @@ const GlobalStyles = createGlobalStyle`
         border: 1px solid #000;
         display: flex;
         flex-direction: column;
+        margin-top: 1.005rem;
     }
     
     .infor-wrapper {
@@ -209,7 +242,7 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         color: #878485;
     }
-    
+
     .content-wrapper {
         width: 18rem;
         margin: 0 auto;
@@ -224,6 +257,16 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         margin-bottom: 0.38rem;
     }
+
+    .content-wrapper span {
+        display: inline-block;
+        margin: 0;
+        margin-bottom: 0.38rem;
+    }
+
+    // .content-wrapper input {
+    //     border: none;
+    // }
     
     .plus-btn {
         width: 2.5625rem;
@@ -249,6 +292,7 @@ const GlobalStyles = createGlobalStyle`
         border: none;
         background-color: #95d1d9;
         color: #fff;
+        cursor: pointer;
     }
     
     /* CitizenList.css */
@@ -400,6 +444,87 @@ const GlobalStyles = createGlobalStyle`
         display: block;
     }
 
+    /* AddCounseling.css */
+    .addCounseling-wrapper {
+        margin: 0 auto;
+        width: 19.25rem;
+        height: 31.3125rem;
+        border: 1px solid #000;
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.005rem;
+      }
+      
+      .counselTitle {
+        display: inline-block;
+        margin: 0 auto;
+        margin-top: 0.44rem;
+      }
+      
+      .counsel-wrapper {
+        height: 93%;
+        display: flex;
+        margin-top: 3.25rem;
+        margin-bottom: 1.62rem;
+        flex-direction: column;
+      }
+      
+      .counsel-category-wrapper {
+        width: 16rem;
+        margin: 0 auto;
+        margin-bottom: 0.38rem;
+      }
+      
+      .counsel-category-wrapper p {
+        display: inline-block;
+        margin: 0;
+      }
+      
+      .counsel-content-wrapper {
+        width: 16rem;
+        margin: 0 auto;
+        border-bottom: 1px solid #000;
+        margin-bottom: 0.87rem;
+        display: flex;
+        justify-content: space-between;
+        color: #878485;
+      }
+      
+      .counsel-content-wrapper p {
+        display: inline-block;
+        color: #565656;
+        font-size: 0.875rem;
+        margin: 0;
+        padding: 0.19rem;
+      }
+      
+      .counsel-content-wrapper span {
+        display: inline-block;
+        margin: 0;
+        margin-bottom: 0.38rem;
+      }
+      
+      .counsel-btn-wrapper {
+        width: 18rem;
+        margin: 0 auto;
+        margin-bottom: 0.56rem;
+        height: 7%;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.69rem;
+      }
+      
+      .counsel-btn-wrapper button {
+        width: 4.25rem;
+        height: 1.8125rem;
+        border-radius: 3.125rem;
+        border: none;
+        background-color: #aed391;
+        color: #000;
+        cursor: pointer;
+      }
+      
+
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/
     @media (max-width: 768px) {
     .logo {
@@ -426,17 +551,38 @@ const GlobalStyles = createGlobalStyle`
     }
     
     .citizenCounselList-wrapper,
-    .searchBar-wrapper,
-    .searchBar,
-    .search-img,
     .list-wrapper {
         width: 95%;
+    }
+
+    .searchBar-wrapper,
+    .searchBar,
+    .search-img {
+        width: 90%
+    }
+
+    .citizenName {
+        font-size: 1.25rem;
+    }
+
+    .citizensCounList {
+        font-size: 0.8125rem;
+        margin: 0.3rem 0 0 0;
+    }
+
+    .write-img {
+        display: block;
+    }
+
+    .btn-wrapper {
+        display: none;
     }
 
     table,
     .inquiry-btn {
         font-size: 0.9rem;
     }
+    
     .searchBar {
         flex-shrink: 1;
     }
