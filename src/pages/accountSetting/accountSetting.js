@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import HeaderComponent from '../../components/header/Header';
 
-const accountSetting = () => {
+const AccountSetting = () => {
     // const [adminId, setAdminId] = useState(null);
     // const [adminPd, setAdminPassword] = useState(null);
     return (
@@ -35,4 +35,4 @@ const accountSetting = () => {
     )
 }
 
-export default accountSetting;
+export default AccountSetting;
