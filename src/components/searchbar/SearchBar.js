@@ -81,7 +81,7 @@ const SaveButton = styled.button`
 `;
 
 
-const SearchBar = ({ sort, currentPage}) => {
+const SearchBar = ({ sort, currentPage, isReversed}) => {
   // 각 페이지 마다 달라지는 컴포넌트 구성 Drugs, Citizens
   const pageConfig = {
     Drugs: {
@@ -109,7 +109,9 @@ const SearchBar = ({ sort, currentPage}) => {
           <SearchIcon src="/icons/ic_search.svg" alt="검색" />
         </SearchInputContainer>
         <SortContainer>
-          <SortContainerTag>역방향 정렬</SortContainerTag>
+          <SortContainerTag>
+            {isReversed ? '정방향 정렬' : '역방향 정렬'}
+          </SortContainerTag>
           <SortIcon onClick={() => sort()} src="/icons/ic_sort.svg" alt="정렬" />
         </SortContainer>
   

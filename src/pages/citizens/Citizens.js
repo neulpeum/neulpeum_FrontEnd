@@ -4,6 +4,8 @@ import CitizenList from '../../components/citizenList/CitizenList';
 import HeaderComponent from '../../components/header/Header';
 
 const Citizens = () => {
+  const [isReversed, setReverse] = useState(false);
+
   const [data, setData] = useState([
     { number: 1, name: '홍길동', address: '서울특별시 종로구 @@', caseHistory: 'No', medication: '아스피린', note: 'None' },
     { number: 2, name: '김글로', address: '서울특별시 종로구 @@', caseHistory: 'No', medication: '아스피린', note: 'None' },
@@ -12,6 +14,7 @@ const Citizens = () => {
 
   function sortData() {
     setData(prevData => [...prevData].reverse());
+    setReverse(!isReversed);
   };
 
   const columns = [
@@ -27,7 +30,7 @@ const Citizens = () => {
   return (
     <div>
       <HeaderComponent/>
-      <SearchBar sort={sortData} currentPage={"Citizens"}/>
+      <SearchBar sort={sortData} currentPage={"Citizens"} isReversed={isReversed}/>
       <CitizenList columns={columns} data={data} />
     </div>
   );
