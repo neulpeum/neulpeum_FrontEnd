@@ -6,11 +6,7 @@ import GlobalStyles from "./styles/GlobalStyles";
 import Citizens from "./pages/citizens/Citizens";
 import CitizensDetails from "./pages/citizensDetails/CitizensDetails";
 import CitizenAdd from "./components/citizenAdd/CitizenAdd";
-import Options from "./pages/options/Options";
-import AddCounsel from "./pages/addCounsel/Addcounsel";
-import Drugs from './pages/drugs/Drugs';
 import Main from './pages/main/Main';
-import Options from './pages/options/Options';
 import AccountSetting from './pages/accountSetting/AccountSetting';
 
 
