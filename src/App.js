@@ -9,6 +9,8 @@ import CitizensDetails from "./pages/citizensDetails/CitizensDetails";
 import CitizenAdd from "./components/citizenAdd/CitizenAdd";
 import Main from './pages/main/Main';
 import AccountSetting from './pages/accountSetting/AccountSetting';
+import AddCounsel from './pages/addCounsel/Addcounsel';
+import Options from './pages/options/Options';
 
 const App = () => {
   return (
