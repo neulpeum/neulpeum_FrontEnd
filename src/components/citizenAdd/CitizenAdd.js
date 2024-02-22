@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import HeaderComponent from "../../components/header/Header";
 
+
 export default function CitizenAdd() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
