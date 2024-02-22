@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const SearchBarContainer = styled.div`
@@ -81,7 +81,9 @@ const SaveButton = styled.button`
 `;
 
 
-const SearchBar = ({currentPage}) => {
+const SearchBar = ({ sort, search, currentPage, isReversed}) => {
+  const [keyword, setKeyword] = useState('');
+
   // 각 페이지 마다 달라지는 컴포넌트 구성 Drugs, Citizens
   const pageConfig = {
     Drugs: {
@@ -105,12 +107,14 @@ const SearchBar = ({currentPage}) => {
       content: (
       <SearchBarContainer using='citizens'>
         <SearchInputContainer using='citizens'>
-          <SearchInput type="text" placeholder='검색할 주민의 이름을 입력하세요.' />
-          <SearchIcon src="/icons/ic_search.svg" alt="검색" />
+          <SearchInput value={keyword} onChange={(event) => setKeyword(event.target.value)} type="text" placeholder='검색할 주민의 이름을 입력하세요.' />
+          <SearchIcon onClick={() => search(keyword)} src="/icons/ic_search.svg" alt="검색" />
         </SearchInputContainer>
         <SortContainer>
-          <SortContainerTag>역방향 정렬</SortContainerTag>
-          <SortIcon src="/icons/ic_sort.svg" alt="정렬" />
+          <SortContainerTag>
+            {isReversed ? '정방향 정렬' : '역방향 정렬'}
+          </SortContainerTag>
+          <SortIcon onClick={() => sort()} src="/icons/ic_sort.svg" alt="정렬" />
         </SortContainer>
   
         <PlusIcon src="/icons/ic_plus.svg" alt="주민 추가" />
