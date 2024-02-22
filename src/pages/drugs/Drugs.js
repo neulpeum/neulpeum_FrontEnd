@@ -58,10 +58,8 @@ const Drugs = () => {
         // 약 재고 검색 GET 요청 url 주소: /api/findDrug?drugName=타이레놀 :: Request 형태
         <div>
             < HeaderComponent />
-            <div className='uipanel-wrapper'>
-                <FileUpload onFileSaveClick={setTransmittedData}/>
-                <SearchBar currentPage={'Drugs'}/>
-            </div>
+            <FileUpload onFileSaveClick={setTransmittedData}/>
+            <SearchBar currentPage={'Drugs'}/>
             < DrugList columns={columns} data={drugsData} />
         </div>
     );

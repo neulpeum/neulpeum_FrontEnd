@@ -376,17 +376,7 @@ const GlobalStyles = createGlobalStyle`
         border-radius: 5px;
         cursor: pointer;
     }
-    .uipanel-wrapper {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 1rem;
-        width: 100%;
-        height: fit-content;
-        margin: 0 auto;
-        padding: 1rem 3rem;
-    }
-
+    
     /* Header.css */
     .header-container {
         margin-top: 20px;
