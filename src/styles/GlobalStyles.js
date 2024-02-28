@@ -94,6 +94,8 @@ const GlobalStyles = createGlobalStyle`
 
     /* 위에 두개는 pages 폴더안에 들어있는 파일들만 */
     /* 아래부터는 components 하위폴더안에 있는 컴포넌트들 스타일시트 */
+    // 지금 아래에 작성되는 스타일시트는 이제부터 전역 페이지에서 공통적으로 사용될 스타일만 허용하겠음 by 오태형
+    
     /* CitizenCounselList */
     * {
         box-sizing: border-box;
@@ -332,44 +334,44 @@ const GlobalStyles = createGlobalStyle`
 
     /* FileUpload.css */
     .upload-container {
-        display: flex;
-        flex-direction: column;
-        width: 50%;
-        height: auto;
+        width: 588px;
+        height: 131px;
+        position: absolute;
+        top: 283px;
+        left: 171px;
         border: 1px solid black;
-        padding: 5px;
-    }
-    .upload-tag-container{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin-bottom: 5px;
+
     }
     .ic-file {
-        width: 1rem;
-        height: 1rem;
-        margin-right: 3px;
-    }
-
-    .file-input-container {
-        display: flex;
-        flex: 1;
-        align-items: center;
-        margin-bottom: 5px;
-        justify-content: center;
-        border: 0.5px dashed black;
-        border-radius: 5px;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 11px;
+        left: 14px;
         cursor: pointer;
     }
-    .file-input-label {
-        font-size: 14px;
+    .ic-file-span{
+        font-size: 20px;
+        position: absolute;
+        left: 54px;
+        top: 17px;
+    }
+    .upload-container-label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
         color: rgba(0, 0, 0, 0.5);
     }
+    
     .file-save-button {
+        width: 104px;
+        height: 37px;
         font-size: 20px;
-        align-self: flex-end;
-        height: auto;
-        padding: 10px 14px;
+        position: absolute;
+        top: 77px;
+        left: 464px;
         color: white;
         background-color: #aed391;
         border: 0px;

@@ -1,6 +1,16 @@
 import "./App.css";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import GlobalStyles from "./styles/GlobalStyles";
+import Drugs from "./pages/drugs/Drugs";
+
+import Citizens from "./pages/citizens/Citizens";
+import CitizensDetails from "./pages/citizensDetails/CitizensDetails";
+import CitizenAdd from "./components/citizenAdd/CitizenAdd";
+import Main from "./pages/main/Main";
+import Options from "./pages/options/Options";
+import AddCounsel from "./pages/addCounsel/Addcounsel";
+import AccountSetting from "./pages/accountSetting/AccountSetting";
 
 const App = () => {
   return (
@@ -14,7 +24,8 @@ const App = () => {
         <Route path="/addCounsel" element={<AddCounsel />} />{" "}
         <Route path="/citizenAdd" element={<CitizenAdd />} />{" "}
         <Route path="/drugs" element={<Drugs />} />{" "}
-        <Route path="/accountSetting" element={<AccountSetting />} />{" "}
+        <Route path="/accountSettings" element={<AccountSetting />}/>{" "}
+        {/* 나중에 푸쉬할때 AccountSetting도 올려야한다? */}
       </Routes>{" "}
     </div>
   );
