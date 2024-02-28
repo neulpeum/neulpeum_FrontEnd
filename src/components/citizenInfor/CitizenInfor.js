@@ -1,29 +1,38 @@
 import React, { useState } from "react";
 
 export default function CitizenInfor() {
+  const [fields, setFields] = useState([
+    "홍xx",
+    "420211-1******",
+    "서울특별시 @@구 @@동",
+    "010-1234-5678",
+    "당뇨",
+    "병원에서 고혈압 진단 받으심.",
+  ]);
   const [isEditing, setIsEditing] = useState(false);
-  const [text, setText] = useState("초기 정보");
-  const [originalText, setOriginalText] = useState("");
+  const [originalFields, setOriginalFields] = useState([...fields]);
 
   const handleEditClick = () => {
     setIsEditing(true);
-    setOriginalText(text);
+    setOriginalFields([...fields]);
   };
 
   const handleCancelClick = () => {
     setIsEditing(false);
     // 취소 버튼을 클릭하면 아무것도 하지 않습니다.
-    setText(originalText);
+    setFields([...originalFields]);
   };
 
   const handleSaveClick = () => {
     setIsEditing(false);
     // 여기에 정보 저장 로직을 추가할 수 있습니다.
-    console.log("저장됨:", text);
+    console.log("저장됨:", fields);
   };
 
-  const handleChange = (e) => {
-    setText(e.target.value);
+  const handleChange = (index, e) => {
+    const newFields = [...fields];
+    newFields[index] = e.target.value;
+    setFields(newFields);
   };
 
   return (
@@ -42,13 +51,12 @@ export default function CitizenInfor() {
             {isEditing ? (
               <input
                 type="text"
-                value={text}
-                onChange={handleChange}
-                autoFocus // 수정 모드 진입 시 자동으로 포커스 설정
+                value={fields[0]}
+                onChange={(e) => handleChange(0, e)}
               />
             ) : (
               <div>
-                <span>{text}</span>
+                <span>{fields[0]}</span>
               </div>
             )}
           </div>
@@ -61,7 +69,17 @@ export default function CitizenInfor() {
             <p> 주민번호 </p>
           </div>
           <div className="content-wrapper">
-            <p> 4202111 - 1 ** ** ** </p>
+            {isEditing ? (
+              <input
+                type="text"
+                value={fields[1]}
+                onChange={(e) => handleChange(1, e)}
+              />
+            ) : (
+              <div>
+                <span>{fields[1]}</span>
+              </div>
+            )}
           </div>
           <div className="category-wrapper">
             <img
@@ -72,7 +90,17 @@ export default function CitizenInfor() {
             <p> 주소 </p>
           </div>
           <div className="content-wrapper">
-            <p> 서울특별시 @ @구 @ @동 </p>
+            {isEditing ? (
+              <input
+                type="text"
+                value={fields[2]}
+                onChange={(e) => handleChange(2, e)}
+              />
+            ) : (
+              <div>
+                <span>{fields[2]}</span>
+              </div>
+            )}
           </div>
           <div className="category-wrapper">
             <img
@@ -83,7 +111,17 @@ export default function CitizenInfor() {
             <p> 연락처 </p>
           </div>
           <div className="content-wrapper">
-            <p> 010 - 1234 - 5678 </p>
+            {isEditing ? (
+              <input
+                type="text"
+                value={fields[3]}
+                onChange={(e) => handleChange(3, e)}
+              />
+            ) : (
+              <div>
+                <span>{fields[3]}</span>
+              </div>
+            )}
           </div>
           <div className="category-wrapper">
             <img
@@ -94,14 +132,34 @@ export default function CitizenInfor() {
             <p> 병력 </p>
           </div>
           <div className="content-wrapper">
-            <p> 당뇨 </p> <button className="plus-btn"> 추가 </button>
+            {isEditing ? (
+              <input
+                type="text"
+                value={fields[4]}
+                onChange={(e) => handleChange(4, e)}
+              />
+            ) : (
+              <div>
+                <span>{fields[4]}</span>
+              </div>
+            )}
           </div>
           <div className="category-wrapper">
             <img src="/icons/ic_etc.svg" className="etc-icon" alt="특이사항" />
             <p> 특이사항 </p>
           </div>
           <div className="content-wrapper">
-            <p> 병원에서 고혈압 진단 받으심.병원약 주 1 회 복용중 </p>
+            {isEditing ? (
+              <input
+                type="text"
+                value={fields[5]}
+                onChange={(e) => handleChange(5, e)}
+              />
+            ) : (
+              <div>
+                <span>{fields[5]}</span>
+              </div>
+            )}
           </div>
           <div className="category-wrapper">
             <p> 등록일자 </p>

@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Modal from "react-modal";
+import "./Modal.css";
 
 export default function CitizenCounselList() {
   const data = [
@@ -87,11 +90,21 @@ export default function CitizenCounselList() {
     setValue(e.target.value);
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className="citizenCounselList-wrapper">
       <div className="counselList-wrapper">
         <div className="ment-wrapper">
-          <p className="citizenName" >홍xx</p>
+          <p className="citizenName">홍xx</p>
           <p className="citizensCounList">님의 상담 리스트</p>
         </div>
         <div className="searchBar-wrapper">
@@ -108,11 +121,13 @@ export default function CitizenCounselList() {
             className="search-img"
           />
           <img src="/icons/ic_counSort.svg" alt="정렬" className="sort-img" />
-          <img
-            src="/icons/ic_counselWrite.svg"
-            alt="추가"
-            className="write-img"
-          />
+          <Link to="/addcounsel">
+            <img
+              src="/icons/ic_counselWrite.svg"
+              alt="추가"
+              className="write-img"
+            />
+          </Link>
         </div>
         <div className="list-wrapper">
           <table className="counselTable">
@@ -133,7 +148,42 @@ export default function CitizenCounselList() {
                   <td>{item.col3}</td>
                   <td>{item.col4}</td>
                   <td>
-                    <button className="inquiry-btn">조회 &gt; </button>
+                    <button className="inquiry-btn" onClick={openModal}>
+                      조회 &gt;
+                    </button>
+                    <Modal
+                      className="counsel-modal"
+                      isOpen={isOpen}
+                      onRequestClose={closeModal}
+                    >
+                      <div className="modal-warpper">
+                        <div className="modal-content-wrapper">
+                          <div className="modal-title">
+                            <p className="m-name">김@@ </p>
+                            <p>님이</p>
+                            <p className="m-date">2024.01.10 (수) </p>
+                            <p>에</p>
+                            <br></br>
+                            <p>상담한 내용입니다.</p>
+                          </div>
+                          <div className="modal-content">
+                            <div className="modal-otc">
+                              <p className="m-otc">제공OTC: 진통제</p>
+                            </div>
+                            <div className="modal-counsel">
+                              <p>두통이 있으시다고 하셔서 진통제를 드림.</p>
+                              <br></br>
+
+                              <p>기존에 먹언 약의 개수를 3개에서 2개로 줄임.</p>
+                            </div>
+                          </div>
+                          <div className="modal-btn-warpper">
+                            <button onClick={closeModal}>확인</button>
+                            <button>수정</button>
+                          </div>
+                        </div>
+                      </div>
+                    </Modal>
                   </td>
                 </tr>
               ))}

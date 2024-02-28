@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import CitizenInfor from "../../components/citizenInfor/CitizenInfor";
 import CitizenCounselList from "../../components/citizenCounselList/CitizenCounselList";
 import HeaderComponent from "../../components/header/Header";
@@ -48,7 +49,9 @@ const CitizensDetails = () => {
             display: isButtonClicked ? "none" : "block",
           }}
         >
-          <button className="goto-citizens">&lt; 주민 목록</button>
+          <Link className="link-styles" to="/citizens">
+            <button className="goto-citizens">&lt; 주민 목록</button>
+          </Link>
           <CitizenInfor />
           <button
             className="goto-counsel"
