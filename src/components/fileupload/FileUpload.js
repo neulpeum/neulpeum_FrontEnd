@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 const FileUpload = ({ onFileSaveClick } ) => {
+
   const [selectedFile, setSelectedFile] = useState(null);
 
   // 파일 유효성 검사
@@ -13,25 +14,8 @@ const FileUpload = ({ onFileSaveClick } ) => {
     else alert('액셀 파일만 업로드 가능합니다.');
   };
 
-  //드래그 앤 드롭 방식
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
-
-  const handleDrop = (event) => {
-    event.preventDefault();
-
-    const files = event.dataTransfer.files;
-
-    if (files.length === 1) {
-      const selectedFile = files[0];
-      handleFile(selectedFile);
-      alert("파일이 선택되었습니다.");
-    }
-  };
-
   // 파일 탐색 후 선택 업로드
-  const handleFileInputChange = (event) => {
+  const onSelectFile = (event) => {
     const fileInput = event.target;
     const files = fileInput.files;
 
@@ -52,24 +36,26 @@ const FileUpload = ({ onFileSaveClick } ) => {
 
   return (
     <div className="upload-container">
-      <div className='upload-tag-container'>
-        <img src="/icons/ic_fileImg.svg"alt='파일 아이콘' className='ic-file' id='ic-file'/>
-        <label htmlFor='ic-file' className='ic-file-label'>파일 선택</label>
-      </div>
+      <img 
+        src="/icons/ic_fileImg.svg" 
+        alt='파일 아이콘 이미지' 
+        className='ic-file' 
+        onClick={() => {}}
+      />
+      <span className='ic-file-span'>파일 선택</span>
+      
 
-      <div className='file-input-container' onDragOver={handleDragOver} onDrop={handleDrop} >
-        <input
-          type="file"
-          style={{display:'none'}}
-          accept=".xlsx, .xls" // 액셀 파일 형식만 업로드 허용
-          onChange={handleFileInputChange}
-          id='file-input'
-        />
-        <label htmlFor="file-input" className='file-input-label'> 
-          {selectedFile != null ? '액셀 파일이 선택되었습니다. 파일명:' + (selectedFile.name) : '액셀 파일을 업로드하세요'} 
-        </label>
-      </div>
-      <button className='file-save-button' onClick={() => transmitDrugsData(selectedFile)}> 파일 저장 </button>
+      <input
+        name='FileUploadInput'
+        type="file"
+        style={{display:'none'}}
+        accept=".xlsx, .xls" // 액셀 파일 형식만 업로드 허용
+        onChange={onSelectFile}
+        id='file-input-container'
+      />
+      <label htmlFor='file-input-container' className='upload-container-label' >액셀 파일을 업로드하세요</label>
+      
+      <button className='file-save-button' onClick={() => transmitDrugsData(selectedFile)}>저장</button>
     </div>
   );
 };

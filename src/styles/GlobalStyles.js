@@ -94,6 +94,8 @@ const GlobalStyles = createGlobalStyle`
 
     /* 위에 두개는 pages 폴더안에 들어있는 파일들만 */
     /* 아래부터는 components 하위폴더안에 있는 컴포넌트들 스타일시트 */
+    // 지금 아래에 작성되는 스타일시트는 이제부터 전역 페이지에서 공통적으로 사용될 스타일만 허용하겠음 by 오태형
+    
     /* CitizenCounselList */
     * {
         box-sizing: border-box;
@@ -332,61 +334,51 @@ const GlobalStyles = createGlobalStyle`
 
     /* FileUpload.css */
     .upload-container {
-        display: flex;
-        flex-direction: column;
-        width: 50%;
-        height: auto;
+        width: 588px;
+        height: 131px;
+        position: absolute;
+        top: 283px;
+        left: 171px;
         border: 1px solid black;
-        padding: 5px;
-    }
-    .upload-tag-container{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin-bottom: 5px;
+
     }
     .ic-file {
-        width: 1rem;
-        height: 1rem;
-        margin-right: 3px;
-    }
-
-    .file-input-container {
-        display: flex;
-        flex: 1;
-        align-items: center;
-        margin-bottom: 5px;
-        justify-content: center;
-        border: 0.5px dashed black;
-        border-radius: 5px;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 11px;
+        left: 14px;
         cursor: pointer;
     }
-    .file-input-label {
-        font-size: 14px;
+    .ic-file-span{
+        font-size: 20px;
+        position: absolute;
+        left: 54px;
+        top: 17px;
+    }
+    .upload-container-label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
         color: rgba(0, 0, 0, 0.5);
     }
+    
     .file-save-button {
-        align-self: flex-end;
-        width: fit-content;
-        height: auto;
-        padding: 5px;
+        width: 104px;
+        height: 37px;
+        font-size: 20px;
+        position: absolute;
+        top: 77px;
+        left: 464px;
         color: white;
         background-color: #aed391;
         border: 0px;
-        border-radius: 10px;
+        border-radius: 5px;
         cursor: pointer;
     }
-    .uipanel-wrapper {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 1rem;
-        width: 100%;
-        height: fit-content;
-        margin: 0 auto;
-        padding: 1rem 3rem;
-    }
-
+    
     /* Header.css */
     .header-container {
         margin-top: 20px;
@@ -396,8 +388,8 @@ const GlobalStyles = createGlobalStyle`
     }
     
     .logo-container {
-    text-align: center;
-    flex-grow: 1;
+        text-align: center;
+        flex-grow: 1;
     }
 
     .logo {
@@ -524,6 +516,89 @@ const GlobalStyles = createGlobalStyle`
         cursor: pointer;
       }
       
+    // CitizenAdd.css
+    .citizenAdd-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center top;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .citizenAdd-title {
+        font-size: 24px;
+        margin-top: 90px;
+    }
+      
+    .input-field {
+        display: flex;
+        flex-direction: column;
+        margin-top: 21px;
+    }
+    
+    .input-field label {
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+    
+    .input-field input {
+        height: 60px;
+        width: 590px;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+    
+    .button-wrapper {
+        margin-top: 62px;
+    }
+    
+    .button-wrapper > * {
+        margin-right: 50px;
+    }
+    
+    .citizen-add-button {
+        background-color: #AED391;
+        color: white;
+        font-size: 20px;
+        padding-right: 24px;
+        padding-left: 24px;
+        padding-top: 18px;
+        padding-bottom: 18px;
+        border: none;
+        border-radius: 5px;
+    }
+    
+    .line-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 50%;
+        margin-top: 90px;
+        margin-bottom: 40px;
+    }
+      
+    .line {
+        flex-grow: 1;
+        height: 3px;
+        background-color: black;
+        align-self: center;
+        min-width: 0;
+    }
+    
+    .line-text span {
+        font-size: 24px;
+    }
+
+    // accountSetting.css
+    .account-wrapper {
+        width: auto;
+        height: auto;
+        margin: 1.74rem 10rem;
+    }
+
 
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/
     @media (max-width: 768px) {

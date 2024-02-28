@@ -1,9 +1,36 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import DrugList from '../../components/drugList/DrugList';
 import HeaderComponent from '../../components/header/Header';
 import SearchBar from '../../components/searchbar/SearchBar';
 import FileUpload from '../../components/fileupload/FileUpload';
 
+const DrugsTableStyledBtn = styled.button`
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%;
+    color: white;
+    background-color: #AED391;
+    border: none;
+    cursor: pointer;
+`
+const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
+    width: 192px;
+    height: 48px;
+    position: absolute;
+    top: 362px;
+    left: 1058px;
+    border-radius: 5px;
+`
+const testContainer = styled.div`
+    width: 1120px;
+    height: 545px;
+    position: absolute;
+    top: 440px;
+    left: 152px;
+`
 const Drugs = () => {
 
     const [drugsData, setDrugsData] = useState([
@@ -30,10 +57,10 @@ const Drugs = () => {
         { Header: "유통기한", accessor: 'expireDate'},
         { Header: "남은 재고", accessor: 'usableAmount',
             Cell: ({ row }) => (
-                <div style={{ display: "flex" }}>
-                    <span onClick={() => handleQuantityChange(row.index, 1)}>+</span>
+                <div style={{ display: "flex", alignItems:'center'}}>
+                    <DrugsTableStyledBtn onClick={() => handleQuantityChange(row.index, 1) }>+</DrugsTableStyledBtn>
                     {row.values.usableAmount}
-                    <span onClick={() => handleQuantityChange(row.index, -1)}>-</span>
+                    <DrugsTableStyledBtn onClick={() => handleQuantityChange(row.index, -1) }>-</DrugsTableStyledBtn>
                 </div>
             )
         },
@@ -42,14 +69,15 @@ const Drugs = () => {
     ];
 
     return (
-        <div>
+        // 약 재고 조회 GET 요청 url 주소: /api/drug
+        // 약 재고 검색 GET 요청 url 주소: /api/findDrug?drugName=타이레놀 :: Request 형태
+        <>
             < HeaderComponent />
-            <div className='uipanel-wrapper'>
-                <FileUpload onFileSaveClick={setTransmittedData}/>
-                <SearchBar currentPage={'Drugs'}/>
-            </div>
-            < DrugList columns={columns} data={drugsData} />
-        </div>
+            <FileUpload onFileSaveClick={setTransmittedData}/>
+            <SearchBar currentPage={'Drugs'}/>
+            <DrugsStyledBtn>변경사항 저장</DrugsStyledBtn>
+            {/* < DrugList columns={columns} data={drugsData} /> */}
+        </>
     );
 };
 
