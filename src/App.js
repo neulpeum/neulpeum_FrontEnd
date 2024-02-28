@@ -10,7 +10,7 @@ import CitizenAdd from "./components/citizenAdd/CitizenAdd";
 import Main from "./pages/main/Main";
 import Options from "./pages/options/Options";
 import AddCounsel from "./pages/addCounsel/Addcounsel";
-import AccountSetting from "./pages/accountSetting/AccountSetting";
+import AccountSetting from "./pages/accountSetting/accountSetting";
 
 const App = () => {
   return (
@@ -19,13 +19,13 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Main />} />{" "}
         <Route path="/citizens" element={<Citizens />} />{" "}
-        <Route path="/citizensDetails" element={<CitizensDetails />} />{" "}
+        <Route path="citizensDetails" element={<CitizensDetails />} />{" "}
         <Route path="/options" element={<Options />} />{" "}
-        <Route path="/addCounsel" element={<AddCounsel />} />{" "}
+        <Route path="addCounsel" element={<AddCounsel />} />{" "}
         <Route path="/citizenAdd" element={<CitizenAdd />} />{" "}
         <Route path="/drugs" element={<Drugs />} />{" "}
-        <Route path="/accountSettings" element={<AccountSetting />}/>{" "}
-        {/* 나중에 푸쉬할때 AccountSetting도 올려야한다? */}
+        <Route path="/accountSettings" element={<AccountSetting />} />{" "}
+        {/* 나중에 푸쉬할때 AccountSetting도 올려야한다? */}{" "}
       </Routes>{" "}
     </div>
   );

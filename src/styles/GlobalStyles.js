@@ -45,15 +45,20 @@ const GlobalStyles = createGlobalStyle`
     
     .components-wrapper {
         width: 100%;
-        // height: 100%;
         height: 37.5675rem;
-
         margin-top: 5.62rem;
         margin-bottom: 3rem;
         display: flex;
         justify-content: center;
         flex-direction: row;
         gap: 3.38rem;
+    }
+
+    .link-styles {
+        text-decoration: none;
+        display: inline-block;
+        margin-left: 2rem;
+
     }
     
     .goto-citizens {
@@ -62,7 +67,7 @@ const GlobalStyles = createGlobalStyle`
         background-color: white;
         display: none;
         padding: 0;
-        margin-left: 2rem;
+        cursor: pointer;
     }
     
     .goto-counsel {
@@ -260,23 +265,16 @@ const GlobalStyles = createGlobalStyle`
         margin-bottom: 0.38rem;
     }
 
+    .content-wrapper input {
+        border: 0;
+    }
+
     .content-wrapper span {
         display: inline-block;
         margin: 0;
         margin-bottom: 0.38rem;
     }
 
-    // .content-wrapper input {
-    //     border: none;
-    // }
-    
-    .plus-btn {
-        width: 2.5625rem;
-        height: 1.3125rem;
-        font-size: 0.6875rem;
-        display: none;
-    }
-    
     .btn-wrapper {
         width: 18rem;
         margin: 0 auto;
@@ -412,12 +410,14 @@ const GlobalStyles = createGlobalStyle`
         display: flex;
         flex-direction: column;
         margin-top: 1.005rem;
+        margin-bottom: 2rem;
       }
       
       .counselTitle {
         display: inline-block;
         margin: 0 auto;
         margin-top: 0.44rem;
+        font-weight: bold;
       }
       
       .counsel-wrapper {
@@ -436,6 +436,7 @@ const GlobalStyles = createGlobalStyle`
       
       .counsel-category-wrapper p {
         display: inline-block;
+        font-size: 0.875rem;
         margin: 0;
       }
       
@@ -448,20 +449,27 @@ const GlobalStyles = createGlobalStyle`
         justify-content: space-between;
         color: #878485;
       }
-      
+
       .counsel-content-wrapper p {
         display: inline-block;
         color: #565656;
-        font-size: 0.875rem;
         margin: 0;
         padding: 0.19rem;
+        border: 0;
+        font-size: 1rem;
+        word-wrap: break-word;
+      }
+
+      .counsel-content-wrapper input {
+        display: inline-block;
+        color: #565656;
+        margin: 0;
+        padding: 0.19rem;
+        border: 0;
+        font-size: 1rem;
+        word-wrap: break-word;
       }
       
-      .counsel-content-wrapper span {
-        display: inline-block;
-        margin: 0;
-        margin-bottom: 0.38rem;
-      }
       
       .counsel-btn-wrapper {
         width: 18rem;
@@ -588,6 +596,10 @@ const GlobalStyles = createGlobalStyle`
         display: block;
     }
 
+    .components-wrapper {
+        margin-top: 2.9rem; 
+    }
+
     .citizenCounselList-wrapper {
         margin-top: 1rem;
         margin: 0 auto;
@@ -605,12 +617,12 @@ const GlobalStyles = createGlobalStyle`
     }
 
     .citizenName {
-        font-size: 1.25rem;
+        font-size: 2rem;
     }
 
     .citizensCounList {
-        font-size: 0.8125rem;
-        margin: 0.3rem 0 0 0;
+        font-size: 1.25rem;
+        margin: 0.5rem 0 0 0;
     }
 
     .write-img {
