@@ -115,7 +115,7 @@ const GlobalStyles = createGlobalStyle`
     /* 위에 두개는 pages 폴더안에 들어있는 파일들만 */
     /* 아래부터는 components 하위폴더안에 있는 컴포넌트들 스타일시트 */
     // 지금 아래에 작성되는 스타일시트는 이제부터 전역 페이지에서 공통적으로 사용될 스타일만 허용하겠음 by 오태형
-    
+
     /* CitizenCounselList */
     * {
         box-sizing: border-box;
