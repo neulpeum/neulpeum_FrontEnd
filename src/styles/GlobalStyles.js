@@ -20,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
         flex-grow: 1;
     }
     
-    .logo {
+    .logo-container > img {
         width: 15%;
     }
     
@@ -297,8 +297,10 @@ const GlobalStyles = createGlobalStyle`
     
     /* CitizenList.css */
     .table-wrapper {
-        width: 100%;
+        width: 1180px;
         overflow-x: auto;
+        margin: 0 auto;
+        margin-top: 36px;
     }
 
     .table {
@@ -396,52 +398,17 @@ const GlobalStyles = createGlobalStyle`
     }
     
     .logo-container {
-    text-align: center;
-    flex-grow: 1;
+        text-align: center;
+        flex-grow: 1;
     }
 
     .logo {
-    width: 15%;
-    height: auto;
+        width: 15%;
+        height: auto;
     }
 
     .home-button {
     margin-right: 20px;
-    }
-
-    /* MedicineList.css */
-    .table-wrapper {
-        width: 100%;
-        overflow-x: auto;
-    }
-
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-
-    .table-row {
-        background-color: white;
-    }
-
-    .table-header,
-    .table-cell {
-        border: 1px solid black;
-        padding: 10px;
-        text-align: left;
-    }
-
-    .table-cell button {
-        border: 1px solid #000;
-        border-radius: 30px;
-        padding: 5px 10px;
-        cursor: pointer;
-        background-color: #ade391;
-        color: white;
-        position: relative;
-        margin: 0 auto;
-        display: block;
     }
 
     /* AddCounseling.css */
@@ -527,8 +494,9 @@ const GlobalStyles = createGlobalStyle`
 
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/
     @media (max-width: 768px) {
-    .logo {
-        width: 20%;
+    .logo-container > img {
+        width: 94px;
+        height: 67px;
     }
 
     .footer-logo {
@@ -605,6 +573,11 @@ const GlobalStyles = createGlobalStyle`
     }
     .home-button {
         display: none;
+    }
+    .table-wrapper {
+        width: 85%;
+        overflow-x: auto;
+        margin: 0 auto;
     }
 `;
 export default GlobalStyles;

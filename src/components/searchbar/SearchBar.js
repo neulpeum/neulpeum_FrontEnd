@@ -8,6 +8,7 @@ const SearchBarContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
+  margin-top: 36px;
 `;
 
 const SearchInputContainer = styled.div`
