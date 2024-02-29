@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import HeaderComponent from '../../components/header/Header';
 
 const AccountContainer = styled.div`
-    display: flex;
+    width: 1172px;
+    height: 587px;
     flex-direction: column;
     align-items: center;
 `;
 
 const SwitchButtonContainer = styled.div`
-    height: 30%;
+    height: 100px;
     width: 100%;
     min-width: 640px;
     display: flex;
@@ -19,7 +20,7 @@ const SwitchButtonContainer = styled.div`
 
 const AccountInputWrapper = styled.div`
     border: 1px solid black;
-    height: auto;
+    height: 487px;
     width: 100%;
     min-width: 640px;
 `;
@@ -27,20 +28,25 @@ const AccountInputContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 39px;
 `;
 const AccountSpan = styled.span`
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     white-space: nowrap;
-    margin-top: 3rem;
+    margin-top: 68px;
 `;
 const AccountInput= styled.input`
+    width: 348px;
+    height: 69px;
+    text-align: left;
+    padding-left: 16px;
     font-size: 20px;
-    padding: 1rem 2rem;
 `;
 const AccountButton = styled.button`
-    margin-bottom: 3rem;
+    width: 189px;
+    height: 56px;
+    margin-bottom: 44px;
     padding: 1rem 2rem;
     background-color: #aed391;
     border: none;

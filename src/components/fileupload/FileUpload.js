@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const FileUpload = ({ onFileSaveClick } ) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef(null);
+
+  // 이미지 클릭 시 input 엘리먼트 클릭
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
 
   // 파일 유효성 검사
   const handleFile = (selectedFile) => { 
@@ -10,7 +16,11 @@ const FileUpload = ({ onFileSaveClick } ) => {
 
     const fileExtension = selectedFile.name.split('.').pop();
 
-    if (allowedExtensions.includes('.' + fileExtension.toLowerCase())) setSelectedFile(selectedFile);
+    if (allowedExtensions.includes('.' + fileExtension.toLowerCase())) {
+      setSelectedFile(selectedFile);
+
+      alert("파일이 선택되었습니다.");
+    }
     else alert('액셀 파일만 업로드 가능합니다.');
   };
 
@@ -22,7 +32,6 @@ const FileUpload = ({ onFileSaveClick } ) => {
     if (files.length === 1) {
       const selectedFile = files[0];
       handleFile(selectedFile);
-      alert("파일이 선택되었습니다.");
     } else { 
       alert("2개 이상의 파일은 허용되지 않습니다.");
     }
@@ -37,23 +46,28 @@ const FileUpload = ({ onFileSaveClick } ) => {
   return (
     <div className="upload-container">
       <img 
-        src="/icons/ic_fileImg.svg" 
-        alt='파일 아이콘 이미지' 
-        className='ic-file' 
-        onClick={() => {}}
+        src="/icons/ic_fileImg.svg"
+        alt="파일 아이콘 이미지"
+        className="ic-file"
+        onClick={handleImageClick}
       />
       <span className='ic-file-span'>파일 선택</span>
       
-
       <input
-        name='FileUploadInput'
+        ref={fileInputRef}
+        name="FileUploadInput"
         type="file"
-        style={{display:'none'}}
-        accept=".xlsx, .xls" // 액셀 파일 형식만 업로드 허용
+        style={{ display: "none" }}
+        accept=".xlsx, .xls" // 액셀 파일 확장자만 허용
         onChange={onSelectFile}
-        id='file-input-container'
+        id="file-input-container"
       />
-      <label htmlFor='file-input-container' className='upload-container-label' >액셀 파일을 업로드하세요</label>
+      {selectedFile ? (
+        <label htmlFor='file-input-container' className='upload-container-label'>선택된 파일: {selectedFile.name}</label>
+      ) : (
+        <label htmlFor='file-input-container' className='upload-container-label' >액셀 파일을 업로드하세요</label>
+        )
+      }
       
       <button className='file-save-button' onClick={() => transmitDrugsData(selectedFile)}>저장</button>
     </div>

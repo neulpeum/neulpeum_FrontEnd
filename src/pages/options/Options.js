@@ -1,5 +1,5 @@
 import React from 'react';
-import './Options.css';
+import { Link } from 'react-router-dom';
 import MedicareLogo from '../../components/customInput/img_medicare_logo.svg';
 import MyInfoBtn from './img_my_info_btn.svg';
 import CitizensBtn from './img_citizens_btn.svg';

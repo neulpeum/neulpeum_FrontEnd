@@ -412,8 +412,42 @@ const GlobalStyles = createGlobalStyle`
         height: auto;
     }
 
-    .home-button {
-    margin-right: 20px;
+    .goto-home-btn {
+        width: 59px;
+        height: 54px;
+        margin-right: 20px;
+    }
+
+    /* Drugs.css */
+    .Drugtable-wrapper {
+        width: 1120px;
+        height: 42%;
+        // position: absolute;
+        // left: 153px;
+        // top: 440px;
+        overflow-x: auto;
+    }
+
+    .Drugtable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .Drugtable-row {
+        background-color: white;
+    }
+
+    .Drugtable-header {
+        border: 1px solid black;
+        padding: 45px 0;
+        text-align: center;
+        font-size: 20px;
+    }
+    .Drugtable-cell {
+        border: 1px solid black;
+        padding: 22.5px 0;
+        text-align: center;
+        font-size: 20px;
     }
 
     /* AddCounseling.css */
