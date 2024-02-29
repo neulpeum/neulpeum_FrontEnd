@@ -15,6 +15,10 @@ const GlobalStyles = createGlobalStyle`
     }
     // 이거 Main.js 안에 스타일 시트로 구현함 삭제할까 말까
   
+    .main-content > h3 {
+        margin-top: 56px;
+    }
+
     .logo-container {
         text-align: center;
         flex-grow: 1;
