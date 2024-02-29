@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
-    //Main.css
+    //Main.css, Options.css
     .container {
         display: flex;
         flex-direction: column;
@@ -15,15 +15,31 @@ const GlobalStyles = createGlobalStyle`
     }
     // 이거 Main.js 안에 스타일 시트로 구현함 삭제할까 말까
   
+    .main-content > h3 {
+        margin-top: 56px;
+    }
+
     .logo-container {
         text-align: center;
         flex-grow: 1;
     }
     
     .logo-container > img {
-        width: 15%;
+        width: 280px;
+        height: 218px;
     }
-    
+
+    .main-logo-container > img {
+        margin-top: 95px;
+        width: 429px;
+        height: 332px;
+    }
+
+    .default-link-styles {
+        text-decoration: none;
+        display: inline-block;
+    }
+
     .footer {
         width: 100%;
         height: 113px;
@@ -58,7 +74,6 @@ const GlobalStyles = createGlobalStyle`
         text-decoration: none;
         display: inline-block;
         margin-left: 2rem;
-
     }
     
     .goto-citizens {
@@ -497,7 +512,6 @@ const GlobalStyles = createGlobalStyle`
         flex-direction: column;
         justify-content: center top;
         align-items: center;
-        height: 100vh;
     }
     
     .citizenAdd-title {
@@ -551,8 +565,8 @@ const GlobalStyles = createGlobalStyle`
         justify-content: center;
         gap: 10px;
         width: 50%;
-        margin-top: 90px;
-        margin-bottom: 40px;
+        margin-top: 56px;
+        margin-bottom: 12px;
     }
       
     .line {
@@ -577,6 +591,17 @@ const GlobalStyles = createGlobalStyle`
 
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/
     @media (max-width: 768px) {
+    .main-logo-container > img {
+        margin-top: 95px;
+        width: 209px;
+        height: 170px;
+    }
+
+    .main-content > h3 {
+        margin-top: 75px;
+        font-size: 15px;
+    }
+    
     .logo-container > img {
         width: 94px;
         height: 67px;

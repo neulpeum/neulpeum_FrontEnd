@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import SearchBar from '../../components/searchbar/SearchBar';
 import CitizenList from '../../components/citizenList/CitizenList';
 import HeaderComponent from '../../components/header/Header';
@@ -35,6 +36,9 @@ const Citizens = () => {
   return (
     <div>
       <HeaderComponent/>
+      <Link className="link-styles" to="/">
+        <button className="goto-citizens">&lt;</button>
+      </Link>
       <SearchBar sort={sortData} search={search} currentPage={"Citizens"} isReversed={isReversed}/>
       <CitizenList columns={columns} data={data} />
     </div>
