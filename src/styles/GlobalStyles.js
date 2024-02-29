@@ -26,6 +26,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     .main-logo-container > img {
+        margin-top: 95px;
         width: 429px;
         height: 332px;
     }
