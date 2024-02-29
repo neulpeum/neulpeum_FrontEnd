@@ -512,7 +512,6 @@ const GlobalStyles = createGlobalStyle`
         flex-direction: column;
         justify-content: center top;
         align-items: center;
-        height: 100vh;
     }
     
     .citizenAdd-title {
@@ -566,8 +565,8 @@ const GlobalStyles = createGlobalStyle`
         justify-content: center;
         gap: 10px;
         width: 50%;
-        margin-top: 90px;
-        margin-bottom: 40px;
+        margin-top: 56px;
+        margin-bottom: 12px;
     }
       
     .line {
