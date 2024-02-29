@@ -21,7 +21,8 @@ const GlobalStyles = createGlobalStyle`
     }
     
     .logo-container > img {
-        width: 15%;
+        width: 280px;
+        height: 218px;
     }
 
     .login-link-styles {
