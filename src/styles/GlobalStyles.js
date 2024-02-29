@@ -588,6 +588,12 @@ const GlobalStyles = createGlobalStyle`
 
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/
     @media (max-width: 768px) {
+    .main-logo-container > img {
+        margin-top: 95px;
+        width: 209px;
+        height: 170px;
+    }
+    
     .logo-container > img {
         width: 94px;
         height: 67px;
