@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import CustomInput from '../../components/customInput/CustomInput';
 import LoginButton from '../../components/loginButton/LoginButton.js';
 import MedicareLogo from '../../components/customInput/img_medicare_logo.svg';

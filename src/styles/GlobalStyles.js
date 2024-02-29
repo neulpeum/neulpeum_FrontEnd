@@ -593,6 +593,11 @@ const GlobalStyles = createGlobalStyle`
         width: 209px;
         height: 170px;
     }
+
+    .main-content > h3 {
+        margin-top: 75px;
+        font-size: 15px;
+    }
     
     .logo-container > img {
         width: 94px;
