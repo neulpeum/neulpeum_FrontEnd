@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
 const LoginButtonContainer = styled.button`
   width: 141px;
@@ -23,7 +24,9 @@ const LoginButtonText = styled.span`
 const LoginButton = () => {
   return (
     <LoginButtonContainer>
-      <LoginButtonText>로그인</LoginButtonText>
+      <Link className="login-link-styles" to="/options">
+        <LoginButtonText>로그인</LoginButtonText>
+      </Link>
     </LoginButtonContainer>
   );
 };

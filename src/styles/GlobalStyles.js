@@ -23,6 +23,11 @@ const GlobalStyles = createGlobalStyle`
     .logo-container > img {
         width: 15%;
     }
+
+    .login-link-styles {
+        text-decoration: none;
+        display: inline-block;
+    }
     
     .footer {
         width: 100%;
@@ -58,7 +63,6 @@ const GlobalStyles = createGlobalStyle`
         text-decoration: none;
         display: inline-block;
         margin-left: 2rem;
-
     }
     
     .goto-citizens {
