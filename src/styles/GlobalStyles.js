@@ -31,11 +31,11 @@ const GlobalStyles = createGlobalStyle`
         height: 332px;
     }
 
-    .login-link-styles {
+    .default-link-styles {
         text-decoration: none;
         display: inline-block;
     }
-    
+
     .footer {
         width: 100%;
         height: 113px;

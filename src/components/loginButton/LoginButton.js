@@ -24,7 +24,7 @@ const LoginButtonText = styled.span`
 const LoginButton = () => {
   return (
     <LoginButtonContainer>
-      <Link className="login-link-styles" to="/options">
+      <Link className="default-link-styles" to="/options">
         <LoginButtonText>로그인</LoginButtonText>
       </Link>
     </LoginButtonContainer>
