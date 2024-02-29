@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
-    //Main.css
+    //Main.css, Options.css
     .container {
         display: flex;
         flex-direction: column;
@@ -23,6 +23,11 @@ const GlobalStyles = createGlobalStyle`
     .logo-container > img {
         width: 280px;
         height: 218px;
+    }
+
+    .main-logo-container > img {
+        width: 429px;
+        height: 332px;
     }
 
     .login-link-styles {
