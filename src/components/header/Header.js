@@ -7,7 +7,7 @@ const createHeader = () => {
         <img src="/icons/ic_logo.svg" alt="logo" className="logo"/>
       </div>
 
-      <a href="#!" className="home-button">
+      <a href="/" className="home-button">
           <img src="/icons/ic_home.svg" alt="Home"/>
       </a>
     </div>
