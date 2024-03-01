@@ -1,88 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Modal from "react-modal";
 import "./Modal.css";
 
 export default function CitizenCounselList() {
-  const data = [
-    {
-      id: 1,
-      col1: "1",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 2,
-      col1: "2",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 3,
-      col1: "3",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 4,
-      col1: "4",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 5,
-      col1: "5",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 6,
-      col1: "6",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 7,
-      col1: "7",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 8,
-      col1: "8",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 9,
-      col1: "9",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 10,
-      col1: "10",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 11,
-      col1: "11",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-  ];
+  const data = [];
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/api/patient/consult?patientId=1"
+      );
+      response.data.forEach((item) => {
+        data.push(item);
+      });
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const [value, setValue] = useState("");
 

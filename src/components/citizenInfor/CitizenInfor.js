@@ -1,14 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function CitizenInfor() {
   const [fields, setFields] = useState([
+    "0",
     "홍xx",
     "420211-1******",
-    "서울특별시 @@구 @@동",
     "010-1234-5678",
+    "서울특별시 @@구 @@동",
     "당뇨",
+    "",
     "병원에서 고혈압 진단 받으심.",
+    "2023-05-07",
+    "2023-12-25",
   ]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/api/patientInfo?patientId=1"
+      );
+      const newData = response.data;
+      setFields(Object.values(newData));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   const [isEditing, setIsEditing] = useState(false);
   const [originalFields, setOriginalFields] = useState([...fields]);
 
@@ -23,10 +45,27 @@ export default function CitizenInfor() {
     setFields([...originalFields]);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     setIsEditing(false);
-    // 여기에 정보 저장 로직을 추가할 수 있습니다.
-    console.log("저장됨:", fields);
+    const patientData = {
+      patientId: fields[0],
+      patientName: fields[1],
+      birthDate: fields[2],
+      phoneNum: fields[3],
+      address: fields[4],
+      disease: fields[5],
+      takingDrug: fields[6],
+      specialReport: fields[7],
+    };
+
+    try {
+      const response = await axios.put(
+        "http://localhost:8080/api/patientInfo",
+        patientData
+      );
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const handleChange = (index, e) => {
@@ -51,12 +90,12 @@ export default function CitizenInfor() {
             {isEditing ? (
               <input
                 type="text"
-                value={fields[0]}
-                onChange={(e) => handleChange(0, e)}
+                value={fields[1]}
+                onChange={(e) => handleChange(1, e)}
               />
             ) : (
               <div>
-                <span>{fields[0]}</span>
+                <span>{fields[1]}</span>
               </div>
             )}
           </div>
@@ -72,12 +111,12 @@ export default function CitizenInfor() {
             {isEditing ? (
               <input
                 type="text"
-                value={fields[1]}
-                onChange={(e) => handleChange(1, e)}
+                value={fields[2]}
+                onChange={(e) => handleChange(2, e)}
               />
             ) : (
               <div>
-                <span>{fields[1]}</span>
+                <span>{fields[2]}</span>
               </div>
             )}
           </div>
@@ -93,12 +132,12 @@ export default function CitizenInfor() {
             {isEditing ? (
               <input
                 type="text"
-                value={fields[2]}
-                onChange={(e) => handleChange(2, e)}
+                value={fields[4]}
+                onChange={(e) => handleChange(4, e)}
               />
             ) : (
               <div>
-                <span>{fields[2]}</span>
+                <span>{fields[4]}</span>
               </div>
             )}
           </div>
@@ -135,12 +174,12 @@ export default function CitizenInfor() {
             {isEditing ? (
               <input
                 type="text"
-                value={fields[4]}
-                onChange={(e) => handleChange(4, e)}
+                value={fields[5]}
+                onChange={(e) => handleChange(5, e)}
               />
             ) : (
               <div>
-                <span>{fields[4]}</span>
+                <span>{fields[5]}</span>
               </div>
             )}
           </div>
@@ -152,12 +191,12 @@ export default function CitizenInfor() {
             {isEditing ? (
               <input
                 type="text"
-                value={fields[5]}
-                onChange={(e) => handleChange(5, e)}
+                value={fields[7]}
+                onChange={(e) => handleChange(7, e)}
               />
             ) : (
               <div>
-                <span>{fields[5]}</span>
+                <span>{fields[7]}</span>
               </div>
             )}
           </div>
@@ -165,13 +204,13 @@ export default function CitizenInfor() {
             <p> 등록일자 </p>
           </div>
           <div className="content-wrapper">
-            <p> 2023 - 05 - 07 </p>
+            <span>{fields[8]}</span>
           </div>
           <div className="category-wrapper">
             <p> 수정일자 </p>
           </div>
           <div className="content-wrapper">
-            <p> 2023 - 12 - 25 </p>
+            <span>{fields[9]}</span>
           </div>
         </div>
         <div>
