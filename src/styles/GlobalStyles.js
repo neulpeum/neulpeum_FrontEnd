@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle `
     //Main.css, Options.css
     .container {
         display: flex;
@@ -273,22 +273,22 @@ const GlobalStyles = createGlobalStyle`
         display: flex;
         justify-content: space-between;
     }
-    
-    .content-wrapper p {
+
+    .content-wrapper span {
         display: inline-block;
+        font-size: 1.125rem;
         margin: 0;
         margin-bottom: 0.38rem;
     }
 
     .content-wrapper input {
-        border: 0;
-    }
-
-    .content-wrapper span {
+        font-size: 1.125rem;
         display: inline-block;
         margin: 0;
         margin-bottom: 0.38rem;
+        padding: 0;
     }
+
 
     .btn-wrapper {
         width: 18rem;
@@ -451,7 +451,7 @@ const GlobalStyles = createGlobalStyle`
       
       .counsel-category-wrapper p {
         display: inline-block;
-        font-size: 0.875rem;
+        font-size: 0.6875rem;
         margin: 0;
       }
       
@@ -465,26 +465,16 @@ const GlobalStyles = createGlobalStyle`
         color: #878485;
       }
 
-      .counsel-content-wrapper p {
-        display: inline-block;
-        color: #565656;
-        margin: 0;
-        padding: 0.19rem;
-        border: 0;
-        font-size: 1rem;
-        word-wrap: break-word;
-      }
-
+      .counsel-content-wrapper p,
       .counsel-content-wrapper input {
+        width: 16rem;
         display: inline-block;
         color: #565656;
         margin: 0;
         padding: 0.19rem;
         border: 0;
         font-size: 1rem;
-        word-wrap: break-word;
       }
-      
       
       .counsel-btn-wrapper {
         width: 18rem;

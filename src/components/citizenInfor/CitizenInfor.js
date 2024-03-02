@@ -2,27 +2,32 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function CitizenInfor() {
-  const [fields, setFields] = useState([
-    "0",
-    "홍xx",
-    "420211-1******",
-    "010-1234-5678",
-    "서울특별시 @@구 @@동",
-    "당뇨",
-    "",
-    "병원에서 고혈압 진단 받으심.",
-    "2023-05-07",
-    "2023-12-25",
-  ]);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
     getData();
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
+  const handleResize = () => {
+    setIsLargeScreen(window.innerWidth >= 769);
+  };
+
+  useEffect(() => {
+    setIsEditing(false);
+  }, [isLargeScreen]);
+
+  const [fields, setFields] = useState([]);
+
   const getData = async () => {
+    let tempPatientId = 1;
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/patientInfo?patientId=1"
+        `http://localhost:8080/api/patientInfo?patientId=${tempPatientId}`
       );
       const newData = response.data;
       setFields(Object.values(newData));
@@ -58,14 +63,14 @@ export default function CitizenInfor() {
       specialReport: fields[7],
     };
 
-    try {
-      const response = await axios.put(
-        "http://localhost:8080/api/patientInfo",
-        patientData
-      );
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+    axios
+      .put("http://localhost:8080/api/patientInfo", patientData)
+      .then(() => {
+        console.log("Request sent successfully.");
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   };
 
   const handleChange = (index, e) => {
@@ -222,7 +227,6 @@ export default function CitizenInfor() {
           ) : (
             <div className="btn-wrapper">
               <button onClick={handleEditClick}>수정</button>
-              <button onClick={handleCancelClick}>취소</button>
             </div>
           )}
         </div>

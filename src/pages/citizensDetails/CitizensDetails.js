@@ -6,7 +6,6 @@ import HeaderComponent from "../../components/header/Header";
 
 const CitizensDetails = () => {
   const [isButtonClicked, setButtonClicked] = useState(false);
-
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   const handleResize = () => {

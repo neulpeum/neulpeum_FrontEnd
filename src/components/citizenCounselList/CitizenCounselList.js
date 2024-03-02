@@ -1,25 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Modal from "react-modal";
-import "./Modal.css";
+import ConsultModal from "../consultModal/ConsultModal";
 
 export default function CitizenCounselList() {
-  const data = [];
+  const [name, setName] = useState("");
+  const [data, setData] = useState([]);
+  const [consultId, setConsultId] = useState("0");
+  const tempPatientId = 1;
 
   useEffect(() => {
+    getName();
     getData();
-  }, []);
+  });
 
-  const getData = async () => {
+  const getName = async () => {
+    let tempPatientId = 1;
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/patient/consult?patientId=1"
+        `http://localhost:8080/api/patientInfo?patientId=${tempPatientId}`
       );
-      response.data.forEach((item) => {
-        data.push(item);
-      });
-      console.log(data);
+      setName(response.data.patientName);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const getData = async () => {
+    let tempPatientId = 1;
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/patient/consult?patientId=${tempPatientId}`
+      );
+      setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -33,7 +46,8 @@ export default function CitizenCounselList() {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => {
+  const openModal = (btnConsultId) => {
+    setConsultId(btnConsultId);
     setIsOpen(true);
   };
 
@@ -45,13 +59,12 @@ export default function CitizenCounselList() {
     <div className="citizenCounselList-wrapper">
       <div className="counselList-wrapper">
         <div className="ment-wrapper">
-          <p className="citizenName">홍xx</p>
+          <p className="citizenName">{name}</p>
           <p className="citizensCounList">님의 상담 리스트</p>
         </div>
         <div className="searchBar-wrapper">
           <input
             type="text"
-            // placeholder="해야 할 일을 입력하세요."
             className="searchBar"
             value={value}
             onChange={handleChange}
@@ -62,7 +75,7 @@ export default function CitizenCounselList() {
             className="search-img"
           />
           <img src="/icons/ic_counSort.svg" alt="정렬" className="sort-img" />
-          <Link to="/addcounsel">
+          <Link to="/addcounsel" state={{ patientId: `${tempPatientId}` }}>
             <img
               src="/icons/ic_counselWrite.svg"
               alt="추가"
@@ -82,52 +95,29 @@ export default function CitizenCounselList() {
               </tr>
             </thead>
             <tbody>
-              {data.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.col1}</td>
-                  <td>{item.col2}</td>
-                  <td>{item.col3}</td>
-                  <td>{item.col4}</td>
-                  <td>
-                    <button className="inquiry-btn" onClick={openModal}>
-                      조회 &gt;
-                    </button>
-                    <Modal
-                      className="counsel-modal"
-                      isOpen={isOpen}
-                      onRequestClose={closeModal}
-                    >
-                      <div className="modal-warpper">
-                        <div className="modal-content-wrapper">
-                          <div className="modal-title">
-                            <p className="m-name">김@@ </p>
-                            <p>님이</p>
-                            <p className="m-date">2024.01.10 (수) </p>
-                            <p>에</p>
-                            <br></br>
-                            <p>상담한 내용입니다.</p>
-                          </div>
-                          <div className="modal-content">
-                            <div className="modal-otc">
-                              <p className="m-otc">제공OTC: 진통제</p>
-                            </div>
-                            <div className="modal-counsel">
-                              <p>두통이 있으시다고 하셔서 진통제를 드림.</p>
-                              <br></br>
-
-                              <p>기존에 먹언 약의 개수를 3개에서 2개로 줄임.</p>
-                            </div>
-                          </div>
-                          <div className="modal-btn-warpper">
-                            <button onClick={closeModal}>확인</button>
-                            <button>수정</button>
-                          </div>
-                        </div>
-                      </div>
-                    </Modal>
-                  </td>
-                </tr>
-              ))}
+              {data &&
+                data.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.providerName}</td>
+                    <td>{item.takingDrug}</td>
+                    <td>{item.consultDate}</td>
+                    <td>
+                      <button
+                        className="inquiry-btn"
+                        onClick={() => openModal(item.consultId)}
+                      >
+                        조회 &gt;
+                      </button>
+                      {isOpen && consultId === item.consultId && (
+                        <ConsultModal
+                          onClose={closeModal}
+                          consultId={consultId}
+                        />
+                      )}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
