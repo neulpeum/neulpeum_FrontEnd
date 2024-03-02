@@ -5,6 +5,7 @@ import "./Modal.css";
 
 export default function ConsultModal({ onClose, consultId }) {
   Modal.setAppElement("#root");
+
   const [consultData, setConsultData] = useState([]);
 
   useEffect(() => {

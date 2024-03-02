@@ -64,6 +64,7 @@
     background-color: #aed391;
     border-radius: 0.75rem;
     padding: 3rem;
+    white-space: pre-wrap;
 }
 
 .modal-counsel p,

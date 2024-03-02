@@ -279,16 +279,16 @@ const GlobalStyles = createGlobalStyle `
         font-size: 1.125rem;
         margin: 0;
         margin-bottom: 0.38rem;
+        padding-left: 0.2rem;
     }
 
     .content-wrapper input {
-        font-size: 1.125rem;
         display: inline-block;
+        font-size: 1.125rem;
         margin: 0;
         margin-bottom: 0.38rem;
-        padding: 0;
+        padding-left: 0.2rem;
     }
-
 
     .btn-wrapper {
         width: 18rem;
@@ -420,7 +420,6 @@ const GlobalStyles = createGlobalStyle `
     .addCounseling-wrapper {
         margin: 0 auto;
         width: 19.25rem;
-        height: 31.3125rem;
         border: 1px solid #000;
         display: flex;
         flex-direction: column;
@@ -439,7 +438,7 @@ const GlobalStyles = createGlobalStyle `
         height: 93%;
         display: flex;
         margin-top: 3.25rem;
-        margin-bottom: 1.62rem;
+        margin-bottom: 7.44rem;
         flex-direction: column;
       }
       
@@ -466,7 +465,8 @@ const GlobalStyles = createGlobalStyle `
       }
 
       .counsel-content-wrapper p,
-      .counsel-content-wrapper input {
+      .counsel-content-wrapper input,
+      .counsel-content-wrapper textarea {
         width: 16rem;
         display: inline-block;
         color: #565656;
@@ -475,6 +475,14 @@ const GlobalStyles = createGlobalStyle `
         border: 0;
         font-size: 1rem;
       }
+
+      .counsel-content-wrapper textarea {
+        resize: none;
+    }
+
+    .counselTextarea::-webkit-scrollbar {
+        display: none;
+    }
       
       .counsel-btn-wrapper {
         width: 18rem;

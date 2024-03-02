@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 export default function AddCounseling() {
   const location = useLocation();
   const patientId = location.state.patientId;
+  const patientName = location.state.patientName;
   const tempProviderName = "박서연";
   const providerName = tempProviderName;
 
@@ -28,6 +29,16 @@ export default function AddCounseling() {
     setData(newFields);
   };
 
+  const autoResizeTextarea = () => {
+    let textarea = document.querySelector(".counselTextarea");
+
+    if (textarea) {
+      textarea.style.height = "auto";
+      let height = textarea.scrollHeight;
+      textarea.style.height = `${height + 8}px`;
+    }
+  };
+
   const handleSaveClick = async () => {
     const consultData = {
       patientId: `${patientId}`,
@@ -44,13 +55,13 @@ export default function AddCounseling() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-    onCancel();
+    navigate("/citizensDetails");
   };
 
   return (
     <div>
       <div className="addCounseling-wrapper">
-        <p className="counselTitle">홍xx님 상담추가</p>
+        <p className="counselTitle">{patientName}님 상담추가</p>
         <div className="counsel-wrapper">
           <div className="counsel-category-wrapper">
             <p> 상담일자 </p>
@@ -78,11 +89,13 @@ export default function AddCounseling() {
             <p> 상담내용 </p>
           </div>
           <div className="counsel-content-wrapper">
-            <input
-              type="text"
+            <textarea
+              className="counselTextarea"
               value={data[1]}
               onChange={(e) => handleChange(1, e)}
-            />
+              onKeyDown={autoResizeTextarea}
+              onKeyUp={autoResizeTextarea}
+            ></textarea>
           </div>
         </div>
         <div>

@@ -12,7 +12,7 @@ export default function CitizenCounselList() {
   useEffect(() => {
     getName();
     getData();
-  });
+  }, []);
 
   const getName = async () => {
     let tempPatientId = 1;
@@ -75,7 +75,13 @@ export default function CitizenCounselList() {
             className="search-img"
           />
           <img src="/icons/ic_counSort.svg" alt="정렬" className="sort-img" />
-          <Link to="/addcounsel" state={{ patientId: `${tempPatientId}` }}>
+          <Link
+            to="/addcounsel"
+            state={{
+              patientId: `${tempPatientId}`,
+              patientName: `${name}`,
+            }}
+          >
             <img
               src="/icons/ic_counselWrite.svg"
               alt="추가"
