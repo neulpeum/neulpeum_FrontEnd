@@ -10,6 +10,7 @@ export default function ConsultModal({ onClose, consultId }) {
 
   useEffect(() => {
     getConsultData();
+    document.body.style = "overflow: hidden";
   }, []);
 
   const getConsultData = async () => {
@@ -65,6 +66,16 @@ export default function ConsultModal({ onClose, consultId }) {
     setFields(e.target.value);
   };
 
+  const autoResizeTextarea = () => {
+    let textarea = document.querySelector(".modalCounselTextarea");
+
+    if (textarea) {
+      textarea.style.height = "auto";
+      let height = textarea.scrollHeight;
+      textarea.style.height = `${height + 8}px`;
+    }
+  };
+
   return (
     <div className="modal-back">
       <Modal className="counsel-modal" isOpen={true}>
@@ -94,12 +105,19 @@ export default function ConsultModal({ onClose, consultId }) {
               </div>
               <div className="modal-counsel">
                 {isEditing ? (
-                  <input
-                    type="text"
+                  <textarea
+                    className="modalCounselTextarea"
                     value={fields}
                     onChange={(e) => handleChange(e)}
-                  />
+                    onKeyDown={autoResizeTextarea}
+                    onKeyUp={autoResizeTextarea}
+                  ></textarea>
                 ) : (
+                  // <input
+                  //   type="text"
+                  //   value={fields}
+                  //   onChange={(e) => handleChange(e)}
+                  // />
                   <div>
                     <p>{fields}</p>
                   </div>

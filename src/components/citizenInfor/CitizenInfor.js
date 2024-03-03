@@ -79,6 +79,16 @@ export default function CitizenInfor() {
     setFields(newFields);
   };
 
+  const autoResizeTextarea = () => {
+    let textarea = document.querySelector(".inforCounselTextarea");
+
+    if (textarea) {
+      textarea.style.height = "auto";
+      let height = textarea.scrollHeight;
+      textarea.style.height = `${height + 8}px`;
+    }
+  };
+
   return (
     <div>
       <div className="citizenInfor-wrapper">
@@ -121,7 +131,7 @@ export default function CitizenInfor() {
               />
             ) : (
               <div>
-                <span>{fields[2]}</span>
+                <span>{fields[2]}******</span>
               </div>
             )}
           </div>
@@ -194,11 +204,13 @@ export default function CitizenInfor() {
           </div>
           <div className="content-wrapper">
             {isEditing ? (
-              <input
-                type="text"
+              <textarea
+                className="inforCounselTextarea"
                 value={fields[7]}
                 onChange={(e) => handleChange(7, e)}
-              />
+                onKeyDown={autoResizeTextarea}
+                onKeyUp={autoResizeTextarea}
+              ></textarea>
             ) : (
               <div>
                 <span>{fields[7]}</span>

@@ -62,7 +62,7 @@ const GlobalStyles = createGlobalStyle `
     .components-wrapper {
         width: 100%;
         height: 37.5675rem;
-        margin-top: 5.62rem;
+        margin-top: 4.3rem;
         margin-bottom: 3rem;
         display: flex;
         justify-content: center;
@@ -241,10 +241,10 @@ const GlobalStyles = createGlobalStyle `
     }
     
     .infor-wrapper {
-        height: 93%;
+        // height: 93%;
         display: flex;
         margin-top: 1.37rem;
-        margin-bottom: 1.62rem;
+        margin-bottom: 1rem;
         flex-direction: column;
         justify-content: center;
     }
@@ -269,25 +269,37 @@ const GlobalStyles = createGlobalStyle `
         width: 18rem;
         margin: 0 auto;
         border-bottom: 1px solid #000;
-        margin-bottom: 0.38rem;
+        margin-bottom: 0.81rem;
         display: flex;
         justify-content: space-between;
+        white-space: pre-wrap;
     }
 
     .content-wrapper span {
         display: inline-block;
         font-size: 1.125rem;
         margin: 0;
-        margin-bottom: 0.38rem;
+        margin-bottom: 0.2rem;
         padding-left: 0.2rem;
     }
 
-    .content-wrapper input {
+    .content-wrapper input,
+    .inforCounselTextarea {
         display: inline-block;
         font-size: 1.125rem;
         margin: 0;
-        margin-bottom: 0.38rem;
+        margin-bottom: 0.2rem;
+        padding: 0;
         padding-left: 0.2rem;
+        border: 0;
+    }
+
+    .inforCounselTextarea {
+        resize: none;
+    }
+
+    .inforCounselTextarea::-webkit-scrollbar {
+        display: none;
     }
 
     .btn-wrapper {

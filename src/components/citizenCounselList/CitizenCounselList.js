@@ -53,6 +53,7 @@ export default function CitizenCounselList() {
 
   const closeModal = () => {
     setIsOpen(false);
+    document.body.style = "overflow: auto";
   };
 
   return (
