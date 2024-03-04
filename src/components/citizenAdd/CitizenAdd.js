@@ -8,7 +8,6 @@ export default function CitizenAdd() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [medicalHistory, setMedicalHistory] = useState("");
-  const [takingDrug, setTakingDrug] = useState("");
   const [notes, setNotes] = useState("");
   
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ export default function CitizenAdd() {
 
   const handleSubmit = () => {
     const addCitizen = async () => {
-      if (name === "" || address === "" || medicalHistory ==="" || takingDrug === "" || notes === "") {
+      if (name === "" || address === "" || medicalHistory ==="" || notes === "") {
         return alert('모든 항목을 입력해주세요');
       }
       try {
@@ -30,7 +29,6 @@ export default function CitizenAdd() {
           address: address,
           disease: medicalHistory,
           speicalReport: notes,
-          takingDrug: takingDrug,
         };
         
         await axios.post("http://52.78.35.193:8080/api/patient", data);
@@ -70,10 +68,6 @@ export default function CitizenAdd() {
                 <div className="input-field">
                     <label>병력</label>
                     <input type="text" value={medicalHistory} onChange={e => setMedicalHistory(e.target.value)} placeholder="ex) 당뇨, 고혈압" />
-                </div>
-                <div className="input-field">
-                    <label>복용중인 약</label>
-                    <input type="text" value={takingDrug} onChange={e => setTakingDrug(e.target.value)} placeholder="ex) 감기약" />
                 </div>
                 <div className="input-field">
                     <label>특이사항</label>
