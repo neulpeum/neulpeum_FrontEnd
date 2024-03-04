@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, useLocation } from 'react-router-dom'; 
 import { Link } from "react-router-dom";
 import SearchBar from '../../components/searchbar/SearchBar';
 import CitizenList from '../../components/citizenList/CitizenList';
@@ -14,6 +14,7 @@ const Citizens = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
    useEffect(() => {
     const fetchCitizens = async () => {
@@ -48,6 +49,10 @@ const Citizens = () => {
     navigate("/citizenAdd", {});
   };
 
+  const navigateToCitizenDetail = (citizenId) => {
+    navigate("/citizensDetails", { state: { id: citizenId } });
+  };
+
   const columns = [
     { Header: '번호', accessor: 'patientId' },
     { Header: '이름', accessor: 'patientName' },
@@ -69,7 +74,7 @@ const Citizens = () => {
         <button className="goto-citizens">&lt;</button>
       </Link>
       <SearchBar sort={sortData} search={search} currentPage={"Citizens"} isReversed={isReversed} onCitizenAddClick={navigateToCitizenAdd}/>
-      <CitizenList columns={columns} data={citizens} />
+      <CitizenList columns={columns} data={citizens} onClickDetail={navigateToCitizenDetail}/>
     </div>
   );
 };
