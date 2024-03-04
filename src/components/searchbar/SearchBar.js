@@ -81,7 +81,7 @@ const SaveButton = styled.button`
 `;
 
 
-const SearchBar = ({ sort, search, currentPage, isReversed}) => {
+const SearchBar = ({ sort, search, currentPage, isReversed, onCitizenAddClick}) => {
   const [keyword, setKeyword] = useState('');
 
   // 각 페이지 마다 달라지는 컴포넌트 구성 Drugs, Citizens
@@ -117,7 +117,7 @@ const SearchBar = ({ sort, search, currentPage, isReversed}) => {
           <SortIcon onClick={() => sort()} src="/icons/ic_sort.svg" alt="정렬" />
         </SortContainer>
   
-        <PlusIcon src="/icons/ic_plus.svg" alt="주민 추가" />
+        <PlusIcon src="/icons/ic_plus.svg" alt="주민 추가" onClick={onCitizenAddClick} />
       </SearchBarContainer>
       )
     },
