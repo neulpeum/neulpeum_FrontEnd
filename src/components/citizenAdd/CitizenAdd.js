@@ -44,7 +44,7 @@ export default function CitizenAdd() {
   };
 
   const handleCancel = () => {
-    // 취소 로직 구현
+    navigateToCitizens();
   };
 
   if (error) return alert('에러가 발생했습니다')
