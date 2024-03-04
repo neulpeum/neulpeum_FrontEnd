@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import HeaderComponent from "../../components/header/Header";
 import axios from "axios";
 
@@ -9,12 +10,17 @@ export default function CitizenAdd() {
   const [medicalHistory, setMedicalHistory] = useState("");
   const [takingDrug, setTakingDrug] = useState("");
   const [notes, setNotes] = useState("");
-
+  
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
+
+  const navigateToCitizens = () => {
+    navigate("/citizens", {});
+  };
 
   const handleSubmit = () => {
     const addCitizen = async () => {
-      if (name == "" || address == "" || medicalHistory == "" || takingDrug == "" || notes == "") {
+      if (name === "" || address === "" || medicalHistory ==="" || takingDrug === "" || notes === "") {
         return alert('모든 항목을 입력해주세요');
       }
       try {
@@ -29,6 +35,7 @@ export default function CitizenAdd() {
         
         await axios.post("http://52.78.35.193:8080/api/patient", data);
         alert('주민이 추가되었습니다');
+        navigateToCitizens();
       } catch (e) {
         setError(e);
       }
