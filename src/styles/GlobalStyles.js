@@ -62,7 +62,7 @@ const GlobalStyles = createGlobalStyle`
     .components-wrapper {
         width: 100%;
         height: 37.5675rem;
-        margin-top: 5.62rem;
+        margin-top: 4.3rem;
         margin-bottom: 3rem;
         display: flex;
         justify-content: center;
@@ -241,10 +241,10 @@ const GlobalStyles = createGlobalStyle`
     }
     
     .infor-wrapper {
-        height: 93%;
+        // height: 93%;
         display: flex;
         margin-top: 1.37rem;
-        margin-bottom: 1.62rem;
+        margin-bottom: 1rem;
         flex-direction: column;
         justify-content: center;
     }
@@ -269,25 +269,37 @@ const GlobalStyles = createGlobalStyle`
         width: 18rem;
         margin: 0 auto;
         border-bottom: 1px solid #000;
-        margin-bottom: 0.38rem;
+        margin-bottom: 0.81rem;
         display: flex;
         justify-content: space-between;
-    }
-    
-    .content-wrapper p {
-        display: inline-block;
-        margin: 0;
-        margin-bottom: 0.38rem;
-    }
-
-    .content-wrapper input {
-        border: 0;
+        white-space: pre-wrap;
     }
 
     .content-wrapper span {
         display: inline-block;
+        font-size: 1.125rem;
         margin: 0;
-        margin-bottom: 0.38rem;
+        margin-bottom: 0.2rem;
+        padding-left: 0.2rem;
+    }
+
+    .content-wrapper input,
+    .inforCounselTextarea {
+        display: inline-block;
+        font-size: 1.125rem;
+        margin: 0;
+        margin-bottom: 0.2rem;
+        padding: 0;
+        padding-left: 0.2rem;
+        border: 0;
+    }
+
+    .inforCounselTextarea {
+        resize: none;
+    }
+
+    .inforCounselTextarea::-webkit-scrollbar {
+        display: none;
     }
 
     .btn-wrapper {
@@ -393,6 +405,127 @@ const GlobalStyles = createGlobalStyle`
         border-radius: 5px;
         cursor: pointer;
     }
+
+    /* Modal.css */
+    .modal-back {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.1);
+    }
+    
+    .counsel-modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70%;
+        max-width: 68.875rem;
+        height: 60%;
+        max-height: 45.06255rem;
+        min-height: 40rem;
+        border-radius: 1.25rem;
+        box-shadow: -5px -5px 10px 0px rgba(0, 0, 0, 0.25) inset;
+        padding: 20px;
+        background-color: white;
+    }
+    
+    .modal-warpper {
+        height: 90%;
+    }
+    
+    .modal-content-wrapper {
+        height: 100%;
+    }
+    
+    .modal-title {
+        margin-top: 2rem;
+        margin-left: 2rem;
+        margin-right: 4.13rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .modal-title p {
+        display: inline-block;
+        font-size: 2rem;
+        margin: 0;
+        margin-top: 0.19rem;
+    }
+    
+    .modal-title img {
+        width: 2.66369rem;
+        height: 2.03856rem;
+        cursor: pointer;
+    }
+    
+    .m-name,
+    .m-date {
+        font-weight: bold;
+        margin-right: 0.3rem;
+    }
+    
+    .modal-content {
+        margin-top: 1.5rem;
+        height: 70%;
+    }
+    
+    .m-otc {
+        display: inline-block;
+        margin: 0;
+        margin-left: 2.7rem;
+        font-size: 1.25rem;
+    }
+    
+    .modal-counsel {
+        margin: 0 auto;
+        width: 90%;
+        max-width: 60.69369rem;
+        height: 90%;
+        margin-top: 1rem;
+        background-color: #aed391;
+        border-radius: 0.75rem;
+        padding: 3rem;
+        white-space: pre-wrap;
+        overflow-y: auto;
+    }
+    
+    .modal-counsel p,
+    .modal-counsel textarea {
+        display: inline-block;
+        font-size: 1.25rem;
+        margin: 0;
+        background-color: #aed391;
+    }
+    
+    .modalCounselTextarea {
+        width: 100%;
+        height: 90%;
+        resize: none;
+    }
+    
+    .modalCounselTextarea::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .modal-btn-warpper {
+        float: right;
+        margin-top: 1.58rem;
+        margin-right: 1.5rem;
+    }
+    
+    .modal-btn-warpper button {
+        width: 6.6875rem;
+        height: 3rem;
+        border-radius: 3.125rem;
+        background-color: #95d1d9;
+        border: none;
+        margin-right: 1.8rem;
+        font-size: 1.125rem;
+        cursor: pointer;
+    }
     
     /* Header.css */
     .header-container {
@@ -420,7 +553,6 @@ const GlobalStyles = createGlobalStyle`
     .addCounseling-wrapper {
         margin: 0 auto;
         width: 19.25rem;
-        height: 31.3125rem;
         border: 1px solid #000;
         display: flex;
         flex-direction: column;
@@ -439,7 +571,7 @@ const GlobalStyles = createGlobalStyle`
         height: 93%;
         display: flex;
         margin-top: 3.25rem;
-        margin-bottom: 1.62rem;
+        margin-bottom: 7.44rem;
         flex-direction: column;
       }
       
@@ -451,7 +583,7 @@ const GlobalStyles = createGlobalStyle`
       
       .counsel-category-wrapper p {
         display: inline-block;
-        font-size: 0.875rem;
+        font-size: 0.6875rem;
         margin: 0;
       }
       
@@ -465,26 +597,25 @@ const GlobalStyles = createGlobalStyle`
         color: #878485;
       }
 
-      .counsel-content-wrapper p {
+      .counsel-content-wrapper p,
+      .counsel-content-wrapper input,
+      .counsel-content-wrapper textarea {
+        width: 16rem;
         display: inline-block;
         color: #565656;
         margin: 0;
         padding: 0.19rem;
         border: 0;
         font-size: 1rem;
-        word-wrap: break-word;
       }
 
-      .counsel-content-wrapper input {
-        display: inline-block;
-        color: #565656;
-        margin: 0;
-        padding: 0.19rem;
-        border: 0;
-        font-size: 1rem;
-        word-wrap: break-word;
-      }
-      
+      .counsel-content-wrapper textarea {
+        resize: none;
+    }
+
+    .counselTextarea::-webkit-scrollbar {
+        display: none;
+    }
       
       .counsel-btn-wrapper {
         width: 18rem;
@@ -691,6 +822,78 @@ const GlobalStyles = createGlobalStyle`
         width: 85%;
         overflow-x: auto;
         margin: 0 auto;
+    }
+    .counsel-modal {
+        width: 90%;
+        max-width: 21.625rem;
+        min-width: 15rem;
+        max-height: 29.43753rem;
+        min-height: 29.43753rem;
+        border-radius: 1.25rem;
+        box-shadow: -5px -5px 10px 0px rgba(0, 0, 0, 0.25) inset;
+    }
+    .modal-warpper {
+        height: 100%;
+    }
+    .modal-title {
+        margin-top: 0.3rem;
+        margin-left: 0.3rem;
+        margin-right: 1.37rem;
+    }
+    .modal-title p {
+        display: inline-block;
+        font-size: 1.125rem;
+        margin: 0;
+        margin-top: 0.1rem;
+    }
+    .modal-title img {
+        width: 0.83631rem;
+        height: 1.33169rem;
+    }
+    .m-name,
+    .m-date {
+        font-weight: bold;
+        margin-right: 0.3rem;
+    }
+    .modal-content {
+        margin-top: 1rem;
+        height: 68%;
+    }
+    .m-otc {
+        display: inline-block;
+        margin: 0;
+        margin-left: 0.3rem;
+        font-size: 0.874rem;
+    }
+    .modal-counsel {
+        max-width: 19.05628rem;
+        height: 85%;
+        margin-top: 1rem;
+        background-color: #aed391;
+        border-radius: 0.75rem;
+        padding: 1rem;
+        padding-top: 2rem;
+    }
+    .modal-counsel p,
+    .modal-counsel textarea {
+        display: inline-block;
+        font-size: 0.875rem;
+        margin: 0;
+        margin-top: 0.2rem;
+    }
+    .modal-btn-warpper {
+        float: right;
+        margin-top: 1rem;
+        margin-right: 0.1rem;
+    }
+    .modal-btn-warpper button {
+        width: 3.70375rem;
+        height: 1.9625rem;
+        border-radius: 3.125rem;
+        background-color: #95d1d9;
+        border: none;
+        margin-right: 0.6rem;
+        font-size: 0.875rem;
     }
 `;
 export default GlobalStyles;
