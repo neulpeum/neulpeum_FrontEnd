@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import ConsultModal from "../consultModal/ConsultModal";
 
@@ -7,7 +7,8 @@ export default function CitizenCounselList() {
   const [name, setName] = useState("");
   const [data, setData] = useState([]);
   const [consultId, setConsultId] = useState("0");
-  const tempPatientId = 1;
+  const location = useLocation();
+  const patientId = location.state.id;
 
   useEffect(() => {
     getName();
@@ -15,10 +16,9 @@ export default function CitizenCounselList() {
   }, []);
 
   const getName = async () => {
-    let tempPatientId = 1;
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/patientInfo?patientId=${tempPatientId}`
+        `http://52.78.35.193:8080/api/patientInfo?patientId=${patientId}`
       );
       setName(response.data.patientName);
     } catch (error) {
@@ -27,10 +27,9 @@ export default function CitizenCounselList() {
   };
 
   const getData = async () => {
-    let tempPatientId = 1;
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/patient/consult?patientId=${tempPatientId}`
+        `http://52.78.35.193:8080/api/patient/consult?patientId=${patientId}`
       );
       setData(response.data);
     } catch (error) {
@@ -79,7 +78,7 @@ export default function CitizenCounselList() {
           <Link
             to="/addcounsel"
             state={{
-              patientId: `${tempPatientId}`,
+              patientId: `${patientId}`,
               patientName: `${name}`,
             }}
           >

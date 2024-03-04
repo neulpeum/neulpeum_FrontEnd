@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from "axios";
-import "./Modal.css";
 
 export default function ConsultModal({ onClose, consultId }) {
   Modal.setAppElement("#root");
@@ -16,7 +15,7 @@ export default function ConsultModal({ onClose, consultId }) {
   const getConsultData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/patient/consultInfo?consultId=${consultId}`
+        `http://52.78.35.193:8080/api/patient/consultInfo?consultId=${consultId}`
       );
       setConsultData(response.data);
       setFields(response.data.consultContent);
@@ -51,7 +50,7 @@ export default function ConsultModal({ onClose, consultId }) {
 
     axios
       .put(
-        `http://localhost:8080/api/patient/consultInfo?consultId=${consultId}`,
+        `http://52.78.35.193:8080/api/patient/consultInfo?consultId=${consultId}`,
         newConsultData
       )
       .then(() => {

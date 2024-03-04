@@ -13,10 +13,7 @@ export default function AddCounseling() {
   const today = `${date.getFullYear()}.${
     date.getMonth() + 1
   }.${date.getDate()}`;
-  const [data, setData] = useState([
-    "두통약",
-    "혼자 계셔서 약을 잘 안 챙겨드신다...",
-  ]);
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
 
   const onCancel = () => {
@@ -48,7 +45,7 @@ export default function AddCounseling() {
     };
 
     axios
-      .post("http://localhost:8080/api/patient/consult", consultData)
+      .post("http://52.78.35.193:8080/api/patient/consult", consultData)
       .then(() => {
         console.log("Request sent successfully.");
       })

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 export default function CitizenInfor() {
+  const location = useLocation();
+  const patientId = location.state.id;
+
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
@@ -24,10 +28,9 @@ export default function CitizenInfor() {
   const [fields, setFields] = useState([]);
 
   const getData = async () => {
-    let tempPatientId = 1;
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/patientInfo?patientId=${tempPatientId}`
+        `http://52.78.35.193:8080/api/patientInfo?patientId=${patientId}`
       );
       const newData = response.data;
       setFields(Object.values(newData));
@@ -64,7 +67,7 @@ export default function CitizenInfor() {
     };
 
     axios
-      .put("http://localhost:8080/api/patientInfo", patientData)
+      .put("http://52.78.35.193:8080/api/patientInfo", patientData)
       .then(() => {
         console.log("Request sent successfully.");
       })
