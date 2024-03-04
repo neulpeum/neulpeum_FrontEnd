@@ -522,6 +522,7 @@ const GlobalStyles = createGlobalStyle `
         flex-direction: column;
         justify-content: center top;
         align-items: center;
+        margin-bottom: 40px;
     }
     
     .citizenAdd-title {

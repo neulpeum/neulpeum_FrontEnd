@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CitizenInfor from "../../components/citizenInfor/CitizenInfor";
 import CitizenCounselList from "../../components/citizenCounselList/CitizenCounselList";
 import HeaderComponent from "../../components/header/Header";
@@ -11,6 +11,9 @@ const CitizensDetails = () => {
   const handleResize = () => {
     setIsLargeScreen(window.innerWidth >= 769);
   };
+
+  const location = useLocation();
+  const citizenId = location.state.id;
 
   useEffect(() => {
     // 초기화

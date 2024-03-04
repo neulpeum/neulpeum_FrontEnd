@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTable } from 'react-table';
 
-const CitizenList = ({ columns, data }) => {
+const CitizenList = ({ columns, data, onClickDetail }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
 
   return (
@@ -26,7 +26,7 @@ const CitizenList = ({ columns, data }) => {
                   {row.cells.map(cell => (
                     <td {...cell.getCellProps()} className="table-cell">
                       {cell.column.id === 'action' ? (
-                        <button onClick={() => alert('조회 버튼 눌림')}>조회 {'>'}</button>
+                        <button onClick={() => onClickDetail(row.original.patientId)}>조회 {'>'}</button>
                       ) : (
                         cell.render('Cell')
                       )}
