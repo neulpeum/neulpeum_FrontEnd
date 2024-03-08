@@ -1,5 +1,46 @@
 import React, { useState, useRef } from 'react';
+import styled from 'styled-components';
 
+const UploadContainer = styled.div`
+  width: 50%;
+  height: 100%;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 11px 14px;
+  border: 1px solid black;
+`
+const UploadImg = styled.img`
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  vertical-align: middle;
+`
+const UploadSpan = styled.span`
+  font-size: 20px;
+  position: absolute;
+  left: 54px;
+  top: 17px;
+`
+const UploadLabel = styled.label`
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.5);
+`
+const UploadBtn = styled.button`
+  width: 104px;
+  height: 37px;
+  font-size: 20px;
+  align-self: flex-end;
+  color: white;
+  background-color: #aed391;
+  border: 0px;
+  border-radius: 5px;
+  cursor: pointer;
+`
 const FileUpload = ({ onFileSaveClick } ) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -44,14 +85,13 @@ const FileUpload = ({ onFileSaveClick } ) => {
   }
 
   return (
-    <div className="upload-container">
-      <img 
+    <UploadContainer>
+      <UploadImg
         src="/icons/ic_fileImg.svg"
         alt="파일 아이콘 이미지"
-        className="ic-file"
         onClick={handleImageClick}
       />
-      <span className='ic-file-span'>파일 선택</span>
+      <UploadSpan>파일 선택</UploadSpan>
       
       <input
         ref={fileInputRef}
@@ -63,14 +103,13 @@ const FileUpload = ({ onFileSaveClick } ) => {
         id="file-input-container"
       />
       {selectedFile ? (
-        <label htmlFor='file-input-container' className='upload-container-label'>선택된 파일: {selectedFile.name}</label>
+        <UploadLabel htmlFor='file-input-container'>선택된 파일: {selectedFile.name}</UploadLabel>
       ) : (
-        <label htmlFor='file-input-container' className='upload-container-label' >액셀 파일을 업로드하세요</label>
+        <UploadLabel htmlFor='file-input-container'>액셀 파일을 업로드하세요</UploadLabel>
         )
       }
-      
-      <button className='file-save-button' onClick={() => transmitDrugsData(selectedFile)}>저장</button>
-    </div>
+      <UploadBtn onClick={() => transmitDrugsData(selectedFile)}>저장</UploadBtn>
+    </UploadContainer>
   );
 };
 

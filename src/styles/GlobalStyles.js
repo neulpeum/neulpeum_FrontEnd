@@ -346,53 +346,6 @@ const GlobalStyles = createGlobalStyle`
         margin: 0 auto;
         display: block;
     }
-
-    /* FileUpload.css */
-    .upload-container {
-        width: 588px;
-        height: 131px;
-        position: absolute;
-        top: 283px;
-        left: 171px;
-        border: 1px solid black;
-
-    }
-    .ic-file {
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        top: 11px;
-        left: 14px;
-        cursor: pointer;
-    }
-    .ic-file-span{
-        font-size: 20px;
-        position: absolute;
-        left: 54px;
-        top: 17px;
-    }
-    .upload-container-label {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 20px;
-        color: rgba(0, 0, 0, 0.5);
-    }
-    
-    .file-save-button {
-        width: 104px;
-        height: 37px;
-        font-size: 20px;
-        position: absolute;
-        top: 77px;
-        left: 464px;
-        color: white;
-        background-color: #aed391;
-        border: 0px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
     
     /* Header.css */
     .header-container {
@@ -420,11 +373,9 @@ const GlobalStyles = createGlobalStyle`
 
     /* Drugs.css */
     .Drugtable-wrapper {
-        width: 1120px;
+        width: 77.7%;
         height: 42%;
-        // position: absolute;
-        // left: 153px;
-        // top: 440px;
+        margin: 1rem auto;
         overflow-x: auto;
     }
 
@@ -439,13 +390,13 @@ const GlobalStyles = createGlobalStyle`
 
     .Drugtable-header {
         border: 1px solid black;
-        padding: 45px 0;
+        padding: 2em 0;
         text-align: center;
         font-size: 20px;
     }
     .Drugtable-cell {
         border: 1px solid black;
-        padding: 22.5px 0;
+        padding: 1em 0;
         text-align: center;
         font-size: 20px;
     }
@@ -614,14 +565,6 @@ const GlobalStyles = createGlobalStyle`
     .line-text span {
         font-size: 24px;
     }
-
-    // accountSetting.css
-    .account-wrapper {
-        width: auto;
-        height: auto;
-        margin: 1.74rem 10rem;
-    }
-
 
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/
     @media (max-width: 768px) {
