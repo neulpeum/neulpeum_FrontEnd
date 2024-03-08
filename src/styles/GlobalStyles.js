@@ -115,7 +115,7 @@ const GlobalStyles = createGlobalStyle`
     /* 위에 두개는 pages 폴더안에 들어있는 파일들만 */
     /* 아래부터는 components 하위폴더안에 있는 컴포넌트들 스타일시트 */
     // 지금 아래에 작성되는 스타일시트는 이제부터 전역 페이지에서 공통적으로 사용될 스타일만 허용하겠음 by 오태형
-    
+
     /* CitizenCounselList */
     * {
         box-sizing: border-box;
@@ -545,8 +545,40 @@ const GlobalStyles = createGlobalStyle`
         height: auto;
     }
 
-    .home-button {
-    margin-right: 20px;
+    .goto-home-btn {
+        width: 59px;
+        height: 54px;
+        margin-right: 20px;
+    }
+
+    /* Drugs.css */
+    .Drugtable-wrapper {
+        width: 77.7%;
+        height: 42%;
+        margin: 1rem auto;
+        overflow-x: auto;
+    }
+
+    .Drugtable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .Drugtable-row {
+        background-color: white;
+    }
+
+    .Drugtable-header {
+        border: 1px solid black;
+        padding: 2em 0;
+        text-align: center;
+        font-size: 20px;
+    }
+    .Drugtable-cell {
+        border: 1px solid black;
+        padding: 1em 0;
+        text-align: center;
+        font-size: 20px;
     }
 
     /* AddCounseling.css */
@@ -712,14 +744,6 @@ const GlobalStyles = createGlobalStyle`
     .line-text span {
         font-size: 24px;
     }
-
-    // accountSetting.css
-    .account-wrapper {
-        width: auto;
-        height: auto;
-        margin: 1.74rem 10rem;
-    }
-
 
     /* 반응형 디스플레이 : 현재 중복되는 것들만 삭제한 상태*/
     @media (max-width: 768px) {
