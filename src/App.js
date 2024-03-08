@@ -25,7 +25,6 @@ const App = () => {
         <Route path="/citizenAdd" element={<CitizenAdd />} />{" "}
         <Route path="/drugs" element={<Drugs />} />{" "}
         <Route path="/accountSettings" element={<AccountSetting />} />{" "}
-        {/* 나중에 푸쉬할때 AccountSetting도 올려야한다? */}{" "}
       </Routes>{" "}
     </div>
   );
