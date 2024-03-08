@@ -22,9 +22,12 @@ const LoginButtonText = styled.span`
 `;
 
 const LoginButton = () => {
+  const isMobile = window.innerWidth <= 768
+  var destination = isMobile ? "/citizens" : "/options";
+  
   return (
     <LoginButtonContainer>
-      <Link className="default-link-styles" to="/options">
+      <Link className="default-link-styles" to={destination}>
         <LoginButtonText>로그인</LoginButtonText>
       </Link>
     </LoginButtonContainer>

@@ -1,88 +1,41 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Modal from "react-modal";
-import "./Modal.css";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import ConsultModal from "../consultModal/ConsultModal";
 
 export default function CitizenCounselList() {
-  const data = [
-    {
-      id: 1,
-      col1: "1",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 2,
-      col1: "2",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 3,
-      col1: "3",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 4,
-      col1: "4",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 5,
-      col1: "5",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 6,
-      col1: "6",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 7,
-      col1: "7",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 8,
-      col1: "8",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 9,
-      col1: "9",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 10,
-      col1: "10",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-    {
-      id: 11,
-      col1: "11",
-      col2: "김xx",
-      col3: "두통약",
-      col4: "2024.01.05",
-    },
-  ];
+  const [name, setName] = useState("");
+  const [data, setData] = useState([]);
+  const [consultId, setConsultId] = useState("0");
+  const location = useLocation();
+  const patientId = location.state.id;
+
+  useEffect(() => {
+    getName();
+    getData();
+  }, []);
+
+  const getName = async () => {
+    try {
+      const response = await axios.get(
+        `http://52.78.35.193:8080/api/patientInfo?patientId=${patientId}`
+      );
+      setName(response.data.patientName);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `http://52.78.35.193:8080/api/patient/consult?patientId=${patientId}`
+      );
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const [value, setValue] = useState("");
 
@@ -92,25 +45,26 @@ export default function CitizenCounselList() {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => {
+  const openModal = (btnConsultId) => {
+    setConsultId(btnConsultId);
     setIsOpen(true);
   };
 
   const closeModal = () => {
     setIsOpen(false);
+    document.body.style = "overflow: auto";
   };
 
   return (
     <div className="citizenCounselList-wrapper">
       <div className="counselList-wrapper">
         <div className="ment-wrapper">
-          <p className="citizenName">홍xx</p>
+          <p className="citizenName">{name}</p>
           <p className="citizensCounList">님의 상담 리스트</p>
         </div>
         <div className="searchBar-wrapper">
           <input
             type="text"
-            // placeholder="해야 할 일을 입력하세요."
             className="searchBar"
             value={value}
             onChange={handleChange}
@@ -121,7 +75,13 @@ export default function CitizenCounselList() {
             className="search-img"
           />
           <img src="/icons/ic_counSort.svg" alt="정렬" className="sort-img" />
-          <Link to="/addcounsel">
+          <Link
+            to="/addcounsel"
+            state={{
+              patientId: `${patientId}`,
+              patientName: `${name}`,
+            }}
+          >
             <img
               src="/icons/ic_counselWrite.svg"
               alt="추가"
@@ -141,52 +101,29 @@ export default function CitizenCounselList() {
               </tr>
             </thead>
             <tbody>
-              {data.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.col1}</td>
-                  <td>{item.col2}</td>
-                  <td>{item.col3}</td>
-                  <td>{item.col4}</td>
-                  <td>
-                    <button className="inquiry-btn" onClick={openModal}>
-                      조회 &gt;
-                    </button>
-                    <Modal
-                      className="counsel-modal"
-                      isOpen={isOpen}
-                      onRequestClose={closeModal}
-                    >
-                      <div className="modal-warpper">
-                        <div className="modal-content-wrapper">
-                          <div className="modal-title">
-                            <p className="m-name">김@@ </p>
-                            <p>님이</p>
-                            <p className="m-date">2024.01.10 (수) </p>
-                            <p>에</p>
-                            <br></br>
-                            <p>상담한 내용입니다.</p>
-                          </div>
-                          <div className="modal-content">
-                            <div className="modal-otc">
-                              <p className="m-otc">제공OTC: 진통제</p>
-                            </div>
-                            <div className="modal-counsel">
-                              <p>두통이 있으시다고 하셔서 진통제를 드림.</p>
-                              <br></br>
-
-                              <p>기존에 먹언 약의 개수를 3개에서 2개로 줄임.</p>
-                            </div>
-                          </div>
-                          <div className="modal-btn-warpper">
-                            <button onClick={closeModal}>확인</button>
-                            <button>수정</button>
-                          </div>
-                        </div>
-                      </div>
-                    </Modal>
-                  </td>
-                </tr>
-              ))}
+              {data &&
+                data.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.providerName}</td>
+                    <td>{item.takingDrug}</td>
+                    <td>{item.consultDate}</td>
+                    <td>
+                      <button
+                        className="inquiry-btn"
+                        onClick={() => openModal(item.consultId)}
+                      >
+                        조회 &gt;
+                      </button>
+                      {isOpen && consultId === item.consultId && (
+                        <ConsultModal
+                          onClose={closeModal}
+                          consultId={consultId}
+                        />
+                      )}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

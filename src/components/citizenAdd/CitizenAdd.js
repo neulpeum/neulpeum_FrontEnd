@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import HeaderComponent from "../../components/header/Header";
+import axios from "axios";
 
 
 export default function CitizenAdd() {
@@ -7,15 +9,44 @@ export default function CitizenAdd() {
   const [address, setAddress] = useState("");
   const [medicalHistory, setMedicalHistory] = useState("");
   const [notes, setNotes] = useState("");
+  
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+
+  const navigateToCitizens = () => {
+    navigate("/citizens", {});
+  };
 
   const handleSubmit = () => {
-    // 주민 추가 로직 구현
+    const addCitizen = async () => {
+      if (name === "" || address === "" || medicalHistory ==="" || notes === "") {
+        return alert('모든 항목을 입력해주세요');
+      }
+      try {
+        setError(null);
+        const data = {
+          patientName: name,
+          address: address,
+          disease: medicalHistory,
+          speicalReport: notes,
+        };
+        
+        await axios.post("http://52.78.35.193:8080/api/patient", data);
+        alert('주민이 추가되었습니다');
+        navigateToCitizens();
+      } catch (e) {
+        setError(e);
+      }
+    };
+    addCitizen();
   };
+
   const handleCancel = () => {
-    // 취소 로직 구현
+    navigateToCitizens();
   };
 
-
+  if (error) return alert('에러가 발생했습니다')
+  
   return (
     <div>
         <HeaderComponent />

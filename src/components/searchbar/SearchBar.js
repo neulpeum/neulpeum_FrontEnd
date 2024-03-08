@@ -148,7 +148,7 @@ const PlusIcon = styled.img`
   }
 `;
 
-const SearchBar = ({ sort, search, currentPage, isReversed, createBtn}) => {
+const SearchBar = ({ sort, search, currentPage, isReversed, createBtn, onCitizenAddClick}) => {
   const [keyword, setKeyword] = useState('');
 
   // 각 페이지 마다 달라지는 컴포넌트 구성 Drugs, Citizens
@@ -180,11 +180,13 @@ const SearchBar = ({ sort, search, currentPage, isReversed, createBtn}) => {
           <SearchIcon onClick={() => search(keyword)} src="/icons/ic_search.svg" alt="검색" />
         </SearchInputContainer>
         <SortContainer>
-          <SortContainerTag>역방향 정렬</SortContainerTag>
-          <SortIcon src="/icons/ic_sort.svg" alt="정렬" />
+          <SortContainerTag>
+            {isReversed ? '정방향 정렬' : '역방향 정렬'}
+          </SortContainerTag>
+          <SortIcon onClick={() => sort()} src="/icons/ic_sort.svg" alt="정렬" />
         </SortContainer>
   
-        <PlusIcon src="/icons/ic_plus.svg" alt="주민 추가" />
+        <PlusIcon src="/icons/ic_plus.svg" alt="주민 추가" onClick={onCitizenAddClick} />
       </SearchBarContainer>
       )
     },

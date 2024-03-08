@@ -1,14 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function CitizenInfor() {
-  const [fields, setFields] = useState([
-    "홍xx",
-    "420211-1******",
-    "서울특별시 @@구 @@동",
-    "010-1234-5678",
-    "당뇨",
-    "병원에서 고혈압 진단 받으심.",
-  ]);
+  const location = useLocation();
+  const patientId = location.state.id;
+
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    getData();
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const handleResize = () => {
+    setIsLargeScreen(window.innerWidth >= 769);
+  };
+
+  useEffect(() => {
+    setIsEditing(false);
+  }, [isLargeScreen]);
+
+  const [fields, setFields] = useState([]);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `http://52.78.35.193:8080/api/patientInfo?patientId=${patientId}`
+      );
+      const newData = response.data;
+      setFields(Object.values(newData));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   const [isEditing, setIsEditing] = useState(false);
   const [originalFields, setOriginalFields] = useState([...fields]);
 
@@ -23,16 +53,43 @@ export default function CitizenInfor() {
     setFields([...originalFields]);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     setIsEditing(false);
-    // 여기에 정보 저장 로직을 추가할 수 있습니다.
-    console.log("저장됨:", fields);
+    const patientData = {
+      patientId: fields[0],
+      patientName: fields[1],
+      birthDate: fields[2],
+      phoneNum: fields[3],
+      address: fields[4],
+      disease: fields[5],
+      takingDrug: fields[6],
+      specialReport: fields[7],
+    };
+
+    axios
+      .put("http://52.78.35.193:8080/api/patientInfo", patientData)
+      .then(() => {
+        console.log("Request sent successfully.");
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   };
 
   const handleChange = (index, e) => {
     const newFields = [...fields];
     newFields[index] = e.target.value;
     setFields(newFields);
+  };
+
+  const autoResizeTextarea = () => {
+    let textarea = document.querySelector(".inforCounselTextarea");
+
+    if (textarea) {
+      textarea.style.height = "auto";
+      let height = textarea.scrollHeight;
+      textarea.style.height = `${height + 8}px`;
+    }
   };
 
   return (
@@ -51,12 +108,12 @@ export default function CitizenInfor() {
             {isEditing ? (
               <input
                 type="text"
-                value={fields[0]}
-                onChange={(e) => handleChange(0, e)}
+                value={fields[1]}
+                onChange={(e) => handleChange(1, e)}
               />
             ) : (
               <div>
-                <span>{fields[0]}</span>
+                <span>{fields[1]}</span>
               </div>
             )}
           </div>
@@ -72,12 +129,12 @@ export default function CitizenInfor() {
             {isEditing ? (
               <input
                 type="text"
-                value={fields[1]}
-                onChange={(e) => handleChange(1, e)}
+                value={fields[2]}
+                onChange={(e) => handleChange(2, e)}
               />
             ) : (
               <div>
-                <span>{fields[1]}</span>
+                <span>{fields[2]}******</span>
               </div>
             )}
           </div>
@@ -93,12 +150,12 @@ export default function CitizenInfor() {
             {isEditing ? (
               <input
                 type="text"
-                value={fields[2]}
-                onChange={(e) => handleChange(2, e)}
+                value={fields[4]}
+                onChange={(e) => handleChange(4, e)}
               />
             ) : (
               <div>
-                <span>{fields[2]}</span>
+                <span>{fields[4]}</span>
               </div>
             )}
           </div>
@@ -135,23 +192,6 @@ export default function CitizenInfor() {
             {isEditing ? (
               <input
                 type="text"
-                value={fields[4]}
-                onChange={(e) => handleChange(4, e)}
-              />
-            ) : (
-              <div>
-                <span>{fields[4]}</span>
-              </div>
-            )}
-          </div>
-          <div className="category-wrapper">
-            <img src="/icons/ic_etc.svg" className="etc-icon" alt="특이사항" />
-            <p> 특이사항 </p>
-          </div>
-          <div className="content-wrapper">
-            {isEditing ? (
-              <input
-                type="text"
                 value={fields[5]}
                 onChange={(e) => handleChange(5, e)}
               />
@@ -162,16 +202,35 @@ export default function CitizenInfor() {
             )}
           </div>
           <div className="category-wrapper">
+            <img src="/icons/ic_etc.svg" className="etc-icon" alt="특이사항" />
+            <p> 특이사항 </p>
+          </div>
+          <div className="content-wrapper">
+            {isEditing ? (
+              <textarea
+                className="inforCounselTextarea"
+                value={fields[7]}
+                onChange={(e) => handleChange(7, e)}
+                onKeyDown={autoResizeTextarea}
+                onKeyUp={autoResizeTextarea}
+              ></textarea>
+            ) : (
+              <div>
+                <span>{fields[7]}</span>
+              </div>
+            )}
+          </div>
+          <div className="category-wrapper">
             <p> 등록일자 </p>
           </div>
           <div className="content-wrapper">
-            <p> 2023 - 05 - 07 </p>
+            <span>{fields[8]}</span>
           </div>
           <div className="category-wrapper">
             <p> 수정일자 </p>
           </div>
           <div className="content-wrapper">
-            <p> 2023 - 12 - 25 </p>
+            <span>{fields[9]}</span>
           </div>
         </div>
         <div>
@@ -183,7 +242,6 @@ export default function CitizenInfor() {
           ) : (
             <div className="btn-wrapper">
               <button onClick={handleEditClick}>수정</button>
-              <button onClick={handleCancelClick}>취소</button>
             </div>
           )}
         </div>
