@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import './Options.css';
 import MedicareLogo from '../../components/customInput/img_medicare_logo.svg';
 import MyInfoBtn from './img_my_info_btn.svg';
 import CitizensBtn from './img_citizens_btn.svg';
 import MedicineBtn from './img_medicine_btn.svg';
+import { Link } from "react-router-dom";
 
 
 const Options = () => {
