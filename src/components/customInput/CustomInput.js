@@ -29,12 +29,12 @@ const RoundedInput = styled.input`
   width: 100%;
 `;
 
-const CustomInput = ({ placeholder, icon }) => {
+const CustomInput = ({value, onChange, placeholder, icon }) => {
   return (
     <InputContainer>
       <LeftImage icon={icon} />
       <div>
-        <RoundedInput type="text" placeholder={placeholder} />
+        <RoundedInput value={value} onChange={onChange} type="text" placeholder={placeholder} />
       </div>
     </InputContainer>
   );
