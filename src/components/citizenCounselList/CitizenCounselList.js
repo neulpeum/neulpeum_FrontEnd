@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import axios from "axios";
 import ConsultModal from "../consultModal/ConsultModal";
+import Search from "../../search/Search";
 
 export default function CitizenCounselList() {
   const [name, setName] = useState("");
@@ -37,16 +39,42 @@ export default function CitizenCounselList() {
     }
   };
 
-  const [value, setValue] = useState("");
+  const columns = useMemo(
+    () => [
+      {
+        accessor: "providerName",
+        Header: "상담자",
+      },
+      {
+        accessor: "takingDrug",
+        Header: "제공otc",
+      },
+      {
+        accessor: "consultDate",
+        Header: "방문날짜",
+      },
+      {
+        accessor: "consultId",
+        Header: "",
+      },
+    ],
+    []
+  );
 
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    setGlobalFilter,
+  } = useTable({ columns, data }, useGlobalFilter, useSortBy);
 
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = (btnConsultId) => {
     setConsultId(btnConsultId);
+    console.log(btnConsultId);
     setIsOpen(true);
   };
 
@@ -63,18 +91,7 @@ export default function CitizenCounselList() {
           <p className="citizensCounList">님의 상담 리스트</p>
         </div>
         <div className="searchBar-wrapper">
-          <input
-            type="text"
-            className="searchBar"
-            value={value}
-            onChange={handleChange}
-          ></input>
-          <img
-            src="/icons/ic_counSearch.svg"
-            alt="검색"
-            className="search-img"
-          />
-          <img src="/icons/ic_counSort.svg" alt="정렬" className="sort-img" />
+          <Search onSubmit={setGlobalFilter} />
           <Link
             to="/addcounsel"
             state={{
@@ -90,42 +107,49 @@ export default function CitizenCounselList() {
           </Link>
         </div>
         <div className="list-wrapper">
-          <table className="counselTable">
+          <table {...getTableProps()} className="counselTable">
             <thead>
-              <tr>
-                <th>번호</th>
-                <th>상담자(대학생)</th>
-                <th>제공 otc</th>
-                <th>방문날짜</th>
-                <th></th>
-              </tr>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  <th>번호</th>
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                    >
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
+              ))}
             </thead>
-            <tbody>
-              {data &&
-                data.map((item, index) => (
-                  <tr key={index}>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row, index) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
                     <td>{index + 1}</td>
-                    <td>{item.providerName}</td>
-                    <td>{item.takingDrug}</td>
-                    <td>{item.consultDate}</td>
-                    <td>
-                      <button
-                        className="inquiry-btn"
-                        onClick={() => openModal(item.consultId)}
-                      >
-                        조회 &gt;
-                      </button>
-                      {isOpen && consultId === item.consultId && (
-                        <ConsultModal
-                          onClose={closeModal}
-                          consultId={consultId}
-                        />
-                      )}
-                    </td>
+                    {row.cells.map((cell) => (
+                      <td {...cell.getCellProps()}>
+                        {cell.column.id === "consultId" ? (
+                          <button
+                            className="inquiry-btn"
+                            onClick={() => openModal(cell.value)}
+                          >
+                            조회 &gt;
+                          </button>
+                        ) : (
+                          cell.render("Cell")
+                        )}
+                      </td>
+                    ))}
                   </tr>
-                ))}
+                );
+              })}
             </tbody>
           </table>
+          {isOpen && consultId && (
+            <ConsultModal onClose={closeModal} consultId={consultId} />
+          )}
         </div>
       </div>
     </div>

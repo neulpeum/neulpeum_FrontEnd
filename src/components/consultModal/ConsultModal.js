@@ -100,7 +100,7 @@ export default function ConsultModal({ onClose, consultId }) {
             </div>
             <div className="modal-content">
               <div className="modal-otc">
-                <p className="m-otc">제공OTC: {consultData.takingDrug}</p>
+                <p className="m-otc">제공otc: {consultData.takingDrug}</p>
               </div>
               <div className="modal-counsel">
                 {isEditing ? (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import CitizenInfor from "../../components/citizenInfor/CitizenInfor";
 import CitizenCounselList from "../../components/citizenCounselList/CitizenCounselList";
 import HeaderComponent from "../../components/header/Header";
@@ -7,6 +7,7 @@ import HeaderComponent from "../../components/header/Header";
 const CitizensDetails = () => {
   const [isButtonClicked, setButtonClicked] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const location = useLocation();
 
   const handleResize = () => {
     setIsLargeScreen(window.innerWidth >= 769);
@@ -36,6 +37,12 @@ const CitizensDetails = () => {
       counselList.style.setProperty("display", "none");
     }
   }, [isLargeScreen]);
+
+  useEffect(() => {
+    if (location.state) {
+      setButtonClicked(location.state.isButtonClicked || false);
+    }
+  }, [location.state]);
 
   return (
     <div>

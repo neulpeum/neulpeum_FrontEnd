@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle `
     //Main.css, Options.css
     .container {
         display: flex;
@@ -151,45 +151,7 @@ const GlobalStyles = createGlobalStyle`
         font-size: 1rem;
         margin: 1rem 0 0 0;
     }
-    
-    .searchBar-wrapper {
-        width: 41.5625rem;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        margin: 0 auto;
-        margin-bottom: 1.38rem;
-    }
-    
-    .searchBar {
-        width: 20.9375rem;
-        height: 2.75rem;
-        border: 1px solid #000;
-        border-right: none;
-        outline: none;
-    }
-    
-    .search-img {
-        height: 2.75rem;
-        padding: 0.3rem;
-        border: 1px solid #000;
-        border-left: none;
-        margin-right: 1rem;
-        cursor: pointer;
-    }
 
-    .sort-img {
-        width: 2.1rem;
-        height: 2.1rem;
-    }
-
-    .write-img {
-        width: 2.1rem;
-        height: 2.1rem;
-        margin-left: 0.31rem;
-        display: none;
-    }
-    
     .list-wrapper {
         width: 41.5625rem;
         height: 29.9375rem;
@@ -223,6 +185,7 @@ const GlobalStyles = createGlobalStyle`
         border-radius: 3.125rem;
         border: 1px solid #000;
         font-size: 0.875rem;
+        padding-top: 0.3rem;
         background-color: white;
         cursor: pointer;
     }
@@ -289,9 +252,11 @@ const GlobalStyles = createGlobalStyle`
         font-size: 1.125rem;
         margin: 0;
         margin-bottom: 0.2rem;
-        padding: 0;
+        padding: 0.3rem;
         padding-left: 0.2rem;
-        border: 0;
+        border-radius: 0.625rem;
+        border: 1.5px solid #B9B9B9;
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), rgba(182, 211, 145, 0.09);
     }
 
     .inforCounselTextarea {
@@ -320,6 +285,60 @@ const GlobalStyles = createGlobalStyle`
         background-color: #95d1d9;
         color: #fff;
         cursor: pointer;
+    }
+
+    /* Search.css */
+
+    .searchBar-wrapper {
+        width: 41.5625rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        margin-bottom: 1.38rem;
+    }
+    
+    .searchForm {
+        display: flex;
+        align-items: center;
+    }
+    
+    .searchBar {
+        width: 20.9375rem;
+        height: 2.75rem;
+        border: 1px solid #000;
+        border-right: none;
+        outline: none;
+        padding-left: 0.5rem;
+        padding-top: 0.2rem;
+        font-size: 1.25rem;
+    }
+    
+    .search-img {
+        height: 2.75rem;
+        width: 2.75rem;
+        padding: 0.3rem;
+        border: 1px solid #000;
+        border-left: none;
+        margin-right: 1rem;
+        cursor: pointer;
+    }
+    
+    .write-img {
+        width: 2.1rem;
+        height: 2.1rem;
+        margin-left: 0.31rem;
+        display: none;
+    }
+    
+    .searchBtn {
+        background-color: white;
+        border: none;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        height: 2.75rem;
+        width: 2.75rem;
     }
     
     /* CitizenList.css */
@@ -765,10 +784,6 @@ const GlobalStyles = createGlobalStyle`
 
     .footer-logo {
         width: 180px;
-    }
-    
-    .counselList {
-        display: none;
     }
 
     .goto-citizens,

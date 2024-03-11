@@ -62,8 +62,7 @@ export default function CitizenInfor() {
       phoneNum: fields[3],
       address: fields[4],
       disease: fields[5],
-      takingDrug: fields[6],
-      specialReport: fields[7],
+      specialReport: fields[6],
     };
 
     axios
@@ -134,7 +133,7 @@ export default function CitizenInfor() {
               />
             ) : (
               <div>
-                <span>{fields[2]}******</span>
+                {fields[2] ? <span>{fields[2]}******</span> : <span> </span>}
               </div>
             )}
           </div>
@@ -209,14 +208,14 @@ export default function CitizenInfor() {
             {isEditing ? (
               <textarea
                 className="inforCounselTextarea"
-                value={fields[7]}
-                onChange={(e) => handleChange(7, e)}
+                value={fields[6]}
+                onChange={(e) => handleChange(6, e)}
                 onKeyDown={autoResizeTextarea}
                 onKeyUp={autoResizeTextarea}
               ></textarea>
             ) : (
               <div>
-                <span>{fields[7]}</span>
+                <span>{fields[6]}</span>
               </div>
             )}
           </div>
@@ -224,13 +223,13 @@ export default function CitizenInfor() {
             <p> 등록일자 </p>
           </div>
           <div className="content-wrapper">
-            <span>{fields[8]}</span>
+            <span>{fields[7]}</span>
           </div>
           <div className="category-wrapper">
             <p> 수정일자 </p>
           </div>
           <div className="content-wrapper">
-            <span>{fields[9]}</span>
+            <span>{fields[8]}</span>
           </div>
         </div>
         <div>
