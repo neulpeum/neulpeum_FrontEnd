@@ -6,8 +6,8 @@ export default function AddCounseling() {
   const location = useLocation();
   const patientId = location.state.patientId;
   const patientName = location.state.patientName;
-  const tempProviderName = "박서연";
-  const providerName = tempProviderName;
+  // const tempProviderName = "박서연";
+  // const providerName = tempProviderName;
 
   const date = new Date();
   const today = `${date.getFullYear()}.${
@@ -15,10 +15,6 @@ export default function AddCounseling() {
   }.${date.getDate()}`;
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-
-  const onCancel = () => {
-    navigate(-1);
-  };
 
   const handleChange = (index, e) => {
     const newFields = [...data];
@@ -39,20 +35,21 @@ export default function AddCounseling() {
   const handleSaveClick = async () => {
     const consultData = {
       patientId: `${patientId}`,
-      providerName: `${providerName}`,
-      takingDrug: data[0],
-      consultContent: data[1],
+      // providerName: `${providerName}`,
+      providerName: data[0],
+      takingDrug: data[1],
+      consultContent: data[2],
     };
 
     axios
       .post("http://52.78.35.193:8080/api/patient/consult", consultData)
-      .then(() => {
-        console.log("Request sent successfully.");
-      })
+      .then(() => {})
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-    navigate("/citizensDetails");
+    navigate("/citizensDetails", {
+      state: { id: patientId, isButtonClicked: true },
+    });
   };
 
   return (
@@ -70,7 +67,12 @@ export default function AddCounseling() {
             <p> 상담자 </p>
           </div>
           <div className="counsel-content-wrapper">
-            <p>{tempProviderName}</p>
+            <input
+              type="text"
+              value={data[0]}
+              onChange={(e) => handleChange(0, e)}
+            />
+            {/* <p>{tempProviderName}</p> */}
           </div>
           <div className="counsel-category-wrapper">
             <p> 제공 otc </p>
@@ -78,8 +80,8 @@ export default function AddCounseling() {
           <div className="counsel-content-wrapper">
             <input
               type="text"
-              value={data[0]}
-              onChange={(e) => handleChange(0, e)}
+              value={data[1]}
+              onChange={(e) => handleChange(1, e)}
             />
           </div>
           <div className="counsel-category-wrapper">
@@ -88,8 +90,8 @@ export default function AddCounseling() {
           <div className="counsel-content-wrapper">
             <textarea
               className="counselTextarea"
-              value={data[1]}
-              onChange={(e) => handleChange(1, e)}
+              value={data[2]}
+              onChange={(e) => handleChange(2, e)}
               onKeyDown={autoResizeTextarea}
               onKeyUp={autoResizeTextarea}
             ></textarea>
