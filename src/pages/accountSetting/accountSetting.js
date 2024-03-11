@@ -82,11 +82,11 @@ const AccountContent = () => {
                 />
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     <AccountInput 
-                    type='text' 
+                    type='password' 
                     placeholder='새 비밀번호 입력' 
                     id="passwordForAdmin"/>
                     <AccountInput 
-                    type='text' 
+                    type='password' 
                     placeholder='새 비밀번호 확인' 
                     id="passwordForAdminCheck"
                     />

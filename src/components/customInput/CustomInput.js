@@ -29,12 +29,13 @@ const RoundedInput = styled.input`
   width: 100%;
 `;
 
-const CustomInput = ({ placeholder, icon }) => {
+const CustomInput = ({ placeholder, icon, isPassword }) => {
+  const inputType = isPassword ? 'password' : 'text';
   return (
     <InputContainer>
       <LeftImage icon={icon} />
       <div>
-        <RoundedInput type="text" placeholder={placeholder} />
+        <RoundedInput type={inputType} placeholder={placeholder} />
       </div>
     </InputContainer>
   );

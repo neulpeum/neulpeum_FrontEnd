@@ -564,7 +564,7 @@ const GlobalStyles = createGlobalStyle `
         height: auto;
     }
 
-    .goto-home-btn {
+    .home-button {
         width: 59px;
         height: 54px;
         margin-right: 20px;
