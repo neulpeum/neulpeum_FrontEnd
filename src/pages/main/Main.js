@@ -12,8 +12,8 @@ const Main = () => {
       </div>
       <div className='main-content'>
         <h3>늘픔 약 재고 관리 서비스에 오신 것을 환영합니다</h3>
-        <CustomInput placeholder="이름을 입력해주세요." icon="/icons/ic_name.svg" />
-        <CustomInput placeholder="비밀번호를 입력해주세요." icon="icons/ic_password.svg" />
+        <CustomInput placeholder="이름을 입력해주세요." icon="/icons/ic_name.svg" isPassword={false} />
+        <CustomInput placeholder="비밀번호를 입력해주세요." icon="icons/ic_password.svg" isPassword={true} />
         <LoginButton />
       </div>
       <footer className="footer">
