@@ -98,8 +98,8 @@ const AccountContent = () => {
 
     const [activeTab, setActiveTab] = useState(0);
     const TabButtons = [
-        {button: '관리자 비밀번호 변경', content: <CreateInputContainer />},
-        {button: '대학생 비밀번호 변경', content: <CreateInputContainer />},
+        {button: '관리자 비밀번호 변경', content: <CreateInputContainer currentState={'Admin'}/>},
+        {button: '대학생 비밀번호 변경', content: <CreateInputContainer currentState={'Student'}/>},
     ];
     
     const CreateAccountContent = {
