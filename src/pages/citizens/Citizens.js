@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 import { Link } from "react-router-dom";
 import SearchBar from '../../components/searchbar/SearchBar';
 import CitizenList from '../../components/citizenList/CitizenList';
@@ -14,7 +14,6 @@ const Citizens = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
 
    useEffect(() => {
     const fetchCitizens = async () => {

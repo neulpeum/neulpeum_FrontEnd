@@ -21,14 +21,11 @@ const LoginButtonText = styled.span`
   font-weight: bold;
 `;
 
-const LoginButton = () => {
-  const isMobile = window.innerWidth <= 768
-  var destination = isMobile ? "/citizens" : "/options";
-  
+const LoginButton = (props) => {
   return (
     <LoginButtonContainer>
-      <Link className="default-link-styles" to={destination}>
-        <LoginButtonText>로그인</LoginButtonText>
+      <Link className="default-link-styles">
+        <LoginButtonText onClick={props.onLoginClick}>로그인</LoginButtonText>
       </Link>
     </LoginButtonContainer>
   );
