@@ -1,8 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import styled from 'styled-components';
 
+const UploadContainer = styled.div`
+  width: 50%;
+  height: 100%;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 11px 14px;
+  border: 1px solid black;
+`
+const UploadImg = styled.img`
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  vertical-align: middle;
+`
+const UploadSpan = styled.span`
+  font-size: 20px;
+  position: absolute;
+  left: 54px;
+  top: 17px;
+`
+const UploadLabel = styled.label`
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.5);
+`
+const UploadBtn = styled.button`
+  width: 104px;
+  height: 37px;
+  font-size: 20px;
+  align-self: flex-end;
+  color: white;
+  background-color: #aed391;
+  border: 0px;
+  border-radius: 5px;
+  cursor: pointer;
+`
 const FileUpload = ({ onFileSaveClick } ) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef(null);
+
+  // 이미지 클릭 시 input 엘리먼트 클릭
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
 
   // 파일 유효성 검사
   const handleFile = (selectedFile) => { 
@@ -10,7 +57,11 @@ const FileUpload = ({ onFileSaveClick } ) => {
 
     const fileExtension = selectedFile.name.split('.').pop();
 
-    if (allowedExtensions.includes('.' + fileExtension.toLowerCase())) setSelectedFile(selectedFile);
+    if (allowedExtensions.includes('.' + fileExtension.toLowerCase())) {
+      setSelectedFile(selectedFile);
+
+      alert("파일이 선택되었습니다.");
+    }
     else alert('액셀 파일만 업로드 가능합니다.');
   };
 
@@ -22,7 +73,6 @@ const FileUpload = ({ onFileSaveClick } ) => {
     if (files.length === 1) {
       const selectedFile = files[0];
       handleFile(selectedFile);
-      alert("파일이 선택되었습니다.");
     } else { 
       alert("2개 이상의 파일은 허용되지 않습니다.");
     }
@@ -35,28 +85,31 @@ const FileUpload = ({ onFileSaveClick } ) => {
   }
 
   return (
-    <div className="upload-container">
-      <img 
-        src="/icons/ic_fileImg.svg" 
-        alt='파일 아이콘 이미지' 
-        className='ic-file' 
-        onClick={() => {}}
+    <UploadContainer>
+      <UploadImg
+        src="/icons/ic_fileImg.svg"
+        alt="파일 아이콘 이미지"
+        onClick={handleImageClick}
       />
-      <span className='ic-file-span'>파일 선택</span>
+      <UploadSpan>파일 선택</UploadSpan>
       
-
       <input
-        name='FileUploadInput'
+        ref={fileInputRef}
+        name="FileUploadInput"
         type="file"
-        style={{display:'none'}}
-        accept=".xlsx, .xls" // 액셀 파일 형식만 업로드 허용
+        style={{ display: "none" }}
+        accept=".xlsx, .xls" // 액셀 파일 확장자만 허용
         onChange={onSelectFile}
-        id='file-input-container'
+        id="file-input-container"
       />
-      <label htmlFor='file-input-container' className='upload-container-label' >액셀 파일을 업로드하세요</label>
-      
-      <button className='file-save-button' onClick={() => transmitDrugsData(selectedFile)}>저장</button>
-    </div>
+      {selectedFile ? (
+        <UploadLabel htmlFor='file-input-container'>선택된 파일: {selectedFile.name}</UploadLabel>
+      ) : (
+        <UploadLabel htmlFor='file-input-container'>액셀 파일을 업로드하세요</UploadLabel>
+        )
+      }
+      <UploadBtn onClick={() => transmitDrugsData(selectedFile)}>저장</UploadBtn>
+    </UploadContainer>
   );
 };
 
