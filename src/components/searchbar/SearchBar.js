@@ -62,6 +62,7 @@ const SearchInput = styled.input`
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 12px;
+    font-size: 16px;
     `}
    
 `;
@@ -116,9 +117,9 @@ const SearchIcon = styled.img`
     border-left: 1px solid black;
     `
     : `
-    border-left: 1px solid black;
     padding: 5px;
     cursor: pointer;
+    margin-right:4px;
     `}
   
 `;
@@ -141,7 +142,7 @@ const SortIcon = styled.img`
 
 const PlusIcon = styled.img`
   border: 1px solid black;
-  padding: 12px;
+  padding: 8px;
   margin-left: 20px;
   @media (max-width: 768px) {
     display: none;
@@ -177,14 +178,14 @@ const SearchBar = ({ sort, search, currentPage, isReversed, createBtn, onCitizen
       <SearchBarContainer>
         <SearchInputContainer>
           <SearchInput value={keyword} onChange={(event) => setKeyword(event.target.value)} type="text" placeholder='검색할 주민의 이름을 입력하세요.' />
-          <SearchIcon onClick={() => search(keyword)} src="/icons/ic_search.svg" alt="검색" />
+          <SearchIcon onClick={() => search(keyword)} src="/icons/ic_counSearch.svg" alt="검색" />
         </SearchInputContainer>
-        <SortContainer>
+        {/* <SortContainer>
           <SortContainerTag>
             {isReversed ? '정방향 정렬' : '역방향 정렬'}
           </SortContainerTag>
           <SortIcon onClick={() => sort()} src="/icons/ic_sort.svg" alt="정렬" />
-        </SortContainer>
+        </SortContainer> */}
   
         <PlusIcon src="/icons/ic_plus.svg" alt="주민 추가" onClick={onCitizenAddClick} />
       </SearchBarContainer>

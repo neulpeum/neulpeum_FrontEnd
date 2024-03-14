@@ -346,7 +346,7 @@ const GlobalStyles = createGlobalStyle `
         width: 1180px;
         overflow-x: auto;
         margin: 0 auto;
-        margin-top: 36px;
+        margin-top: 20px;
     }
 
     .table {
