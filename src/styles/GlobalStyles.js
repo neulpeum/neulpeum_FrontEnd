@@ -378,6 +378,19 @@ const GlobalStyles = createGlobalStyle `
         display: block;
     }
 
+    .DetailButtonContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 auto;
+    }
+
+    .DetailButton {
+        font-size: 26px;
+        font-weight: bold;
+    }
+
     /* FileUpload.css */
     .upload-container {
         width: 588px;
@@ -386,7 +399,6 @@ const GlobalStyles = createGlobalStyle `
         top: 283px;
         left: 171px;
         border: 1px solid black;
-
     }
     .ic-file {
         width: 30px;

@@ -27,6 +27,7 @@ const Citizens = () => {
           "http://52.78.35.193:8080/api/patient"
         );
 
+        console.log(res.data);
         setOriginalCitizens(res.data);
         setCitizens(res.data);
       } catch (e) {
@@ -56,13 +57,13 @@ const Citizens = () => {
   };
 
   const columns = [
-    { Header: '번호', accessor: 'patientId' },
+    // { Header: '번호', accessor: 'patientId' },
     { Header: '이름', accessor: 'patientName' },
     { Header: '주소', accessor: 'address' },
     { Header: '병력', accessor: 'disease' },
-    { Header: '복용중인 약', accessor: 'takingDrug' },
-    { Header: '특이사항', accessor: 'speicalReport' },
-    { Header: '', accessor: 'action', Cell: () => '조회' },
+    // { Header: '복용중인 약', accessor: 'takingDrug' },
+    { Header: '특이사항', accessor: 'specialReport' },
+    // { Header: '', accessor: 'action', Cell: () => '조회' },
   ];
 
   

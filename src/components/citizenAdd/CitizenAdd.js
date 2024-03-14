@@ -28,7 +28,7 @@ export default function CitizenAdd() {
           patientName: name,
           address: address,
           disease: medicalHistory,
-          speicalReport: notes,
+          specialReport: notes,
         };
         
         await axios.post("http://52.78.35.193:8080/api/patient", data);
