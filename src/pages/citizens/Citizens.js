@@ -5,6 +5,7 @@ import SearchBar from '../../components/searchbar/SearchBar';
 import CitizenList from '../../components/citizenList/CitizenList';
 import HeaderComponent from '../../components/header/Header';
 import axios from "axios";
+import NoResultView from '../../components/noResult/NoResult';
 
 
 const Citizens = () => {
@@ -14,6 +15,7 @@ const Citizens = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [finalKeyword, setFinalKeyword] = useState("");
 
    useEffect(() => {
     const fetchCitizens = async () => {
@@ -41,6 +43,7 @@ const Citizens = () => {
   };
 
   function search(keyword) {
+    setFinalKeyword(keyword);
     setCitizens(() => [...originalCitizens].filter((item) => item.patientName.includes(keyword)));
   }
 
@@ -69,6 +72,10 @@ const Citizens = () => {
     return;
   }
 
+  const mainView = citizens.length == 0 ?
+   <NoResultView name={finalKeyword} explain={"는 존재하지 않는 주민입니다."} /> :
+   <CitizenList columns={columns} data={citizens} onClickDetail={navigateToCitizenDetail}/>
+
   return (
     <div>
       <HeaderComponent/>
@@ -76,7 +83,7 @@ const Citizens = () => {
         <button className="goto-citizens">&lt;</button>
       </Link>
       <SearchBar sort={sortData} search={search} currentPage={"Citizens"} isReversed={isReversed} onCitizenAddClick={navigateToCitizenAdd}/>
-      <CitizenList columns={columns} data={citizens} onClickDetail={navigateToCitizenDetail}/>
+      {mainView}
     </div>
   );
 };

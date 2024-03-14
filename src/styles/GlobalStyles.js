@@ -564,6 +564,21 @@ const GlobalStyles = createGlobalStyle `
         height: auto;
     }
 
+    /* NoResult.css */
+    .NoResultViewContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        margin-top: 26px;
+    }
+
+    .SearchQuery {
+        margin-left: 7px;
+        font-size: 20px;
+    }
+
     /* Drugs.css */
     .Drugtable-wrapper {
         width: 77.7%;
