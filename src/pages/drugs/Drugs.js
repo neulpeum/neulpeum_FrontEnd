@@ -5,6 +5,8 @@ import DrugList from '../../components/drugList/DrugList';
 import HeaderComponent from '../../components/header/Header';
 import SearchBar from '../../components/searchbar/SearchBar';
 import FileUpload from '../../components/fileupload/FileUpload';
+import NoResultView from '../../components/noResult/NoResult';
+
 
 const DrugsTableStyledBtn = styled.button`
     width: 25px;
@@ -38,6 +40,7 @@ const Drugs = () => {
     { drugName:'타이레놀', expireDate: "2025-01-27", usableAmount: 30, 
     drugEnrollDate: "2024-01-27", drugModifyDate:"2024-01-27" },
     ];
+    const [finalKeyword, setFinalKeyword] = useState("");
 
     const [drugsData, setDrugsData] = useState(originalData);
 
@@ -63,6 +66,7 @@ const Drugs = () => {
     };
 
     function searchDrugsData(keyword) {
+        setFinalKeyword(keyword);
         setDrugsData(() => [...originalData].filter((item) => item.drugName.includes(keyword)));
     }
     const CreateUiPanel = () => {
@@ -97,13 +101,18 @@ const Drugs = () => {
         console.log(drugsfile); // 1. 전송된 drugfile의 데이터를 추출해 2. drugsData에 저장하는 로직 구현이 필요함
     }
 
+    const mainView = drugsData.length == 0 ?
+   <NoResultView name={finalKeyword} explain={"는 존재하지 않는 재고입니다."} /> :
+   <DrugList columns={columns} data={drugsData}/>
+   const drugButton = drugsData.length == 0 ? null : <DrugsStyledBtn>변경사항 저장</DrugsStyledBtn>;
+
     return (
         <>
-            < HeaderComponent />
+            <HeaderComponent />
             <CreateUiPanel />
-            < DrugList columns={columns} data={drugsData} />
+            {mainView}
             <div className='DrugStyleButtonContainer'>
-                <DrugsStyledBtn>변경사항 저장</DrugsStyledBtn>
+                {drugButton}
             </div>
         </>
     );
