@@ -564,12 +564,6 @@ const GlobalStyles = createGlobalStyle `
         height: auto;
     }
 
-    .home-button {
-        width: 59px;
-        height: 54px;
-        margin-right: 20px;
-    }
-
     /* Drugs.css */
     .Drugtable-wrapper {
         width: 77.7%;
@@ -852,9 +846,6 @@ const GlobalStyles = createGlobalStyle `
     .table-header:nth-child(5),
     .table-cell:nth-child(6),
     .table-header:nth-child(6) {
-        display: none;
-    }
-    .home-button {
         display: none;
     }
     .table-wrapper {
