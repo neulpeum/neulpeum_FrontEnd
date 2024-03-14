@@ -621,6 +621,12 @@ const GlobalStyles = createGlobalStyle `
         font-size: 20px;
     }
 
+    .DrugStyleButtonContainer {
+        width: 89%;
+        display: flex;
+        justify-content: end;
+    }
+
     /* AddCounseling.css */
     .addCounseling-wrapper {
         margin: 0 auto;

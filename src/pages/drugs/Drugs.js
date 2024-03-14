@@ -81,7 +81,6 @@ const Drugs = () => {
             search={searchDrugsData} 
             currentPage={"Drugs"} 
             isReversed={isReversed} 
-            createBtn={<DrugsStyledBtn>변경사항 저장</DrugsStyledBtn>}
             />
         </div>
         )
@@ -103,6 +102,9 @@ const Drugs = () => {
             < HeaderComponent />
             <CreateUiPanel />
             < DrugList columns={columns} data={drugsData} />
+            <div className='DrugStyleButtonContainer'>
+                <DrugsStyledBtn>변경사항 저장</DrugsStyledBtn>
+            </div>
         </>
     );
 };

@@ -111,10 +111,9 @@ const SearchIcon = styled.img`
   ${(props) =>
     props.using === 'drugs'
     ? `
-    width: 55px;
-    height: 55px;
+    padding: 5px;
     cursor: pointer;
-    border-left: 1px solid black;
+    margin-right:4px;
     `
     : `
     padding: 5px;
@@ -149,7 +148,7 @@ const PlusIcon = styled.img`
   }
 `;
 
-const SearchBar = ({ sort, search, currentPage, isReversed, createBtn, onCitizenAddClick}) => {
+const SearchBar = ({ sort, search, currentPage, isReversed, onCitizenAddClick}) => {
   const [keyword, setKeyword] = useState('');
 
   // 각 페이지 마다 달라지는 컴포넌트 구성 Drugs, Citizens
@@ -160,14 +159,13 @@ const SearchBar = ({ sort, search, currentPage, isReversed, createBtn, onCitizen
         <SearchInputContainer using='drugs'>
           <SearchInput value={keyword} onChange={(event) => setKeyword(event.target.value)}
           using='drugs' name='searchInput' type="text" placeholder='검색할 약 이름을 입력하세요.' />
-          <SearchIcon onClick={() => search(keyword)} using='drugs' src="/icons/ic_drugSearch.svg" alt="검색" />
+          <SearchIcon onClick={() => search(keyword)} using='drugs' src="/icons/ic_counSearch.svg" alt="검색" />
         </SearchInputContainer>
         <div style={{display:'flex', flexDirection: 'row', gap: '1rem'}}>
-          <SortContainer using='drugs'>
+          {/* <SortContainer using='drugs'>
             <SortContainerTag using='drugs'>정렬 기준</SortContainerTag>
             <SortIcon using='drugs' src="/icons/ic_sort.svg" alt="정렬" />
-          </SortContainer>
-          {createBtn}
+          </SortContainer> */}
         </div>
         
       </SearchBarContainer>
