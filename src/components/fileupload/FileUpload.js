@@ -108,7 +108,7 @@ const FileUpload = ({ onFileSaveClick } ) => {
         <UploadLabel htmlFor='file-input-container'>액셀 파일을 업로드하세요</UploadLabel>
         )
       }
-      <UploadBtn onClick={() => transmitDrugsData(selectedFile)}>저장</UploadBtn>
+      <UploadBtn onClick={() => transmitDrugsData(selectedFile)}>업로드</UploadBtn>
     </UploadContainer>
   );
 };

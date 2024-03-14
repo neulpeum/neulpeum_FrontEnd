@@ -22,11 +22,14 @@ const CitizenList = ({ columns, data, onClickDetail }) => {
           {rows.map(row => {
             prepareRow(row);
             return (
-                <tr {...row.getRowProps()} className="table-row">
+                <tr {...row.getRowProps()} className="table-row" onClick={() => onClickDetail(row.original.patientId)}>
                   {row.cells.map(cell => (
                     <td {...cell.getCellProps()} className="table-cell">
-                      {cell.column.id === 'action' ? (
-                        <button onClick={() => onClickDetail(row.original.patientId)}>조회 {'>'}</button>
+                      {cell.column.id === 'specialReport' ? (
+                        <div className='DetailButtonContainer'>
+                          <a>{cell.row.values['specialReport']}</a>
+                          <a className='DetailButton'>{'>'}</a>
+                        </div>
                       ) : (
                         cell.render('Cell')
                       )}

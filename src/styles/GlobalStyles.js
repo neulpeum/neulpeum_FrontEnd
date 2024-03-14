@@ -346,7 +346,7 @@ const GlobalStyles = createGlobalStyle `
         width: 1180px;
         overflow-x: auto;
         margin: 0 auto;
-        margin-top: 36px;
+        margin-top: 20px;
     }
 
     .table {
@@ -378,6 +378,19 @@ const GlobalStyles = createGlobalStyle `
         display: block;
     }
 
+    .DetailButtonContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 auto;
+    }
+
+    .DetailButton {
+        font-size: 26px;
+        font-weight: bold;
+    }
+
     /* FileUpload.css */
     .upload-container {
         width: 588px;
@@ -386,7 +399,6 @@ const GlobalStyles = createGlobalStyle `
         top: 283px;
         left: 171px;
         border: 1px solid black;
-
     }
     .ic-file {
         width: 30px;
@@ -564,6 +576,21 @@ const GlobalStyles = createGlobalStyle `
         height: auto;
     }
 
+    /* NoResult.css */
+    .NoResultViewContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        margin-top: 26px;
+    }
+
+    .SearchQuery {
+        margin-left: 7px;
+        font-size: 20px;
+    }
+
     /* Drugs.css */
     .Drugtable-wrapper {
         width: 77.7%;
@@ -592,6 +619,12 @@ const GlobalStyles = createGlobalStyle `
         padding: 1em 0;
         text-align: center;
         font-size: 20px;
+    }
+
+    .DrugStyleButtonContainer {
+        width: 89%;
+        display: flex;
+        justify-content: end;
     }
 
     /* AddCounseling.css */
