@@ -34,6 +34,7 @@ export default function CitizenCounselList() {
       const response = await axios.get(
         `http://52.78.35.193:8080/api/patient/consult?patientId=${patientId}`
       );
+      console.log(response.data);
       setData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -43,21 +44,22 @@ export default function CitizenCounselList() {
   const columns = useMemo(
     () => [
       {
-        accessor: "providerName",
-        Header: "상담자",
-      },
-      {
-        accessor: "takingDrug",
-        Header: "제공otc",
-      },
-      {
         accessor: "consultDate",
         Header: "방문날짜",
       },
+      
       {
-        accessor: "consultId",
-        Header: "",
+        accessor: "providerName",
+        Header: "상담자(대학생)",
       },
+      {
+        accessor: "takingDrug",
+        Header: "제공 otc",
+      },
+      // {
+      //   accessor: "consultId",
+      //   Header: "",
+      // },
     ],
     []
   );
@@ -91,7 +93,6 @@ export default function CitizenCounselList() {
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              <th>번호</th>
               {headerGroup.headers.map((column) => (
                 <th
                   {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -103,20 +104,17 @@ export default function CitizenCounselList() {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row, index) => {
+          {rows.map((row) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
-                <td>{index + 1}</td>
                 {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>
-                    {cell.column.id === "consultId" ? (
-                      <button
-                        className="inquiry-btn"
-                        onClick={() => openModal(cell.value)}
-                      >
-                        조회 &gt;
-                      </button>
+                  <td onClick={() => openModal(cell.row.original.consultId)} {...cell.getCellProps()}>
+                    {cell.column.id === "takingDrug" ? (
+                      <div className='DetailButtonContainer'>
+                        <a>{cell.row.values['takingDrug']}</a>
+                        <a className='DetailButton'>{'>'}</a>
+                      </div>
                     ) : (
                       cell.render("Cell")
                     )}
