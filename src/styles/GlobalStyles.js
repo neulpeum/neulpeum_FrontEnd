@@ -609,16 +609,17 @@ const GlobalStyles = createGlobalStyle `
 
     .Drugtable-header {
         border: 1px solid black;
-        padding: 2em 0;
+        padding: 30px 0;
         text-align: center;
-        font-size: 20px;
+        font-size: 28px;
+        font-weight: bold;
     }
     .Drugtable-cells {
         overflow-y: auto;
     }
     .Drugtable-cell {
         border: 1px solid black;
-        padding: 1em 0;
+        padding: 15px 0;
         text-align: center;
         font-size: 20px;
         overflow-x: auto;

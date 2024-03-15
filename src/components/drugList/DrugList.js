@@ -1,7 +1,7 @@
 import React from "react";
 import { useTable } from "react-table";
 
-const DrugList = ({ columns, data }) => {
+const DrugList = ({ columns, data, savebtn}) => {
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
 
@@ -34,6 +34,7 @@ const DrugList = ({ columns, data }) => {
         })}
       </tbody>
     </table>
+    {savebtn()}
   </div>
   );
 };

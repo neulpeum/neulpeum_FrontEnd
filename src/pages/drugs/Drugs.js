@@ -18,11 +18,10 @@ const UiPanelContainer = styled.div`
     height: 12.7%;
     gap: 1rem;
 `
-
 const DrugsTableStyledBtn = styled.button`
     width: 25px;
     height: 25px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     border-radius: 50%;
     color: white;
@@ -35,7 +34,6 @@ const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
     width: 192px;
     height: 48px;
     border-radius: 5px;
-    margin: 0;
 `
 const Drugs = () => {
     const [originalDrugs, setOriginalDrugs] = useState(null); // 이게 서버에 저장중인 약 데이터
@@ -54,12 +52,10 @@ const Drugs = () => {
             )
         },
         {Header: "등록일자", accessor: 'drugEnrollTime', type: 'text'},
-        {Header: "수정일자", accessor: 'drugModifiedTime', type: 'text'},
+        {Header: "마지막 사용 일자", accessor: 'drugModifiedTime', type: 'text'},
     ];
     // 서버 ip 주소: http://52.78.35.193:8080
     // 약 재고 업데이트 PUT 요청 url 주소: /api/drug
-    // 약 재고 조회 GET 요청 url 주소: /api/drug
-    // 약 재고 검색 GET 요청 url 주소: /api/findDrug?drugName=타이레놀 :: Request 형태
 
     const [isReversed, setReverse] = useState(false);
     function sortDrugsData() {
@@ -85,14 +81,7 @@ const Drugs = () => {
             console.log(response.data);
         })
         .catch(error => {
-            // error의 형식
-            // {
-            //     "code": 400,
-            //     "httpStatus": "Bad Request",
-            //     "message": "잘못된 요청입니다."
-            // }
             if (error.response) {
-              // 서버가 응답한 상태 코드에 따라 오류 처리
               if (error.response.status === 400) {
                 console.error('Bad Request 오류');
                 console.error('오류 코드:', error.response.data.code);
@@ -101,10 +90,8 @@ const Drugs = () => {
                 console.error('서버에서 오류가 발생했습니다. 상태 코드:', error.response.status);
               }
             } else if (error.request) {
-              // 요청은 되었지만 응답이 없는 경우
               console.error('서버 응답이 없습니다.');
             } else {
-              // 요청을 설정하는 중에 오류가 발생한 경우
               console.error('오류 발생:', error.message);
             }
           });
@@ -138,28 +125,16 @@ const Drugs = () => {
         return formattedDate;
     }
 
-    // const Ex = [
-    //     {
-    //         "drugName": "타이레놀",
-    //         "expireDate": "2025-01-27",
-    //         "usableAmount": 100,
-    //         "drugEnrollTime": "2024-02-04",
-    //         "drugModifiedTime": "2024-02-18"
-    //     },
-    // ]
-    const CreateUiPanel = () => {
-        return (
-            <UiPanelContainer>
-                <FileUpload UploadedFile={ReadJsonDrugs}/>
-                <SearchBar 
-                sort={sortDrugsData} 
-                search={searchDrugs} 
-                currentPage={"Drugs"} 
-                isReversed={isReversed} 
-                createBtn={<DrugsStyledBtn>변경사항 저장</DrugsStyledBtn>}
-                />
-            </UiPanelContainer>
-        )
+    async function UpdateDrugs()  {
+        if (!originalDrugs) return;
+        await axios.get("http://52.78.35.193:8080/api/drug")
+        .then (response => {
+            setOriginalDrugs(response.data);
+            console.log("약 재고가 성공적으로 업데이트되었습니다.");
+        })
+        .catch (error => {
+            console.log(error, error.response, error.request);
+        })
     }
 
     const handleQuantityChange = (index, change) => {
@@ -176,22 +151,40 @@ const Drugs = () => {
                 try {
                     const response = await axios.get("http://52.78.35.193:8080/api/drug");
                     setOriginalDrugs(response.data);
-                    setCurrentDrugsData(response.data); //좀있다 지울것
+                    setCurrentDrugsData(response.data);
                 } catch (e) {
                     console.log('서버에서 데이터를 GET 하는 중 알 수 없는 에러를 감지했습니다.');
                 }
             }
         }
         fetchDrugs();
-    }, []); // 원본 데이터가 변경될경우 다시 서버에서 받아온다고? 근데 그건 백엔드쪽이지 프론트쪽이아니잖아?
+    }, [originalDrugs]); // 원본 데이터가 변경될경우 다시 서버에서 받아온다고? 근데 그건 백엔드쪽이지 프론트쪽이아니잖아?
 
 
+    function CreateBtn() {
+        return(
+            <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
+        )
+    }
     // 아래에 DrugList는 현재 화면에 보여줘야할 data를 집어넣어야만한다
     return (
         <>
             <HeaderComponent />
             <CreateUiPanel />
             < DrugList columns={columns} data={currentDrugsData} /> 
+            < HeaderComponent />
+            <UiPanelContainer>
+                <FileUpload UploadedFile={ReadJsonDrugs}/>
+                <SearchBar 
+                search={searchDrugs} 
+                currentPage={"Drugs"} 
+                />
+            </UiPanelContainer>
+            < DrugList 
+            columns={columns} 
+            data={currentDrugsData}
+            savebtn={CreateBtn}
+            /> 
         </>
     );
 };
