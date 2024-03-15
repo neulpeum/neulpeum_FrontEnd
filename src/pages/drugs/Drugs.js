@@ -69,34 +69,6 @@ const Drugs = () => {
         setReverse(!isReversed);
     };
 
-    async function searchDrugs(keyword) {
-        if (keyword === null) return;
-
-        await axios.get(`http://52.78.35.193:8080/api/findDrug?drugName=${keyword}`)
-        //setCurrentDrugsData(() => [...originalDrugs].filter((item) => item.drugName.includes(keyword))); 
-        //위에건 어차피 [약 재고 조회] api로 가져왔으니, [약 재고 업데이트] 요청 이전에 약 재고들은 [약 재고 검색] 
-        //요청 필요없이 originalDrugs로 보면 되지 않나 싶어서 남겨둠
-        .then (response => {
-            setCurrentDrugsData(response.data);
-            console.log(response.data);
-        })
-        .catch(error => {
-            if (error.response) {
-              if (error.response.status === 400) {
-                console.error('Bad Request 오류');
-                console.error('오류 코드:', error.response.data.code);
-                console.error('오류 메시지:', error.response.data.message);
-              } else {
-                console.error('서버에서 오류가 발생했습니다. 상태 코드:', error.response.status);
-              }
-            } else if (error.request) {
-              console.error('서버 응답이 없습니다.');
-            } else {
-              console.error('오류 발생:', error.message);
-            }
-          });
-    }
-
     const ReadJsonDrugs = (jsonDrugs) => {
         // slice(1) 를 통해 엑셀의 헤더부분을 제외하고 mapping하는 작업을 했지만... 왠지 모르게 불만족스럽다. 
         // 더 정교하게 설계해야겠다.
@@ -170,13 +142,10 @@ const Drugs = () => {
     return (
         <>
             <HeaderComponent />
-            <CreateUiPanel />
-            < DrugList columns={columns} data={currentDrugsData} /> 
-            < HeaderComponent />
             <UiPanelContainer>
                 <FileUpload UploadedFile={ReadJsonDrugs}/>
                 <SearchBar 
-                search={searchDrugs} 
+                search={null}
                 currentPage={"Drugs"} 
                 />
             </UiPanelContainer>
