@@ -36,7 +36,7 @@ const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
     border-radius: 5px;
 `
 const Drugs = () => {
-    const [originalDrugs, setOriginalDrugs] = useState(null); // 이게 서버에 저장중인 약 데이터
+    const [originalDrugs, setOriginalDrugs] = useState([]); // 이게 서버에 저장중인 약 데이터
     const [currentDrugsData, setCurrentDrugsData] = useState([]);  // 요게 화면에 랜더링할 약 데이터 Current
 
     const columns = [
@@ -102,6 +102,7 @@ const Drugs = () => {
         await axios.get("http://52.78.35.193:8080/api/drug")
         .then (response => {
             setOriginalDrugs(response.data);
+            setCurrentDrugsData(response.data);
             console.log("약 재고가 성공적으로 업데이트되었습니다.");
         })
         .catch (error => {
@@ -124,6 +125,7 @@ const Drugs = () => {
                     const response = await axios.get("http://52.78.35.193:8080/api/drug");
                     setOriginalDrugs(response.data);
                     setCurrentDrugsData(response.data);
+                    console.log(response.data);
                 } catch (e) {
                     console.log('서버에서 데이터를 GET 하는 중 알 수 없는 에러를 감지했습니다.');
                 }
