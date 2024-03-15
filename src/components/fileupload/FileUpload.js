@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import * as XLSX from 'xlsx';
 
 const UploadContainer = styled.div`
   width: 50%;
@@ -44,43 +45,68 @@ const UploadBtn = styled.button`
 const FileUpload = ({ UploadedFile } ) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const [convertedFile, setConvertedFile] = useState(null);
   const fileInputRef = useRef(null);
 
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
 
-  // 파일 유효성 검사
-  const handleFile = (selectedFile) => { 
-    const allowedExtensions = ['.xlsx', '.xls'];
-
-    const fileExtension = selectedFile.name.split('.').pop();
-
-    if (allowedExtensions.includes('.' + fileExtension.toLowerCase())) {
-      setSelectedFile(selectedFile);
-
-      alert("파일이 선택되었습니다.");
-    }
-    else alert('액셀 파일만 업로드 가능합니다.');
-  };
-
-  // 파일 탐색 후 선택 업로드
-  const onSelectFile = (event) => {
-    const files = event.target.files;
-    console.log(files);
-
-    if (files.length === 1) {
-      const selectedFile = files[0];
-      handleFile(selectedFile);
-    } else { 
-      alert("2개 이상의 파일은 허용되지 않습니다.");
+  const onhandleFile = async (file) => {
+    try {
+        const workbook = await readExcelFile(file);
+        const tableData = extractSheetData(workbook);
+        setConvertedFile(tableData);
+    } catch (error) {
+      console.error('엑셀 파일을 읽는 중 에러가 발생했습니다.:', error);
     }
   };
 
-  // [파일 저장]버튼이 눌린뒤 Drugs로 전송함
+  const readExcelFile = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const data = e.target.result;
+        const workbook = XLSX.read(data, { type: 'array' });
+        resolve(workbook);
+      };
+
+      reader.onerror = (error) => {
+        console.log(error);
+        reject(error);
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+  };
+
+  const extractSheetData = (workbook) => {
+    const sheetName = workbook.SheetNames[0];
+    const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
+
+    return sheetData;
+  };
+
+  const onSelectFile = async (event) => {
+    const file = (event.target.files.length === 1) ? event.target.files[0] : null;
+    if (file) {
+      const fileExtension = file.name.split('.').pop();
+      const allowedExtensions = ['.xlsx', '.xls'];
+      if (allowedExtensions.includes('.' + fileExtension.toLowerCase())) {
+        try {
+          setSelectedFile(file);
+          onhandleFile(file, event);
+        }
+        catch (error) {
+          console.log(error);
+        }
+      } else alert('파일 형식이 .xlsx, .xls 만 허용됩니다.');
+    } else return(alert('파일이 등록되지 않았습니다.'));
+  };
+
   const transmitDrugsData = (file) => {
-    // 업로드 파일이 존재할 시에만 전송
-    if (file) UploadedFile(file);
+    if (file) {UploadedFile(file);}
     else alert("현재 업로드된 파일이 없습니다. 파일을 선택하고 업로드한 후 시도해주세요.");
   }
 
@@ -98,17 +124,14 @@ const FileUpload = ({ UploadedFile } ) => {
         name="FileUploadInput"
         type="file"
         style={{ display: "none" }}
-        accept=".xlsx, .xls" // 액셀 파일 확장자만 허용
+        accept=".xlsx, .xls"
         onChange={onSelectFile}
         id="file-input-container"
       />
-      {selectedFile ? (
-        <UploadLabel htmlFor='file-input-container'>선택된 파일: {selectedFile.name}</UploadLabel>
-      ) : (
-        <UploadLabel htmlFor='file-input-container'>액셀 파일을 업로드하세요</UploadLabel>
-        )
-      }
-      <UploadBtn onClick={() => transmitDrugsData(selectedFile)}>업로드</UploadBtn>
+      <UploadLabel htmlFor='file-input-container'>
+        {selectedFile ? `선택된 파일: ${selectedFile.name}` : '액셀 파일을 업로드하세요'}
+      </UploadLabel>
+      <UploadBtn onClick={() => transmitDrugsData(convertedFile)}>업로드</UploadBtn>
     </UploadContainer>
   );
 };

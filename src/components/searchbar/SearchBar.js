@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-//SearchBar 컴포넌트는 Citizens 와 Drugs 페이지, 2개에 포함됨
 const SearchBarContainer = styled.div`
   ${(props) =>
     props.using === 'drugs'
