@@ -8,13 +8,10 @@ const createHeader = () => {
   return(
     <div className="header-container">
       <div className="logo-container">
-        <a href={dest}>
+        <Link className="home-button" to={dest}>
           <img src="/icons/ic_logo.svg" alt="logo" className="logo"/>
-        </a>
+        </Link>
       </div>
-      <Link className="home-button" to="/">
-        <img src="/icons/ic_home.svg" alt="Home"/>
-      </Link>
     </div>
   )
 }

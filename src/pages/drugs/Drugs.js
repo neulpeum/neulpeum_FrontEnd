@@ -36,9 +36,8 @@ const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
     border-radius: 5px;
 `
 const Drugs = () => {
-    const [originalDrugs, setOriginalDrugs] = useState([]); // 이게 서버에 저장중인 약 데이터
+    const [originalDrugs, setOriginalDrugs] = useState(); // 이게 서버에 저장중인 약 데이터
     const [currentDrugsData, setCurrentDrugsData] = useState([]);  // 요게 화면에 랜더링할 약 데이터 Current
-
     const columns = [
         { Header: "약 이름", accessor: 'drugName', type: 'text'},
         { Header: "유통기한", accessor: 'expireDate', type: 'text'},
@@ -151,11 +150,8 @@ const Drugs = () => {
                 currentPage={"Drugs"} 
                 />
             </UiPanelContainer>
-            < DrugList 
-            columns={columns} 
-            data={currentDrugsData}
-            savebtn={CreateBtn}
-            /> 
+            < DrugList columns={columns} data={currentDrugsData}savebtn={CreateBtn}/> 
+            {console.log(currentDrugsData)}
         </>
     );
 };
