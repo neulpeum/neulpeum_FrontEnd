@@ -41,12 +41,11 @@ const UploadBtn = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `
-const FileUpload = ({ onFileSaveClick } ) => {
+const FileUpload = ({ UploadedFile } ) => {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
 
-  // 이미지 클릭 시 input 엘리먼트 클릭
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
@@ -67,8 +66,8 @@ const FileUpload = ({ onFileSaveClick } ) => {
 
   // 파일 탐색 후 선택 업로드
   const onSelectFile = (event) => {
-    const fileInput = event.target;
-    const files = fileInput.files;
+    const files = event.target.files;
+    console.log(files);
 
     if (files.length === 1) {
       const selectedFile = files[0];
@@ -79,9 +78,10 @@ const FileUpload = ({ onFileSaveClick } ) => {
   };
 
   // [파일 저장]버튼이 눌린뒤 Drugs로 전송함
-  const transmitDrugsData = (data) => {
-    if (data !== null) onFileSaveClick(data);
-    else alert("현재 업로드된 파일이 없습니다.");
+  const transmitDrugsData = (file) => {
+    // 업로드 파일이 존재할 시에만 전송
+    if (file) UploadedFile(file);
+    else alert("현재 업로드된 파일이 없습니다. 파일을 선택하고 업로드한 후 시도해주세요.");
   }
 
   return (
