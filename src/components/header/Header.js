@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const createHeader = () => {
   const isMobile = window.innerWidth <= 768
@@ -7,9 +8,9 @@ const createHeader = () => {
   return(
     <div className="header-container">
       <div className="logo-container">
-        <a href={dest}>
+        <Link className="home-button" to={dest}>
           <img src="/icons/ic_logo.svg" alt="logo" className="logo"/>
-        </a>
+        </Link>
       </div>
     </div>
   )

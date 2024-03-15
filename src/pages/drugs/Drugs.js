@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {useTable} from 'react-table';
 import styled from 'styled-components';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 import DrugList from '../../components/drugList/DrugList';
 import HeaderComponent from '../../components/header/Header';
 import SearchBar from '../../components/searchbar/SearchBar';
@@ -8,10 +10,18 @@ import FileUpload from '../../components/fileupload/FileUpload';
 import NoResultView from '../../components/noResult/NoResult';
 
 
+const UiPanelContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 0 11.5%;
+    width: 75%;
+    height: 12.7%;
+    gap: 1rem;
+`
 const DrugsTableStyledBtn = styled.button`
     width: 25px;
     height: 25px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     border-radius: 50%;
     color: white;
@@ -24,26 +34,10 @@ const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
     width: 192px;
     height: 48px;
     border-radius: 5px;
-    margin: 0;
 `
 const Drugs = () => {
-
-    const [isReversed, setReverse] = useState(false);
-
-    // 약 재고 업데이트 PUT 요청 url 주소: /api/drug
-    // 약 재고 조회 GET 요청 url 주소: /api/drug
-    // 약 재고 검색 GET 요청 url 주소: /api/findDrug?drugName=타이레놀 :: Request 형태
-    // axios.get('')
-    const originalData = [
-    { drugName:'타이레놀', expireDate: "2025-01-27", usableAmount: 30, 
-    drugEnrollDate: "2024-01-27", drugModifyDate:"2024-01-27" },
-    { drugName:'타이레놀', expireDate: "2025-01-27", usableAmount: 30, 
-    drugEnrollDate: "2024-01-27", drugModifyDate:"2024-01-27" },
-    ];
-    const [finalKeyword, setFinalKeyword] = useState("");
-
-    const [drugsData, setDrugsData] = useState(originalData);
-
+    const [originalDrugs, setOriginalDrugs] = useState(); // 이게 서버에 저장중인 약 데이터
+    const [currentDrugsData, setCurrentDrugsData] = useState([]);  // 요게 화면에 랜더링할 약 데이터 Current
     const columns = [
         { Header: "약 이름", accessor: 'drugName', type: 'text'},
         { Header: "유통기한", accessor: 'expireDate', type: 'text'},
@@ -56,64 +50,108 @@ const Drugs = () => {
                 </div>
             )
         },
-        {Header: "등록일자", accessor: 'drugEnrollDate', type: 'text'},
-        {Header: "수정일자", accessor: 'drugModifyDate', type: 'text'},
+        {Header: "등록일자", accessor: 'drugEnrollTime', type: 'text'},
+        {Header: "마지막 사용 일자", accessor: 'drugModifiedTime', type: 'text'},
     ];
+    // 서버 ip 주소: http://52.78.35.193:8080
+    // 약 재고 업데이트 PUT 요청 url 주소: /api/drug
 
+    const [isReversed, setReverse] = useState(false);
     function sortDrugsData() {
-        setDrugsData(prevData => [...prevData].reverse());
+        setCurrentDrugsData(prevData => [...prevData].sort((a, b) => {
+            if (isReversed) {
+                return b.expireDate.localeCompare(a.expireDate);
+              } else {
+                return a.expireDate.localeCompare(b.expireDate);
+              }
+        }))
         setReverse(!isReversed);
     };
 
-    function searchDrugsData(keyword) {
-        setFinalKeyword(keyword);
-        setDrugsData(() => [...originalData].filter((item) => item.drugName.includes(keyword)));
+    const ReadJsonDrugs = (jsonDrugs) => {
+        // slice(1) 를 통해 엑셀의 헤더부분을 제외하고 mapping하는 작업을 했지만... 왠지 모르게 불만족스럽다. 
+        // 더 정교하게 설계해야겠다.
+        const FormattedDrugs = jsonDrugs.slice(1).map((row, index) => {
+            const [drugName, expireDate, usableAmount, drugEnrollTime, drugModifiedTime] = row;
+
+            return {
+                drugName: drugName,
+                expireDate: ConvertedDate(expireDate),
+                usableAmount: usableAmount,
+                drugEnrollTime: ConvertedDate(drugEnrollTime),
+                drugModifiedTime: ConvertedDate(drugModifiedTime),
+              };
+        });
+        setCurrentDrugsData(FormattedDrugs);
     }
-    const CreateUiPanel = () => {
-        return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            margin: '0 11.5%', 
-            width: '75%', 
-            height: '12.7%',
-            gap: '1rem'
-            }}>
-            <FileUpload onFileSaveClick={setTransmittedData}/>
-            <SearchBar 
-            sort={sortDrugsData} 
-            search={searchDrugsData} 
-            currentPage={"Drugs"} 
-            isReversed={isReversed} 
-            />
-        </div>
-        )
+
+    // 엑셀 형식 Date -> json 형식 Date : 변환
+    function ConvertedDate(excelDate) {
+        // 엑셀 날짜의 기준일 (1900년 1월 0일)
+        const baseDate = new Date(1899, 11, 30);
+        // 엑셀 날짜에 해당하는 밀리초 계산
+        const milliseconds = excelDate * 24 * 60 * 60 * 1000;
+        const jsDate = new Date(baseDate.getTime() + milliseconds);
+        const formattedDate = jsDate.toISOString().split('T')[0];
+        return formattedDate;
+    }
+
+    async function UpdateDrugs()  {
+        if (!originalDrugs) return;
+        await axios.get("http://52.78.35.193:8080/api/drug")
+        .then (response => {
+            setOriginalDrugs(response.data);
+            setCurrentDrugsData(response.data);
+            console.log("약 재고가 성공적으로 업데이트되었습니다.");
+        })
+        .catch (error => {
+            console.log(error, error.response, error.request);
+        })
     }
 
     const handleQuantityChange = (index, change) => {
-        setDrugsData(prevData => {
+        setCurrentDrugsData(prevData => {
             const newData = [...prevData];
             newData[index].usableAmount += change;
             return newData;
         })
     }
-    const setTransmittedData = (drugsfile) => {
-        console.log(drugsfile); // 1. 전송된 drugfile의 데이터를 추출해 2. drugsData에 저장하는 로직 구현이 필요함
+
+    useEffect(() => {
+        const fetchDrugs = async () => {
+            if (!originalDrugs) {
+                try {
+                    const response = await axios.get("http://52.78.35.193:8080/api/drug");
+                    setOriginalDrugs(response.data);
+                    setCurrentDrugsData(response.data);
+                    console.log(response.data);
+                } catch (e) {
+                    console.log('서버에서 데이터를 GET 하는 중 알 수 없는 에러를 감지했습니다.');
+                }
+            }
+        }
+        fetchDrugs();
+    }, [originalDrugs]); // 원본 데이터가 변경될경우 다시 서버에서 받아온다고? 근데 그건 백엔드쪽이지 프론트쪽이아니잖아?
+
+
+    function CreateBtn() {
+        return(
+            <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
+        )
     }
-
-    const mainView = drugsData.length == 0 ?
-   <NoResultView name={finalKeyword} explain={"는 존재하지 않는 재고입니다."} /> :
-   <DrugList columns={columns} data={drugsData}/>
-   const drugButton = drugsData.length == 0 ? null : <DrugsStyledBtn>변경사항 저장</DrugsStyledBtn>;
-
+    // 아래에 DrugList는 현재 화면에 보여줘야할 data를 집어넣어야만한다
     return (
         <>
             <HeaderComponent />
-            <CreateUiPanel />
-            {mainView}
-            <div className='DrugStyleButtonContainer'>
-                {drugButton}
-            </div>
+            <UiPanelContainer>
+                <FileUpload UploadedFile={ReadJsonDrugs}/>
+                <SearchBar 
+                search={null}
+                currentPage={"Drugs"} 
+                />
+            </UiPanelContainer>
+            < DrugList columns={columns} data={currentDrugsData}savebtn={CreateBtn}/> 
+            {console.log(currentDrugsData)}
         </>
     );
 };

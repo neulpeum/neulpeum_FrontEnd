@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import table from "react-table";
 import styled from 'styled-components';
 import HeaderComponent from '../../components/header/Header';
 import axios from "axios";
-
+// "http://52.78.35.193:8080/api/admin" : 관리자 계정 비밀번호 변경 Method: PATCH
+// `http://52.78.35.193:8080/api/admin/${changePw}` : 대학생 계정 비밀번호 변경 Method: PATCH
 const AccountContainer = styled.div`
     width: 81.3%;
     height: fit-content;
@@ -27,7 +27,7 @@ const AccountInputContainer = styled.div`
     padding: 2em;
 `;
 const AccountSpan = styled.span`
-    font-size: 20px;
+    font-size: 28px;
     font-weight: bold;
     white-space: nowrap;
 `;
@@ -39,13 +39,14 @@ const AccountInput= styled.input`
     padding-top: 1em;
     padding-bottom: 1em;
     line-height: 1.5em;
-    font-size: 20px;
+    font-size: 28px;
+    cursor: pointer;
 `;
 const AccountButton = styled.button`
     background-color: #aed391;
     border: none;
     color: white;
-    font-size: 20px;
+    font-size: 28px;
     font-weight: bold;
     cursor: pointer;
     padding: 1rem 2.8rem;
@@ -55,92 +56,85 @@ const TabButton = styled.button`
     border: 0.5px solid black;
     padding: 1.38rem 0;
     border-radius: 2rem 2rem 0 0;
-    background-color: ${({ isActive }) => (isActive ? '#aed391' : '#FFF')};
     color: black;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 32px;
     cursor: pointer;
 `;
 const PickIcon = styled.img`
-    visibility: ${({isActive}) => isActive ?  'visible' : 'hidden'};
     vertical-align: top;
     margin-right: 15px;
     width: 24px;
     height: 24px;
 `
-const AccountContent = () => {
-    const CreateInputContainer = ({currentState}) => {
-        return (
-            <AccountInputContainer >
-                <AccountSpan>
-                    {(currentState === 'Admin') ? '관리자 비밀번호 변경하기' : '대학생 비밀번호 변경하기'}
-                </AccountSpan>
-                <AccountInput 
-                type='text' 
-                placeholder='현재 비밀번호 입력' 
-                id="idForAdmin"
-                />
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                    <AccountInput 
-                    type='password' 
-                    placeholder='새 비밀번호 입력' 
-                    id="passwordForAdmin"/>
-                    <AccountInput 
-                    type='password' 
-                    placeholder='새 비밀번호 확인' 
-                    id="passwordForAdminCheck"
-                    />
-                </div>
-                <AccountButton onClick={() => {}}>계정 변경</AccountButton>
-            </AccountInputContainer>
-        )
-    }
-
-    const [activeTab, setActiveTab] = useState(0);
-    const TabButtons = [
-        {button: '관리자 비밀번호 변경', content: <CreateInputContainer />},
-        {button: '대학생 비밀번호 변경', content: <CreateInputContainer />},
-    ];
-    
-    const CreateAccountContent = {
-        content: (
-        <AccountContainer>
-            <SwitchButtonContainer>
-                {TabButtons.map((tab, index) => (
-                    <TabButton
-                    key={index}
-                    isActive={activeTab === index}
-                    onClick={() => setActiveTab(index)}>
-                    
-                    <PickIcon src="/icons/ic_selected.svg" isActive={activeTab === index}/>{tab.button}
-                    </TabButton>
-                ))}
-            </SwitchButtonContainer>
-            {TabButtons[activeTab].content}
-        </AccountContainer>
-        ),
-        config : {
-
-        }
-    };
-    const currentContent = CreateAccountContent;
-
-    return <>{currentContent.content}</>
-}
+// const [originalPw, setOriginalPw] = useState(""); // 현재 비밀번호 입력
+    // const [newPw, setNewPw] = useState(""); //새 비밀번호 입력
+    // const [checkPw, setCheckPw] = useState(""); //새 비밀번호 확인
 
 const AccountSetting = () => {
-    //const [forWho, setForWho] = useState('Admin');
+    const [activeTab, setActiveTab] = useState(0);
 
-    let currentAdminPass, currentStudentPass = []
-    //axios.get('/api/patient/consult?patientId=1')
-    // 이걸 API 통신을 통해 프레임일때 가져와야됨 Method.Get
-    const [newAdminPass, setNewAdminPass] = useState(''); //새로운 어드민비밀번호
-    const [newStudentPass, setNewStudentPass] = useState(''); //새로운 학생비밀번호
-    
+    const CreateInputContainer = () => {
+        return (
+        <AccountInputContainer >
+            <AccountSpan>
+                {(activeTab) ? '관리자 비밀번호 변경하기' : '대학생 비밀번호 변경하기'}
+            </AccountSpan>
+            <AccountInput 
+            type='text' 
+            id='currentPw'
+            name='currentPw'
+            placeholder='현재 비밀번호 입력' 
+            defaultValue=""
+            />
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+                <AccountInput 
+                type='text' 
+                id="newPw"
+                name="newPw"
+                placeholder='새 비밀번호 입력' 
+                defaultValue=""
+                />
+                <AccountInput 
+                type="text"
+                id="checkPw"
+                name="checkPw"
+                placeholder='새 비밀번호 확인' 
+                defaultValue=""
+                />
+            </div>
+            <AccountButton onClick={() => {}}>
+                비밀번호 변경
+            </AccountButton>
+        </AccountInputContainer>
+        )
+    }
+    const TabButtons = [
+        {name: '관리자 비밀번호 변경', content: <CreateInputContainer/>},
+        {name: '대학생 비밀번호 변경', content: <CreateInputContainer/>},
+    ];
+
     return (
         <>
             <HeaderComponent/>
-            <AccountContent />
+            <AccountContainer>
+                <SwitchButtonContainer>
+                    {TabButtons.map((tab, index) => (
+                        <TabButton
+                        key={index}
+                        onClick={() => setActiveTab(index)}
+                        style={(activeTab === index) ? { backgroundColor: '#aed391' } : { backgroundColor: '#FFF' }}
+                        >
+                        <PickIcon 
+                        src="/icons/ic_selected.svg" 
+                        style={(activeTab === index) ? { visibility: 'visible' } : { visibility: 'hidden' }}
+                        />
+                        {tab.name}
+                        </TabButton>
+                    ))}
+                </SwitchButtonContainer>
+                {TabButtons[activeTab].content}
+            </AccountContainer>
         </>
     );
 };
