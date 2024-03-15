@@ -596,7 +596,6 @@ const GlobalStyles = createGlobalStyle `
         width: 77.7%;
         height: 42%;
         margin: 1rem auto;
-        overflow-x: auto;
     }
 
     .Drugtable {
@@ -614,11 +613,15 @@ const GlobalStyles = createGlobalStyle `
         text-align: center;
         font-size: 20px;
     }
+    .Drugtable-cells {
+        overflow-y: auto;
+    }
     .Drugtable-cell {
         border: 1px solid black;
         padding: 1em 0;
         text-align: center;
         font-size: 20px;
+        overflow-x: auto;
     }
 
     .DrugStyleButtonContainer {

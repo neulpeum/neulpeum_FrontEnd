@@ -61,13 +61,18 @@ const Drugs = () => {
     // 약 재고 조회 GET 요청 url 주소: /api/drug
     // 약 재고 검색 GET 요청 url 주소: /api/findDrug?drugName=타이레놀 :: Request 형태
 
-    // const [isReversed, setReverse] = useState(false);
-    // function sortDrugsData() {
-    //     setCurrentDrugsData(prevData => [...prevData].reverse());
-    //     setReverse(!isReversed);
-    // };
+    const [isReversed, setReverse] = useState(false);
+    function sortDrugsData() {
+        setCurrentDrugsData(prevData => [...prevData].sort((a, b) => {
+            if (isReversed) {
+                return b.expireDate.localeCompare(a.expireDate);
+              } else {
+                return a.expireDate.localeCompare(b.expireDate);
+              }
+        }))
+        setReverse(!isReversed);
+    };
 
-    //
     async function searchDrugs(keyword) {
         if (keyword === null) return;
 
@@ -147,10 +152,10 @@ const Drugs = () => {
             <UiPanelContainer>
                 <FileUpload UploadedFile={ReadJsonDrugs}/>
                 <SearchBar 
-                //sort={sortDrugsData} 
+                sort={sortDrugsData} 
                 search={searchDrugs} 
                 currentPage={"Drugs"} 
-                // isReversed={isReversed} 
+                isReversed={isReversed} 
                 createBtn={<DrugsStyledBtn>변경사항 저장</DrugsStyledBtn>}
                 />
             </UiPanelContainer>
@@ -178,7 +183,7 @@ const Drugs = () => {
             }
         }
         fetchDrugs();
-    }, [originalDrugs]);
+    }, []); // 원본 데이터가 변경될경우 다시 서버에서 받아온다고? 근데 그건 백엔드쪽이지 프론트쪽이아니잖아?
 
 
     // 아래에 DrugList는 현재 화면에 보여줘야할 data를 집어넣어야만한다

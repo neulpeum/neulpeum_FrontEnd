@@ -19,7 +19,7 @@ const DrugList = ({ columns, data }) => {
           </tr>
         ))}
       </thead>
-      <tbody {...getTableBodyProps()}>
+      <tbody {...getTableBodyProps()} className="Drugtable-cells">
         {rows.map(row => {
           prepareRow(row);
           return (

@@ -75,6 +75,7 @@ const SortContainer = styled.div`
     width: 52%;
     height: 56px;
     border: 1px solid black;
+    overflow: hidden;
     `
     : `
     width: fit-content;

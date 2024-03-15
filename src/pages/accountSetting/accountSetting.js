@@ -1,9 +1,24 @@
-import React, { useState } from "react";
-import table from "react-table";
+import React, { useState, useEffect } from "react";
 import styled from 'styled-components';
 import HeaderComponent from '../../components/header/Header';
 import axios from "axios";
-
+// "http://52.78.35.193:8080/api/admin" : 관리자 계정 비밀번호 변경 Method: PATCH
+// `http://52.78.35.193:8080/api/admin/${changePw}` : 대학생 계정 비밀번호 변경 Method: PATCH
+// url parameter ( query string )
+// useEffect(() => {
+//     const fetchDrugs = async () => {
+//         if (!originalDrugs) {
+//             try {
+//                 const response = await axios.get("http://52.78.35.193:8080/api/drug");
+//                 setOriginalDrugs(response.data);
+//                 setCurrentDrugsData(response.data); //좀있다 지울것
+//             } catch (e) {
+//                 console.log('서버에서 데이터를 GET 하는 중 알 수 없는 에러를 감지했습니다.');
+//             }
+//         }
+//     }
+//     fetchDrugs();
+// }, []); 
 const AccountContainer = styled.div`
     width: 81.3%;
     height: fit-content;
@@ -55,21 +70,76 @@ const TabButton = styled.button`
     border: 0.5px solid black;
     padding: 1.38rem 0;
     border-radius: 2rem 2rem 0 0;
-    background-color: ${({ isActive }) => (isActive ? '#aed391' : '#FFF')};
     color: black;
     font-weight: bold;
     font-size: 24px;
     cursor: pointer;
 `;
 const PickIcon = styled.img`
-    visibility: ${({isActive}) => isActive ?  'visible' : 'hidden'};
     vertical-align: top;
     margin-right: 15px;
     width: 24px;
     height: 24px;
 `
+        // const handleSubmit = () => {
+        //     const addCitizen = async () => {
+        //       if (name === "" || address === "" || medicalHistory ==="" || notes === "") {
+        //         return alert('모든 항목을 입력해주세요');
+        //       }
+        //       try {
+        //         setError(null);
+        //         const data = {
+        //           patientName: name,
+        //           address: address,
+        //           disease: medicalHistory,
+        //           speicalReport: notes,
+        //         };
+                
+        //         await axios.post("http://52.78.35.193:8080/api/patient", data);
+        //         alert('주민이 추가되었습니다');
+        //         navigateToCitizens();
+        //       } catch (e) {
+        //         setError(e);
+        //       }
+        //     };
+        //     addCitizen();
+        //   };
 const AccountContent = () => {
+    const [originalPw, setOriginalPw] = useState(""); // 현재 비밀번호 입력
+    const [newPw, setNewPw] = useState(""); //새 비밀번호 입력
+    const [checkPw, setCheckPw] = useState(""); //새 비밀번호 확인
+    const [activeTab, setActiveTab] = useState(0);
+    const TabButtons = [
+        {button: '관리자 비밀번호 변경', content: <CreateInputContainer currentState={'Admin'}/>},
+        {button: '대학생 비밀번호 변경', content: <CreateInputContainer currentState={'Student'}/>},
+    ];
+
+    const ChangeState = () => {
+        setOriginalPw("");
+        setNewPw("");
+        setCheckPw("");
+    }
     const CreateInputContainer = ({currentState}) => {
+        const handleSubmitAdminPw = async () => {
+            if (originalPw === "" || newPw === "" || checkPw ==="")  {
+                return alert('모든 항목을 입력해주세요');
+            }
+            try {
+                await axios.patch("http://52.78.35.193:8080/api/admin");
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        const handleSubmitStudnetPw = async (e) => {
+            if (originalPw === "" || newPw === "" || checkPw ==="")  {
+                return alert('모든 항목을 입력해주세요');
+            }
+            try {
+                await axios.patch(`http://52.78.35.193:8080/api/admin/${newPw}`);
+            } catch (error) {
+                console.log(error);
+            }
+        }
         return (
             <AccountInputContainer >
                 <AccountSpan>
@@ -78,29 +148,32 @@ const AccountContent = () => {
                 <AccountInput 
                 type='text' 
                 placeholder='현재 비밀번호 입력' 
-                id="idForAdmin"
+                value={originalPw}
+                onChange={(event) => setOriginalPw(event.target.value)}
+                id='1'
                 />
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     <AccountInput 
-                    type='password' 
+                    type='text' 
                     placeholder='새 비밀번호 입력' 
-                    id="passwordForAdmin"/>
+                    value={newPw}
+                    onChange={(event) => setNewPw(event.target.value)}
+                    id="2"
+                    />
                     <AccountInput 
-                    type='password' 
+                    type='text' 
                     placeholder='새 비밀번호 확인' 
-                    id="passwordForAdminCheck"
+                    value={checkPw}
+                    onChange={(event) => setCheckPw(event.target.value)}
+                    id="3"
                     />
                 </div>
-                <AccountButton onClick={() => {}}>계정 변경</AccountButton>
+                <AccountButton onClick={currentState==='Admin' ? handleSubmitAdminPw : handleSubmitStudnetPw}>
+                    계정 변경
+                </AccountButton>
             </AccountInputContainer>
         )
     }
-
-    const [activeTab, setActiveTab] = useState(0);
-    const TabButtons = [
-        {button: '관리자 비밀번호 변경', content: <CreateInputContainer currentState={'Admin'}/>},
-        {button: '대학생 비밀번호 변경', content: <CreateInputContainer currentState={'Student'}/>},
-    ];
     
     const CreateAccountContent = {
         content: (
@@ -109,19 +182,19 @@ const AccountContent = () => {
                 {TabButtons.map((tab, index) => (
                     <TabButton
                     key={index}
-                    isActive={activeTab === index}
-                    onClick={() => setActiveTab(index)}>
-                    
-                    <PickIcon src="/icons/ic_selected.svg" isActive={activeTab === index}/>{tab.button}
+                    onClick={() => setActiveTab(index)}
+                    style={(activeTab === index) ? { backgroundColor: '#aed391' } : { backgroundColor: '#FFF' }}>
+                    <PickIcon 
+                    src="/icons/ic_selected.svg" 
+                    style={(activeTab === index) ? { visibility: 'visible' } : { visibility: 'hidden' }}
+                    />
+                    {tab.button}
                     </TabButton>
                 ))}
             </SwitchButtonContainer>
             {TabButtons[activeTab].content}
         </AccountContainer>
         ),
-        config : {
-
-        }
     };
     const currentContent = CreateAccountContent;
 
@@ -129,13 +202,6 @@ const AccountContent = () => {
 }
 
 const AccountSetting = () => {
-    //const [forWho, setForWho] = useState('Admin');
-
-    let currentAdminPass, currentStudentPass = []
-    //axios.get('/api/patient/consult?patientId=1')
-    // 이걸 API 통신을 통해 프레임일때 가져와야됨 Method.Get
-    const [newAdminPass, setNewAdminPass] = useState(''); //새로운 어드민비밀번호
-    const [newStudentPass, setNewStudentPass] = useState(''); //새로운 학생비밀번호
     
     return (
         <>
