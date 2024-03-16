@@ -18,7 +18,8 @@ const Main = () => {
     }
     axios
     .post("http://52.78.35.193:8080/api/login", loginRequest)
-    .then(() => {
+    .then((res) => {
+      console.log(res.headers); // 쿠키 못가져옴
       const isMobile = window.innerWidth <= 768
       const destination = isMobile ? "/citizens" : "/options";
       navigate(destination);

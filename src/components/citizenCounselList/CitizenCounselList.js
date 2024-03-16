@@ -144,8 +144,7 @@ export default function CitizenCounselList() {
   };
 
   const keyword = state["globalFilter"];
-  const noResultView =
-    rows.length === 0 ? (
+  const noResultView = rows.length === 0 && keyword && keyword !== "" ? (
       <NoResultView name={keyword} explain={"과 일치하는 내용이 없습니다."} />
     ) : (
       <CitizenCounsels />
