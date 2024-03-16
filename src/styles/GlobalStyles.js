@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle `
+const GlobalStyles = createGlobalStyle`
     //Main.css, Options.css
     .container {
         display: flex;
@@ -206,7 +206,7 @@ const GlobalStyles = createGlobalStyle `
     .infor-wrapper {
         // height: 93%;
         display: flex;
-        margin-top: 1.37rem;
+        margin-top: 3.56rem;
         margin-bottom: 1rem;
         flex-direction: column;
         justify-content: center;
@@ -219,21 +219,22 @@ const GlobalStyles = createGlobalStyle `
     }
     
     .category-wrapper img {
-        margin-right: 0.31rem;
+        margin-right: 0.19rem;
     }
     
     .category-wrapper p {
         display: inline-block;
         margin: 0;
         color: #878485;
+        font-size: 1.25rem;
     }
 
     .content-wrapper {
         width: 18rem;
         margin: 0 auto;
-        border-bottom: 1px solid #000;
         margin-bottom: 0.81rem;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         white-space: pre-wrap;
     }
@@ -252,11 +253,10 @@ const GlobalStyles = createGlobalStyle `
         font-size: 1.125rem;
         margin: 0;
         margin-bottom: 0.2rem;
-        padding: 0.3rem;
         padding-left: 0.2rem;
-        border-radius: 0.625rem;
-        border: 1.5px solid #B9B9B9;
-        background: linear-gradient(0deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.20) 100%), rgba(182, 211, 145, 0.09);
+        border: none;
+        border-bottom: 1px solid #000;
+        outline: none;
     }
 
     .inforCounselTextarea {
@@ -461,6 +461,7 @@ const GlobalStyles = createGlobalStyle `
         box-shadow: -5px -5px 10px 0px rgba(0, 0, 0, 0.25) inset;
         padding: 20px;
         background-color: white;
+        outline: none;
     }
     
     .modal-warpper {
@@ -526,7 +527,7 @@ const GlobalStyles = createGlobalStyle `
     .modal-counsel p,
     .modal-counsel textarea {
         display: inline-block;
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         margin: 0;
         background-color: #aed391;
     }
@@ -635,25 +636,39 @@ const GlobalStyles = createGlobalStyle `
     .addCounseling-wrapper {
         margin: 0 auto;
         width: 19.25rem;
-        border: 1px solid #000;
         display: flex;
         flex-direction: column;
-        margin-top: 1.005rem;
+        margin-top: 4.87rem;
         margin-bottom: 2rem;
       }
+
+      .counselTitle-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
       
+      .counselName,
       .counselTitle {
         display: inline-block;
-        margin: 0 auto;
-        margin-top: 0.44rem;
+        margin: 0;
         font-weight: bold;
+      }
+
+      .counselName {
+        font-size: 2rem;
+      }
+
+      .counselTitle {
+        margin-top: 0.44rem;
+        font-size: 1.5rem;
       }
       
       .counsel-wrapper {
         height: 93%;
         display: flex;
-        margin-top: 3.25rem;
-        margin-bottom: 7.44rem;
+        margin-top: 2.81rem;
+        margin-bottom: 2.63rem;
         flex-direction: column;
       }
       
@@ -661,15 +676,16 @@ const GlobalStyles = createGlobalStyle `
         width: 16rem;
         margin: 0 auto;
         margin-bottom: 0.38rem;
+        font-weight: bold;
       }
       
       .counsel-category-wrapper p {
         display: inline-block;
-        font-size: 0.6875rem;
+        font-size: 0.9375rem;
         margin: 0;
       }
       
-      .counsel-content-wrapper {
+      .counselPro-content-wrapper {
         width: 16rem;
         margin: 0 auto;
         border-bottom: 1px solid #000;
@@ -679,20 +695,43 @@ const GlobalStyles = createGlobalStyle `
         color: #878485;
       }
 
+      .counsel-content-wrapper {
+        width: 16rem;
+        margin: 0 auto;
+        margin-bottom: 0.87rem;
+        display: flex;
+        justify-content: space-between;
+        color: #878485;
+      }
+
+      .counselOtc-content-wrapper {
+        width: 16rem;
+        min-height: 6rem;
+        margin: 0 auto;
+        margin-bottom: 0.87rem;
+      }
+
+      .counselDate-content-wrapper p,
       .counsel-content-wrapper p,
-      .counsel-content-wrapper input,
+      .counselPro-content-wrapper input,
       .counsel-content-wrapper textarea {
         width: 16rem;
         display: inline-block;
         color: #565656;
         margin: 0;
         padding: 0.19rem;
+        outline: 0;
+        font-size: 0.9375rem;
+      }
+
+      .counselPro-content-wrapper input {
         border: 0;
-        font-size: 1rem;
       }
 
       .counsel-content-wrapper textarea {
         resize: none;
+        border-radius: 0.3125rem;
+        border: 1px solid #000;
     }
 
     .counselTextarea::-webkit-scrollbar {

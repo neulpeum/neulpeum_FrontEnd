@@ -12,7 +12,7 @@ export default function AddCounseling() {
   const date = new Date();
   const today = `${date.getFullYear()}.${
     date.getMonth() + 1
-  }.${date.getDate()}`;
+  }.${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
@@ -37,8 +37,8 @@ export default function AddCounseling() {
       patientId: `${patientId}`,
       // providerName: `${providerName}`,
       providerName: data[0],
-      takingDrug: data[1],
-      consultContent: data[2],
+      takingDrug: data[0],
+      consultContent: data[1],
     };
 
     axios
@@ -55,7 +55,10 @@ export default function AddCounseling() {
   return (
     <div>
       <div className="addCounseling-wrapper">
-        <p className="counselTitle">{patientName}님 상담추가</p>
+        <div className="counselTitle-wrapper">
+          <p className="counselName">{patientName}</p>
+          <p className="counselTitle">님 상담추가</p>
+        </div>
         <div className="counsel-wrapper">
           <div className="counsel-category-wrapper">
             <p> 상담일자 </p>
@@ -66,7 +69,7 @@ export default function AddCounseling() {
           <div className="counsel-category-wrapper">
             <p> 상담자 </p>
           </div>
-          <div className="counsel-content-wrapper">
+          <div className="counselPro-content-wrapper">
             <input
               type="text"
               value={data[0]}
@@ -77,12 +80,8 @@ export default function AddCounseling() {
           <div className="counsel-category-wrapper">
             <p> 제공 otc </p>
           </div>
-          <div className="counsel-content-wrapper">
-            <input
-              type="text"
-              value={data[1]}
-              onChange={(e) => handleChange(1, e)}
-            />
+          <div className="counselOtc-content-wrapper">
+            {/* 콤보박스 구현 예정 */}
           </div>
           <div className="counsel-category-wrapper">
             <p> 상담내용 </p>
@@ -90,8 +89,8 @@ export default function AddCounseling() {
           <div className="counsel-content-wrapper">
             <textarea
               className="counselTextarea"
-              value={data[2]}
-              onChange={(e) => handleChange(2, e)}
+              value={data[1]}
+              onChange={(e) => handleChange(1, e)}
               onKeyDown={autoResizeTextarea}
               onKeyUp={autoResizeTextarea}
             ></textarea>
