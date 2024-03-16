@@ -53,26 +53,59 @@ export default function CitizenInfor() {
     setFields([...originalFields]);
   };
 
-  const handleSaveClick = async () => {
-    setIsEditing(false);
-    const patientData = {
-      patientId: fields[0],
-      patientName: fields[1],
-      birthDate: fields[2],
-      phoneNum: fields[3],
-      address: fields[4],
-      disease: fields[5],
-      specialReport: fields[6],
-    };
+  const birthDateRegex =
+    /^(?:\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[-]\d{1}|)$/;
+  const phoneNumRegex = /^(?:\d{3}[-]\d{4}[-]\d{4}$|)/;
 
-    axios
-      .put("http://52.78.35.193:8080/api/patientInfo", patientData)
-      .then(() => {
-        console.log("Request sent successfully.");
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+  const handleSaveClick = async () => {
+    let dateFlag = 0;
+    let numFlag = 0;
+
+    if (!birthDateRegex.test(fields[2])) {
+      document.querySelector(".birthDateError").style.display = "block";
+      dateFlag = 1;
+    } else {
+      document.querySelector(".birthDateError").style.display = "none";
+      dateFlag = 0;
+    }
+
+    if (!phoneNumRegex.test(fields[3])) {
+      document.querySelector(".phoneNumError").style.display = "block";
+      numFlag = 1;
+    } else {
+      document.querySelector(".phoneNumError").style.display = "none";
+      numFlag = 0;
+    }
+
+    if (dateFlag == 0 && numFlag == 0) {
+      setIsEditing(false);
+
+      const patientData = {
+        patientId: fields[0],
+        patientName: fields[1],
+        birthDate: fields[2],
+        phoneNum: fields[3],
+        address: fields[4],
+        disease: fields[5],
+        specialReport: fields[6],
+      };
+      axios
+        .put("http://52.78.35.193:8080/api/patientInfo", patientData)
+        .then(() => {
+          console.log("Request sent successfully.");
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+  };
+
+  const regexStyle = {
+    display: "inline-block",
+    fontSize: "0.6875rem",
+    margin: "0",
+    color: "#FF4949",
+    display: "none",
   };
 
   const handleChange = (index, e) => {
@@ -136,6 +169,9 @@ export default function CitizenInfor() {
                 {fields[2] ? <span>{fields[2]}******</span> : <span> </span>}
               </div>
             )}
+            <p className="birthDateError" style={regexStyle}>
+              ※ 주민번호 형식에 맞지 않습니다.
+            </p>
           </div>
           <div className="category-wrapper">
             <img
@@ -178,6 +214,9 @@ export default function CitizenInfor() {
                 <span>{fields[3]}</span>
               </div>
             )}
+            <p className="phoneNumError" style={regexStyle}>
+              ※ 연락처 형식에 맞지 않습니다.
+            </p>
           </div>
           <div className="category-wrapper">
             <img

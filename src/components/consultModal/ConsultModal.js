@@ -19,6 +19,7 @@ export default function ConsultModal({ onClose, consultId }) {
       );
       setConsultData(response.data);
       setFields(response.data.consultContent);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -112,11 +113,6 @@ export default function ConsultModal({ onClose, consultId }) {
                     onKeyUp={autoResizeTextarea}
                   ></textarea>
                 ) : (
-                  // <input
-                  //   type="text"
-                  //   value={fields}
-                  //   onChange={(e) => handleChange(e)}
-                  // />
                   <div>
                     <p>{fields}</p>
                   </div>

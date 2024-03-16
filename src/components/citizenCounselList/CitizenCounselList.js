@@ -34,8 +34,8 @@ export default function CitizenCounselList() {
       const response = await axios.get(
         `http://52.78.35.193:8080/api/patient/consult?patientId=${patientId}`
       );
-      console.log(response.data);
       setData(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -47,7 +47,7 @@ export default function CitizenCounselList() {
         accessor: "consultDate",
         Header: "방문날짜",
       },
-      
+
       {
         accessor: "providerName",
         Header: "상담자(대학생)",
@@ -56,10 +56,6 @@ export default function CitizenCounselList() {
         accessor: "takingDrug",
         Header: "제공 otc",
       },
-      // {
-      //   accessor: "consultId",
-      //   Header: "",
-      // },
     ],
     []
   );
@@ -74,11 +70,15 @@ export default function CitizenCounselList() {
     setGlobalFilter,
   } = useTable({ columns, data }, useGlobalFilter, useSortBy);
 
+  const sortSytle = {
+    fontSize: "0.8rem",
+    marginLeft: "0.3rem",
+  };
+
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = (btnConsultId) => {
     setConsultId(btnConsultId);
-    console.log(btnConsultId);
     setIsOpen(true);
   };
 
@@ -88,51 +88,68 @@ export default function CitizenCounselList() {
   };
 
   const CitizenCounsels = () => {
-    return <div className="list-wrapper">
-      <table {...getTableProps()} className="counselTable">
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render("Header")}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => (
-                  <td onClick={() => openModal(cell.row.original.consultId)} {...cell.getCellProps()}>
-                    {cell.column.id === "takingDrug" ? (
-                      <div className='DetailButtonContainer'>
-                        <a>{cell.row.values['takingDrug']}</a>
-                        <a className='DetailButton'>{'>'}</a>
-                      </div>
+    return (
+      <div className="list-wrapper">
+        <table {...getTableProps()} className="counselTable">
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                    {column.render("Header")}
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <span style={sortSytle}>▼</span> // 내림차순 화살표
+                      ) : (
+                        <span style={sortSytle}>▲</span> // 오름차순 화살표
+                      )
                     ) : (
-                      cell.render("Cell")
+                      <span>&nbsp;</span>
                     )}
-                  </td>
+                  </th>
                 ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      {isOpen && consultId && (
-        <ConsultModal onClose={closeModal} consultId={consultId} />
-      )}
-    </div>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td
+                      onClick={() => openModal(cell.row.original.consultId)}
+                      {...cell.getCellProps()}
+                    >
+                      {cell.column.id === "takingDrug" ? (
+                        <div className="DetailButtonContainer">
+                          <a>{cell.row.values["takingDrug"]}</a>
+                          <a className="DetailButton">{">"}</a>
+                        </div>
+                      ) : (
+                        cell.render("Cell")
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        {isOpen && consultId && (
+          <ConsultModal onClose={closeModal} consultId={consultId} />
+        )}
+      </div>
+    );
   };
 
-  const keyword = state['globalFilter'];
-  const noResultView = rows.length === 0 ? <NoResultView name={keyword} explain={"과 일치하는 내용이 없습니다."} /> : <CitizenCounsels />;
+  const keyword = state["globalFilter"];
+  const noResultView =
+    rows.length === 0 ? (
+      <NoResultView name={keyword} explain={"과 일치하는 내용이 없습니다."} />
+    ) : (
+      <CitizenCounsels />
+    );
 
   return (
     <div className="citizenCounselList-wrapper">
