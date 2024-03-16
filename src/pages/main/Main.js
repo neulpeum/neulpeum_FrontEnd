@@ -29,6 +29,12 @@ const Main = () => {
     });
   };
 
+  const activeEnter = (e) => {
+    if(e.key === "Enter") {
+      login();
+    }
+  }
+
   return (
     <div className="main-container">
       <div className="main-logo-container">
@@ -36,8 +42,8 @@ const Main = () => {
       </div>
       <div className='main-content'>
         <h3>늘픔 약 재고 관리 서비스에 오신 것을 환영합니다</h3>
-        <CustomInput inputValue={id} onChange={(event) => setId(event.target.value)} placeholder="이름을 입력해주세요." icon="/icons/ic_name.svg" isPassword={false}/>
-        <CustomInput inputValue={password} onChange={(event) => setPassword(event.target.value)} placeholder="비밀번호를 입력해주세요." icon="icons/ic_password.svg" isPassword={true} />
+        <CustomInput inputValue={id} onChange={(event) => setId(event.target.value)} placeholder="이름을 입력해주세요." icon="/icons/ic_name.svg" isPassword={false} onKeyDown={(e) => activeEnter(e)}/>
+        <CustomInput inputValue={password} onChange={(event) => setPassword(event.target.value)} placeholder="비밀번호를 입력해주세요." icon="icons/ic_password.svg" isPassword={true} onKeyDown={(e) => activeEnter(e)} />
         <LoginButton onLoginClick={login}/>
       </div>
       <footer className="footer">

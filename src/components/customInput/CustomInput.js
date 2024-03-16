@@ -29,13 +29,13 @@ const RoundedInput = styled.input`
   width: 100%;
 `;
 
-const CustomInput = ({value, onChange, placeholder, icon, isPassword}) => {
+const CustomInput = ({value, onChange, placeholder, icon, isPassword, onKeyDown}) => {
   const inputType = isPassword ? 'password' : 'text';
   return (
     <InputContainer>
       <LeftImage icon={icon} />
       <div>
-        <RoundedInput value={value} onChange={onChange} type={inputType} placeholder={placeholder} />
+        <RoundedInput value={value} onChange={onChange} type={inputType} placeholder={placeholder} onKeyDown={(e) => onKeyDown(e)}/>
       </div>
     </InputContainer>
   );

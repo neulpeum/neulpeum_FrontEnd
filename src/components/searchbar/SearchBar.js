@@ -113,6 +113,11 @@ const PlusIcon = styled.img`
 
 const SearchBar = ({ sort, search, currentPage, isReversed, onCitizenAddClick}) => {
   const [keyword, setKeyword] = useState('');
+  const activeEnter = (e) => {
+    if(e.key === "Enter") {
+      search(keyword);
+    }
+  }
 
   // 각 페이지 마다 달라지는 컴포넌트 구성 Drugs, Citizens
   const pageConfig = {
@@ -121,6 +126,7 @@ const SearchBar = ({ sort, search, currentPage, isReversed, onCitizenAddClick}) 
       <SearchBarContainer using='drugs'>
         <SearchInputContainer using='drugs'>
           <SearchInput value={keyword} onChange={(event) => setKeyword(event.target.value)}
+          onKeyDown={(e) => activeEnter(e)}
           using='drugs' name='searchInput' type="text" placeholder='검색할 약 이름을 입력하세요.' />
           <SearchIcon onClick={() => search(keyword)} using='drugs' src="/icons/ic_counSearch.svg" alt="검색" />
         </SearchInputContainer>
@@ -131,7 +137,7 @@ const SearchBar = ({ sort, search, currentPage, isReversed, onCitizenAddClick}) 
       content: (
       <SearchBarContainer>
         <SearchInputContainer>
-          <SearchInput value={keyword} onChange={(event) => setKeyword(event.target.value)} type="text" placeholder='검색할 주민의 이름을 입력하세요.' />
+          <SearchInput value={keyword} onChange={(event) => setKeyword(event.target.value)} type="text" placeholder='검색할 주민의 이름을 입력하세요.' onKeyDown={(e) => activeEnter(e)} />
           <SearchIcon onClick={() => search(keyword)} src="/icons/ic_counSearch.svg" alt="검색" />
         </SearchInputContainer>
         {/* <SortContainer>
