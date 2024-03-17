@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import Modal from "react-modal";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function AddCounseling() {
+  Modal.setAppElement("#root");
+
   const location = useLocation();
   const patientId = location.state.patientId;
   const patientName = location.state.patientName;
@@ -13,7 +16,7 @@ export default function AddCounseling() {
   const today = `${date.getFullYear()}.${
     date.getMonth() + 1
   }.${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([""]);
   const navigate = useNavigate();
 
   const handleChange = (index, e) => {
@@ -41,15 +44,30 @@ export default function AddCounseling() {
       consultContent: data[1],
     };
 
-    axios
-      .post("http://52.78.35.193:8080/api/patient/consult", consultData)
-      .then(() => {})
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-    navigate("/citizensDetails", {
-      state: { id: patientId, isButtonClicked: true },
-    });
+    console.log(consultData);
+
+    // axios
+    //   .post("http://52.78.35.193:8080/api/patient/consult", consultData)
+    //   .then(() => {})
+    //   .catch((error) => {
+    //     console.error("Error fetching data:", error);
+    //   });
+
+    // navigate("/citizensDetails", {
+    //   state: { id: patientId, isButtonClicked: true },
+    // });
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    document.body.style = "overflow: hidden";
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    document.body.style = "overflow: auto";
   };
 
   return (
@@ -98,8 +116,29 @@ export default function AddCounseling() {
         </div>
         <div>
           <div className="counsel-btn-wrapper">
-            <button onClick={() => navigate(-1)}> 취소 </button>
-            <button onClick={handleSaveClick}> 저장 </button>
+            <button onClick={openModal}> 저장 </button>
+            <Modal className="addCounsel-modal" isOpen={isOpen}>
+              <div className="addModal-wrapper">
+                <div className="addModal-gr"></div>
+                <div className="addModal-content-wrapper">
+                  <p>저장하시겠습니까?</p>
+                  <div className="addModal-btn-wrapper">
+                    <button onClick={handleSaveClick}>저장</button>
+                    <button onClick={closeModal}>취소</button>
+                  </div>
+                </div>
+              </div>
+            </Modal>
+
+            <button
+              onClick={() =>
+                navigate("/citizensDetails", {
+                  state: { id: patientId, isButtonClicked: true },
+                })
+              }
+            >
+              취소
+            </button>
           </div>
         </div>
       </div>

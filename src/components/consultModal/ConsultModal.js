@@ -6,11 +6,33 @@ export default function ConsultModal({ onClose, consultId }) {
   Modal.setAppElement("#root");
 
   const [consultData, setConsultData] = useState([]);
+  const [formattedDateTime, setFormattedDateTime] = useState("");
 
   useEffect(() => {
     getConsultData();
     document.body.style = "overflow: hidden";
   }, []);
+
+  useEffect(() => {
+    if (consultData.consultDate) {
+      const datetimeParts = consultData.consultDate.split(" "); // 공백을 기준으로 날짜와 시간을 분리
+      const dateString = datetimeParts[0]; // 날짜 부분
+      const timeString = datetimeParts[1]; // 시간 부분
+
+      const dateParts = dateString.split("."); // 날짜를 연도, 월, 일로 분리
+      const year = dateParts[0];
+      const month = dateParts[1];
+      const day = dateParts[2];
+
+      const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][
+        new Date(year, month - 1, day).getDay()
+      ];
+
+      setFormattedDateTime(
+        `${year}.${month}.${day} (${dayOfWeek}) ${timeString}`
+      );
+    }
+  }, [consultData]);
 
   const getConsultData = async () => {
     try {
@@ -19,7 +41,6 @@ export default function ConsultModal({ onClose, consultId }) {
       );
       setConsultData(response.data);
       setFields(response.data.consultContent);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -79,13 +100,14 @@ export default function ConsultModal({ onClose, consultId }) {
   return (
     <div className="modal-back">
       <Modal className="counsel-modal" isOpen={true}>
-        <div className="modal-warpper">
+        <div className="modal-wrapper">
           <div className="modal-content-wrapper">
             <div className="modal-title">
               <div>
                 <p className="m-name">{consultData.providerName}</p>
                 <p>&nbsp;님이&nbsp;</p>
-                <p className="m-date"> {consultData.consultDate} </p>
+                <p className="m-date"> {formattedDateTime} </p>
+                {/* <p className="m-date"> {consultData.consultDate} </p> */}
                 <p>에</p>
                 <br></br>
                 <p>상담한 내용입니다.</p>
@@ -119,7 +141,7 @@ export default function ConsultModal({ onClose, consultId }) {
                 )}
               </div>
             </div>
-            <div className="modal-btn-warpper">
+            <div className="modal-btn-wrapper">
               {isEditing ? (
                 <div>
                   <button onClick={handleSaveClick}>확인</button>

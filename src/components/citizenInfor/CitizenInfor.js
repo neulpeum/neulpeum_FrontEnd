@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 export default function CitizenInfor() {
   const location = useLocation();
   const patientId = location.state.id;
-
   const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [fields, setFields] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [originalFields, setOriginalFields] = useState([...fields]);
+  const inputRefs = useRef([]);
+
+  const birthDateRegex =
+    /^(?:\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[-]\d{1}|)$/;
+  const phoneNumRegex = /^(?:\d{3}[-]\d{4}[-]\d{4}|)$/;
 
   useEffect(() => {
     getData();
@@ -25,37 +32,36 @@ export default function CitizenInfor() {
     setIsEditing(false);
   }, [isLargeScreen]);
 
-  const [fields, setFields] = useState([]);
-
   const getData = async () => {
     try {
       const response = await axios.get(
         `http://52.78.35.193:8080/api/patientInfo?patientId=${patientId}`
       );
       const newData = response.data;
-      setFields(Object.values(newData));
+
+      const replaceNullWithEmptyString = (value) =>
+        value === null ? "" : value;
+      setFields(Object.values(newData).map(replaceNullWithEmptyString));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [originalFields, setOriginalFields] = useState([...fields]);
-
   const handleEditClick = () => {
     setIsEditing(true);
     setOriginalFields([...fields]);
+    if (inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
   };
 
   const handleCancelClick = () => {
+    document.querySelector(".birthDateError").style.display = "none";
+    document.querySelector(".phoneNumError").style.display = "none";
     setIsEditing(false);
     // 취소 버튼을 클릭하면 아무것도 하지 않습니다.
     setFields([...originalFields]);
   };
-
-  const birthDateRegex =
-    /^(?:\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[-]\d{1}|)$/;
-  const phoneNumRegex = /^(?:\d{3}[-]\d{4}[-]\d{4}$|)/;
 
   const handleSaveClick = async () => {
     let dateFlag = 0;
@@ -108,6 +114,17 @@ export default function CitizenInfor() {
     display: "none",
   };
 
+  // Enter 키를 눌렀을 때 다음 입력란으로 포커스 이동
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const nextIndex = index + 1;
+      if (inputRefs.current[nextIndex]) {
+        inputRefs.current[nextIndex].focus();
+      }
+    }
+  };
+
   const handleChange = (index, e) => {
     const newFields = [...fields];
     newFields[index] = e.target.value;
@@ -142,6 +159,8 @@ export default function CitizenInfor() {
                 type="text"
                 value={fields[1]}
                 onChange={(e) => handleChange(1, e)}
+                ref={(el) => (inputRefs.current[0] = el)}
+                onKeyDown={(e) => handleKeyDown(e, 0)}
               />
             ) : (
               <div>
@@ -163,6 +182,8 @@ export default function CitizenInfor() {
                 type="text"
                 value={fields[2]}
                 onChange={(e) => handleChange(2, e)}
+                ref={(el) => (inputRefs.current[1] = el)}
+                onKeyDown={(e) => handleKeyDown(e, 1)}
               />
             ) : (
               <div>
@@ -187,6 +208,8 @@ export default function CitizenInfor() {
                 type="text"
                 value={fields[4]}
                 onChange={(e) => handleChange(4, e)}
+                ref={(el) => (inputRefs.current[2] = el)}
+                onKeyDown={(e) => handleKeyDown(e, 2)}
               />
             ) : (
               <div>
@@ -208,6 +231,8 @@ export default function CitizenInfor() {
                 type="text"
                 value={fields[3]}
                 onChange={(e) => handleChange(3, e)}
+                ref={(el) => (inputRefs.current[3] = el)}
+                onKeyDown={(e) => handleKeyDown(e, 3)}
               />
             ) : (
               <div>
@@ -232,6 +257,8 @@ export default function CitizenInfor() {
                 type="text"
                 value={fields[5]}
                 onChange={(e) => handleChange(5, e)}
+                ref={(el) => (inputRefs.current[4] = el)}
+                onKeyDown={(e) => handleKeyDown(e, 4)}
               />
             ) : (
               <div>
@@ -251,6 +278,7 @@ export default function CitizenInfor() {
                 onChange={(e) => handleChange(6, e)}
                 onKeyDown={autoResizeTextarea}
                 onKeyUp={autoResizeTextarea}
+                ref={(el) => (inputRefs.current[5] = el)}
               ></textarea>
             ) : (
               <div>
@@ -262,13 +290,13 @@ export default function CitizenInfor() {
             <p> 등록일자 </p>
           </div>
           <div className="content-wrapper">
-            <span>{fields[7]}</span>
+            <span>{fields[7] ? fields[7].split(" ")[0] : ""}</span>
           </div>
           <div className="category-wrapper">
             <p> 수정일자 </p>
           </div>
           <div className="content-wrapper">
-            <span>{fields[8]}</span>
+            <span>{fields[8] ? fields[8].split(" ")[0] : ""}</span>
           </div>
         </div>
         <div>

@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle `
     //Main.css, Options.css
     .container {
         display: flex;
@@ -148,12 +148,12 @@ const GlobalStyles = createGlobalStyle`
     }
 
     .citizensCounList {
-        font-size: 1rem;
+        font-size: 1.5rem;
         margin: 1rem 0 0 0;
     }
 
     .list-wrapper {
-        width: 41.5625rem;
+        width: 30rem;
         height: 29.9375rem;
         overflow: auto;
         margin: 0 auto;
@@ -172,11 +172,13 @@ const GlobalStyles = createGlobalStyle`
         vertical-align: middle;
         border: 1px solid #000;
         padding: 8px;
+        white-space: nowrap;
     }
     
     .counselTable th {
         padding-top: 1.3rem;
         padding-bottom: 1.2rem;
+        font-size: 1.25rem;
     }
     
     .inquiry-btn {
@@ -444,7 +446,7 @@ const GlobalStyles = createGlobalStyle`
         left: 0;
         bottom: 0;
         right: 0;
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.25);
     }
     
     .counsel-modal {
@@ -464,7 +466,7 @@ const GlobalStyles = createGlobalStyle`
         outline: none;
     }
     
-    .modal-warpper {
+    .modal-wrapper {
         height: 90%;
     }
     
@@ -542,13 +544,13 @@ const GlobalStyles = createGlobalStyle`
         display: none;
     }
     
-    .modal-btn-warpper {
+    .modal-btn-wrapper {
         float: right;
         margin-top: 1.58rem;
         margin-right: 1.5rem;
     }
     
-    .modal-btn-warpper button {
+    .modal-btn-wrapper button {
         width: 6.6875rem;
         height: 3rem;
         border-radius: 3.125rem;
@@ -556,6 +558,52 @@ const GlobalStyles = createGlobalStyle`
         border: none;
         margin-right: 1.8rem;
         font-size: 1.125rem;
+        cursor: pointer;
+    }
+
+    .addCounsel-modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 20.5625rem;
+        width: 80%;
+        height: 7.4374rem;
+        border-radius: 0.3125rem;
+        background-color: #e8e8e8;
+        outline: none;
+        border: 1px solid #000;
+    }
+    
+    .addModal-gr {
+        height: 1.4375rem;
+        border-radius: 0.3125rem 0.3125rem 0rem 0rem;
+        border-bottom: 1px solid #000;
+        background-color: #aed392;
+    }
+    
+    .addModal-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .addModal-content-wrapper p {
+        text-align: center;
+    }
+    
+    .addModal-btn-wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .addModal-btn-wrapper button {
+        width: 2.75rem;
+        height: 1.25rem;
+        border-radius: 0.3125rem;
+        border: 0.7px solid #000;
+        background-color: #d9d9d9;
         cursor: pointer;
     }
     
@@ -877,8 +925,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     .searchBar-wrapper,
-    .searchBar,
-    .search-img {
+    .searchBar,{
         width: 90%
     }
 
@@ -899,9 +946,9 @@ const GlobalStyles = createGlobalStyle`
         display: none;
     }
 
-    table,
-    .inquiry-btn {
-        font-size: 0.9rem;
+    .counselTable th,
+    .counselTable td {
+        font-size: 0.9375rem;
     }
     
     .searchBar {
@@ -932,13 +979,13 @@ const GlobalStyles = createGlobalStyle`
     .counsel-modal {
         width: 90%;
         max-width: 21.625rem;
-        min-width: 15rem;
+        min-width: 18rem;
         max-height: 29.43753rem;
         min-height: 29.43753rem;
         border-radius: 1.25rem;
         box-shadow: -5px -5px 10px 0px rgba(0, 0, 0, 0.25) inset;
     }
-    .modal-warpper {
+    .modal-wrapper {
         height: 100%;
     }
     .modal-title {
@@ -987,12 +1034,12 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         margin-top: 0.2rem;
     }
-    .modal-btn-warpper {
+    .modal-btn-wrapper {
         float: right;
         margin-top: 1rem;
         margin-right: 0.1rem;
     }
-    .modal-btn-warpper button {
+    .modal-btn-wrapper button {
         width: 3.70375rem;
         height: 1.9625rem;
         border-radius: 3.125rem;
