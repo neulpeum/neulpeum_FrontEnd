@@ -46,16 +46,16 @@ export default function AddCounseling() {
 
     console.log(consultData);
 
-    // axios
-    //   .post("http://52.78.35.193:8080/api/patient/consult", consultData)
-    //   .then(() => {})
-    //   .catch((error) => {
-    //     console.error("Error fetching data:", error);
-    //   });
+    axios
+      .post("http://52.78.35.193:8080/api/patient/consult", consultData)
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
 
-    // navigate("/citizensDetails", {
-    //   state: { id: patientId, isButtonClicked: true },
-    // });
+    navigate("/citizensDetails", {
+      state: { id: patientId, isButtonClicked: true },
+    });
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -74,15 +74,15 @@ export default function AddCounseling() {
     <div>
       <div className="addCounseling-wrapper">
         <div className="counselTitle-wrapper">
-          <p className="counselName">{patientName}</p>
-          <p className="counselTitle">님 상담추가</p>
+          <p className="counselName"> {patientName} </p>
+          <p className="counselTitle"> 님 상담추가 </p>
         </div>
         <div className="counsel-wrapper">
           <div className="counsel-category-wrapper">
             <p> 상담일자 </p>
           </div>
           <div className="counsel-content-wrapper">
-            <p>{today}</p>
+            <p> {today} </p>
           </div>
           <div className="counsel-category-wrapper">
             <p> 상담자 </p>
@@ -92,7 +92,7 @@ export default function AddCounseling() {
               type="text"
               value={data[0]}
               onChange={(e) => handleChange(0, e)}
-            />
+            />{" "}
             {/* <p>{tempProviderName}</p> */}
           </div>
           <div className="counsel-category-wrapper">
@@ -119,17 +119,16 @@ export default function AddCounseling() {
             <button onClick={openModal}> 저장 </button>
             <Modal className="addCounsel-modal" isOpen={isOpen}>
               <div className="addModal-wrapper">
-                <div className="addModal-gr"></div>
+                <div className="addModal-gr"> </div>
                 <div className="addModal-content-wrapper">
-                  <p>저장하시겠습니까?</p>
+                  <p> 저장하시겠습니까 ? </p>
                   <div className="addModal-btn-wrapper">
-                    <button onClick={handleSaveClick}>저장</button>
-                    <button onClick={closeModal}>취소</button>
+                    <button onClick={handleSaveClick}> 저장 </button>
+                    <button onClick={closeModal}> 취소 </button>
                   </div>
                 </div>
               </div>
             </Modal>
-
             <button
               onClick={() =>
                 navigate("/citizensDetails", {

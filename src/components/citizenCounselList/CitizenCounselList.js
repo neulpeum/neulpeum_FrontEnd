@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
-import { useFilter } from "@promise_learning/usefilter";
 import axios from "axios";
 import ConsultModal from "../consultModal/ConsultModal";
 import Search from "../../search/Search";
@@ -9,6 +8,7 @@ import NoResultView from "../noResult/NoResult";
 
 export default function CitizenCounselList() {
   const [name, setName] = useState("");
+  const [criKeyword, setCriKeryword] = useState("");
   const [data, setData] = useState([]);
   const [consultId, setConsultId] = useState("0");
   const [isOpen, setIsOpen] = useState(false);
@@ -43,40 +43,18 @@ export default function CitizenCounselList() {
   };
 
   const search = (keyword, criteria) => {
-    // console.log("key", keyword);
-    // console.log("cri", criteria);
-
-    setGlobalFilter(keyword);
-
-    // const searchData = {
-    //   query: { keyword },
-    //   fields: { criteria },
-    // };
-
-    // const filtersData = {
-    //   category: [],
-    // };
-
-    // const { data: result } = useFilter({
-    //   data,
-    //   search: searchData,
-    //   filters: filtersData,
-    // });
-
-    // setData(result);
-
-    // setGlobalFilter(keyword, criteria); // 전역 필터링 적용
-
-    // 검색 기준이 없으면 전체를 기준으로 사용
-    // const filterCriteria = criteria ? criteria : "consultDate";
-
-    // // 데이터 필터링
-    // const filteredData = data.filter((row) =>
-    //   row[filterCriteria].toLowerCase().includes(keyword.toLowerCase())
-    // );
-
-    // // 필터된 데이터 업데이트
-    // setData(filteredData);
+    if (criteria) {
+      data.forEach((item) => {
+        if (item[criteria] && item[criteria].includes(keyword)) {
+          setGlobalFilter(keyword);
+        } else {
+          setCriKeryword(keyword);
+          setGlobalFilter("朴");
+        }
+      });
+    } else {
+      setGlobalFilter(keyword);
+    }
   };
 
   const columns = useMemo(
@@ -97,7 +75,7 @@ export default function CitizenCounselList() {
     []
   );
 
-  const {
+  let {
     getTableProps,
     getTableBodyProps,
     headerGroups,
@@ -190,7 +168,12 @@ export default function CitizenCounselList() {
 
   const keyword = state["globalFilter"];
   const noResultView =
-    rows.length === 0 && keyword && keyword !== "" ? (
+    keyword === "朴" ? (
+      <NoResultView
+        name={criKeyword}
+        explain={"과 일치하는 내용이 없습니다."}
+      />
+    ) : rows.length === 0 && keyword && keyword !== "" ? (
       <NoResultView name={keyword} explain={"과 일치하는 내용이 없습니다."} />
     ) : (
       <CitizenCounsels />
