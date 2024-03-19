@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import {useTable} from 'react-table';
 import styled from 'styled-components';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
@@ -36,6 +35,7 @@ const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
     border-radius: 5px;
 `
 const Drugs = () => {
+    
     const [originalDrugs, setOriginalDrugs] = useState(); // 이게 서버에 저장중인 약 데이터
     const [currentDrugsData, setCurrentDrugsData] = useState([]);  // 요게 화면에 랜더링할 약 데이터 Current
     const columns = [
@@ -108,6 +108,56 @@ const Drugs = () => {
             console.log(error, error.response, error.request);
         })
     }
+    // [
+    //     {
+    //         "drugId": 1,
+    //         "drugName": "타이레놀",
+    //         "expireDate": "2025-01-27",
+    //         "usableAmount" : 100
+    //     },
+    //     {
+    //         "drugId": 2,
+    //         "drugName": "타이레놀",
+    //         "expireDate": "2025-06-29",
+    //         "usableAmount" : 100
+    //     },
+    //     {
+    //         "drugId": 3,
+    //         "drugName": "타이레놀",
+    //         "expireDate": "2025-11-28",
+    //         "usableAmount" : 100
+    //     },
+    //     {
+    //         "drugId": 4,
+    //         "drugName": "비타민",
+    //         "expireDate": "2026-06-29",
+    //         "usableAmount" : 100
+    //     },
+    //     {
+    //         "drugId": 5,
+    //         "drugName": "비타민",
+    //         "expireDate": "2026-11-28",
+    //         "usableAmount" : 100
+    //     },
+    //     {
+    //         "drugId": 6,
+    //         "drugName": "비타민",
+    //         "expireDate": "2027-11-28",
+    //         "usableAmount" : 100
+    //     },
+    //     {
+    //         "drugId": 7,
+    //         "drugName": "루테인",
+    //         "expireDate": "2026-11-28",
+    //         "usableAmount" : 100
+    //     },
+    //     {
+    //         "drugId": 8,
+    //         "drugName": "테스트",
+    //         "expireDate": "2025-11-28",
+    //         "usableAmount" : 30
+    //     }
+    // ]
 
     const handleQuantityChange = (index, change) => {
         setCurrentDrugsData(prevData => {
