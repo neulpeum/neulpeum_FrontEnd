@@ -126,6 +126,8 @@ const FileUpload = ({ UploadedFile } ) => {
         style={{ display: "none" }}
         accept=".xlsx, .xls"
         onChange={onSelectFile}
+        onDrag={() => {}}
+        onDrop={() => {}}
         id="file-input-container"
       />
       <UploadLabel htmlFor='file-input-container'>

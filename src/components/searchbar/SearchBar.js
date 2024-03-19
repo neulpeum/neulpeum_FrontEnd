@@ -62,25 +62,6 @@ const SearchInput = styled.input`
    
 `;
 
-const SortContainer = styled.div`
-    width: fit-content;
-    height: 56px;
-    margin: 0 0 0 20px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    border: 1px solid black;
-`;
-
-const SortContainerTag = styled.p`
-    margin: 0;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-right: 1px solid black;
-`;
-
 const SearchIcon = styled.img`
   ${(props) =>
     props.using === 'drugs'
@@ -97,11 +78,6 @@ const SearchIcon = styled.img`
   
 `;
 
-const SortIcon = styled.img`
-  padding: 5px;
-  cursor: pointer;
-`;
-
 const PlusIcon = styled.img`
   border: 1px solid black;
   padding: 8px;
@@ -111,8 +87,14 @@ const PlusIcon = styled.img`
   }
 `;
 
-const SearchBar = ({ sort, search, currentPage, isReversed, onCitizenAddClick}) => {
+const SearchBar = ({ search, currentPage, onCitizenAddClick}) => {
+  const [searchCriteria, setSearchCriteria] = useState("");
   const [keyword, setKeyword] = useState('');
+
+  const handleCriteriaChange = (event) => {
+    setSearchCriteria(event.target.value);
+  };
+
   const activeEnter = (e) => {
     if(e.key === "Enter") {
       search(keyword);
@@ -124,8 +106,21 @@ const SearchBar = ({ sort, search, currentPage, isReversed, onCitizenAddClick}) 
     Drugs: {
       content: (
       <SearchBarContainer using='drugs'>
+        <div>
+          <select
+            // className="coun-criteria"
+            value={searchCriteria}
+            onChange={handleCriteriaChange}>
+            <option value="">검색 기준</option>
+            <option value="drugName">약 이름</option>
+            <option value="consultDate">유통기한</option>
+            <option value="providerName">남은 재고</option>
+            <option value="takingDrug">등록일자</option>
+            <option value="">마지막 사용 일자</option>
+          </select>
+        </div>
         <SearchInputContainer using='drugs'>
-          <SearchInput value={keyword} onChange={(event) => setKeyword(event.target.value)}
+          <SearchInput id='drugs_search_value' value={keyword} onChange={(event) => setKeyword(event.target.value)}
           onKeyDown={(e) => activeEnter(e)}
           using='drugs' name='searchInput' type="text" placeholder='검색할 약 이름을 입력하세요.' />
           <SearchIcon onClick={() => search(keyword)} using='drugs' src="/icons/ic_counSearch.svg" alt="검색" />
@@ -140,12 +135,6 @@ const SearchBar = ({ sort, search, currentPage, isReversed, onCitizenAddClick}) 
           <SearchInput value={keyword} onChange={(event) => setKeyword(event.target.value)} type="text" placeholder='검색할 주민의 이름을 입력하세요.' onKeyDown={(e) => activeEnter(e)} />
           <SearchIcon onClick={() => search(keyword)} src="/icons/ic_counSearch.svg" alt="검색" />
         </SearchInputContainer>
-        {/* <SortContainer>
-          <SortContainerTag>
-            {isReversed ? '정방향 정렬' : '역방향 정렬'}
-          </SortContainerTag>
-          <SortIcon onClick={() => sort()} src="/icons/ic_sort.svg" alt="정렬" />
-        </SortContainer> */}
   
         <PlusIcon src="/icons/ic_plus.svg" alt="주민 추가" onClick={onCitizenAddClick} />
       </SearchBarContainer>
