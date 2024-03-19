@@ -10,7 +10,7 @@ import CitizenAdd from "./components/citizenAdd/CitizenAdd";
 import Main from "./pages/main/Main";
 import Options from "./pages/options/Options";
 import AddCounsel from "./pages/addCounsel/Addcounsel";
-import AccountSetting from "./pages/accountSetting/accountSetting";
+import AccountSetting from "./pages/accountSettings/AccountSettings";
 
 const App = () => {
   return (
