@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import styled from 'styled-components';
 import HeaderComponent from '../../components/header/Header';
 import AccountChangeForm from '../../components/accountChangeForm/AccountChangeForm';
@@ -32,7 +32,6 @@ const PickIcon = styled.img`
     height: 32px;
 `
 const AccountSetting = () => {
-
     const [activeTab, setActiveTab] = useState(0);
 
     const TabButtons = [

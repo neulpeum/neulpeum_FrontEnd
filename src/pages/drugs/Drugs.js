@@ -36,7 +36,7 @@ const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
 `
 const Drugs = () => {
     
-    const [originalDrugs, setOriginalDrugs] = useState(); // 이게 서버에 저장중인 약 데이터
+    const [originalDrugs, setOriginalDrugs] = useState(null); // 이게 서버에 저장중인 약 데이터
     const [currentDrugsData, setCurrentDrugsData] = useState([]);  // 요게 화면에 랜더링할 약 데이터 Current
     const columns = [
         { Header: "약 이름", accessor: 'drugName', type: 'text'},
@@ -167,20 +167,36 @@ const Drugs = () => {
         })
     }
 
+    // axios.patch(url, body)
+    //     .then((res) => {
+    //         setCurrentPassword('');
+    //         setNewPassword('');
+    //         setConfirmNewPassword('');
+    //     })
+    //     .catch((error) => {
+    //         if (error.code === "ERR_BAD_RESPONSE") {
+    //             setCurrentPassword('');
+    //             setError(error);
+    //         } else {
+    //             console.error(error); // 예상치 못한 에러 발생시
+    //         }
+    //     });
     useEffect(() => {
-        const fetchDrugs = async () => {
-            if (!originalDrugs) {
-                try {
-                    const response = await axios.get("http://52.78.35.193:8080/api/drug");
-                    setOriginalDrugs(response.data);
-                    setCurrentDrugsData(response.data);
-                    console.log(response.data);
-                } catch (e) {
-                    console.log('서버에서 데이터를 GET 하는 중 알 수 없는 에러를 감지했습니다.');
+        if (!originalDrugs) {
+            axios.get("http://52.78.35.193:8080/api/drug")
+            .then((res) => {
+                const data = res.data;
+                setOriginalDrugs(data);
+                setCurrentDrugsData(data);
+            })
+            .catch((error) => {
+                if (error.code === "Bad Request") {
+                    alert('잘못된 요청입니다.', error);
+                } else {
+                    console.error(error);
                 }
-            }
+            })
         }
-        fetchDrugs();
     }, [originalDrugs]); // 원본 데이터가 변경될경우 다시 서버에서 받아온다고? 근데 그건 백엔드쪽이지 프론트쪽이아니잖아?
 
 
@@ -189,16 +205,32 @@ const Drugs = () => {
             <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
         )
     }
-    // 아래에 DrugList는 현재 화면에 보여줘야할 data를 집어넣어야만한다
+    // const search = (keyword, criteria) => {
+    //     if (criteria) {
+    //         originalDrugs.forEach((item))
+    //     }
+    // };
+    
+    // const search = (keyword, criteria) => {
+    //     if (criteria) {
+    //       data.forEach((item) => {
+    //         if (item[criteria] && item[criteria].includes(keyword)) {
+    //           setGlobalFilter(keyword);
+    //         } else {
+    //           setCriKeryword(keyword);
+    //           setGlobalFilter("朴");
+    //         }
+    //       });
+    //     } else {
+    //       setGlobalFilter(keyword);
+    //     }
+    //   };
     return (
         <>
             <HeaderComponent />
             <UiPanelContainer>
                 <FileUpload UploadedFile={ReadJsonDrugs}/>
-                <SearchBar 
-                search={null}
-                currentPage={"Drugs"} 
-                />
+                <SearchBar search={null} currentPage={"Drugs"} />
             </UiPanelContainer>
             < DrugList columns={columns} data={currentDrugsData}savebtn={CreateBtn}/> 
             {console.log(currentDrugsData)}

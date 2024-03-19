@@ -63,24 +63,18 @@ export default function AccountChangeForm({userType}) {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
-    const [passwordsVisible, setPasswordsVisible] = useState([true, true, true]); //나중에 false로 변경할것
+    const [passwordsVisible, setPasswordsVisible] = useState([false, false, false]); //나중에 false로 변경할것
 
-    const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
 
     let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
     let specialStr = '※';
-    // 에러 상황: {specialStr}비밀번호를 잘못 입력하셨습니다.
-    // 성공시 상황: 문구를 띄우지 않음
 
     const togglePasswordVisibility = (index) => {
         const newPasswordsVisible = [...passwordsVisible];
         newPasswordsVisible[index] = !newPasswordsVisible[index];
         setPasswordsVisible(newPasswordsVisible);
     };
-
-    // [현재 비밀번호 입력] 은 axios 이후 비밀번호가 일치하지 않았을 경우에 res의 답변을 적어서 
-    // [새 비밀번호 입력] 의 값은 정규식을 지켜야 한다. 그렇지 않으면 빨간색 배경 테두리가 그어질것이다.
 
     const handleSumbit = async () => {
         if (!passwordRegex.test(newPassword)) return(alert('비밀번호는 알파벳 숫자 조합 6자리 이상이어야 합니다.'));
@@ -89,11 +83,6 @@ export default function AccountChangeForm({userType}) {
             currentPassword : currentPassword,
             newPassword : newPassword,
         };
-        // 서버로 간 데이터
-        // {
-        //     "currentPassword" : "admin",
-        //         "newPassword" : "admin"
-        // }
     
         let url;
         if (userType === 'admin') {
@@ -102,19 +91,21 @@ export default function AccountChangeForm({userType}) {
             url = "http://52.78.35.193:8080/api/admin/changePw";
         }
     
-        axios.patch(url, JSON.stringify(body))
+        axios.patch(url, body)
         .then((res) => {
-            setResponse(res.headers); //응답이 성공했을경우
-            alert(res.body);
+            setCurrentPassword('');
+            setNewPassword('');
+            setConfirmNewPassword('');
         })
         .catch((error) => {
-            setError(error);
-            console.log(body);
-            console.log(error);
+            if (error.code === "ERR_BAD_RESPONSE") {
+                setCurrentPassword('');
+                setError(error);
+            } else {
+                console.error(error); // 예상치 못한 에러 발생시
+            }
         });
     }
-    
-    // if (error) console.error('에러가 발생했습니다.',error);
 
     return (
         <AccountContent>
@@ -131,8 +122,7 @@ export default function AccountChangeForm({userType}) {
                         <EyeIcon src={passwordsVisible[0] ? "보이게 할시이미지 경로주소" : "안보이게 할시 이미지 경로주소"} alt="Toggle password visibility" />
                     </ToggleButton> */}
                 </div>
-                {/* // 에러 상황 현재 비밀번호가 틀림: {specialStr}비밀번호를 잘못 입력하셨습니다.// 성공시 상황: 문구를 띄우지 않음 */}
-                {(error && error.code === 400) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg> }
+                {(error) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg>}
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column'}}>

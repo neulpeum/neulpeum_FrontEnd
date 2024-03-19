@@ -78,11 +78,6 @@ const SearchIcon = styled.img`
   
 `;
 
-const SortIcon = styled.img`
-  padding: 5px;
-  cursor: pointer;
-`;
-
 const PlusIcon = styled.img`
   border: 1px solid black;
   padding: 8px;
@@ -92,8 +87,14 @@ const PlusIcon = styled.img`
   }
 `;
 
-const SearchBar = ({ sort, search, currentPage, isReversed, onCitizenAddClick}) => {
+const SearchBar = ({ search, currentPage, onCitizenAddClick}) => {
+  const [searchCriteria, setSearchCriteria] = useState("");
   const [keyword, setKeyword] = useState('');
+
+  const handleCriteriaChange = (event) => {
+    setSearchCriteria(event.target.value);
+  };
+
   const activeEnter = (e) => {
     if(e.key === "Enter") {
       search(keyword);
@@ -105,8 +106,21 @@ const SearchBar = ({ sort, search, currentPage, isReversed, onCitizenAddClick}) 
     Drugs: {
       content: (
       <SearchBarContainer using='drugs'>
+        <div>
+          <select
+            // className="coun-criteria"
+            value={searchCriteria}
+            onChange={handleCriteriaChange}>
+            <option value="">검색 기준</option>
+            <option value="drugName">약 이름</option>
+            <option value="consultDate">유통기한</option>
+            <option value="providerName">남은 재고</option>
+            <option value="takingDrug">등록일자</option>
+            <option value="">마지막 사용 일자</option>
+          </select>
+        </div>
         <SearchInputContainer using='drugs'>
-          <SearchInput value={keyword} onChange={(event) => setKeyword(event.target.value)}
+          <SearchInput id='drugs_search_value' value={keyword} onChange={(event) => setKeyword(event.target.value)}
           onKeyDown={(e) => activeEnter(e)}
           using='drugs' name='searchInput' type="text" placeholder='검색할 약 이름을 입력하세요.' />
           <SearchIcon onClick={() => search(keyword)} using='drugs' src="/icons/ic_counSearch.svg" alt="검색" />
