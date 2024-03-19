@@ -51,7 +51,7 @@ export default function AccountChangeForm({userType}) {
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
-    const [response, setResponse] = useState([]);
+    const [response, setResponse] = useState();
     const [error, setError] = useState(null);
 
     let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
@@ -67,10 +67,7 @@ export default function AccountChangeForm({userType}) {
     // [새 비밀번호 입력] 의 값은 정규식을 지켜야 한다. 그렇지 않으면 빨간색 배경 테두리가 그어질것이다.
 
     const handleSumbit = async () => {
-        // if (!passwordRegex.test(newPassword)) {
-        //     console.log('오류!');
-        //     return;
-        // }
+        if (!passwordRegex.test(newPassword)) return(alert('비밀번호는 알파벳 숫자 조합 6자리 이상이어야 합니다.'));
     
         const body = {
             "currentPassword" : currentPassword,
@@ -89,7 +86,7 @@ export default function AccountChangeForm({userType}) {
     
         axios.patch(url, body)
         .then((res) => {
-            setResponse(res);
+            setResponse(res); //응답이 성공했을경우
         })
         .catch((error) => {
             setError(error);
@@ -97,6 +94,7 @@ export default function AccountChangeForm({userType}) {
     }
     
     if (error) console.error(error);
+    if (response) console.log(response.headers);
 
     return (
         <AccountContent>
@@ -108,8 +106,7 @@ export default function AccountChangeForm({userType}) {
                 value={currentPassword} 
                 placeholder='현재 비밀번호 입력'
                 onChange={(e) => setCurrentPassword(e.target.value)}/>
-                {/* error.res === '현재 비밀번호가 틀립니다.' */}
-                {(response.code === 400) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg> }
+                {(error && error.code === 400) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg> }
             </div>
 
             <div style={{display: 'flex', flexDirection: 'column'}}>
