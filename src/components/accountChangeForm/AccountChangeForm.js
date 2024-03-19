@@ -51,6 +51,7 @@ export default function AccountChangeForm({userType}) {
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
+    const [response, setResponse] = useState([]);
     const [error, setError] = useState(null);
 
     let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
@@ -88,9 +89,7 @@ export default function AccountChangeForm({userType}) {
     
         axios.patch(url, body)
         .then((res) => {
-            console.log(res.headers);
-            const resMsg = res;
-
+            setResponse(res);
         })
         .catch((error) => {
             setError(error);
@@ -110,7 +109,7 @@ export default function AccountChangeForm({userType}) {
                 placeholder='현재 비밀번호 입력'
                 onChange={(e) => setCurrentPassword(e.target.value)}/>
                 {/* error.res === '현재 비밀번호가 틀립니다.' */}
-                {error && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg> }
+                {(response.code === 400) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg> }
             </div>
 
             <div style={{display: 'flex', flexDirection: 'column'}}>
