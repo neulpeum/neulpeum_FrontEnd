@@ -13,20 +13,30 @@ const InputContainer = styled.div`
   align-items: center;
   gap: 10px;
   border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 8px;
   display: flex;
   align-items: center;
   background-color: white;
   margin-top: 48px;
-  width: 282px;
+  width: 491px;
+  height: 71px;
+
+  @media (max-width: 768px) {
+    width: 282px;
+    height: auto;
+  }
 `;
 
 const RoundedInput = styled.input`
   padding: 8px;
-  font-size: 12px;
+  font-size: 15px;
   border: 0px solid black;
   width: 100%;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const CustomInput = ({value, onChange, placeholder, icon, isPassword, onKeyDown}) => {
