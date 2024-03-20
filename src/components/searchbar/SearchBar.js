@@ -87,6 +87,16 @@ const PlusIcon = styled.img`
   }
 `;
 
+const SelectBox = styled.select`
+  width: fit-content;
+  height: fit-content;
+  font-size: 20px;
+  outline: none;
+  border: 1px solid black;
+  background-color: white;
+  padding: 10px;
+`
+
 const SearchBar = ({ search, currentPage, onCitizenAddClick}) => {
   const [searchCriteria, setSearchCriteria] = useState("");
   const [keyword, setKeyword] = useState('');
@@ -106,19 +116,14 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick}) => {
     Drugs: {
       content: (
       <SearchBarContainer using='drugs'>
-        <div>
-          <select
-            // className="coun-criteria"
-            value={searchCriteria}
-            onChange={handleCriteriaChange}>
+          <SelectBox value={searchCriteria} onChange={handleCriteriaChange}>
             <option value="">검색 기준</option>
             <option value="drugName">약 이름</option>
             <option value="consultDate">유통기한</option>
             <option value="providerName">남은 재고</option>
             <option value="takingDrug">등록일자</option>
             <option value="">마지막 사용 일자</option>
-          </select>
-        </div>
+          </SelectBox>
         <SearchInputContainer using='drugs'>
           <SearchInput id='drugs_search_value' value={keyword} onChange={(event) => setKeyword(event.target.value)}
           onKeyDown={(e) => activeEnter(e)}
