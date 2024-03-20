@@ -15,8 +15,9 @@ const GlobalStyles = createGlobalStyle `
     }
     // 이거 Main.js 안에 스타일 시트로 구현함 삭제할까 말까
   
-    .main-content > h3 {
-        margin-top: 56px;
+    .main-content > p {
+        margin-top: 74px;
+        font-size: 32px;
     }
 
     .logo-container {
@@ -30,9 +31,9 @@ const GlobalStyles = createGlobalStyle `
     }
 
     .main-logo-container > img {
-        margin-top: 95px;
-        width: 429px;
-        height: 332px;
+        margin-top: 76px;
+        width: 327px;
+        height: 242px;
     }
 
     .default-link-styles {
@@ -890,7 +891,7 @@ const GlobalStyles = createGlobalStyle `
         height: 170px;
     }
 
-    .main-content > h3 {
+    .main-content > p {
         margin-top: 75px;
         font-size: 15px;
     }
