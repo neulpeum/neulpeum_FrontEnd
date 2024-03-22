@@ -13,6 +13,7 @@ const UiPanelContainer = styled.div`
     display: flex;
     flex-direction: row;
     margin: 0 11.5%;
+    margin-top: 2rem;
     width: 75%;
     height: 12.7%;
     gap: 1rem;
@@ -38,10 +39,12 @@ const Drugs = () => {
     
     const [originalDrugs, setOriginalDrugs] = useState(null); // 이게 서버에 저장중인 약 데이터
     const [currentDrugsData, setCurrentDrugsData] = useState([]);  // 요게 화면에 랜더링할 약 데이터 Current
+    const [finalKeyword, setFinalKeyword] = useState("");
+
     const columns = [
         { Header: "약 이름", accessor: 'drugName', type: 'text'},
         { Header: "유통기한", accessor: 'expireDate', type: 'text'},
-        { Header: "남은 재고", accessor: 'usableAmount', type: 'int',
+        { Header: "남은 재고", accessor: 'usableAmount', type: 'number',
             Cell: ({ row }) => (
                 <div>
                     <DrugsTableStyledBtn onClick={() => handleQuantityChange(row.index, 1) }>+</DrugsTableStyledBtn>
@@ -55,19 +58,6 @@ const Drugs = () => {
     ];
     // 서버 ip 주소: http://52.78.35.193:8080
     // 약 재고 업데이트 PUT 요청 url 주소: /api/drug
-
-    const [isReversed, setReverse] = useState(false);
-    function sortDrugsData() {
-        setCurrentDrugsData(prevData => [...prevData].sort((a, b) => {
-            if (isReversed) {
-                return b.expireDate.localeCompare(a.expireDate);
-              } else {
-                return a.expireDate.localeCompare(b.expireDate);
-              }
-        }))
-        setReverse(!isReversed);
-    };
-
     const ReadJsonDrugs = (jsonDrugs) => {
         // slice(1) 를 통해 엑셀의 헤더부분을 제외하고 mapping하는 작업을 했지만... 왠지 모르게 불만족스럽다. 
         // 더 정교하게 설계해야겠다.
@@ -121,43 +111,8 @@ const Drugs = () => {
     //         "expireDate": "2025-06-29",
     //         "usableAmount" : 100
     //     },
-    //     {
-    //         "drugId": 3,
-    //         "drugName": "타이레놀",
-    //         "expireDate": "2025-11-28",
-    //         "usableAmount" : 100
-    //     },
-    //     {
-    //         "drugId": 4,
-    //         "drugName": "비타민",
-    //         "expireDate": "2026-06-29",
-    //         "usableAmount" : 100
-    //     },
-    //     {
-    //         "drugId": 5,
-    //         "drugName": "비타민",
-    //         "expireDate": "2026-11-28",
-    //         "usableAmount" : 100
-    //     },
-    //     {
-    //         "drugId": 6,
-    //         "drugName": "비타민",
-    //         "expireDate": "2027-11-28",
-    //         "usableAmount" : 100
-    //     },
-    //     {
-    //         "drugId": 7,
-    //         "drugName": "루테인",
-    //         "expireDate": "2026-11-28",
-    //         "usableAmount" : 100
-    //     },
-    //     {
-    //         "drugId": 8,
-    //         "drugName": "테스트",
-    //         "expireDate": "2025-11-28",
-    //         "usableAmount" : 30
-    //     }
     // ]
+
 
     const handleQuantityChange = (index, change) => {
         setCurrentDrugsData(prevData => {
@@ -205,35 +160,22 @@ const Drugs = () => {
             <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
         )
     }
-    // const search = (keyword, criteria) => {
-    //     if (criteria) {
-    //         originalDrugs.forEach((item))
-    //     }
-    // };
-    
-    // const search = (keyword, criteria) => {
-    //     if (criteria) {
-    //       data.forEach((item) => {
-    //         if (item[criteria] && item[criteria].includes(keyword)) {
-    //           setGlobalFilter(keyword);
-    //         } else {
-    //           setCriKeryword(keyword);
-    //           setGlobalFilter("朴");
-    //         }
-    //       });
-    //     } else {
-    //       setGlobalFilter(keyword);
-    //     }
-    //   };
+    function search(keyword) {
+        setFinalKeyword(keyword);
+        setCurrentDrugsData(() => [...originalDrugs].filter((item) => item.drugName.includes(keyword)));
+    }
+
+    const mainView = currentDrugsData.length === 0 ?
+    <NoResultView name={finalKeyword} explain={"는/은 존재하지 않는 약 이름입니다."} /> :
+    <DrugList columns={columns} data={currentDrugsData} savebtn={CreateBtn}/>
     return (
         <>
             <HeaderComponent />
             <UiPanelContainer>
                 <FileUpload UploadedFile={ReadJsonDrugs}/>
-                <SearchBar search={null} currentPage={"Drugs"} />
+                <SearchBar search={search} currentPage={"Drugs"} />
             </UiPanelContainer>
-            < DrugList columns={columns} data={currentDrugsData}savebtn={CreateBtn}/> 
-            {console.log(currentDrugsData)}
+            {mainView}
         </>
     );
 };
