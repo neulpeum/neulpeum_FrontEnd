@@ -9,11 +9,11 @@ const AccountContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1em;
+    gap: 1rem;
     padding: 2em 0;
 `;
 const AccountSpan = styled.span`
-    font-size: 32px;
+    font-size: 30px;
     font-weight: bold;
     white-space: nowrap;
 `;
@@ -25,7 +25,7 @@ const AccountInput= styled.input`
     padding-top: 1em;
     padding-bottom: 1em;
     line-height: 1.5em;
-    font-size: 28px;
+    font-size: 20px;
     cursor: pointer;
     border: none;
 `;
@@ -33,10 +33,11 @@ const AccountButton = styled.button`
     background-color: #aed391;
     border: none;
     color: white;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
     padding: 1rem 2.8rem;
+    border-radius: 0.5rem;
 `;
 const GuideMsg = styled.div`
     color: blue;
@@ -52,8 +53,8 @@ const ToggleButton = styled.button`
     cursor: pointer;
 `;
 const EyeIcon = styled.img`
-    width: 42px;
-    height: 42px;
+    width: 35px;
+    height: 35px;
 `;
 export default function AccountChangeForm({userType}) {
     const [currentPassword, setCurrentPassword] = useState('');
@@ -72,6 +73,12 @@ export default function AccountChangeForm({userType}) {
         setPasswordsVisible(newPasswordsVisible);
     };
 
+    function clearInputFileds() {
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmNewPassword('');
+    }
+
     const handleSumbit = async () => {
         if (!passwordRegex.test(newPassword)) return(alert('비밀번호는 알파벳 숫자 조합 6자리 이상이어야 합니다.'));
     
@@ -89,9 +96,9 @@ export default function AccountChangeForm({userType}) {
     
         axios.patch(url, body)
         .then((res) => {
-            setCurrentPassword('');
-            setNewPassword('');
-            setConfirmNewPassword('');
+            clearInputFileds()
+            setError(false);
+            alert(`${userType === 'admin' ? '관리자' : '대학생'} 비밀번호가 성공적으로 변경되었습니다.`);
         })
         .catch((error) => {
             if (error.code === "ERR_BAD_RESPONSE") {
@@ -121,7 +128,7 @@ export default function AccountChangeForm({userType}) {
                 {(error) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg>}
             </div>
 
-            <div style={{display: 'flex', flexDirection: 'column', width: '56.3%'}}>
+            <div style={{display: 'flex', flexDirection: 'column', width: '56.3%', marginTop: '20px'}}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid black', borderBottom: 'none' }} >
                     <AccountInput 
                         type={passwordsVisible[1] ? 'text' : 'password'}

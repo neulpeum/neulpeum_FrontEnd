@@ -1,0 +1,43 @@
+.upload-container {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+    padding: 11px 14px;
+    border: 1px solid black;
+}
+.upload-container.dragging {
+    background-color: blue;
+}
+.upload-container img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.upload-container span {
+    font-size: 20px;
+    position: absolute;
+    left: 54px;
+    top: 17px;
+}
+.upload-container label {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.5);
+}
+.upload-container button {
+    width: 104px;
+    height: 37px;
+    font-size: 20px;
+    align-self: flex-end;
+    color: white;
+    background-color: #aed391;
+    border: 0px;
+    border-radius: 5px;
+    cursor: pointer;
+}

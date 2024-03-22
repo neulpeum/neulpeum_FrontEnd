@@ -4,9 +4,9 @@ import HeaderComponent from '../../components/header/Header';
 import AccountChangeForm from '../../components/accountChangeForm/AccountChangeForm';
 
 const AccountContainer = styled.div`
-    width: 81.3%;
+    width: 70%;
     height: fit-content;
-    margin: 0 auto;
+    margin: 50px auto;
 `;
 
 const SwitchButtonContainer = styled.div`
@@ -22,7 +22,7 @@ const TabButton = styled.button`
     border-radius: 2rem 2rem 0 0;
     color: black;
     font-weight: bold;
-    font-size: 32px;
+    font-size: 30px;
     cursor: pointer;
 `;
 const PickIcon = styled.img`
@@ -35,8 +35,8 @@ const AccountSetting = () => {
     const [activeTab, setActiveTab] = useState(0);
 
     const TabButtons = [
-        {name: '관리자 비밀번호 변경', content: <AccountChangeForm userType={'admin'}/>},
-        {name: '대학생 비밀번호 변경', content: <AccountChangeForm userType={'user'}/>},
+        {name: '관리자 비밀번호 변경', content: <AccountChangeForm key='admin' userType={'admin'}/>},
+        {name: '대학생 비밀번호 변경', content: <AccountChangeForm key='user' userType={'user'}/>},
     ];
 
     const handleTabClick = (tabIndex) => {
@@ -49,15 +49,10 @@ const AccountSetting = () => {
             <AccountContainer>
                 <SwitchButtonContainer>
                     {TabButtons.map((tab, index) => (
-                        <TabButton
-                        key={index}
-                        onClick={() => handleTabClick(index)}
-                        style={(activeTab === index) ? { backgroundColor: '#aed391' } : { backgroundColor: '#FFF' }}
-                        >
-                        <PickIcon 
-                        src="/icons/ic_selected.svg" 
-                        style={(activeTab === index) ? { visibility: 'visible' } : { visibility: 'hidden' }}
-                        />
+                        <TabButton key={index} onClick={() => handleTabClick(index)}
+                            style={(activeTab === index) ? { backgroundColor: '#aed391' } : { backgroundColor: '#FFF' }}>
+                        
+                        {(activeTab === index) && <PickIcon src="/icons/ic_selected.svg"/>}
                         {tab.name}
                         </TabButton>
                     ))}

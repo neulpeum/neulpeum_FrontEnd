@@ -394,52 +394,6 @@ const GlobalStyles = createGlobalStyle `
         font-weight: bold;
     }
 
-    /* FileUpload.css */
-    .upload-container {
-        width: 588px;
-        height: 131px;
-        position: absolute;
-        top: 283px;
-        left: 171px;
-        border: 1px solid black;
-    }
-    .ic-file {
-        width: 30px;
-        height: 30px;
-        position: absolute;
-        top: 11px;
-        left: 14px;
-        cursor: pointer;
-    }
-    .ic-file-span{
-        font-size: 20px;
-        position: absolute;
-        left: 54px;
-        top: 17px;
-    }
-    .upload-container-label {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 20px;
-        color: rgba(0, 0, 0, 0.5);
-    }
-    
-    .file-save-button {
-        width: 104px;
-        height: 37px;
-        font-size: 20px;
-        position: absolute;
-        top: 77px;
-        left: 464px;
-        color: white;
-        background-color: #aed391;
-        border: 0px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
     /* Modal.css */
     .modal-back {
         position: fixed;
@@ -660,7 +614,7 @@ const GlobalStyles = createGlobalStyle `
     .Drugtable-header {
         border: 1px solid black;
         padding: 30px 0;
-        text-align: center;
+        item-align: center;
         font-size: 28px;
         font-weight: bold;
     }
