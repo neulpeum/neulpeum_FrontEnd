@@ -614,7 +614,7 @@ const GlobalStyles = createGlobalStyle `
     .Drugtable-header {
         border: 1px solid black;
         padding: 30px 0;
-        text-align: center;
+        item-align: center;
         font-size: 28px;
         font-weight: bold;
     }

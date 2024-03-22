@@ -28,7 +28,7 @@ const DrugsTableStyledBtn = styled.button`
     background-color: #AED391;
     border: none;
     cursor: pointer;
-    margin: 0 7px;
+    // margin: 0 7px;
 `
 const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
     width: 192px;
@@ -42,11 +42,12 @@ const Drugs = () => {
     const [finalKeyword, setFinalKeyword] = useState("");
 
     const columns = [
+        { Header: "약 아이디", accessor: 'drugId', type: 'number'},
         { Header: "약 이름", accessor: 'drugName', type: 'text'},
         { Header: "유통기한", accessor: 'expireDate', type: 'text'},
         { Header: "남은 재고", accessor: 'usableAmount', type: 'number',
             Cell: ({ row }) => (
-                <div>
+                <div className='usableAmount-cell' style={{display: 'flex', justifyContent: 'space-between', padding: '0 20px'}}>
                     <DrugsTableStyledBtn onClick={() => handleQuantityChange(row.index, 1) }>+</DrugsTableStyledBtn>
                     {row.values.usableAmount}
                     <DrugsTableStyledBtn onClick={() => handleQuantityChange(row.index, -1) }>-</DrugsTableStyledBtn>
@@ -98,21 +99,6 @@ const Drugs = () => {
             console.log(error, error.response, error.request);
         })
     }
-    // [
-    //     {
-    //         "drugId": 1,
-    //         "drugName": "타이레놀",
-    //         "expireDate": "2025-01-27",
-    //         "usableAmount" : 100
-    //     },
-    //     {
-    //         "drugId": 2,
-    //         "drugName": "타이레놀",
-    //         "expireDate": "2025-06-29",
-    //         "usableAmount" : 100
-    //     },
-    // ]
-
 
     const handleQuantityChange = (index, change) => {
         setCurrentDrugsData(prevData => {
@@ -122,25 +108,22 @@ const Drugs = () => {
         })
     }
 
-    // axios.patch(url, body)
-    //     .then((res) => {
-    //         setCurrentPassword('');
-    //         setNewPassword('');
-    //         setConfirmNewPassword('');
-    //     })
-    //     .catch((error) => {
-    //         if (error.code === "ERR_BAD_RESPONSE") {
-    //             setCurrentPassword('');
-    //             setError(error);
-    //         } else {
-    //             console.error(error); // 예상치 못한 에러 발생시
-    //         }
-    //     });
+    function removeTimeFromDrugsTime(array) {
+        const newArray = array.map(item => {
+            item.drugEnrollTime = item.drugEnrollTime.split(' ')[0];
+            item.drugModifiedTime = item.drugModifiedTime.split(' ')[0];
+            return item;
+        });
+    
+        return newArray;
+    }
+    // drugEnrollTime 과 drugMdoified data 같은 경우 서버에서 시. 분. 초 까지 넘어오기 때문에 여기선 그것을 제외해야한다.
+    //const formattedDate = jsDate.toISOString().split('T')[0];
     useEffect(() => {
         if (!originalDrugs) {
             axios.get("http://52.78.35.193:8080/api/drug")
-            .then((res) => {
-                const data = res.data;
+            .then((response) => {
+                const data = removeTimeFromDrugsTime(response.data);
                 setOriginalDrugs(data);
                 setCurrentDrugsData(data);
             })
@@ -167,7 +150,8 @@ const Drugs = () => {
 
     const mainView = currentDrugsData.length === 0 ?
     <NoResultView name={finalKeyword} explain={"는/은 존재하지 않는 약 이름입니다."} /> :
-    <DrugList columns={columns} data={currentDrugsData} savebtn={CreateBtn}/>
+    <DrugList columns={columns.slice(1, 6)} data={currentDrugsData} savebtn={CreateBtn}/>
+
     return (
         <>
             <HeaderComponent />
