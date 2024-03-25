@@ -173,8 +173,14 @@ const Drugs = () => {
     const results = [];
     if (criteria) {
       currentDrugsData.forEach((item) => {
-        if (item[criteria] && item[criteria].includes(keyword)) {
-          results.push(item);
+        if (criteria === "usableAmount") {
+          if (item[criteria] && item[criteria] === parseInt(keyword)) {
+            results.push(item);
+          }
+        } else {
+          if (item[criteria] && item[criteria].includes(keyword)) {
+            results.push(item);
+          }
         }
       });
       if (results.length !== 0) {
