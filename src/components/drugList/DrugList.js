@@ -1,7 +1,7 @@
 import React from "react";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 
-const DrugList = ({ columns, data, savebtn }) => {
+const DrugList = ({ columns, data}) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -63,7 +63,6 @@ const DrugList = ({ columns, data, savebtn }) => {
           })}
         </tbody>
       </table>
-      {savebtn()}
     </div>
   );
 };
