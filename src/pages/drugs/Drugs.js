@@ -162,31 +162,37 @@ const Drugs = () => {
         }
     }
 
-    function search(keyword) {
-        setFinalKeyword(keyword);
-        setCurrentDrugsData(() => [...originalDrugs].filter((item) => item.drugName.includes(keyword)));
-    }
+    function search(keyword, criteria) {
+        setCriKeryword(keyword);
+        const results = [];
+        if (criteria) {
+          currentDrugsData.forEach((item) => {
+            if (item[criteria] && item[criteria].includes(keyword)) {
+              results.push(item);
+            }
+          });
+          if (results.length !== 0) {
+            setFilterData(results);
+          } else {
+            setFilterData([]);
+            setCriKeryword(keyword);
+          }
+        } else {
+          setFilterData(() =>
+            [...currentDrugsData].filter((item) => item.drugName.includes(keyword))
+          );
+        }
+      }
 
-    const mainView = currentDrugsData.length === 0 ?
-    <NoResultView name={finalKeyword} explain={"는/은 존재하지 않는 약 이름입니다."} /> :
-    <div style={{display :'flex', flexDirection:'column', padding:'5px'}}>
-        <DrugList columns={columns.slice(1, 6)} data={currentDrugsData}/>
-        <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
-    </div>
-
-//   const mainView =
-//     originalDrugs && filterData.length === 0 ? (
-//       <NoResultView
-//         name={criKeyword}
-//         explain={"과 일치하는 내용이 없습니다."}
-//       />
-//     ) : (
-//       <DrugList
-//         columns={columns.slice(1, 6)}
-//         data={filterData}
-//         savebtn={CreateBtn}
-//       />
-//     );
+    const mainView = 
+        originalDrugs && filterData.length === 0 ? (
+            <NoResultView name={criKeyword} explain={"는/은 존재하지 않는 약 이름입니다."} /> 
+        ): (
+            <div style={{display :'flex', flexDirection:'column', padding:'5px'}}>
+                <DrugList columns={columns.slice(1, 6)} data={currentDrugsData}/>
+                <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
+            </div>
+        )
 
   return (
     <>
