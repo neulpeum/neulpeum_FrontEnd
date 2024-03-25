@@ -41,6 +41,13 @@ const Drugs = () => {
     const [currentDrugsData, setCurrentDrugsData] = useState([]);  // 요게 화면에 랜더링할 약 데이터 Current
     const [finalKeyword, setFinalKeyword] = useState("");
 
+    // Intl.DateTimeFormat의 날짜 포맷팅 옵션들 
+    const dateOptions = {
+        year: 'numeric',
+        month: 'long', 
+        day: 'numeric',
+    }
+
     const columns = [
         { Header: "약 아이디", accessor: 'drugId', type: 'number'},
         { Header: "약 이름", accessor: 'drugName', type: 'text'},
@@ -57,20 +64,22 @@ const Drugs = () => {
         {Header: "등록일자", accessor: 'drugEnrollTime', type: 'text'},
         {Header: "마지막 사용 일자", accessor: 'drugModifiedTime', type: 'text'},
     ];
+
     // 서버 ip 주소: http://52.78.35.193:8080
     // 약 재고 업데이트 PUT 요청 url 주소: /api/drug
     const ReadJsonDrugs = (jsonDrugs) => {
         // slice(1) 를 통해 엑셀의 헤더부분을 제외하고 mapping하는 작업을 했지만... 왠지 모르게 불만족스럽다. 
         // 더 정교하게 설계해야겠다.
         const FormattedDrugs = jsonDrugs.slice(1).map((row, index) => {
-            const [drugName, expireDate, usableAmount, drugEnrollTime, drugModifiedTime] = row;
+            const [drugName, expireDate, usableAmount, usable] = row; //??? 도대체 현재 재고량이랑 사용량을 엑셀파일에 둘다 기제하는 이유가 뭐지??
+            const currentDate = new Intl.DateTimeFormat('kr',  dateOptions).format(new Date());
 
             return {
                 drugName: drugName,
                 expireDate: ConvertedDate(expireDate),
                 usableAmount: usableAmount,
-                drugEnrollTime: ConvertedDate(drugEnrollTime),
-                drugModifiedTime: ConvertedDate(drugModifiedTime),
+                drugEnrollTime: currentDate,
+                drugModifiedTime: <>아직 사용되지 않았습니다.</>,
               };
         });
         setCurrentDrugsData(FormattedDrugs);
@@ -79,13 +88,14 @@ const Drugs = () => {
     // 엑셀 형식 Date -> json 형식 Date : 변환
     function ConvertedDate(excelDate) {
         // 엑셀 날짜의 기준일 (1900년 1월 0일)
-        const baseDate = new Date(1899, 11, 30);
+        const baseDate = new Date(1899, 11, 31);
         // 엑셀 날짜에 해당하는 밀리초 계산
         const milliseconds = excelDate * 24 * 60 * 60 * 1000;
         const jsDate = new Date(baseDate.getTime() + milliseconds);
-        const formattedDate = jsDate.toISOString().split('T')[0];
+        const formattedDate = new Intl.DateTimeFormat('kr',  dateOptions).format(jsDate)
         return formattedDate;
     }
+
 
     async function UpdateDrugs()  {
         if (!originalDrugs) return;
@@ -108,22 +118,21 @@ const Drugs = () => {
         })
     }
 
-    function removeTimeFromDrugsTime(array) {
+    function FormatTimeFromDrugs(array) {
         const newArray = array.map(item => {
-            item.drugEnrollTime = item.drugEnrollTime.split(' ')[0];
-            item.drugModifiedTime = item.drugModifiedTime.split(' ')[0];
+            item.drugEnrollTime = new Intl.DateTimeFormat('kr',  dateOptions).format(new Date(item.drugEnrollTime));
+            item.drugModifiedTime = new Intl.DateTimeFormat('kr',  dateOptions).format(new Date(item.drugModifiedTime));
             return item;
         });
     
         return newArray;
     }
-    // drugEnrollTime 과 drugMdoified data 같은 경우 서버에서 시. 분. 초 까지 넘어오기 때문에 여기선 그것을 제외해야한다.
-    //const formattedDate = jsDate.toISOString().split('T')[0];
+
     useEffect(() => {
         if (!originalDrugs) {
             axios.get("http://52.78.35.193:8080/api/drug")
             .then((response) => {
-                const data = removeTimeFromDrugsTime(response.data);
+                const data = FormatTimeFromDrugs(response.data);
                 setOriginalDrugs(data);
                 setCurrentDrugsData(data);
             })
@@ -135,7 +144,7 @@ const Drugs = () => {
                 }
             })
         }
-    }, [originalDrugs]); // 원본 데이터가 변경될경우 다시 서버에서 받아온다고? 근데 그건 백엔드쪽이지 프론트쪽이아니잖아?
+    }, []);
 
 
     function CreateBtn() {
@@ -143,6 +152,7 @@ const Drugs = () => {
             <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
         )
     }
+
     function search(keyword) {
         setFinalKeyword(keyword);
         setCurrentDrugsData(() => [...originalDrugs].filter((item) => item.drugName.includes(keyword)));
