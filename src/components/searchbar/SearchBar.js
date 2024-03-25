@@ -126,7 +126,7 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick }) => {
             <option value="">전체</option>
             <option value="drugName">약 이름</option>
             <option value="expireDate">유통기한</option>
-            {/* <option value="usableAmount">남은 재고</option> */}
+            <option value="usableAmount">남은 재고</option>
             <option value="drugEnrollTime">입고 일자</option>
             <option value="drugModifiedTime">마지막 사용 일자</option>
           </select>
