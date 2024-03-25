@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Criteria.css";
 
 export default function Search({ onSubmit }) {
   const [searchCriteria, setSearchCriteria] = useState("");
@@ -18,12 +17,24 @@ export default function Search({ onSubmit }) {
     setSearchKeyword(event.target.value);
   };
 
+  const criteriaStyle = {
+    width: "7.8125rem",
+    height: "2.75rem",
+    marginRight: "0.62rem",
+    paddingLeft: "0.56rem",
+    paddingTop: "0.2rem",
+    fontSize: "1.25rem",
+    border: "1px solid #000",
+    outline: "none",
+  };
+
   return (
     <form onSubmit={handleSubmit} className="searchForm">
       <select
         className="coun-criteria"
         value={searchCriteria}
         onChange={handleCriteriaChange}
+        style={criteriaStyle}
       >
         <option value="">전체</option>
         <option value="consultDate">방문날짜</option>
