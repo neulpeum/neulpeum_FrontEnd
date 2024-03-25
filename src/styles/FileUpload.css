@@ -32,7 +32,9 @@
 .upload-container p {
     font-size: 20px;
     align-self: center;
+    text-align: center;
     color: rgba(0, 0, 0, 0.5);
+    margin: 12px;
 }
 .upload-container button {
     width: 104px;
@@ -42,6 +44,6 @@
     background-color: #aed391;
     align-self: flex-end;
     border: 0px;
-    border-radius: 5px;
+    border-radius: 10px 10px;
     cursor: pointer;
 }

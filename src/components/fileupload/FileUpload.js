@@ -12,9 +12,9 @@ const FileUpload = ({ UploadedFile } ) => {
   const uploadBoxRef = useRef();
   const fileIconRef = useRef();
 
-  const transmitDrugsData = () => {
-    if (convertedFile) UploadedFile(convertedFile);
-    else alert("현재 업로드된 파일이 없습니다. 파일을 선택하고 업로드한 후 시도해주세요.");
+  const transmitDrugsData = async () => {
+    if (convertedFile) await UploadedFile(convertedFile);
+    else alert("현재 업로드된 파일이 없습니다. 파일을 선택하고 업로드한 후 다시 시도해주세요.");
   }
 
   const readExcelFile = (file) => {

@@ -9,6 +9,8 @@ const SearchBarContainer = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 1rem;
     `
       : `
@@ -26,11 +28,11 @@ const SearchInputContainer = styled.div`
   ${(props) =>
     props.using === "drugs"
       ? `
-    display: flex;
-    width: 100%;
-    height: fit-content;
-    border: 1px solid black;
-    `
+      display: flex;
+      width: 100%;
+      height: fit-content;
+      border: 1px solid black;
+      `
       : `
     width: 50%;
     display: flex;
@@ -112,24 +114,33 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick }) => {
       }
     }
   };
-
   // 각 페이지 마다 달라지는 컴포넌트 구성 Drugs, Citizens
   const pageConfig = {
     Drugs: {
       content: (
         <SearchBarContainer using="drugs">
-          <select
-            value={searchCriteria}
-            onChange={handleCriteriaChange}
-            style={criteriaStyle}
-          >
-            <option value="">전체</option>
-            <option value="drugName">약 이름</option>
-            <option value="expireDate">유통기한</option>
-            <option value="usableAmount">남은 재고</option>
-            <option value="drugEnrollTime">입고 일자</option>
-            <option value="drugModifiedTime">마지막 사용 일자</option>
-          </select>
+          <div style={{display: 'flex', flexDirection: "row", alignItems: "center"}}>
+            <select
+              value={searchCriteria}
+              onChange={handleCriteriaChange}
+              style={criteriaStyle}
+            >
+              <option value="">전체</option>
+              <option value="drugName">약 이름</option>
+              <option value="expireDate">유통기한</option>
+              <option value="usableAmount">남은 재고</option>
+              <option value="drugEnrollTime">입고 일자</option>
+              <option value="drugModifiedTime">마지막 사용 일자</option>
+            </select>
+            <div style={{ display: 'flex', alignItems: 'center', width:'fit-content', gap: '8px', marginLeft: '20px'}}>
+              <img src="/icons/ic_grey_circle.svg" alt=""/>
+              <span style={{whiteSpace: 'nowrap', fontSize: '20px', overflow:"hidden"}}>추가된 행</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', width:'fit-content', gap: '8px', marginLeft: '20px'}}>
+              <img src="/icons/ic_green_circle.svg" alt=""/>
+              <span style={{whiteSpace: 'nowrap', fontSize: '20px', overflow:"hidden"}}>추가된 행</span>
+            </div>
+          </div>
           <SearchInputContainer using="drugs">
             <SearchInput
               id="drugs_search_value"

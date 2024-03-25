@@ -11,8 +11,7 @@ import NoResultView from "../../components/noResult/NoResult";
 const UiPanelContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 0 11.5%;
-  margin-top: 2rem;
+  margin: 2rem 11.5% 0 11.5%;
   width: 75%;
   height: 12.7%;
   gap: 1rem;
@@ -20,19 +19,19 @@ const UiPanelContainer = styled.div`
 const DrugsTableStyledBtn = styled.button`
     width: 25px;
     height: 25px;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
-    border-radius: 50%;
+    border-radius: 100%;
     color: white;
     background-color: #AED391;
     border: none;
     cursor: pointer;
-    // margin: 0 7px;
 `
 const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
     width: 192px;
     height: 48px;
     border-radius: 5px;
+    align-self: flex-end;
 `
 const Drugs = () => {
   const [originalDrugs, setOriginalDrugs] = useState(null); // 이게 서버에 저장중인 약 데이터 현재 최초 랜더링시에만 가져옴
@@ -40,12 +39,7 @@ const Drugs = () => {
   const [filterData, setFilterData] = useState([]);
   const [criKeyword, setCriKeryword] = useState("");
 
-    // Intl.DateTimeFormat의 날짜 포맷팅 옵션들 
-    const dateOptions = {
-        year: 'numeric',
-        month: 'long', 
-        day: 'numeric',
-    }
+  const [mainViewState, setMainViewState] = useState('main'); // 초기 메인 뷰 상태는 'main'으로 설정
 
     const columns = [
         { Header: "약 아이디", accessor: 'drugId', type: 'number'},
@@ -54,9 +48,10 @@ const Drugs = () => {
         { Header: "남은 재고", accessor: 'usableAmount', type: 'number',
             Cell: ({ row }) => (
                 <div className='usableAmount-cell' style={{display: 'flex', justifyContent: 'space-between', padding: '0 20px'}}>
-                    <DrugsTableStyledBtn onClick={() => handleQuantityChange(row.index, 1) }>+</DrugsTableStyledBtn>
+                    <DrugsTableStyledBtn onClick={() => {} }>+</DrugsTableStyledBtn>
                     {row.values.usableAmount}
-                    <DrugsTableStyledBtn onClick={() => handleQuantityChange(row.index, -1) }>-</DrugsTableStyledBtn>
+                    <DrugsTableStyledBtn onClick={() => {} }>-</DrugsTableStyledBtn>
+                    {/* {() => {handleQuantityChange(row.index, -1)} } */}
                 </div>
             )
         },
@@ -69,19 +64,20 @@ const Drugs = () => {
         // 더 정교하게 설계해야겠다.
         const FormattedDrugs = jsonDrugs.slice(1).map((row, index) => {
             const [drugName, expireDate, usableAmount, usable] = row; //??? 도대체 현재 재고량이랑 사용량을 엑셀파일에 둘다 기제하는 이유가 뭐지??
-            const drugId = index; //임시로 부여한 약 데이터
-            const currentDate = new Intl.DateTimeFormat('kr',  dateOptions).format(new Date());
+            const dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            const currentDate = new Date().toLocaleDateString('kr', dateOptions).split('.').join('-');
 
             return {
-                drugId: drugId,
+                drugId: index,
                 drugName: drugName,
                 expireDate: ConvertedDate(expireDate),
                 usableAmount: usableAmount,
                 drugEnrollTime: currentDate,
-                drugModifiedTime: <>아직 사용되지 않았습니다.</>,
+                drugModifiedTime: null,
               };
         });
         setCurrentDrugsData(FormattedDrugs);
+        setMainViewState('fileUpload');
     }
 
     // 엑셀 형식 Date -> json 형식 Date : 변환
@@ -91,7 +87,7 @@ const Drugs = () => {
         // 엑셀 날짜에 해당하는 밀리초 계산
         const milliseconds = excelDate * 24 * 60 * 60 * 1000;
         const jsDate = new Date(baseDate.getTime() + milliseconds);
-        const formattedDate = new Intl.DateTimeFormat('kr',  dateOptions).format(jsDate);
+        const formattedDate = jsDate.toISOString().split('T')[0]
         return formattedDate;
     }
 
@@ -103,24 +99,12 @@ const Drugs = () => {
     });
   };
 
-    // function FormatTimeFromDrugs(array) {
-    //     const newArray = array.map(item => {
-    //         item.drugEnrollTime = new Intl.DateTimeFormat('kr',  dateOptions).format(new Date(item.drugEnrollTime));
-    //         item.drugModifiedTime = new Intl.DateTimeFormat('kr',  dateOptions).format(new Date(item.drugModifiedTime));
-    //         return item;
-    //     });
-    
-    //     return newArray;
-    // }
-
     useEffect(() => {
         if (!originalDrugs) {
             axios.get("http://52.78.35.193:8080/api/drug")
             .then((response) => {
-                // const data = FormatTimeFromDrugs(response.data);
                 const data = response.data;
                 setOriginalDrugs(data);
-                setCurrentDrugsData(data);
             })
             .catch((error) => {
                 if (error.code === "Bad Request") {
@@ -149,7 +133,9 @@ const Drugs = () => {
             axios.put("http://52.78.35.193:8080/api/drug", body)
             .then(response => {
                 alert('약데이터가 성공적으로 등록되었습니다.', response);
-                setOriginalDrugs(currentDrugsData, originalDrugs);
+                setOriginalDrugs([...originalDrugs, currentDrugsData]);
+                setCurrentDrugsData([]);
+                setMainViewState('main');
             })
             .catch(error => {
                 console.log(error);
@@ -166,7 +152,7 @@ const Drugs = () => {
         setCriKeryword(keyword);
         const results = [];
         if (criteria) {
-          currentDrugsData.forEach((item) => {
+          originalDrugs.forEach((item) => {
             if (item[criteria] && item[criteria].includes(keyword)) {
               results.push(item);
             }
@@ -179,20 +165,48 @@ const Drugs = () => {
           }
         } else {
           setFilterData(() =>
-            [...currentDrugsData].filter((item) => item.drugName.includes(keyword))
+            [...originalDrugs].filter((item) => item.drugName.includes(keyword))
           );
+        setMainViewState('search');
         }
       }
 
-    const mainView = 
-        !originalDrugs && filterData.length === 0 ? (
-            <NoResultView name={criKeyword} explain={"는/은 존재하지 않는 약 이름입니다."} /> 
-        ): (
-            <div style={{display :'flex', flexDirection:'column', padding:'5px'}}>
-                <DrugList columns={columns.slice(1, 6)} data={filterData}/>
+    let mainView;
+
+    if (mainViewState === 'main') {
+        mainView = !originalDrugs ? (
+          <></>
+        ) : (
+            <div className="drug-table">
+            {console.log(originalDrugs)}
+                <DrugList columns={columns.slice(1, 6)} data={originalDrugs} />
                 <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
             </div>
-        )
+        );
+      } else if (mainViewState === 'search') {
+        {console.log(filterData)}
+        mainView = filterData.length === 0 ? (
+          <NoResultView
+            name={criKeyword}
+            explain={"과 일치하는 내용이 없습니다."}
+          />
+        ) : (
+            <div className="drug-table">
+            <DrugList columns={columns.slice(1, 6)} data={filterData} />
+            <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
+            </div>
+        );
+      } else if (mainViewState === 'fileUpload') {
+        {console.log(currentDrugsData)}
+        mainView = !currentDrugsData ? (
+          <></>
+        ) : (
+          <div className="drug-table">
+            <DrugList columns={columns.slice(1, 6)} data={currentDrugsData} />
+            <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
+          </div>
+        );
+      }
 
   return (
     <>
