@@ -207,10 +207,8 @@ const GlobalStyles = createGlobalStyle `
     }
     
     .infor-wrapper {
-        // height: 93%;
         display: flex;
         margin-top: 3.56rem;
-        margin-bottom: 1rem;
         flex-direction: column;
         justify-content: center;
     }
@@ -229,7 +227,7 @@ const GlobalStyles = createGlobalStyle `
         display: inline-block;
         margin: 0;
         color: #878485;
-        font-size: 1.25rem;
+        font-size: 1.375rem;
     }
 
     .content-wrapper {

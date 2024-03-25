@@ -11,6 +11,7 @@ export default function CitizenCounselList() {
   const [criKeyword, setCriKeryword] = useState("");
   const [data, setData] = useState([]);
   const [consultId, setConsultId] = useState("0");
+  const [filterData, setFilterData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const patientId = location.state.id;
@@ -37,22 +38,28 @@ export default function CitizenCounselList() {
         `http://52.78.35.193:8080/api/patient/consult?patientId=${patientId}`
       );
       setData(response.data);
+      setFilterData(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   const search = (keyword, criteria) => {
+    const results = [];
     if (criteria) {
       data.forEach((item) => {
         if (item[criteria] && item[criteria].includes(keyword)) {
-          setGlobalFilter(keyword);
-        } else {
-          setCriKeryword(keyword);
-          setGlobalFilter("朴");
+          results.push(item);
         }
       });
+      if (results.length !== 0) {
+        setFilterData(results);
+      } else {
+        setFilterData([]);
+        setCriKeryword(keyword);
+      }
     } else {
+      setFilterData(data);
       setGlobalFilter(keyword);
     }
   };
@@ -75,7 +82,7 @@ export default function CitizenCounselList() {
     []
   );
 
-  let {
+  const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
@@ -83,7 +90,7 @@ export default function CitizenCounselList() {
     prepareRow,
     state,
     setGlobalFilter,
-  } = useTable({ columns, data }, useGlobalFilter, useSortBy);
+  } = useTable({ columns, data: filterData }, useGlobalFilter, useSortBy);
 
   const sortSytle = {
     fontSize: "0.8rem",
@@ -168,7 +175,7 @@ export default function CitizenCounselList() {
 
   const keyword = state["globalFilter"];
   const noResultView =
-    keyword === "朴" ? (
+    filterData.length === 0 ? (
       <NoResultView
         name={criKeyword}
         explain={"과 일치하는 내용이 없습니다."}

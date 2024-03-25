@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -6,11 +6,22 @@ import { useNavigate, useLocation } from "react-router-dom";
 export default function AddCounseling() {
   Modal.setAppElement("#root");
 
+  const inputRefs = useRef([]);
+
   const location = useLocation();
   const patientId = location.state.patientId;
   const patientName = location.state.patientName;
   // const tempProviderName = "박서연";
   // const providerName = tempProviderName;
+
+  useEffect(() => {
+    const firstInput = inputRefs.current[0];
+    if (firstInput) {
+      const length = firstInput.value.length;
+      firstInput.setSelectionRange(length, length);
+      firstInput.focus();
+    }
+  }, []);
 
   const date = new Date();
   const today = `${date.getFullYear()}.${
@@ -92,7 +103,8 @@ export default function AddCounseling() {
               type="text"
               value={data[0]}
               onChange={(e) => handleChange(0, e)}
-            />{" "}
+              ref={(el) => (inputRefs.current[0] = el)}
+            />
             {/* <p>{tempProviderName}</p> */}
           </div>
           <div className="counsel-category-wrapper">
