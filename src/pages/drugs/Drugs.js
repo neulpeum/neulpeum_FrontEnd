@@ -185,11 +185,11 @@ const Drugs = () => {
       }
 
     const mainView = 
-        originalDrugs && filterData.length === 0 ? (
+        !originalDrugs && filterData.length === 0 ? (
             <NoResultView name={criKeyword} explain={"는/은 존재하지 않는 약 이름입니다."} /> 
         ): (
             <div style={{display :'flex', flexDirection:'column', padding:'5px'}}>
-                <DrugList columns={columns.slice(1, 6)} data={currentDrugsData}/>
+                <DrugList columns={columns.slice(1, 6)} data={filterData}/>
                 <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
             </div>
         )
