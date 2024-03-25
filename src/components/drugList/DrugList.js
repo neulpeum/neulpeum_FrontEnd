@@ -2,22 +2,13 @@ import React from "react";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 
 const DrugList = ({ columns, data}) => {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state,
-    setGlobalFilter,
-  } = useTable({ columns, data }, useGlobalFilter, useSortBy);
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data }, useGlobalFilter, useSortBy);
 
   const sortSytle = {
     fontSize: "0.8rem",
     marginLeft: "0.3rem",
   };
-
-  // const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
 
   return (
     <div className="Drugtable-wrapper">

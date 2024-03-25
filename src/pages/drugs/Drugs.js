@@ -1,46 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import * as XLSX from 'xlsx';
-import DrugList from '../../components/drugList/DrugList';
-import HeaderComponent from '../../components/header/Header';
-import SearchBar from '../../components/searchbar/SearchBar';
-import FileUpload from '../../components/fileupload/FileUpload';
-import NoResultView from '../../components/noResult/NoResult';
-
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import * as XLSX from "xlsx";
+import DrugList from "../../components/drugList/DrugList";
+import HeaderComponent from "../../components/header/Header";
+import SearchBar from "../../components/searchbar/SearchBar";
+import FileUpload from "../../components/fileupload/FileUpload";
+import NoResultView from "../../components/noResult/NoResult";
 
 const UiPanelContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin: 0 11.5%;
-    margin-top: 2rem;
-    width: 75%;
-    height: 12.7%;
-    gap: 1rem;
-`
+  display: flex;
+  flex-direction: row;
+  margin: 0 11.5%;
+  margin-top: 2rem;
+  width: 75%;
+  height: 12.7%;
+  gap: 1rem;
+`;
 const DrugsTableStyledBtn = styled.button`
     width: 25px;
     height: 25px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
-    border-radius: 100%;
+    border-radius: 50%;
     color: white;
     background-color: #AED391;
     border: none;
     cursor: pointer;
+    // margin: 0 7px;
 `
 const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
-    width: 168px;
+    width: 192px;
     height: 48px;
     border-radius: 5px;
-    align-self: flex-end;
-    // transform: translate(-50%, -50%);
 `
 const Drugs = () => {
-    
-    const [originalDrugs, setOriginalDrugs] = useState(null); // 이게 서버에 저장중인 약 데이터 현재 최초 랜더링시에만 가져옴
-    const [currentDrugsData, setCurrentDrugsData] = useState([]);  // 요게 화면에 랜더링할 약 데이터 Current
-    const [finalKeyword, setFinalKeyword] = useState("");
+  const [originalDrugs, setOriginalDrugs] = useState(null); // 이게 서버에 저장중인 약 데이터 현재 최초 랜더링시에만 가져옴
+  const [currentDrugsData, setCurrentDrugsData] = useState([]); // 요게 화면에 랜더링할 약 데이터 Current
+  const [filterData, setFilterData] = useState([]);
+  const [criKeyword, setCriKeryword] = useState("");
 
     // Intl.DateTimeFormat의 날짜 포맷팅 옵션들 
     const dateOptions = {
@@ -97,13 +95,13 @@ const Drugs = () => {
         return formattedDate;
     }
 
-    const handleQuantityChange = (index, change) => {
-        setCurrentDrugsData(prevData => {
-            const newData = [...prevData];
-            newData[index].usableAmount += change;
-            return newData;
-        })
-    }
+  const handleQuantityChange = (index, change) => {
+    setCurrentDrugsData((prevData) => {
+      const newData = [...prevData];
+      newData[index].usableAmount += change;
+      return newData;
+    });
+  };
 
     // function FormatTimeFromDrugs(array) {
     //     const newArray = array.map(item => {
@@ -176,16 +174,30 @@ const Drugs = () => {
         <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
     </div>
 
-    return (
-        <>
-            <HeaderComponent />
-            <UiPanelContainer>
-                <FileUpload UploadedFile={ReadJsonDrugs}/>
-                <SearchBar search={search} currentPage={"Drugs"} />
-            </UiPanelContainer>
-            {mainView}
-        </>
-    );
+//   const mainView =
+//     originalDrugs && filterData.length === 0 ? (
+//       <NoResultView
+//         name={criKeyword}
+//         explain={"과 일치하는 내용이 없습니다."}
+//       />
+//     ) : (
+//       <DrugList
+//         columns={columns.slice(1, 6)}
+//         data={filterData}
+//         savebtn={CreateBtn}
+//       />
+//     );
+
+  return (
+    <>
+      <HeaderComponent />
+      <UiPanelContainer>
+        <FileUpload UploadedFile={ReadJsonDrugs} />
+        <SearchBar search={search} currentPage={"Drugs"} />
+      </UiPanelContainer>
+      {mainView}
+    </>
+  );
 };
 
 export default Drugs;

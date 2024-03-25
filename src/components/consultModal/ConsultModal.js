@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import axios from "axios";
 
@@ -7,6 +7,7 @@ export default function ConsultModal({ onClose, consultId }) {
 
   const [consultData, setConsultData] = useState([]);
   const [formattedDateTime, setFormattedDateTime] = useState("");
+  const inputRefs = useRef([]);
 
   useEffect(() => {
     getConsultData();
@@ -54,6 +55,17 @@ export default function ConsultModal({ onClose, consultId }) {
     setIsEditing(true);
     setOriginalFields(fields);
   };
+
+  useEffect(() => {
+    if (isEditing) {
+      const firstInput = inputRefs.current[0];
+      if (firstInput) {
+        const length = firstInput.value.length;
+        firstInput.setSelectionRange(length, length);
+        firstInput.focus();
+      }
+    }
+  }, [isEditing]);
 
   const handleCancelClick = () => {
     setIsEditing(false);
@@ -130,6 +142,7 @@ export default function ConsultModal({ onClose, consultId }) {
                   <textarea
                     className="modalCounselTextarea"
                     value={fields}
+                    ref={(el) => (inputRefs.current[0] = el)}
                     onChange={(e) => handleChange(e)}
                     onKeyDown={autoResizeTextarea}
                     onKeyUp={autoResizeTextarea}

@@ -50,10 +50,17 @@ export default function CitizenInfor() {
   const handleEditClick = () => {
     setIsEditing(true);
     setOriginalFields([...fields]);
-    if (inputRefs.current[0]) {
-      inputRefs.current[0].focus();
-    }
   };
+
+  useEffect(() => {
+    if (isEditing) {
+      const firstInput = inputRefs.current[0];
+      if (firstInput) {
+        const length = firstInput.value.length;
+        firstInput.focus();
+      }
+    }
+  }, [isEditing]);
 
   const handleCancelClick = () => {
     document.querySelector(".birthDateError").style.display = "none";
@@ -85,6 +92,18 @@ export default function CitizenInfor() {
 
     if (dateFlag == 0 && numFlag == 0) {
       setIsEditing(false);
+
+      const date = new Date();
+      const today = `${date.getFullYear()}.${
+        date.getMonth() + 1
+      }.${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+      console.log(today);
+
+      setFields((prevFields) => {
+        const updatedFields = [...prevFields];
+        updatedFields[8] = today;
+        return updatedFields;
+      });
 
       const patientData = {
         patientId: fields[0],
@@ -184,6 +203,12 @@ export default function CitizenInfor() {
                 onChange={(e) => handleChange(2, e)}
                 ref={(el) => (inputRefs.current[1] = el)}
                 onKeyDown={(e) => handleKeyDown(e, 1)}
+                onFocus={(e) =>
+                  e.target.setSelectionRange(
+                    e.target.value.length,
+                    e.target.value.length
+                  )
+                }
               />
             ) : (
               <div>
@@ -210,6 +235,12 @@ export default function CitizenInfor() {
                 onChange={(e) => handleChange(4, e)}
                 ref={(el) => (inputRefs.current[2] = el)}
                 onKeyDown={(e) => handleKeyDown(e, 2)}
+                onFocus={(e) =>
+                  e.target.setSelectionRange(
+                    e.target.value.length,
+                    e.target.value.length
+                  )
+                }
               />
             ) : (
               <div>
@@ -233,6 +264,12 @@ export default function CitizenInfor() {
                 onChange={(e) => handleChange(3, e)}
                 ref={(el) => (inputRefs.current[3] = el)}
                 onKeyDown={(e) => handleKeyDown(e, 3)}
+                onFocus={(e) =>
+                  e.target.setSelectionRange(
+                    e.target.value.length,
+                    e.target.value.length
+                  )
+                }
               />
             ) : (
               <div>
@@ -259,6 +296,12 @@ export default function CitizenInfor() {
                 onChange={(e) => handleChange(5, e)}
                 ref={(el) => (inputRefs.current[4] = el)}
                 onKeyDown={(e) => handleKeyDown(e, 4)}
+                onFocus={(e) =>
+                  e.target.setSelectionRange(
+                    e.target.value.length,
+                    e.target.value.length
+                  )
+                }
               />
             ) : (
               <div>
@@ -279,6 +322,12 @@ export default function CitizenInfor() {
                 onKeyDown={autoResizeTextarea}
                 onKeyUp={autoResizeTextarea}
                 ref={(el) => (inputRefs.current[5] = el)}
+                onFocus={(e) =>
+                  e.target.setSelectionRange(
+                    e.target.value.length,
+                    e.target.value.length
+                  )
+                }
               ></textarea>
             ) : (
               <div>
