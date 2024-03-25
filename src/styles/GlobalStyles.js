@@ -594,10 +594,27 @@ const GlobalStyles = createGlobalStyle `
     }
 
     /* Drugs.css */
-    .Drugtable-wrapper {
+    .drug-table {
+        display: flex;
+        flex-direction: column;
         width: 77.7%;
         height: 42%;
-        margin: 1rem auto;
+        margin: 0.5rem auto;
+        gap: 0.5rem;
+    }
+    .Drugtable-wrapper {
+        border: 1px solid black;
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+    .Drugtable-wrapper::-webkit-scrollbar {
+        border: 0px solid #9b6a2f;
+    }
+    .Drugtable-wrapper::-webkit-scrollbar-thumb {
+        background: gray;
+    }
+    .Drugtable-wrapper::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, .1);
     }
 
     .Drugtable {
@@ -610,15 +627,20 @@ const GlobalStyles = createGlobalStyle `
     }
 
     .Drugtable-header {
-        border: 1px solid black;
-        padding: 30px 0;
-        item-align: center;
+        padding: 0;
         font-size: 28px;
         font-weight: bold;
+        position: sticky;
+        top: 0px;
     }
-    .Drugtable-cells {
-        overflow-y: auto;
+    .Drugtable-header-container {
+        border: 1px solid black;
+        background: white;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        white-space: nowrap;
     }
+
     .Drugtable-cell {
         border: 1px solid black;
         padding: 15px 0;

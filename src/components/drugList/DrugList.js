@@ -1,14 +1,29 @@
 import React from "react";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 
-const DrugList = ({ columns, data, savebtn }) => {
+const DrugList = ({ columns, data}) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data }, useGlobalFilter, useSortBy);
+    useTable({ columns, data}, useGlobalFilter, useSortBy);
 
   const sortSytle = {
     fontSize: "0.8rem",
     marginLeft: "0.3rem",
   };
+
+  function FormatDate(date) { 
+    if (date === null) { return (<>아직 사용되지 않았습니다.</>)}
+    const dateFormatRegex = /^\d{4}\.\d{2}\.\d{2} \d{2}:\d{2}$/;
+      const dateOptions = {
+        year: 'numeric',
+        month: 'long', 
+        day: 'numeric',
+      }
+      if (dateFormatRegex.test(date)) {
+        return (new Date(date.split(' ')[0]).toLocaleDateString('kr', dateOptions));
+      } else {
+        return (new Date(date).toLocaleDateString('kr', dateOptions));
+      }
+  }
 
   return (
     <div className="Drugtable-wrapper">
@@ -24,6 +39,7 @@ const DrugList = ({ columns, data, savebtn }) => {
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   className="Drugtable-header"
                 >
+                  <div className="Drugtable-header-container">
                   {column.render("Header")}
                   {column.isSorted ? (
                     column.isSortedDesc ? (
@@ -33,28 +49,28 @@ const DrugList = ({ columns, data, savebtn }) => {
                     )
                   ) : (
                     <span>&nbsp;</span>
-                  )}
+                  )}</div>
                 </th>
               ))}
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()} className="Drugtable-cells">
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()} className="Drugtable-row">
-                {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()} className="Drugtable-cell">
-                    {cell.render("Cell")}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()} className="Drugtable-row">
+                  {row.cells.map(cell => {
+                    if (cell.column.id === 'expireDate' || cell.column.id === 'drugEnrollTime' || cell.column.id === 'drugModifiedTime') {
+                      return <td className="Drugtable-cell" {...cell.getCellProps()}>{FormatDate(cell.value)}</td>;
+                    }
+                    return <td className="Drugtable-cell" {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
       </table>
-      {savebtn()}
     </div>
   );
 };
