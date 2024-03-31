@@ -79,7 +79,7 @@ const CitizensDetails = () => {
             &lt;
           </button>
           <div className="citiznesCounselList">
-            <CitizenCounselList />
+            <CitizenCounselList isLargeScreen={isLargeScreen} />
           </div>
         </div>
       </div>

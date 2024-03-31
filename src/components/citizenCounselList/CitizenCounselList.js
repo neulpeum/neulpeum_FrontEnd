@@ -3,10 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import axios from "axios";
 import ConsultModal from "../consultModal/ConsultModal";
-import Search from "../../search/Search";
+import Search from "../search/Search";
 import NoResultView from "../noResult/NoResult";
 
-export default function CitizenCounselList() {
+export default function CitizenCounselList(isLargeScreen) {
   const [name, setName] = useState("");
   const [criKeyword, setCriKeryword] = useState("");
   const [data, setData] = useState([]);
@@ -143,7 +143,24 @@ export default function CitizenCounselList() {
                     >
                       {cell.column.id === "takingDrug" ? (
                         <div className="DetailButtonContainer">
-                          <a>{cell.row.values["takingDrug"]}</a>
+                          {isLargeScreen ? (
+                            cell.render("Cell")
+                          ) : (
+                            <div className="conselTakingDrug-wrapper">
+                              {cell.row.values["takingDrug"]
+                                .split(", ")
+                                .map((item, index) => (
+                                  <p
+                                    key={index}
+                                    style={{
+                                      margin: "0",
+                                    }}
+                                  >
+                                    {item}
+                                  </p>
+                                ))}
+                            </div>
+                          )}
                           <a className="DetailButton">{">"}</a>
                         </div>
                       ) : cell.column.id === "consultDate" ? (
