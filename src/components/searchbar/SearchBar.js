@@ -119,7 +119,13 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick }) => {
     Drugs: {
       content: (
         <SearchBarContainer using="drugs">
-          <div style={{display: 'flex', flexDirection: "row", alignItems: "center"}}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             <select
               value={searchCriteria}
               onChange={handleCriteriaChange}
@@ -128,17 +134,48 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick }) => {
               <option value="">전체</option>
               <option value="drugName">약 이름</option>
               <option value="expireDate">유통기한</option>
-              <option value="usableAmount">남은 재고</option>
               <option value="drugEnrollTime">입고 일자</option>
               <option value="drugModifiedTime">마지막 사용 일자</option>
             </select>
-            <div style={{ display: 'flex', alignItems: 'center', width:'fit-content', gap: '8px', marginLeft: '20px'}}>
-              <img src="/icons/ic_grey_circle.svg" alt=""/>
-              <span style={{whiteSpace: 'nowrap', fontSize: '20px', overflow:"hidden"}}>추가된 행</span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: "fit-content",
+                gap: "8px",
+                marginLeft: "20px",
+              }}
+            >
+              <img src="/icons/ic_grey_circle.svg" alt="" />
+              <span
+                style={{
+                  whiteSpace: "nowrap",
+                  fontSize: "20px",
+                  overflow: "hidden",
+                }}
+              >
+                추가된 행
+              </span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', width:'fit-content', gap: '8px', marginLeft: '20px'}}>
-              <img src="/icons/ic_green_circle.svg" alt=""/>
-              <span style={{whiteSpace: 'nowrap', fontSize: '20px', overflow:"hidden"}}>추가된 행</span>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: "fit-content",
+                gap: "8px",
+                marginLeft: "20px",
+              }}
+            >
+              <img src="/icons/ic_green_circle.svg" alt="" />
+              <span
+                style={{
+                  whiteSpace: "nowrap",
+                  fontSize: "20px",
+                  overflow: "hidden",
+                }}
+              >
+                추가된 행
+              </span>
             </div>
           </div>
           <SearchInputContainer using="drugs">

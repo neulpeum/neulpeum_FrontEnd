@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle `
+const GlobalStyles = createGlobalStyle`
     //Main.css, Options.css
     .container {
         display: flex;
@@ -387,6 +387,12 @@ const GlobalStyles = createGlobalStyle `
         margin: 0 auto;
     }
 
+    .conselTakingDrug-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
     .DetailButton {
         font-size: 26px;
         font-weight: bold;
@@ -708,11 +714,16 @@ const GlobalStyles = createGlobalStyle `
         margin: 0;
       }
       
+      .wrong-include-content-wrapper {
+        width: 16rem;
+        margin: 0 auto;
+        margin-bottom: 0.87rem;
+      }
+
       .counselPro-content-wrapper {
         width: 16rem;
         margin: 0 auto;
         border-bottom: 1px solid #000;
-        margin-bottom: 0.87rem;
         display: flex;
         justify-content: space-between;
         color: #878485;
@@ -721,7 +732,6 @@ const GlobalStyles = createGlobalStyle `
       .counsel-content-wrapper {
         width: 16rem;
         margin: 0 auto;
-        margin-bottom: 0.87rem;
         display: flex;
         justify-content: space-between;
         color: #878485;
@@ -731,7 +741,7 @@ const GlobalStyles = createGlobalStyle `
         width: 16rem;
         min-height: 6rem;
         margin: 0 auto;
-        margin-bottom: 0.87rem;
+        margin-bottom: 0.62rem;
       }
 
       .counselDate-content-wrapper p,
@@ -755,6 +765,7 @@ const GlobalStyles = createGlobalStyle `
         resize: none;
         border-radius: 0.3125rem;
         border: 1px solid #000;
+        padding: 1rem;
     }
 
     .counselTextarea::-webkit-scrollbar {
@@ -893,7 +904,7 @@ const GlobalStyles = createGlobalStyle `
         margin-top: 1rem;
         margin: 0 auto;
     }
-    
+
     .citizenCounselList-wrapper,
     .list-wrapper {
         width: 95%;
