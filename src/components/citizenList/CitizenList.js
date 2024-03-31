@@ -2,22 +2,17 @@ import React from "react";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 
 const CitizenList = ({ columns, data, onClickDetail }) => {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state,
-    setGlobalFilter,
-  } = useTable({ columns, data }, useGlobalFilter, useSortBy);
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      { columns, data, maxMultiSortColCount: 2, isMultiSortEvent: () => true },
+      useGlobalFilter,
+      useSortBy
+    );
 
   const sortSytle = {
     fontSize: "0.8rem",
     marginLeft: "0.3rem",
   };
-
-  // const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
 
   return (
     <div className="table-wrapper">

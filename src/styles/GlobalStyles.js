@@ -154,7 +154,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     .list-wrapper {
-        width: 30rem;
+        min-width: 30rem;
         height: 29.9375rem;
         overflow: auto;
         margin: 0 auto;
@@ -791,6 +791,58 @@ const GlobalStyles = createGlobalStyle`
         color: #000;
         cursor: pointer;
       }
+
+      .selectDrugs-wrapper {
+        margin-top: 0.81rem;
+      }
+      
+      .selectDrugs-content {
+        display: flex;
+        align-items: center;
+        margin-top: 0.44rem;
+      }
+      
+      .selectDrugsName {
+        width: 4.5626rem;
+        height: 1.5625rem;
+        border-radius: 0.625rem;
+        border: 1px solid #000;
+        background-color: rgba(149, 209, 217, 0.4);
+        text-align: center;
+        line-height: 1.5625rem;
+        font-size: 0.875rem;
+        margin: 0;
+        margin-right: 0.69rem;
+      }
+      
+      .selectDrugs-content p {
+        display: inline-block;
+      }
+      
+      .selectDrugs-content input {
+        width: 2.3125rem;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #000;
+        text-align: center;
+      }
+      
+      .selectDrugsAmount {
+        color: #878485;
+        font-size: 0.75rem;
+        margin: 0;
+      }
+      
+      .selectDrugs-content button {
+        width: 0.8125rem;
+        height: 0.8125rem;
+        border: none;
+        background-color: white;
+        color: #aaa;
+        cursor: pointer;
+        margin-left: auto;
+        padding: 0;
+      }
       
     // CitizenAdd.css
     .citizenAdd-wrapper {
@@ -903,10 +955,11 @@ const GlobalStyles = createGlobalStyle`
     .citizenCounselList-wrapper {
         margin-top: 1rem;
         margin: 0 auto;
+        width: 95%;
     }
 
-    .citizenCounselList-wrapper,
     .list-wrapper {
+        min-width: 20rem;
         width: 95%;
     }
 

@@ -90,7 +90,16 @@ export default function CitizenCounselList(isLargeScreen) {
     prepareRow,
     state,
     setGlobalFilter,
-  } = useTable({ columns, data: filterData }, useGlobalFilter, useSortBy);
+  } = useTable(
+    {
+      columns,
+      data: filterData,
+      maxMultiSortColCount: 2,
+      isMultiSortEvent: () => true,
+    },
+    useGlobalFilter,
+    useSortBy
+  );
 
   const sortSytle = {
     fontSize: "0.8rem",
@@ -154,6 +163,7 @@ export default function CitizenCounselList(isLargeScreen) {
                                     key={index}
                                     style={{
                                       margin: "0",
+                                      width: "fit-content",
                                     }}
                                   >
                                     {item}
@@ -169,7 +179,7 @@ export default function CitizenCounselList(isLargeScreen) {
                             .split(" ")
                             .map((value, index) => (
                               <p key={index} style={{ margin: "0" }}>
-                                {value}
+                                {index === 1 ? `(${value})` : value}
                               </p>
                             ))}
                         </div>
