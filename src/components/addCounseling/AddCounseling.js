@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./Otc.css";
 
 export default function AddCounseling() {
   Modal.setAppElement("#root");
@@ -77,7 +76,6 @@ export default function AddCounseling() {
       consultContent: data[1],
     };
 
-    // console.log(consultData);
     const takingDrugData = selectDrugs.map((item) => {
       return {
         drugName: item.drugName,
