@@ -10,7 +10,7 @@ const root = createRoot(document.getElementById('root'));
 root.render(
 <CookiesProvider>
   <BrowserRouter>
-  <App />
+    <App />
   </BrowserRouter>
 </CookiesProvider>
 );

@@ -17,9 +17,9 @@ const Main = () => {
       "password" : password,
     }
     axios
-    .post("http://52.78.35.193:8080/api/login", loginRequest)
+    .post("/api/login", loginRequest, { withCredentials: true })
     .then((res) => {
-      console.log(res.headers); // 쿠키 못가져옴
+      console.log(document.cookie);
       const isMobile = window.innerWidth <= 768
       const destination = isMobile ? "/citizens" : "/options";
       navigate(destination);
