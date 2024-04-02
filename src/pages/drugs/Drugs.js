@@ -16,21 +16,17 @@ const UiPanelContainer = styled.div`
   height: 12.7%;
   gap: 1rem;
 `;
-const DrugsTableStyledBtn = styled.button`
-    width: 25px;
-    height: 25px;
+
+const DrugsStyledBtn = styled.button`
+    width: 192px;
+    height: 48px;
     font-size: 20px;
     font-weight: bold;
-    border-radius: 100%;
+    border-radius: 5px;
     color: white;
     background-color: #AED391;
     border: none;
     cursor: pointer;
-`
-const DrugsStyledBtn = styled(DrugsTableStyledBtn)`
-    width: 192px;
-    height: 48px;
-    border-radius: 5px;
     align-self: flex-end;
 `
 const Drugs = () => {
@@ -45,19 +41,16 @@ const Drugs = () => {
         { Header: "약 아이디", accessor: 'drugId', type: 'number'},
         { Header: "약 이름", accessor: 'drugName', type: 'text'},
         { Header: "유통기한", accessor: 'expireDate', type: 'text'},
-        { Header: "남은 재고", accessor: 'usableAmount', type: 'number',
-            Cell: ({ row }) => (
-                <div className='usableAmount-cell' style={{display: 'flex', justifyContent: 'space-between', padding: '0 20px'}}>
-                    <DrugsTableStyledBtn onClick={() => {} }>+</DrugsTableStyledBtn>
-                    {row.values.usableAmount}
-                    <DrugsTableStyledBtn onClick={() => {} }>-</DrugsTableStyledBtn>
-                    {/* {() => {handleQuantityChange(row.index, -1)} } */}
-                </div>
-            )
-        },
-        {Header: "등록일자", accessor: 'drugEnrollTime', type: 'text'},
-        {Header: "마지막 사용 일자", accessor: 'drugModifiedTime', type: 'text'},
+        { Header: "남은 재고", accessor: 'usableAmount', type: 'number',},
+        { Header: "등록일자", accessor: 'drugEnrollTime', type: 'text'},
+        { Header: "마지막 사용 일자", accessor: 'drugModifiedTime', type: 'text'},
     ];
+
+    // 현재 데이터에 상태 정보 추가하여 반환
+  const addStatusToData = (data, status) => {
+    return data.map(item => ({ ...item, status }));
+  };
+
 
     const ReadJsonDrugs = (jsonDrugs) => {
         // slice(1) 를 통해 엑셀의 헤더부분을 제외하고 mapping하는 작업을 했지만... 왠지 모르게 불만족스럽다. 
@@ -76,7 +69,7 @@ const Drugs = () => {
                 drugModifiedTime: null,
               };
         });
-        setCurrentDrugsData(FormattedDrugs);
+        setCurrentDrugsData(addStatusToData(FormattedDrugs, 'add'));
         setMainViewState('fileUpload');
     }
 
@@ -92,11 +85,29 @@ const Drugs = () => {
     }
 
   const handleQuantityChange = (index, change) => {
-    setCurrentDrugsData((prevData) => {
-      const newData = [...prevData];
-      newData[index].usableAmount += change;
-      return newData;
-    });
+    console.log(index, mainViewState, originalDrugs, currentDrugsData, filterData);
+    if (mainViewState === 'main') {
+      setOriginalDrugs((prevData) => {
+        const newData = [...prevData];
+        newData[index].usableAmount += change;
+        newData[index].isModified = true;
+        return newData;
+      });
+    } else if (mainViewState === 'search') {
+      setFilterData((prevData) => {
+        const newData = [...prevData];
+        newData[index].usableAmount += change;
+        newData[index].isModified = true;
+        return newData;
+      });
+
+    } else if (mainViewState === 'fileUpload') {
+      setCurrentDrugsData((prevData) => {
+        const newData = [...prevData];
+        newData[index].usableAmount += change;
+        return newData;
+      });
+    }
   };
 
     useEffect(() => {
@@ -133,7 +144,17 @@ const Drugs = () => {
             axios.put("http://52.78.35.193:8080/api/drug", body)
             .then(response => {
                 alert('약데이터가 성공적으로 등록되었습니다.', response);
-                setOriginalDrugs([...originalDrugs, currentDrugsData]);
+                setOriginalDrugs([...originalDrugs, ...currentDrugsData]);
+                // setCurrentDrugsData(addStatusToData(FormattedDrugs, 'add'));
+                // if (mainViewState === 'main') {
+                //   setOriginalDrugs((prevData) => {
+                //     const newData = [...prevData];
+                //     newData[index].usableAmount += change;
+                //     newData[index].isModified = true;
+                //     return newData;
+                //   });
+                // }
+                
                 setCurrentDrugsData([]);
                 setMainViewState('main');
             })
@@ -178,13 +199,11 @@ const Drugs = () => {
           <></>
         ) : (
             <div className="drug-table">
-            {console.log(originalDrugs)}
-                <DrugList columns={columns.slice(1, 6)} data={originalDrugs} />
+                <DrugList columns={columns.slice(1, 6)} data={originalDrugs} onQuantityChange={handleQuantityChange} />
                 <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
             </div>
         );
       } else if (mainViewState === 'search') {
-        {console.log(filterData)}
         mainView = filterData.length === 0 ? (
           <NoResultView
             name={criKeyword}
@@ -192,17 +211,16 @@ const Drugs = () => {
           />
         ) : (
             <div className="drug-table">
-            <DrugList columns={columns.slice(1, 6)} data={filterData} />
-            <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
+              <DrugList columns={columns.slice(1, 6)} data={filterData} onQuantityChange={handleQuantityChange}/>
+              <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
             </div>
         );
       } else if (mainViewState === 'fileUpload') {
-        {console.log(currentDrugsData)}
         mainView = !currentDrugsData ? (
           <></>
         ) : (
           <div className="drug-table">
-            <DrugList columns={columns.slice(1, 6)} data={currentDrugsData} />
+            <DrugList columns={columns.slice(1, 6)} data={currentDrugsData} onQuantityChange={handleQuantityChange}/>
             <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
           </div>
         );
