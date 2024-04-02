@@ -74,7 +74,7 @@ const DrugList = ({ columns, data}) => {
               
               let rowClassName = 'Drugtable-row';
             if (row.original && row.original.status) {
-              rowClassName += ` ${row.original.status}`;  
+              rowClassName += " add";  
             }  else if (row.original && row.original.isModified) {
               rowClassName += " modify";
             }
