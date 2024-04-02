@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 
-const DrugList = ({ columns, data}) => {
+const DrugList = ({ columns, data, onQuantityChange}) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
       {
