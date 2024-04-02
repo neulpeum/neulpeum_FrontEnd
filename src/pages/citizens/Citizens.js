@@ -24,7 +24,7 @@ const Citizens = () => {
           setOriginalCitizens(null);
           setLoading(true);
         const res = await axios.get(
-          "http://52.78.35.193:8080/api/patient"
+          "http://52.78.35.193:8080/api/patient",
         );
 
         console.log(res.data);
@@ -32,6 +32,7 @@ const Citizens = () => {
         setCitizens(res.data);
       } catch (e) {
         setError(e);
+        console.log(e);
       }
       setLoading(false);
     };
@@ -69,9 +70,12 @@ const Citizens = () => {
   
   if (loading) return <div>로딩중..</div>;
   if (error) {
-    navigate("/", {});
+    if (error.response.status === 401 || error.response.status === 403) {
+      navigate("/", {});
+    }
     return;
   }
+  
 
   const mainView = citizens.length == 0 ?
    <NoResultView name={finalKeyword} explain={"는 존재하지 않는 주민입니다."} /> :

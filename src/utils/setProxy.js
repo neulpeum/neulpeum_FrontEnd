@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
@@ -5,6 +6,8 @@ module.exports = function (app) {
     createProxyMiddleware("/api", {
       target: "http://52.78.35.193:8080",
       changeOrigin: true,
-    })
+    }),
   );
 };
+
+axios.defaults.withCredentials = true;
