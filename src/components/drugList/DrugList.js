@@ -2,6 +2,18 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 
+const DrugsTableStyledBtn = styled.button`
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 100%;
+    color: white;
+    background-color: #AED391;
+    border: none;
+    cursor: pointer;
+`
+
 const DrugList = ({ columns, data, onQuantityChange}) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
