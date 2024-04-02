@@ -631,6 +631,12 @@ const GlobalStyles = createGlobalStyle`
     .Drugtable-row {
         background-color: white;
     }
+    .Drugtable-row.add {
+        background-color: rgba(217, 217, 217, 0.5);
+    }
+    .Drugtable-row.modify {
+        background-color: rgba(149, 209, 217, 0.5);
+    }
 
     .Drugtable-header {
         padding: 0;
@@ -642,8 +648,7 @@ const GlobalStyles = createGlobalStyle`
     .Drugtable-header-container {
         border: 1px solid black;
         background: white;
-        padding-top: 30px;
-        padding-bottom: 30px;
+        padding: 30px;
         white-space: nowrap;
     }
 
