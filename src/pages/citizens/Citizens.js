@@ -6,6 +6,7 @@ import CitizenList from '../../components/citizenList/CitizenList';
 import HeaderComponent from '../../components/header/Header';
 import axios from "axios";
 import NoResultView from '../../components/noResult/NoResult';
+import { getCookie } from '../../utils/cookieUtils';
 
 
 const Citizens = () => {
@@ -25,6 +26,13 @@ const Citizens = () => {
           setLoading(true);
         const res = await axios.get(
           "http://52.78.35.193:8080/api/patient",
+          {
+            withCredentials: true,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": "*",
+            }
+          }
         );
 
         console.log(res.data);
