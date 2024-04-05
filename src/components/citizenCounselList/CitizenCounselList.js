@@ -6,7 +6,7 @@ import ConsultModal from "../consultModal/ConsultModal";
 import Search from "../search/Search";
 import NoResultView from "../noResult/NoResult";
 
-export default function CitizenCounselList(isLargeScreen) {
+export default function CitizenCounselList() {
   const [name, setName] = useState("");
   const [criKeyword, setCriKeryword] = useState("");
   const [data, setData] = useState([]);
@@ -16,7 +16,7 @@ export default function CitizenCounselList(isLargeScreen) {
   const location = useLocation();
   const patientId = location.state.id;
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     getName();
     getData();
@@ -59,7 +59,12 @@ export default function CitizenCounselList(isLargeScreen) {
     const results = [];
     if (criteria) {
       data.forEach((item) => {
-        if (item[criteria] && item[criteria].includes(keyword)) {
+        if (criteria === "consultDate") {
+          const datePart = item["consultDate"].split(" ")[0];
+          if (datePart.includes(keyword)) {
+            results.push(item);
+          }
+        } else if (item[criteria] && item[criteria].includes(keyword)) {
           results.push(item);
         }
       });
@@ -70,8 +75,30 @@ export default function CitizenCounselList(isLargeScreen) {
         setCriKeryword(keyword);
       }
     } else {
-      setFilterData(data);
-      setGlobalFilter(keyword);
+      data.forEach((item) => {
+        if (item["consultDate"].includes(keyword)) {
+          const datePart = item["consultDate"].split(" ")[0];
+          if (datePart.includes(keyword)) {
+            results.push(item);
+          }
+        } else {
+          for (const key in item) {
+            if (
+              item[key] &&
+              typeof item[key] === "string" &&
+              item[key].includes(keyword)
+            ) {
+              results.push(item);
+            }
+          }
+        }
+      });
+      if (results.length !== 0) {
+        setFilterData(results);
+      } else {
+        setFilterData([]);
+        setCriKeryword(keyword);
+      }
     }
   };
 
@@ -163,25 +190,21 @@ export default function CitizenCounselList(isLargeScreen) {
                     >
                       {cell.column.id === "takingDrug" ? (
                         <div className="DetailButtonContainer">
-                          {isLargeScreen ? (
-                            cell.render("Cell")
-                          ) : (
-                            <div className="conselTakingDrug-wrapper">
-                              {cell.row.values["takingDrug"]
-                                .split(", ")
-                                .map((item, index) => (
-                                  <p
-                                    key={index}
-                                    style={{
-                                      margin: "0",
-                                      width: "fit-content",
-                                    }}
-                                  >
-                                    {item}
-                                  </p>
-                                ))}
-                            </div>
-                          )}
+                          <div className="conselTakingDrug-wrapper">
+                            {cell.row.values["takingDrug"]
+                              .split(", ")
+                              .map((item, index) => (
+                                <p
+                                  key={index}
+                                  style={{
+                                    margin: "0 0 0.1rem 0",
+                                    width: "fit-content",
+                                  }}
+                                >
+                                  {item}
+                                </p>
+                              ))}
+                          </div>
                           <a className="DetailButton">{">"}</a>
                         </div>
                       ) : cell.column.id === "consultDate" ? (
@@ -213,7 +236,7 @@ export default function CitizenCounselList(isLargeScreen) {
 
   const keyword = state["globalFilter"];
   const noResultView =
-    filterData.length === 0 ? (
+    criKeyword && filterData.length === 0 ? (
       <NoResultView
         name={criKeyword}
         explain={"과 일치하는 내용이 없습니다."}

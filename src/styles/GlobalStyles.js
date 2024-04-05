@@ -154,7 +154,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     .list-wrapper {
-        min-width: 30rem;
+        width: 35rem;
         height: 29.9375rem;
         overflow: auto;
         margin: 0 auto;
@@ -417,7 +417,7 @@ const GlobalStyles = createGlobalStyle`
         max-width: 68.875rem;
         height: 60%;
         max-height: 45.06255rem;
-        min-height: 40rem;
+        min-height: 42rem;
         border-radius: 1.25rem;
         box-shadow: -5px -5px 10px 0px rgba(0, 0, 0, 0.25) inset;
         padding: 20px;
@@ -430,7 +430,7 @@ const GlobalStyles = createGlobalStyle`
     }
     
     .modal-content-wrapper {
-        height: 100%;
+        height: 90%;
     }
     
     .modal-title {
