@@ -36,40 +36,48 @@ const FileUpload = ({ UploadedFile } ) => {
   };
 
   const extractSheetData = (workbook) => {
-    const sheetName = workbook.SheetNames[0];
-    const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
+    const sheetName = workbook.SheetNames[0]; //첫번째 시트 페이지
+    const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1});
 
-    return sheetData;
+
+    const tableData = sheetData.slice(0).filter(row => {
+      const isEmptyRow = row.every(cell => cell === null || cell === undefined);
+      const isPartiallyEmptyRow = row.some(cell => cell === null || cell === undefined);
+      if (isPartiallyEmptyRow && !isEmptyRow) throw new Error('아라라라라ㅏ라라라');
+      return !isEmptyRow;
+    });
+
+    setConvertedFile(tableData);
+  };
+
+  const handleFiles = async (files) => {
+    if (files.length > 1) return alert("2개 이상의 파일 업로드는 불가합니다.");
+
+    const file = files[0];
+    if (file) {
+      const fileExtension = file.name.split('.').pop();
+      const allowedExtensions = ['.xlsx', '.xls', '.csv'];
+
+      if (allowedExtensions.includes('.' + fileExtension.toLowerCase())) {
+        try {
+          const workbook = await readExcelFile(file);
+          extractSheetData(workbook);
+          setSelectedFile(file);
+        } catch (error) {
+          alert(error);
+        }
+      } 
+      else {
+        alert('.xlsx, .xls, .csv 확장자를 가진 파일만 업로드가 허용합니다!');
+      }
+    }
+    else return(alert('파일이 등록되지 않았습니다.'));
   };
 
   useEffect(() => {
     const uploadBox = uploadBoxRef.current;
     const fileInput = fileInputRef.current;
     const fileIcon = fileIconRef.current;
-    
-    const handleFiles = async (files) => {
-      if (files.length > 1) return alert("2개 이상의 파일 업로드는 불가합니다. 병합한 뒤에 올려주십시오.");
-
-      const file = files[0];
-      if (file) {
-        const fileExtension = file.name.split('.').pop();
-        const allowedExtensions = ['.xlsx', '.xls'];
-
-        if (allowedExtensions.includes('.' + fileExtension.toLowerCase())) {
-          try {
-            const workbook = await readExcelFile(file);
-            const tableData = extractSheetData(workbook);
-            setSelectedFile(file);
-            setConvertedFile(tableData);
-          } catch (error) {
-            alert(error);
-          }
-        } else {
-          console.log('액셀 형식 파일만 허용합니다!');
-        }
-      }
-      else return(alert('파일이 등록되지 않았습니다.'));
-    };
     
     const changeHandler = (event) => {
       const files = event.target.files;
@@ -107,7 +115,7 @@ const FileUpload = ({ UploadedFile } ) => {
     
     return () => {
       uploadBox.removeEventListener("drop", dropHandler);
-      uploadBox.removeEventListener("dragenter", dragStartHandler);
+      uploadBox.removeEventListener("dragover", dragStartHandler);
       uploadBox.removeEventListener("dragleave", dragEndHandler);
       fileInput.removeEventListener("change", changeHandler);
       fileIcon.removeEventListener("click", iconClickHandler);
@@ -124,7 +132,7 @@ const FileUpload = ({ UploadedFile } ) => {
         <p>{selectedFile ? `선택된 파일: ${selectedFile.name}` : '액셀 파일을 업로드하세요'}</p>
         <button onClick={transmitDrugsData}>업로드</button>
       </label>
-      <input type="file" id="input" ref={fileInputRef} style={{ display: "none" }}/>
+      <input type="file" id="input" ref={fileInputRef} accept=".csv, .xlsx, .xls" style={{ display: "none" }}/>
     </div>
 
   );
