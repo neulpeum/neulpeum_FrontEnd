@@ -97,7 +97,7 @@ const Drugs = () => {
 
   useEffect(() => {
     const getDatafromServer = () => {
-      axios.get("http://52.78.35.193:8080/api/drug")
+      axios.get("/api/drug")
       .then((response) => { setOriginalDrugs(response.data);})
       .catch((error) => {
           if (error.code === "Bad Request") {alert('잘못된 요청입니다.', error);} 
@@ -125,7 +125,7 @@ const Drugs = () => {
             })
             .catch((error) => {
                 if (error.response.status === 401 || error.response.status === 403) {
-                  alert("권한이 거부되었습니다!");
+                  alert("접근 권한이 없습니다");
                   navigate(-1);
                   return;
                 }
@@ -135,7 +135,8 @@ const Drugs = () => {
                     console.error(error);
                 }
             })
-      setRenderingData(filterData);
+        setRenderingData(filterData);
+      }
     }, [filterData]);
 
     const ChangeDrugForm = (data) => {
@@ -180,7 +181,7 @@ const Drugs = () => {
       })
       .catch(error => {
           if (error.response.status === 401 || error.response.status === 403) {
-              alert("권한이 거부되었습니다!");
+              alert("접근 권한이 없습니다");
               navigate(-1);
               return;
           }
@@ -227,7 +228,7 @@ const Drugs = () => {
     </div> 
     : 
     <>
-      <NoResultView name={criKeyword} explain={' 현재 등록된 약 정보가 없습니다'}></NoResultView>
+      <NoResultView name={criKeyword} explain={'현재 등록된 약 정보가 없습니다'}></NoResultView>
     </>
 
   return (
