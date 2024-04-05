@@ -24,7 +24,7 @@ export default function CitizenCounselList(isLargeScreen) {
   const getName = async () => {
     try {
       const response = await axios.get(
-        `http://52.78.35.193:8080/api/patientInfo?patientId=${patientId}`
+        `/api/patientInfo?patientId=${patientId}`
       );
       setName(response.data.patientName);
     } catch (error) {
@@ -35,7 +35,7 @@ export default function CitizenCounselList(isLargeScreen) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://52.78.35.193:8080/api/patient/consult?patientId=${patientId}`
+        `/api/patient/consult?patientId=${patientId}`
       );
       setData(response.data);
       setFilterData(response.data);

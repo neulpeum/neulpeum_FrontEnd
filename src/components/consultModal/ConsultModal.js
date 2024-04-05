@@ -38,7 +38,7 @@ export default function ConsultModal({ onClose, consultId }) {
   const getConsultData = async () => {
     try {
       const response = await axios.get(
-        `http://52.78.35.193:8080/api/patient/consultInfo?consultId=${consultId}`
+        `/api/patient/consultInfo?consultId=${consultId}`
       );
       setConsultData(response.data);
       setFields(response.data.consultContent);
@@ -84,11 +84,10 @@ export default function ConsultModal({ onClose, consultId }) {
 
     axios
       .put(
-        `http://52.78.35.193:8080/api/patient/consultInfo?consultId=${consultId}`,
+        `/api/patient/consultInfo?consultId=${consultId}`,
         newConsultData
       )
       .then(() => {
-        console.log("Request sent successfully.");
       })
       .catch((error) => {
         console.error("Error fetching data:", error);

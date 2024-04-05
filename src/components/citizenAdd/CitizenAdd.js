@@ -31,7 +31,7 @@ export default function CitizenAdd() {
           specialReport: notes,
         };
         
-        await axios.post("http://52.78.35.193:8080/api/patient", data);
+        await axios.post("/api/patient", data);
         alert('주민이 추가되었습니다');
         navigateToCitizens();
       } catch (e) {

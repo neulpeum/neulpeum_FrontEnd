@@ -35,7 +35,7 @@ export default function CitizenInfor() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://52.78.35.193:8080/api/patientInfo?patientId=${patientId}`
+        `/api/patientInfo?patientId=${patientId}`
       );
       const newData = response.data;
 
@@ -95,7 +95,6 @@ export default function CitizenInfor() {
       const today = `${date.getFullYear()}.${
         date.getMonth() + 1
       }.${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
-      console.log(today);
 
       setFields((prevFields) => {
         const updatedFields = [...prevFields];
@@ -113,9 +112,8 @@ export default function CitizenInfor() {
         specialReport: fields[6],
       };
       axios
-        .put("http://52.78.35.193:8080/api/patientInfo", patientData)
+        .put("/api/patientInfo", patientData)
         .then(() => {
-          console.log("Request sent successfully.");
         })
         .catch((error) => {
           console.error("Error fetching data:", error);

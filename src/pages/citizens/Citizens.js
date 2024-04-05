@@ -24,22 +24,20 @@ const Citizens = () => {
           setOriginalCitizens(null);
           setLoading(true);
         const res = await axios.get(
-          "http://52.78.35.193:8080/api/patient",
+          "/api/patient",
           {
             withCredentials: true,
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Credentials": "*",
             }
-          }
+          },{withCredentials: true}
         );
 
-        console.log(res.data);
         setOriginalCitizens(res.data);
         setCitizens(res.data);
       } catch (e) {
         setError(e);
-        console.log(e);
       }
       setLoading(false);
     };

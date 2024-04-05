@@ -4,7 +4,6 @@ import CustomInput from '../../components/customInput/CustomInput';
 import LoginButton from '../../components/loginButton/LoginButton.js';
 import MedicareLogo from '../../components/customInput/img_medicare_logo.svg';
 import axios from "axios";
-import { setCookie } from '../../utils/cookieUtils.js';
 
 
 const Main = () => {
@@ -18,7 +17,7 @@ const Main = () => {
       "password" : password,
     }
     axios
-    .post("/api/login", loginRequest)
+    .post("/api/login", loginRequest, { withCredentials: true })
     .then((res) => {
       const isMobile = window.innerWidth <= 768;
       const destination = isMobile ? "/citizens" : "/options";

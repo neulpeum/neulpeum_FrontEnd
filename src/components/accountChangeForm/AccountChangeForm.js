@@ -89,9 +89,9 @@ export default function AccountChangeForm({userType}) {
     
         let url;
         if (userType === 'admin') {
-            url = "http://52.78.35.193:8080/api/admin";
+            url = "/api/admin";
         } else if (userType === 'user') {
-            url = "http://52.78.35.193:8080/api/admin/changePw";
+            url = "/api/admin/changePw";
         }
     
         axios.patch(url, body)

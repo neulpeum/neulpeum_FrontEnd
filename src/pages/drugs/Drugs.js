@@ -101,7 +101,7 @@ const Drugs = () => {
 
     useEffect(() => {
         if (!originalDrugs) {
-            axios.get("http://52.78.35.193:8080/api/drug")
+          axios.get("/api/drug")
             .then((response) => {
                 const data = response.data;
                 setOriginalDrugs(data);
@@ -130,7 +130,7 @@ const Drugs = () => {
         if (currentDrugsData) {
             const body = ReadyUpdateDrugs();
 
-            axios.put("http://52.78.35.193:8080/api/drug", body)
+            axios.put("/api/drug", body)
             .then(response => {
                 alert('약데이터가 성공적으로 등록되었습니다.', response);
                 setOriginalDrugs([...originalDrugs, currentDrugsData]);
@@ -138,7 +138,6 @@ const Drugs = () => {
                 setMainViewState('main');
             })
             .catch(error => {
-                console.log(error);
                 if (error.code === "Bad Request") {
                     alert('허용되지 않는 등록 요청을 감지했습니다.', error);
                 }
@@ -178,13 +177,11 @@ const Drugs = () => {
           <></>
         ) : (
             <div className="drug-table">
-            {console.log(originalDrugs)}
                 <DrugList columns={columns.slice(1, 6)} data={originalDrugs} />
                 <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
             </div>
         );
       } else if (mainViewState === 'search') {
-        {console.log(filterData)}
         mainView = filterData.length === 0 ? (
           <NoResultView
             name={criKeyword}
@@ -197,7 +194,6 @@ const Drugs = () => {
             </div>
         );
       } else if (mainViewState === 'fileUpload') {
-        {console.log(currentDrugsData)}
         mainView = !currentDrugsData ? (
           <></>
         ) : (

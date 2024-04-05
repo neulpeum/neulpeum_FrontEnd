@@ -28,7 +28,6 @@ const FileUpload = ({ UploadedFile } ) => {
       };
 
       reader.onerror = (error) => {
-        console.log(error);
         reject(error);
       };
 
