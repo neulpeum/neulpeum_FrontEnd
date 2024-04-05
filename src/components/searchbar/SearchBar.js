@@ -184,7 +184,7 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick }) => {
               value={keyword}
               onChange={(event) => setKeyword(event.target.value)}
               type="text"
-              placeholder="검색할 약 이름을 입력하세요."
+              placeholder="검색할 내용을 입력하세요."
               onKeyDown={(e) => activeEnter(e, "drugs")}
               using="drugs"
               name="searchInput"
