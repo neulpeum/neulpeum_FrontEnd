@@ -39,6 +39,11 @@ export default function AddCounseling() {
       }));
       setDrugData(drugDataWithId);
     } catch (error) {
+      if (error.response.status === 401 || error.response.status === 403) {
+        alert("권한이 거부되었습니다!");
+        navigate(-1);
+        return;
+      }
       console.error("Error fetching data:", error);
     }
   };

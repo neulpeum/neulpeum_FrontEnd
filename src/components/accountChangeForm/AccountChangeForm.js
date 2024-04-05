@@ -1,6 +1,7 @@
 import React,{ useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom'; 
 
 const AccountContent = styled.div` 
     width: 100%;
@@ -63,7 +64,7 @@ export default function AccountChangeForm({userType}) {
     const [passwordsVisible, setPasswordsVisible] = useState([false, false, false]); //나중에 false로 변경할것
 
     const [error, setError] = useState(null);
-
+    const navigate = useNavigate();
     let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
     let specialStr = '※';
 
@@ -101,6 +102,11 @@ export default function AccountChangeForm({userType}) {
             alert(`${userType === 'admin' ? '관리자' : '대학생'} 비밀번호가 성공적으로 변경되었습니다.`);
         })
         .catch((error) => {
+            if (error.response.status === 401 || error.response.status === 403) {
+                alert("권한이 거부되었습니다!");
+                navigate(-1);
+                return;
+            }
             if (error.code === "ERR_BAD_RESPONSE") {
                 setCurrentPassword('');
                 setError(error);

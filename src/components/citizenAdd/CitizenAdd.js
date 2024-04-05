@@ -35,6 +35,11 @@ export default function CitizenAdd() {
         alert('주민이 추가되었습니다');
         navigateToCitizens();
       } catch (e) {
+        if (e.response.status === 401 || e.response.status === 403) {
+          alert("권한이 거부되었습니다!");
+          navigate(-1);
+          return;
+        }
         setError(e);
       }
     };

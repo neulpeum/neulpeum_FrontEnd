@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import axios from "axios";
 import ConsultModal from "../consultModal/ConsultModal";
@@ -15,7 +15,8 @@ export default function CitizenCounselList(isLargeScreen) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const patientId = location.state.id;
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     getName();
     getData();
@@ -28,6 +29,11 @@ export default function CitizenCounselList(isLargeScreen) {
       );
       setName(response.data.patientName);
     } catch (error) {
+      if (error.response.status === 401 || error.response.status === 403) {
+        alert("권한이 거부되었습니다!");
+        navigate(-1);
+        return;
+      }
       console.error("Error fetching data:", error);
     }
   };
@@ -40,6 +46,11 @@ export default function CitizenCounselList(isLargeScreen) {
       setData(response.data);
       setFilterData(response.data);
     } catch (error) {
+      if (error.response.status === 401 || error.response.status === 403) {
+        alert("권한이 거부되었습니다!");
+        navigate(-1);
+        return;
+      }
       console.error("Error fetching data:", error);
     }
   };

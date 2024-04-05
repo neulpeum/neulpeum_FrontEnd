@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function CitizenInfor() {
@@ -10,7 +10,8 @@ export default function CitizenInfor() {
   const [isEditing, setIsEditing] = useState(false);
   const [originalFields, setOriginalFields] = useState([...fields]);
   const inputRefs = useRef([]);
-
+  const navigate = useNavigate();
+  
   const birthDateRegex =
     /^(?:\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[-]\d{1}|)$/;
   const phoneNumRegex = /^(?:\d{3}[-]\d{4}[-]\d{4}|)$/;
@@ -43,6 +44,11 @@ export default function CitizenInfor() {
         value === null ? "" : value;
       setFields(Object.values(newData).map(replaceNullWithEmptyString));
     } catch (error) {
+      if (error.response.status === 401 || error.response.status === 403) {
+        alert("권한이 거부되었습니다!");
+        navigate(-1);
+        return;
+      }
       console.error("Error fetching data:", error);
     }
   };

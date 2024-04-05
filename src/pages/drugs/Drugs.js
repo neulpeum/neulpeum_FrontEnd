@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom'; 
 import * as XLSX from "xlsx";
 import DrugList from "../../components/drugList/DrugList";
 import HeaderComponent from "../../components/header/Header";
@@ -40,7 +41,7 @@ const Drugs = () => {
   const [criKeyword, setCriKeryword] = useState("");
 
   const [mainViewState, setMainViewState] = useState('main'); // 초기 메인 뷰 상태는 'main'으로 설정
-
+  const navigate = useNavigate();
     const columns = [
         { Header: "약 아이디", accessor: 'drugId', type: 'number'},
         { Header: "약 이름", accessor: 'drugName', type: 'text'},
@@ -107,6 +108,11 @@ const Drugs = () => {
                 setOriginalDrugs(data);
             })
             .catch((error) => {
+                if (error.response.status === 401 || error.response.status === 403) {
+                  alert("권한이 거부되었습니다!");
+                  navigate(-1);
+                  return;
+                }
                 if (error.code === "Bad Request") {
                     alert('잘못된 요청입니다.', error);
                 } else {
@@ -138,6 +144,11 @@ const Drugs = () => {
                 setMainViewState('main');
             })
             .catch(error => {
+                if (error.response.status === 401 || error.response.status === 403) {
+                  alert("권한이 거부되었습니다!");
+                  navigate(-1);
+                  return;
+                }
                 if (error.code === "Bad Request") {
                     alert('허용되지 않는 등록 요청을 감지했습니다.', error);
                 }

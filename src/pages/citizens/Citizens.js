@@ -76,7 +76,8 @@ const Citizens = () => {
   if (loading) return <div>로딩중..</div>;
   if (error) {
     if (error.response.status === 401 || error.response.status === 403) {
-      navigate("/", {});
+      alert("권한이 거부되었습니다!");
+      navigate(-1);
     }
     return;
   }
