@@ -31,10 +31,15 @@ export default function CitizenAdd() {
           specialReport: notes,
         };
         
-        await axios.post("http://52.78.35.193:8080/api/patient", data);
+        await axios.post("/api/patient", data);
         alert('주민이 추가되었습니다');
         navigateToCitizens();
       } catch (e) {
+        if (e.response.status === 401 || e.response.status === 403) {
+          alert("권한이 거부되었습니다!");
+          navigate(-1);
+          return;
+        }
         setError(e);
       }
     };

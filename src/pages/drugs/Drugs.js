@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom'; 
 import * as XLSX from "xlsx";
 import DrugList from "../../components/drugList/DrugList";
 import HeaderComponent from "../../components/header/Header";
@@ -37,10 +38,12 @@ const Drugs = () => {
   const [filterData, setFilterData] = useState([]); // 검색 결과 데이터
   const [criKeyword, setCriKeryword] = useState(""); // 검색 필드 데이터
 
+  const [mainViewState, setMainViewState] = useState('main'); // 초기 메인 뷰 상태는 'main'으로 설정
   const [renderingData, setRenderingData] = useState([]); // 요게 화면에 랜더링할 약 데이터 1. 일단 이걸 모든 데이터 형태에 연결하는걸 최우선으로!!!!!
   const [errorView, setErrorView] = useState(null);
+  const navigate = useNavigate();
 
-    const columns = [
+  const columns = [
         { Header: "약 아이디", accessor: 'drugId', type: 'number'},
         { Header: "약 이름", accessor: 'drugName', type: 'text'},
         { Header: "유통기한", accessor: 'expireDate', type: 'text'},
@@ -114,6 +117,24 @@ const Drugs = () => {
     }, [uploadDrugs]);
 
     useEffect(() => {
+        if (!originalDrugs) {
+          axios.get("/api/drug")
+            .then((response) => {
+                const data = response.data;
+                setOriginalDrugs(data);
+            })
+            .catch((error) => {
+                if (error.response.status === 401 || error.response.status === 403) {
+                  alert("권한이 거부되었습니다!");
+                  navigate(-1);
+                  return;
+                }
+                if (error.code === "Bad Request") {
+                    alert('잘못된 요청입니다.', error);
+                } else {
+                    console.error(error);
+                }
+            })
       setRenderingData(filterData);
     }, [filterData]);
 
@@ -147,7 +168,7 @@ const Drugs = () => {
       if (!renderingData) return alert('업데이트할 약 데이터가 존재하지 않습니다.');
 
       const [newData, modifyData] = ChangeDrugForm(renderingData);
-      axios.put("http://52.78.35.193:8080/api/drug", [...newData, ...modifyData])
+      axios.put("/api/drug", [...newData, ...modifyData])
 
       .then(response => {
           alert('약데이터가 성공적으로 등록되었습니다.');
@@ -158,7 +179,11 @@ const Drugs = () => {
           setOriginalDrugs([...originalDrugs, ...addStatusToData(newData, 'add')]);
       })
       .catch(error => {
-          console.log(error);
+          if (error.response.status === 401 || error.response.status === 403) {
+              alert("권한이 거부되었습니다!");
+              navigate(-1);
+              return;
+          }
           if (error.code === "Bad Request") {
               alert('허용되지 않는 등록 요청을 감지했습니다.', error);
           }
@@ -194,7 +219,6 @@ const Drugs = () => {
           );
         }
       }
-
     //에러 메시지 뷰를 따로 만들어서 에러 상황이 아닐시에만 display:block이 되게 해볼까?
   const mainView = (renderingData.length !== 0) ? 
     <div className="drug-table">

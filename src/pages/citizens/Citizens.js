@@ -24,10 +24,16 @@ const Citizens = () => {
           setOriginalCitizens(null);
           setLoading(true);
         const res = await axios.get(
-          "http://52.78.35.193:8080/api/patient"
+          "/api/patient",
+          {
+            withCredentials: true,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": "*",
+            }
+          },{withCredentials: true}
         );
 
-        console.log(res.data);
         setOriginalCitizens(res.data);
         setCitizens(res.data);
       } catch (e) {
@@ -69,9 +75,13 @@ const Citizens = () => {
   
   if (loading) return <div>로딩중..</div>;
   if (error) {
-    navigate("/", {});
+    if (error.response.status === 401 || error.response.status === 403) {
+      alert("권한이 거부되었습니다!");
+      navigate(-1);
+    }
     return;
   }
+  
 
   const mainView = citizens.length == 0 ?
    <NoResultView name={finalKeyword} explain={"는 존재하지 않는 주민입니다."} /> :

@@ -31,7 +31,7 @@ export default function AddCounseling() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://52.78.35.193:8080/api/patient/drug"
+        "/api/patient/drug"
       );
       const drugDataWithId = response.data.map((drug, index) => ({
         ...drug,
@@ -39,6 +39,11 @@ export default function AddCounseling() {
       }));
       setDrugData(drugDataWithId);
     } catch (error) {
+      if (error.response.status === 401 || error.response.status === 403) {
+        alert("권한이 거부되었습니다!");
+        navigate(-1);
+        return;
+      }
       console.error("Error fetching data:", error);
     }
   };
@@ -84,14 +89,14 @@ export default function AddCounseling() {
     });
 
     axios
-      .post("http://52.78.35.193:8080/api/patient/consult", consultData)
+      .post("/api/patient/consult", consultData)
       .then(() => {})
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
 
     axios
-      .patch("http://52.78.35.193:8080/api/patient/drug", takingDrugData)
+      .patch("/api/patient/drug", takingDrugData)
       .then(() => {})
       .catch((error) => {
         console.error("Error fetching data:", error);

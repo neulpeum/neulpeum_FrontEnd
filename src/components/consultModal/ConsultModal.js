@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom'; 
 
 export default function ConsultModal({ onClose, consultId }) {
   Modal.setAppElement("#root");
@@ -8,7 +9,8 @@ export default function ConsultModal({ onClose, consultId }) {
   const [consultData, setConsultData] = useState([]);
   const [formattedDateTime, setFormattedDateTime] = useState("");
   const inputRefs = useRef([]);
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     getConsultData();
     document.body.style = "overflow: hidden";
@@ -25,6 +27,7 @@ export default function ConsultModal({ onClose, consultId }) {
       const month = dateParts[1];
       const day = dateParts[2];
 
+
       const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][
         new Date(year, month - 1, day).getDay()
       ];
@@ -38,11 +41,16 @@ export default function ConsultModal({ onClose, consultId }) {
   const getConsultData = async () => {
     try {
       const response = await axios.get(
-        `http://52.78.35.193:8080/api/patient/consultInfo?consultId=${consultId}`
+        `/api/patient/consultInfo?consultId=${consultId}`
       );
       setConsultData(response.data);
       setFields(response.data.consultContent);
     } catch (error) {
+      if (error.response.status === 401 || error.response.status === 403) {
+        alert("권한이 거부되었습니다!");
+        navigate(-1);
+        return;
+      }
       console.error("Error fetching data:", error);
     }
   };
@@ -84,11 +92,10 @@ export default function ConsultModal({ onClose, consultId }) {
 
     axios
       .put(
-        `http://52.78.35.193:8080/api/patient/consultInfo?consultId=${consultId}`,
+        `/api/patient/consultInfo?consultId=${consultId}`,
         newConsultData
       )
       .then(() => {
-        console.log("Request sent successfully.");
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
