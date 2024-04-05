@@ -20,7 +20,6 @@ const Main = () => {
     axios
     .post("/api/login", loginRequest)
     .then((res) => {
-      // setCookie('JSESSION', document.cookie.split('=')[1]);
       const isMobile = window.innerWidth <= 768;
       const destination = isMobile ? "/citizens" : "/options";
       navigate(destination);
