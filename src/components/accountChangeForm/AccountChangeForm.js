@@ -61,9 +61,9 @@ export default function AccountChangeForm({userType}) {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
-    const [passwordsVisible, setPasswordsVisible] = useState([false, false, false]); //나중에 false로 변경할것
-
+    const [passwordsVisible, setPasswordsVisible] = useState([false, false, false]);
     const [error, setError] = useState(null);
+
     const navigate = useNavigate();
     let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
     let specialStr = '※';
@@ -101,20 +101,20 @@ export default function AccountChangeForm({userType}) {
             setError(false);
             alert(`${userType === 'admin' ? '관리자' : '대학생'} 비밀번호가 성공적으로 변경되었습니다.`);
         })
-        .catch((error) => {
-            if (error.response.status === 401 || error.response.status === 403) {
-                alert("접근 권한이 없습니다");
-                navigate(-1);
-                return;
-            }
-            if (error.code === "ERR_BAD_RESPONSE") {
-                setCurrentPassword('');
-                setError(error);
-            } else {
-                console.error(error); // 예상치 못한 에러 발생시
-            }
-        });
+        .catch((error) =>setError(error));
     }
+
+    if (error) {
+        if (error.response.status === 401 || error.response.status === 403) {
+          alert("접근 권한이 없습니다");
+          navigate(-1);
+          return;
+        }
+        else if(error.code === "ERR_BAD_RESPONSE") {
+            alert("비밀번호를 변경하는 도중 알 수 없는 에러를 감지했습니다.");
+            clearInputFileds();
+        }
+      }
 
     return (
         <AccountContent>

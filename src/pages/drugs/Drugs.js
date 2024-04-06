@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import * as XLSX from "xlsx";
 import DrugList from "../../components/drugList/DrugList";
 import HeaderComponent from "../../components/header/Header";
 import SearchBar from "../../components/searchbar/SearchBar";
@@ -11,6 +10,7 @@ import NoResultView from "../../components/noResult/NoResult";
 import { json } from "react-router-dom";
 import { render } from "@testing-library/react";
 import * as FileSaver from "file-saver";
+import * as XLSX from "xlsx";
 
 const UiPanelContainer = styled.div`
   display: flex;
@@ -41,7 +41,7 @@ const Drugs = () => {
 
   const [mainViewState, setMainViewState] = useState("main"); // 초기 메인 뷰 상태는 'main'으로 설정
   const [renderingData, setRenderingData] = useState([]); // 요게 화면에 랜더링할 약 데이터 1. 일단 이걸 모든 데이터 형태에 연결하는걸 최우선으로!!!!!
-  const [errorView, setErrorView] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const columns = [
@@ -109,13 +109,7 @@ const Drugs = () => {
         .then((response) => {
           setOriginalDrugs(response.data);
         })
-        .catch((error) => {
-          if (error.code === "Bad Request") {
-            alert("잘못된 요청입니다.", error);
-          } else {
-            console.error(error);
-          }
-        });
+        .catch((error) => setError(error));
     };
     getDatafromServer();
   }, []);
@@ -206,16 +200,7 @@ const Drugs = () => {
           ...addStatusToData(newData, "add"),
         ]);
       })
-      .catch((error) => {
-        if (error.response.status === 401 || error.response.status === 403) {
-          alert("접근 권한이 없습니다");
-          navigate(-1);
-          return;
-        }
-        if (error.code === "Bad Request") {
-          alert("허용되지 않는 등록 요청을 감지했습니다.", error);
-        }
-      });
+      .catch((error) => setError(error));
   };
 
   function search(keyword, criteria) {
@@ -282,7 +267,56 @@ const Drugs = () => {
       }
     }
   }
-  //에러 메시지 뷰를 따로 만들어서 에러 상황이 아닐시에만 display:block이 되게 해볼까?
+
+	const data = [
+    {
+      id: 1,
+      title: '집에 가고싶어요',
+      content: '너무 졸려 가고싶어요.'
+    }, {
+      id: 2,
+      title: '오늘은 뭐하지',
+      content: '퇴근 하고 뭐할까??'
+    }, {
+      id: 3,
+      title: '저녁은 어떤거로?',
+      content: '저녁은 치킨인가 피자인가 고민이다.'
+    }
+  ]
+
+  const excelFileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  const excelFileExtension = '.xlsx';
+  const excelFileName = '늘픔_{날짜}, {시간}'; 
+  // "늘픔_날짜,시간"
+
+  const excelDownload = (excelData) => {
+    const ws = XLSX.utils.aoa_to_sheet([
+      [`작성자_kkhcode`],
+      [],
+      ['제목', '내용']
+    ]);
+    excelData.map((data) => {
+      XLSX.utils.sheet_add_aoa(
+        ws,
+        [
+          [
+            data.title,
+            data.content
+          ]
+        ],
+        {origin: -1}
+      );
+      ws['!cols'] = [
+        { wpx: 200 },
+        { wpx: 200 },
+      ]
+      return false;
+    });
+    const wb  = {Sheets: { data: ws }, SheetNames: ['data']};
+    const excelButter = XLSX.write(wb, { bookType: 'xlsx', type: 'array'});
+    const excelFile = new Blob([excelButter], { type: excelFileType});
+    FileSaver.saveAs(excelFile, excelFileName + excelFileExtension);
+  }
   const mainView =
     criKeyword && filterData.length === 0 ? (
       <>
@@ -299,8 +333,17 @@ const Drugs = () => {
           onQuantityChange={handleQuantityChange}
         />
         <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
+        <DrugsStyledBtn onClick={() => {}}>엑셀 파일 다운로드</DrugsStyledBtn>
       </div>
     );
+
+    if (error) {
+      if (error.response.status === 401 || error.response.status === 403) {
+        alert("접근 권한이 없습니다");
+        navigate(-1);
+        return;
+      }
+    }
 
   return (
     <>
