@@ -10,6 +10,7 @@ import FileUpload from "../../components/fileupload/FileUpload";
 import NoResultView from "../../components/noResult/NoResult";
 import { json } from "react-router-dom";
 import { render } from "@testing-library/react";
+import * as FileSaver from "file-saver";
 
 const UiPanelContainer = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ const DrugsStyledBtn = styled.button`
   align-self: flex-end;
 `;
 const Drugs = () => {
+<<<<<<< HEAD
   const [originalDrugs, setOriginalDrugs] = useState([]); // 이게 서버에 저장중인 약 데이터 현재 최초 랜더링시에만 가져옴
   const [uploadDrugs, setUploadDrugs] = useState([]); // 업로드한 파일
   const [filterData, setFilterData] = useState([]); // 검색 결과 데이터
@@ -41,6 +43,13 @@ const Drugs = () => {
   const [mainViewState, setMainViewState] = useState("main"); // 초기 메인 뷰 상태는 'main'으로 설정
   const [renderingData, setRenderingData] = useState([]); // 요게 화면에 랜더링할 약 데이터 1. 일단 이걸 모든 데이터 형태에 연결하는걸 최우선으로!!!!!
   const [errorView, setErrorView] = useState(null);
+=======
+  const [originalDrugs, setOriginalDrugs] = useState([]);
+  const [uploadDrugs, setUploadDrugs] = useState([]);
+  const [filterData, setFilterData] = useState([]);
+  const [renderingData, setRenderingData] = useState([]);
+  const [criKeyword, setCriKeryword] = useState("");
+>>>>>>> 288fe26 (2)
   const navigate = useNavigate();
 
   const columns = [
@@ -279,6 +288,7 @@ const Drugs = () => {
         setFilterData([]);
         setCriKeryword(keyword);
       }
+<<<<<<< HEAD
     }
   }
   //에러 메시지 뷰를 따로 만들어서 에러 상황이 아닐시에만 display:block이 되게 해볼까?
@@ -300,6 +310,50 @@ const Drugs = () => {
         <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
       </div>
     );
+=======
+
+      const excelFileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      const excelFileExtension = '.xlsx';
+      const excelFileName = '늘픔_{날짜},{시간}';
+    
+      const excelDownload = () => {
+        const ws = XLSX.utils.aoa_to_sheet([
+          ['제목', '내용']
+        ]);
+        columns.slice(2, 4).map((data) => {
+          XLSX.utils.sheet_add_aoa(
+            ws,
+            [
+              [
+                data.title,
+                data.content
+              ]
+            ],
+            {origin: -1}
+          );
+          ws['!cols'] = [
+            { wpx: 200 },
+            { wpx: 200 },
+          ]
+          return false;
+        });
+        const wb = {Sheets: { data: ws }, SheetNames: ['data']};
+        const excelButter = XLSX.write(wb, { bookType: 'xlsx', type: 'array'});
+        const excelFile = new Blob([excelButter], { type: excelFileType});
+        FileSaver.saveAs(excelFile, excelFileName + excelFileExtension);
+      }
+
+  const mainView = (renderingData.length !== 0) ? 
+    <div className="drug-table">
+      <DrugList columns={columns.slice(1, 6)} data={renderingData} onQuantityChange={handleQuantityChange}/>
+      <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn> 
+      <DrugsStyledBtn onClick={excelDownload}>파일 다운로드</DrugsStyledBtn>
+    </div> 
+    : 
+    <>
+      <NoResultView name={criKeyword} explain={'현재 등록된 약 정보가 없습니다'}></NoResultView>
+    </>
+>>>>>>> 288fe26 (2)
 
   return (
     <>
