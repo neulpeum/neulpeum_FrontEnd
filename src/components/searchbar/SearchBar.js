@@ -174,7 +174,7 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick }) => {
                   overflow: "hidden",
                 }}
               >
-                추가된 행
+                수정된 행
               </span>
             </div>
           </div>

@@ -50,6 +50,31 @@ const Drugs = () => {
     { Header: "마지막 사용 일자", accessor: "drugModifiedTime", type: "text" },
   ];
 
+  const ConvertedDates = (date) => {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; //"YYYY-MM-DD" 정규식
+    const koreanDateRegex = /^(19|20)\d{2}년 (0[1-9]|1[0-2])월 (0[1-9]|[12][0-9]|3[01])일$/; // ~년 ~월 ~일 정규식
+    // 이외에 날짜형식은 "2024.04.06 17:25"이거
+    let ConvertedD;
+    if (dateRegex.test(date)) {
+
+    } else if (koreanDateRegex.test(date)) {
+
+    } else {
+      date.replace(/\s+\d+:\d+$/, "");
+    }
+  }
+  useEffect(() => {
+    const getDatafromServer = () => {
+      axios
+        .get("/api/drug")
+        .then((response) => {
+          setOriginalDrugs(response.data);
+        })
+        .catch((error) => setError(error));
+    };
+    getDatafromServer();
+  }, []);
+
   const ReadJsonDrugs = (jsonDrugs) => {
     try {
       const FormattedDrugs = jsonDrugs.slice(1).map((row, index) => {
@@ -98,18 +123,6 @@ const Drugs = () => {
       return newData;
     });
   };
-
-  useEffect(() => {
-    const getDatafromServer = () => {
-      axios
-        .get("/api/drug")
-        .then((response) => {
-          setOriginalDrugs(response.data);
-        })
-        .catch((error) => setError(error));
-    };
-    getDatafromServer();
-  }, []);
 
   useEffect(() => {
     setRenderingData(originalDrugs);
@@ -293,7 +306,7 @@ const Drugs = () => {
           onQuantityChange={handleQuantityChange}
         />
         <div style={{display: 'flex', flexDirection: 'row', gap: '10px', alignSelf: 'flex-end'}}>
-          <DrugsStyledBtn onClick={generateExcel}>엑셀 파일 다운로드</DrugsStyledBtn>
+          <DrugsStyledBtn onClick={generateExcel}>엑셀 양식 다운로드</DrugsStyledBtn>
           <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
         </div>
       </div>
