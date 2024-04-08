@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import CitizenInfor from "../../components/citizenInfor/CitizenInfor";
 import CitizenCounselList from "../../components/citizenCounselList/CitizenCounselList";
 import HeaderComponent from "../../components/header/Header";
@@ -8,6 +8,7 @@ const CitizensDetails = () => {
   const [isButtonClicked, setButtonClicked] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleResize = () => {
     setIsLargeScreen(window.innerWidth >= 769);
@@ -46,7 +47,7 @@ const CitizensDetails = () => {
 
   return (
     <div>
-      <HeaderComponent />
+      <HeaderComponent nav={navigate} isLogoutVisible={true}/>
 
       <div className="components-wrapper">
         <div

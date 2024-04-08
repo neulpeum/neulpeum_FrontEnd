@@ -10,14 +10,15 @@
     background-color: white;
     border: 3px dashed #eee;
     transition: background-color 0.5s ease;
+    padding: 3px;
 }
 .contents:hover {
     background-color: #efeef3;
-    border-color: #111;
+    border-color: #606060;
 }
 .contents.active {
     background-color: #efeef3;
-    border-color: #111;
+    border-color: #606060;
   }
 
 .upload-container img {

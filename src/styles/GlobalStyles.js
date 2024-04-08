@@ -568,6 +568,7 @@ const GlobalStyles = createGlobalStyle`
     
     /* Header.css */
     .header-container {
+        position: relative;
         margin-top: 20px;
         padding: 0;
         display: flex;
@@ -582,6 +583,15 @@ const GlobalStyles = createGlobalStyle`
     .logo {
         width: 15%;
         height: auto;
+    }
+
+    .logout {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 15%;
+        max-width: 131px;
+        min-width: 76px;
     }
 
     /* NoResult.css */

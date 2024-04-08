@@ -5,28 +5,10 @@ import MyInfoBtn from './img_my_info_btn.svg';
 import CitizensBtn from './img_citizens_btn.svg';
 import MedicineBtn from './img_medicine_btn.svg';
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 
 const Options = () => {
     const navigate = useNavigate();
-
-    const logout = () => {
-      axios.post(
-        "/logout",
-        {withCredentials: true,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": "*",
-          }},
-      )
-      .then((response) => {
-        navigate("/");
-      })
-      .catch((error) => {
-        navigate("/");
-      })
-    };
 
     return (
       <div className="main-container">
@@ -46,7 +28,6 @@ const Options = () => {
                 <img src={MyInfoBtn} alt="my-info-btn" className="my-info-btn" />
               </Link>
             </div>
-            <p onClick={logout}>로그아웃</p>
         </div>
         <footer className="footer">
           <img src={MedicareLogo} alt="footer-logo" className="footer-logo" />

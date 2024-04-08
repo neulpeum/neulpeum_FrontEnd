@@ -1,4 +1,6 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'; 
+import axios from 'axios';
 import styled from 'styled-components';
 import HeaderComponent from '../../components/header/Header';
 import AccountChangeForm from '../../components/accountChangeForm/AccountChangeForm';
@@ -33,9 +35,15 @@ const PickIcon = styled.img`
 `
 const AccountSetting = () => {
     const [activeTab, setActiveTab] = useState(0);
+    const [error, setError] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+          axios.get("/api/drug").then((response) => {}).catch((error) => setError(error));
+    }, []);
 
     const TabButtons = [
-        {name: '관리자 비밀번호 변경', content: <AccountChangeForm key='admin' userType={'admin'}/>},
+        {name: '관리자 비밀번호 변경', content: <AccountChangeForm key='admin' userType={'admin'} />},
         {name: '대학생 비밀번호 변경', content: <AccountChangeForm key='user' userType={'user'}/>},
     ];
 
@@ -43,9 +51,17 @@ const AccountSetting = () => {
         setActiveTab(tabIndex);
     };
 
+    if (error) {
+        if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
+          alert("접근 권한이 없습니다");
+          navigate(-1);
+          return;
+        }
+      }
+
     return (
         <>
-            <HeaderComponent/>
+            <HeaderComponent nav = {navigate} isLogoutVisible = {true}/>
             <AccountContainer>
                 <SwitchButtonContainer>
                     {TabButtons.map((tab, index) => (

@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import * as XLSX from "xlsx";
 import DrugList from "../../components/drugList/DrugList";
 import HeaderComponent from "../../components/header/Header";
 import SearchBar from "../../components/searchbar/SearchBar";
 import FileUpload from "../../components/fileupload/FileUpload";
 import NoResultView from "../../components/noResult/NoResult";
-import { json } from "react-router-dom";
-import { render } from "@testing-library/react";
+import * as FileSaver from "file-saver";
+import * as XLSX from 'xlsx-js-style';
 
 const UiPanelContainer = styled.div`
   display: flex;
@@ -30,18 +29,17 @@ const DrugsStyledBtn = styled.button`
   background-color: #aed391;
   border: none;
   cursor: pointer;
-  align-self: flex-end;
 `;
 const Drugs = () => {
-  const [originalDrugs, setOriginalDrugs] = useState([]); // 이게 서버에 저장중인 약 데이터 현재 최초 랜더링시에만 가져옴
-  const [uploadDrugs, setUploadDrugs] = useState([]); // 업로드한 파일
-  const [filterData, setFilterData] = useState([]); // 검색 결과 데이터
-  const [criKeyword, setCriKeryword] = useState(""); // 검색 필드 데이터
+  const [originalDrugs, setOriginalDrugs] = useState([]); 
+  const [uploadDrugs, setUploadDrugs] = useState([]);
+  const [filterData, setFilterData] = useState([]);
+  const [criKeyword, setCriKeryword] = useState("");
 
-  const [mainViewState, setMainViewState] = useState("main"); // 초기 메인 뷰 상태는 'main'으로 설정
-  const [renderingData, setRenderingData] = useState([]); // 요게 화면에 랜더링할 약 데이터 1. 일단 이걸 모든 데이터 형태에 연결하는걸 최우선으로!!!!!
-  const [errorView, setErrorView] = useState(null);
+  const [renderingData, setRenderingData] = useState([]); 
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const currentDate = new Date();
 
   const columns = [
     { Header: "약 아이디", accessor: "drugId", type: "number" },
@@ -55,7 +53,7 @@ const Drugs = () => {
   const ReadJsonDrugs = (jsonDrugs) => {
     try {
       const FormattedDrugs = jsonDrugs.slice(1).map((row, index) => {
-        const [drugName, expireDate, usableAmount, usable] = row; //??? 도대체 현재 재고량이랑 사용량을 엑셀파일에 둘다 기제하는 이유가 뭐지??
+        const [drugName, expireDate, usableAmount, usable] = row;
 
         const dateOptions = {
           year: "numeric",
@@ -108,13 +106,7 @@ const Drugs = () => {
         .then((response) => {
           setOriginalDrugs(response.data);
         })
-        .catch((error) => {
-          if (error.code === "Bad Request") {
-            alert("잘못된 요청입니다.", error);
-          } else {
-            console.error(error);
-          }
-        });
+        .catch((error) => setError(error));
     };
     getDatafromServer();
   }, []);
@@ -130,30 +122,6 @@ const Drugs = () => {
   useEffect(() => {
     setFilterData(renderingData);
   }, [renderingData]);
-
-  // useEffect(() => {
-  //   if (!originalDrugs) {
-  //     axios
-  //       .get("/api/drug")
-  //       .then((response) => {
-  //         const data = response.data;
-  //         setOriginalDrugs(data);
-  //       })
-  //       .catch((error) => {
-  //         if (error.response.status === 401 || error.response.status === 403) {
-  //           alert("접근 권한이 없습니다");
-  //           navigate(-1);
-  //           return;
-  //         }
-  //         if (error.code === "Bad Request") {
-  //           alert("잘못된 요청입니다.", error);
-  //         } else {
-  //           console.error(error);
-  //         }
-  //       });
-  //     setRenderingData(filterData);
-  //   }
-  // }, [filterData]);
 
   const ChangeDrugForm = (data) => {
     const newData = [];
@@ -205,16 +173,7 @@ const Drugs = () => {
           ...addStatusToData(newData, "add"),
         ]);
       })
-      .catch((error) => {
-        if (error.response.status === 401 || error.response.status === 403) {
-          alert("접근 권한이 없습니다");
-          navigate(-1);
-          return;
-        }
-        if (error.code === "Bad Request") {
-          alert("허용되지 않는 등록 요청을 감지했습니다.", error);
-        }
-      });
+      .catch((error) => setError(error));
   };
 
   function search(keyword, criteria) {
@@ -281,7 +240,43 @@ const Drugs = () => {
       }
     }
   }
-  //에러 메시지 뷰를 따로 만들어서 에러 상황이 아닐시에만 display:block이 되게 해볼까?
+
+  function generateExcel() {
+    const type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const dateOptions = { year: 'numeric', month: 'long',day: 'numeric',};
+    const name = `늘픔_${currentDate.toLocaleString('ko-KR', dateOptions)}, ${currentDate.getHours()}시 ${currentDate.getMinutes()}분`;
+
+    const headerStyle = {
+      font: { bold: true, sz: '24' },
+      border: { top: {style: "thin"}, bottom: {style: "thin"}, left: {style: "thin"}, right: {style: "thin"} },
+      alignment: { horizontal: "center", vertical: "center" },
+    };
+    const rowStyle = {
+      font: { bold: true, sz: '18' },
+      border: { top: {style: "thin"}, bottom: {style: "thin"}, left: {style: "thin"}, right: {style: "thin"} },
+      alignment: { horizontal: "center", vertical: "center" },
+    };
+
+    const headerData = [
+      { v: '약 이름', s: headerStyle },
+      { v: '유통기한', s: headerStyle },
+      { v: '현재 수량', s: headerStyle },
+      { v: '사용량', s: headerStyle },
+    ];
+
+    const rowData = Array(50).fill([ { v: '', s: rowStyle }, { v: '', s: rowStyle }, { v: '', s: rowStyle }, { v: '', s: rowStyle } ]);
+    const ws = XLSX.utils.aoa_to_sheet([headerData].concat(rowData));
+
+    ws['!cols'] = Array(100).fill({ wpx: 200 });
+    ws['!rows'] = Array(100).fill({ hpx: 50 });
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    const excelButter = XLSX.write(wb, {bookType: 'xlsx', type: 'array'});
+    const excelFile = new Blob([excelButter], { type: type });
+    FileSaver.saveAs(excelFile, name);
+  }
+
   const mainView =
     criKeyword && filterData.length === 0 ? (
       <>
@@ -297,18 +292,30 @@ const Drugs = () => {
           data={filterData}
           onQuantityChange={handleQuantityChange}
         />
-        <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
+        <div style={{display: 'flex', flexDirection: 'row', gap: '10px', alignSelf: 'flex-end'}}>
+          <DrugsStyledBtn onClick={generateExcel}>엑셀 파일 다운로드</DrugsStyledBtn>
+          <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
+        </div>
       </div>
     );
 
+    if (error) {
+      if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
+        alert("접근 권한이 없습니다");
+        navigate(-1);
+        return;
+      }
+    }
+    // (nav, isLogoutVisible)
   return (
     <>
-      <HeaderComponent />
+      <HeaderComponent nav={navigate} isLogoutVisible={true}/>
       <UiPanelContainer>
         <FileUpload UploadedFile={ReadJsonDrugs} />
         <SearchBar search={search} currentPage={"Drugs"} />
       </UiPanelContainer>
       {mainView}
+
     </>
   );
 };
