@@ -39,11 +39,10 @@ const FileUpload = ({ UploadedFile } ) => {
     const sheetName = workbook.SheetNames[0]; //첫번째 시트 페이지
     const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1});
 
-
     const tableData = sheetData.slice(0).filter(row => {
-      const isEmptyRow = row.every(cell => cell === null || cell === undefined);
-      const isPartiallyEmptyRow = row.some(cell => cell === null || cell === undefined);
-      if (isPartiallyEmptyRow && !isEmptyRow) throw new Error('아라라라라ㅏ라라라');
+      const isEmptyRow = row.every(cell => cell === null || cell === undefined || cell === '');
+      const isPartiallyEmptyRow = row.some(cell => cell === null || cell === undefined || cell === '');
+      if (isPartiallyEmptyRow && !isEmptyRow) throw new Error('제출하신 파일에 비어있는 셀이 감지됩니다.');
       return !isEmptyRow;
     });
 

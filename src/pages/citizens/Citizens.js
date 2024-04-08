@@ -89,7 +89,7 @@ const Citizens = () => {
 
   return (
     <div>
-      <HeaderComponent/>
+      <HeaderComponent nav={navigate} isLogoutVisible={true}/>
       <Link className="link-styles" to="/">
         <button className="goto-citizens">&lt;</button>
       </Link>

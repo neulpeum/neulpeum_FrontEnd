@@ -1,7 +1,6 @@
 import React,{ useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom'; 
 
 const AccountContent = styled.div` 
     width: 100%;
@@ -62,9 +61,8 @@ export default function AccountChangeForm({userType}) {
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [passwordsVisible, setPasswordsVisible] = useState([false, false, false]);
-    const [error, setError] = useState(null);
 
-    const navigate = useNavigate();
+    const [error, setError] = useState(false);
     let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
     let specialStr = '※';
 
@@ -98,23 +96,10 @@ export default function AccountChangeForm({userType}) {
         axios.patch(url, body)
         .then((res) => {
             clearInputFileds()
-            setError(false);
             alert(`${userType === 'admin' ? '관리자' : '대학생'} 비밀번호가 성공적으로 변경되었습니다.`);
         })
-        .catch((error) =>setError(error));
+        .catch((error) => setError(error));
     }
-
-    if (error) {
-        if (error.response.status === 401 || error.response.status === 403) {
-          alert("접근 권한이 없습니다");
-          navigate(-1);
-          return;
-        }
-        else if(error.code === "ERR_BAD_RESPONSE") {
-            alert("비밀번호를 변경하는 도중 알 수 없는 에러를 감지했습니다.");
-            clearInputFileds();
-        }
-      }
 
     return (
         <AccountContent>
