@@ -50,19 +50,6 @@ const Drugs = () => {
     { Header: "마지막 사용 일자", accessor: "drugModifiedTime", type: "text" },
   ];
 
-  const ConvertedDates = (date) => {
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; //"YYYY-MM-DD" 정규식
-    const koreanDateRegex = /^(19|20)\d{2}년 (0[1-9]|1[0-2])월 (0[1-9]|[12][0-9]|3[01])일$/; // ~년 ~월 ~일 정규식
-    // 이외에 날짜형식은 "2024.04.06 17:25"이거
-    let ConvertedD;
-    if (dateRegex.test(date)) {
-
-    } else if (koreanDateRegex.test(date)) {
-
-    } else {
-      date.replace(/\s+\d+:\d+$/, "");
-    }
-  }
   useEffect(() => {
     const getDatafromServer = () => {
       axios
@@ -170,14 +157,11 @@ const Drugs = () => {
     const [newData, modifyData] = ChangeDrugForm(renderingData);
     axios
       .put("/api/drug", [...newData, ...modifyData])
-
       .then((response) => {
         alert("약데이터가 성공적으로 등록되었습니다.");
         setOriginalDrugs((prevState) =>
           prevState.map((item) => {
-            const modifiedItem = modifyData.find(
-              (modifyItem) => modifyItem.drugId === item.drugId
-            );
+            const modifiedItem = modifyData.find((modifyItem) => modifyItem.drugId === item.drugId);
             return modifiedItem ? { ...item, ...modifiedItem } : item;
           })
         );
