@@ -1,0 +1,51 @@
+.Drugtable-wrapper {
+    border: 1px solid black;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+.Drugtable-wrapper::-webkit-scrollbar {
+    border: 0px solid #9b6a2f;
+}
+.Drugtable-wrapper::-webkit-scrollbar-thumb {
+    background: gray;
+}
+.Drugtable-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, .1);
+}
+
+.Drugtable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.Drugtable-row {
+    background-color: white;
+}
+.Drugtable-row.add {
+    background-color: rgba(217, 217, 217, 0.5);
+}
+.Drugtable-row.modify {
+    background-color: rgba(149, 209, 217, 0.5);
+}
+
+.Drugtable-header {
+    padding: 0;
+    font-size: 28px;
+    font-weight: bold;
+    position: sticky;
+    top: 0px;
+}
+.Drugtable-header-container {
+    border: 1px solid black;
+    background: white;
+    padding: 30px;
+    white-space: nowrap;
+}
+
+.Drugtable-cell {
+    border: 1px solid black;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 20px;
+    overflow-x: auto;
+}

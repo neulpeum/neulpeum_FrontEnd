@@ -1,0 +1,64 @@
+.components-wrapper {
+    width: 100%;
+    height: 37.5675rem;
+    margin-top: 4.3rem;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 3.38rem;
+}
+
+.link-styles {
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 2rem;
+}
+
+.goto-citizens {
+    font-size: 1.25rem;
+    border: none;
+    background-color: white;
+    display: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.goto-counsel {
+    float: right;
+    font-size: 1.25rem;
+    border: none;
+    background-color: white;
+    display: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 2rem;
+}
+
+.goto-citizensInformation {
+    font-size: 1.75rem;
+    border: none;
+    background-color: white;
+    display: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 2rem;
+}
+
+.citiznesInformation,
+.citiznesCounselList {
+    height: 37.5675rem;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .goto-citizens,
+    .goto-counsel,
+    .goto-citizensInformation {
+        display: block;
+    }
+
+    .components-wrapper {
+        margin-top: 2.9rem; 
+    }
+}

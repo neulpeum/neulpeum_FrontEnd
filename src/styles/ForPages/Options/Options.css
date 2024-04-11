@@ -1,0 +1,8 @@
+.option-btn-container {
+    margin-top: 83px;
+}
+
+.option-btn-container > * {
+    margin-left: 92px;
+    margin-right: 92px;
+}
