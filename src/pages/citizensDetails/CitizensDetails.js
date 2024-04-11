@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import CitizenInfor from "../../components/citizenInfor/CitizenInfor";
-import CitizenCounselList from "../../components/citizenCounselList/CitizenCounselList";
-import HeaderComponent from "../../components/header/Header";
+import HeaderComponent from "components/Header";
+import CitizenInfor from "./CitizenInfor";
+import CitizenCounselList from "./CitizenCounselList";
+import 'styles/ForPages/CitizensDetails/CitizensDetails.css';
 
 const CitizensDetails = () => {
   const [isButtonClicked, setButtonClicked] = useState(false);

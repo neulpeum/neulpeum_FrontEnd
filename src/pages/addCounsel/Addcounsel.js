@@ -1,7 +1,7 @@
 import React from "react";
-import HeaderComponent from "../../components/header/Header";
-import AddCounseling from "../../components/addCounseling/AddCounseling";
 import { useNavigate } from "react-router-dom";
+import HeaderComponent from "components/Header";
+import AddCounseling from "./AddCounseling";
 
 export default function AddCounsel() {
   const navigate = useNavigate();
