@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import CustomInput from '../../components/customInput/CustomInput';
-import LoginButton from '../../components/loginButton/LoginButton.js';
-import MedicareLogo from '../../components/customInput/img_medicare_logo.svg';
 import axios from "axios";
+import CustomInput from './CustomInput';
+import LoginButton from './LoginButton';
 
 
 const Main = () => {
@@ -35,20 +34,11 @@ const Main = () => {
   }
 
   return (
-    <div className="main-container">
-      <div className="main-logo-container">
-        <img src="/icons/ic_logo.svg" alt="logo" className="logo" />
-      </div>
-      <div className='main-content'>
-        <p>늘픔 약 재고 관리 서비스에 오신 것을 환영합니다</p>
-        <CustomInput inputValue={id} onChange={(event) => setId(event.target.value)} placeholder="이름을 입력해주세요." icon="/icons/ic_name.svg" isPassword={false} onKeyDown={(e) => activeEnter(e)}/>
-        <CustomInput inputValue={password} onChange={(event) => setPassword(event.target.value)} placeholder="비밀번호를 입력해주세요." icon="icons/ic_password.svg" isPassword={true} onKeyDown={(e) => activeEnter(e)} />
-        <LoginButton onLoginClick={login}/>
-      </div>
-      <footer className="footer">
-        <img src={MedicareLogo} alt="footer-logo" className="footer-logo" />
-      </footer>
-    </div>
+    <>
+      <CustomInput inputValue={id} onChange={(event) => setId(event.target.value)} placeholder="이름을 입력해주세요." icon="/icons/ic_name.svg" isPassword={false} onKeyDown={(e) => activeEnter(e)}/>
+      <CustomInput inputValue={password} onChange={(event) => setPassword(event.target.value)} placeholder="비밀번호를 입력해주세요." icon="/icons/ic_password.svg" isPassword={true} onKeyDown={(e) => activeEnter(e)} />
+      <LoginButton onLoginClick={login}/>
+    </>
   );
 };
 

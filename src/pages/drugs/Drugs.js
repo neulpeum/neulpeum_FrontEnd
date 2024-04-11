@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DrugList from "../../components/drugList/DrugList";
-import HeaderComponent from "../../components/header/Header";
-import SearchBar from "../../components/searchbar/SearchBar";
-import FileUpload from "../../components/fileupload/FileUpload";
-import NoResultView from "../../components/noResult/NoResult";
 import * as FileSaver from "file-saver";
 import * as XLSX from 'xlsx-js-style';
+import HeaderComponent from "components/Header";
+import SearchBar from "components/SearchBar";
+import NoResultView from "components/NoResult";
+import DrugList from "./DrugList";
+import FileUpload from "./FileUpload";
+import 'styles/ForPages/Drugs/Drugs.css';
 
 const UiPanelContainer = styled.div`
   display: flex;
@@ -80,7 +81,7 @@ const Drugs = () => {
           drugId: index,
           drugName: drugName,
           expireDate: ConvertedDate(expireDate),
-          usableAmount: usableAmount,
+          usableAmount: usableAmount-usable,
           drugEnrollTime: currentDate,
           drugModifiedTime: null,
         };

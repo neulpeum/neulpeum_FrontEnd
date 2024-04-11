@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { Link } from "react-router-dom";
-import SearchBar from '../../components/searchbar/SearchBar';
-import CitizenList from '../../components/citizenList/CitizenList';
-import HeaderComponent from '../../components/header/Header';
 import axios from "axios";
-import NoResultView from '../../components/noResult/NoResult';
+import SearchBar from 'components/SearchBar';
+import HeaderComponent from "components/Header"
+import CitizenList from './CitizenList';
+import NoResultView from 'components/NoResult';
+import 'styles/ForPages/Citizens/Citizens.css';
 
 
 const Citizens = () => {
@@ -83,7 +84,7 @@ const Citizens = () => {
   }
   
 
-  const mainView = citizens.length == 0 ?
+  const mainView = citizens.length === 0 ?
    <NoResultView name={finalKeyword} explain={"는 존재하지 않는 주민입니다."} /> :
    <CitizenList columns={columns} data={citizens} onClickDetail={navigateToCitizenDetail}/>
 

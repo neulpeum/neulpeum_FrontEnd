@@ -1,0 +1,8 @@
+.drug-table {
+    display: flex;
+    flex-direction: column;
+    width: 77.7%;
+    height: 42%;
+    margin: 0.5rem auto;
+    gap: 0.5rem;
+}

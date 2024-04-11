@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 import styled from 'styled-components';
-import HeaderComponent from '../../components/header/Header';
-import AccountChangeForm from '../../components/accountChangeForm/AccountChangeForm';
+import HeaderComponent from "components/Header";
+import AccountChangeForm from './AccountChangeForm';
 
 const AccountContainer = styled.div`
     width: 70%;
