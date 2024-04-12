@@ -15,8 +15,6 @@ const InputContainer = styled.div`
   border: 1px solid black;
   border-radius: 20px;
   padding: 8px;
-  display: flex;
-  align-items: center;
   background-color: white;
   margin-top: 48px;
   width: 491px;
