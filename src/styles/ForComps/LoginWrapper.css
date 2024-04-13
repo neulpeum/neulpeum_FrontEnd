@@ -14,19 +14,6 @@
 
 .footer {
     width: 100%;
-    height: 113px;
+    height: 400px;
     background-color: #99D5E4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.footer-logo {
-    width: 200px;
-}
-
-@media (max-width: 768px) {
-    .footer-logo {
-        width: 180px;
-    }
 }
