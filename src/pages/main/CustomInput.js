@@ -15,8 +15,6 @@ const InputContainer = styled.div`
   border: 1px solid black;
   border-radius: 20px;
   padding: 8px;
-  display: flex;
-  align-items: center;
   background-color: white;
   margin-top: 48px;
   width: 491px;
@@ -38,13 +36,16 @@ const RoundedInput = styled.input`
     font-size: 12px;
   }
 `;
+const InputBox= styled.div`
+  width: 60%;
+`;
 
 const CustomInput = ({value, onChange, placeholder, icon, isPassword, onKeyDown}) => {
   const inputType = isPassword ? 'password' : 'text';
   return (
     <InputContainer>
       <LeftImage $icon={icon} />
-      <div>
+      <InputBox>
         <RoundedInput 
         value={value} 
         onChange={onChange} 
@@ -53,7 +54,7 @@ const CustomInput = ({value, onChange, placeholder, icon, isPassword, onKeyDown}
         onKeyDown={(e) => onKeyDown(e)} 
         autoComplete='off'
         />
-      </div>
+      </InputBox>
     </InputContainer>
   );
 };

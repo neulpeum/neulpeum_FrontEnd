@@ -9,16 +9,15 @@ import Main from "pages/main/Main";
 import Options from "pages/options/Options";
 import AddCounsel from "pages/addCounsel/Addcounsel";
 import AccountSetting from "pages/accountSettings/AccountSettings";
-import LoginWrapper from "components/LoginWrapper";
 
 const App = () => {
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<LoginWrapper content={<Main />} />} />{" "}
+        <Route path="/" element={<Main />} />{" "}
         <Route path="/citizens" element={<Citizens />} />{" "}
         <Route path="/citizensDetails" element={<CitizensDetails />} />{" "}
-        <Route path="/options" element={<LoginWrapper content={<Options />} />} />{" "}
+        <Route path="/options" element={<Options />} />{" "}
         <Route path="/addCounsel" element={<AddCounsel />} />{" "}
         <Route path="/citizenAdd" element={<CitizenAdd />} />{" "}
         <Route path="/drugs" element={<Drugs />} />{" "}

@@ -5,20 +5,30 @@ import MedicineBtn from 'Images/img_medicine_btn.svg';
 import { Link } from "react-router-dom";
 import 'styles/ForPages/Options/Options.css';
 
-
 const Options = () => {
-    return (
-      <div className="option-btn-container">
-        <Link className="default-link-styles" to="/citizens">
-          <img src={CitizensBtn} alt="citizens-btn" className="citizens-btn" />
-        </Link>
-        <Link className="default-link-styles" to="/drugs">
-          <img src={MedicineBtn} alt="medicine-btn" className="medicine-btn" />
-        </Link>
-        <Link className="default-link-styles" to="/accountSettings">
-          <img src={MyInfoBtn} alt="my-info-btn" className="my-info-btn" />
-        </Link>
+    return ( 
+      <>
+      <div className="option-container">
+        <div className="option-logo-container">
+          <img src="/icons/ic_logo.svg" alt="logo" className="logo" />
+        </div>
+        <div className='option-content'>
+        <p>늘픔 약 재고 관리 서비스에 오신 것을 환영합니다</p>
+        <div className="option-btn-container">
+          <Link className="default-link-styles" to="/citizens">
+            <img src={CitizensBtn} alt="citizens-btn" className="citizens-btn" />
+          </Link>
+          <Link className="default-link-styles" to="/drugs">
+            <img src={MedicineBtn} alt="medicine-btn" className="medicine-btn" />
+          </Link>
+          <Link className="default-link-styles" to="/accountSettings">
+            <img src={MyInfoBtn} alt="my-info-btn" className="my-info-btn" />
+          </Link>
+        </div>
+        </div>
       </div>
+      <div className="option-footer"/>
+      </>
     );
   };
 
