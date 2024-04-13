@@ -21,6 +21,7 @@
 
 .option-btn-container {
     margin-top: 83px;
+    z-index: 100;
 }
 
 .option-btn-container > * {
