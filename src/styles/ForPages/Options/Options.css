@@ -9,12 +9,12 @@
     font-size: 32px;
 }
 
-.logo-container {
+.option-logo-container {
     text-align: center;
     flex-grow: 1;
 }
 
-.logo-container > img {
+.option-logo-container > img {
     width: 280px;
     height: 218px;
 }
@@ -39,7 +39,7 @@
         margin-top: 75px;
         font-size: 15px;
     }
-    .logo-container > img {
+    .option-logo-container > img {
         width: 94px;
         height: 67px;
     }

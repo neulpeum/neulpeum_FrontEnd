@@ -11,6 +11,11 @@
     flex-grow: 1;
 }
 
+.logo-container > img {
+    width: 280px;
+    height: 218px;
+}
+
 .logo {
     width: 15%;
     height: auto;
@@ -23,4 +28,11 @@
     width: 15%;
     max-width: 131px;
     min-width: 76px;
+}
+
+@media (max-width: 768px) {
+    .logo-container > img {
+        width: 94px;
+        height: 67px;
+    }
 }

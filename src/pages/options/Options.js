@@ -8,7 +8,7 @@ import 'styles/ForPages/Options/Options.css';
 
 const View = 
 <>
-<div className="logo-container">
+<div className="option-logo-container">
   <img src="/icons/ic_logo.svg" alt="logo" className="logo" />
 </div>
 <div className='main-content'>
