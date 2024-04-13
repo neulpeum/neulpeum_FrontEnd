@@ -1,8 +1,22 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('Images/img_main_background.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: fit-content;
+    min-height: 100%;
+    position: relative;
+}
+
 .main-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100%;
+    margin-bottom: 115px;
 }
 
 .main-content > p {
@@ -16,6 +30,12 @@
     height: 242px;
 }
 
+.main-footer {
+    width: 100%;
+    height: 113px;
+    background-color: #99D5E4;
+}
+
 @media (max-width: 768px) {
     .main-content > p {
         margin-top: 75px;
@@ -25,5 +45,8 @@
         margin-top: 95px;
         width: 209px;
         height: 170px;
+    }
+    .main-footer {
+        min-height: 109px;
     }
 }
