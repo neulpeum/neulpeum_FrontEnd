@@ -17,6 +17,11 @@ const FileUpload = ({ UploadedFile } ) => {
     if (convertedFile) await UploadedFile(convertedFile);
     else alert("현재 업로드된 파일이 없습니다. 파일을 선택하고 업로드한 후 다시 시도해주세요.");
   }
+  const clearData = () => {
+    setSelectedFile(null);
+    setConvertedFile(null);
+    alert("업로드가 취소되었습니다.");
+  };
 
   const readExcelFile = (file) => {
     return new Promise((resolve, reject) => {
@@ -68,6 +73,7 @@ const FileUpload = ({ UploadedFile } ) => {
             const workbook = await readExcelFile(file);
             extractSheetData(workbook);
             setSelectedFile(file);
+            fileInput.value = null;
           } catch (error) {
             alert(error);
           }
@@ -130,9 +136,17 @@ const FileUpload = ({ UploadedFile } ) => {
           <span>{' '}파일 선택</span>
         </div>
         <p>{selectedFile ? `선택된 파일: ${selectedFile.name}` : '액셀 파일을 업로드하세요'}</p>
-        <button onClick={transmitDrugsData}>업로드</button>
+        <div className="upload-btns-container">
+          <button onClick={clearData}>취소</button>
+          <button onClick={transmitDrugsData}>업로드</button>
+        </div>
       </label>
-      <input type="file" id="input" ref={fileInputRef} accept=".csv, .xlsx, .xls" style={{ display: "none" }}/>
+      <input 
+      type="file" 
+      id="input" 
+      ref={fileInputRef} 
+      accept=".csv, .xlsx, .xls" 
+      style={{ display: "none" }}/>
     </div>
 
   );

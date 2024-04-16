@@ -65,11 +65,9 @@ const AccountSetting = () => {
             <AccountContainer>
                 <SwitchButtonContainer>
                     {TabButtons.map((tab, index) => (
-                        <TabButton key={index} onClick={() => handleTabClick(index)}
-                            style={(activeTab === index) ? { backgroundColor: '#aed391' } : { backgroundColor: '#FFF' }}>
-                        
-                        {(activeTab === index) && <PickIcon src="/icons/ic_selected.svg"/>}
-                        {tab.name}
+                        <TabButton key={index} onClick={() => handleTabClick(index)} style={(activeTab === index) ? { backgroundColor: '#aed391' } : { backgroundColor: '#FFF' }}>
+                            {(activeTab === index) && <PickIcon src="/icons/ic_selected.svg"/>}
+                            {tab.name}
                         </TabButton>
                     ))}
                 </SwitchButtonContainer>

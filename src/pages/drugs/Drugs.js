@@ -32,8 +32,9 @@ const DrugsStyledBtn = styled.button`
   border: none;
   cursor: pointer;
 `;
+
 const Drugs = () => {
-  const [originalDrugs, setOriginalDrugs] = useState([]); 
+  const [originalDrugs, setOriginalDrugs] = useState([]); //부동의 데이터
   const [uploadDrugs, setUploadDrugs] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [criKeyword, setCriKeryword] = useState("");
@@ -41,7 +42,6 @@ const Drugs = () => {
   const [renderingData, setRenderingData] = useState([]); 
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const currentDate = new Date();
 
   const columns = [
     { Header: "약 아이디", accessor: "drugId", type: "number" },
@@ -88,7 +88,6 @@ const Drugs = () => {
           drugModifiedTime: null,
         };
       });
-      console.log(FormattedDrugs);
       setUploadDrugs(FormattedDrugs, 3);
     } catch (error) {
       console.log("파일을 읽던 중 에러가 발생했습니다.", error);
@@ -131,10 +130,15 @@ const Drugs = () => {
     const newData = [];
     const modifyData = [];
 
-    data.forEach((renderingItem) => {
-      const existingIndex = originalDrugs.findIndex(
-        (originalItem) => originalItem.drugId === renderingItem.drugId
-      );
+    const updatedData = data.map((array) => {
+      return {
+        ...array,
+        expireDate: MyDate.convertDate(array.expireDate, 0),
+      };
+    });
+
+    updatedData.forEach((renderingItem) => {
+      const existingIndex = originalDrugs.findIndex((originalItem) => originalItem.drugId === renderingItem.drugId);
 
       if (existingIndex === -1) {
         newData.push({
@@ -159,6 +163,7 @@ const Drugs = () => {
       return alert("업데이트할 약 데이터가 존재하지 않습니다.");
 
     const [newData, modifyData] = ChangeDrugForm(renderingData);
+    console.log([newData, modifyData]);
     axios
       .put("/api/drug", [...newData, ...modifyData])
       .then((response) => {
@@ -188,6 +193,7 @@ const Drugs = () => {
           criteria === "drugModifiedTime"
         ) {
           const datePart = item[criteria].split(" ")[0];
+          console.log(datePart);
           if (datePart.includes(keyword)) {
             results.push(item);
           }
@@ -244,8 +250,7 @@ const Drugs = () => {
 
   function generateExcel() {
     const type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const dateOptions = { year: 'numeric', month: 'long',day: 'numeric',};
-    const name = `늘픔_${currentDate.toLocaleString('ko-KR', dateOptions)}, ${currentDate.getHours()}시 ${currentDate.getMinutes()}분`;
+    const name = `늘픔_${MyDate.convertDate(MyDate.createCurrentDate(), 4)}`;
 
     const headerStyle = {
       font: { bold: true, sz: '24' },
@@ -294,6 +299,7 @@ const Drugs = () => {
           onQuantityChange={handleQuantityChange}
         />
         <div style={{display: 'flex', flexDirection: 'row', gap: '10px', alignSelf: 'flex-end'}}>
+          <DrugsStyledBtn >변경사항 초기화</DrugsStyledBtn>
           <DrugsStyledBtn onClick={generateExcel}>엑셀 양식 다운로드</DrugsStyledBtn>
           <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
         </div>

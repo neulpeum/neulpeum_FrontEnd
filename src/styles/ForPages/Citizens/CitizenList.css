@@ -45,6 +45,7 @@
 .DetailButton {
     font-size: 26px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {

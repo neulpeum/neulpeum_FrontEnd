@@ -228,8 +228,6 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
     },
   };
 
-  // const pageConfig = 
-
   const currentPageConfig = pageConfig[currentPage];
 
   return <>{currentPageConfig.content}</>;

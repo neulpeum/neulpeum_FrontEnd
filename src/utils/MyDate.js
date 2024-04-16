@@ -1,14 +1,14 @@
 export const MyDate = {
     convertDate: (dateString, targetFormNumber) => {
         const dateRegexs = [
-            /^(\d{4})-(\d{2})-(\d{2})$/,                     // YYYY-MM-DD -> 랜더링 될때, targetFormNumber = 0
-            /^(\d{4})\.(\d{2})\.(\d{2}) (\d{2}):(\d{2})$/,   // YYYY.MM.DD HH:MM -> 랜더링 될때, targetFormNumber = 1
-            /^\d{4}\.\d{2}\.\d{2}$/,                         // YYYY.MM.DD -> 사용처: API 통신 시, targetFormNumber = 2
-            /^\d{4}년 \d{2}월 \d{2}일$/,                       // YYYY년 MM월 DD일 -> 사용처: Drug, targetFormNumber = 3
+            /^(\d{4})-(\d{2})-(\d{2})$/,                     // YYYY-MM-DD
+            /^(\d{4})\.(\d{2})\.(\d{2}) (\d{2}):(\d{2})$/,   // YYYY.MM.DD HH:MM
+            /^(\d{4})\.(\d{2})\.(\d{2})$/,                         // YYYY.MM.DD
+            /^(\d{4})년 (\d{2})월 (\d{2})일$/,                       // YYYY년 MM월 DD일 
         ];
         let year, month, day, hour, minute;
         const matchedRegex = dateRegexs.find((regex) => regex.test(dateString));
-        if (matchedRegex === undefined) return;
+        if (matchedRegex === undefined) return null;
 
         const match = matchedRegex.exec(dateString);
         if (match.length === 6) {
@@ -37,6 +37,9 @@ export const MyDate = {
             case (3):
                 formattedDate = `${year}년 ${month}월 ${day}일`;
                 break;
+            case (4):
+                formattedDate = `${year}년 ${month}월 ${day}일, ${hour}시 ${minute}분`
+                break;
             default:
                 formattedDate = null;
                 break;
@@ -52,7 +55,7 @@ export const MyDate = {
         const day = String(currentDate.getDate()).padStart(2, '0');
         const hours = String(currentDate.getHours()).padStart(2, '0');
         const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-        
+
         return `${year}.${month}.${day} ${hours}:${minutes}`;
     }
 };
