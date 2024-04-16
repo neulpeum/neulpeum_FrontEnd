@@ -307,6 +307,7 @@ const Drugs = () => {
     );
 
   if (error) {
+    console.log(error)
     if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
       alert("접근 권한이 없습니다");
     }
