@@ -42,12 +42,6 @@
     margin: 0 auto;
 }
 
-.conselTakingDrug-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
 .DetailButton {
     font-size: 26px;
     font-weight: bold;

@@ -1,17 +1,19 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import axios from "axios";
 import ConsultModal from "./ConsultModal";
 import Search from "components/Search";
 import NoResultView from "components/NoResult";
-import 'styles/ForPages/CitizensDetails/CitizenCounselList.css';
+import "styles/ForPages/CitizensDetails/CitizenCounselList.css";
 
 export default function CitizenCounselList() {
   const [name, setName] = useState("");
   const [criKeyword, setCriKeryword] = useState("");
   const [data, setData] = useState([]);
   const [consultId, setConsultId] = useState("0");
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const tableRef = useRef(null);
   const [filterData, setFilterData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
@@ -52,8 +54,7 @@ export default function CitizenCounselList() {
       }
     };
     getData();
-  }, []);
-
+  }, [navigate, patientId]);
 
   const search = (keyword, criteria) => {
     const results = [];
@@ -110,7 +111,7 @@ export default function CitizenCounselList() {
       },
       {
         accessor: "providerName",
-        Header: "상담자(대학생)",
+        Header: "상담자",
       },
       {
         accessor: "takingDrug",
@@ -146,6 +147,9 @@ export default function CitizenCounselList() {
   const openModal = (btnConsultId) => {
     setConsultId(btnConsultId);
     setIsOpen(true);
+    if (tableRef.current) {
+      setScrollPosition(tableRef.current.scrollTop);
+    }
   };
 
   const closeModal = () => {
@@ -153,10 +157,23 @@ export default function CitizenCounselList() {
     document.body.style = "overflow: auto";
   };
 
+  useEffect(() => {
+    if (!isOpen) {
+      if (tableRef.current) {
+        tableRef.current.scrollTo(0, scrollPosition);
+      }
+    }
+  }, [isOpen, scrollPosition]);
+
   const CitizenCounsels = () => {
     return (
-      <div className="list-wrapper">
+      <div ref={tableRef} className="list-wrapper">
         <table {...getTableProps()} className="counselTable">
+          <colgroup>
+            <col style={{ width: "10rem" }} />
+            <col style={{ width: "10rem" }} />
+            <col style={{ width: "12rem" }} />
+          </colgroup>
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -204,7 +221,16 @@ export default function CitizenCounselList() {
                                 </p>
                               ))}
                           </div>
-                          <a className="DetailButton">{">"}</a>
+                          <button
+                            className="DetailButton"
+                            style={{
+                              cursor: "pointer",
+                              border: "none",
+                              backgroundColor: "white",
+                            }}
+                          >
+                            {">"}
+                          </button>
                         </div>
                       ) : cell.column.id === "consultDate" ? (
                         <div>
@@ -217,7 +243,9 @@ export default function CitizenCounselList() {
                             ))}
                         </div>
                       ) : (
-                        cell.render("Cell")
+                        <div style={{ padding: "0 10px" }}>
+                          {cell.render("Cell")}
+                        </div>
                       )}
                     </td>
                   ))}
