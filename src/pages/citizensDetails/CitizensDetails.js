@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import HeaderComponent from "components/Header";
 import CitizenInfor from "./CitizenInfor";
 import CitizenCounselList from "./CitizenCounselList";
-import 'styles/ForPages/CitizensDetails/CitizensDetails.css';
+import "styles/ForPages/CitizensDetails/CitizensDetails.css";
 
 const CitizensDetails = () => {
   const [isButtonClicked, setButtonClicked] = useState(false);
@@ -36,7 +36,7 @@ const CitizensDetails = () => {
       citizensInformation.style.setProperty("display", "block");
       counselList.style.setProperty("display", "block");
     } else {
-      counselList.style.setProperty("display", "none");
+      citizensInformation.style.setProperty("display", "none");
     }
   }, [isLargeScreen]);
 
@@ -48,41 +48,41 @@ const CitizensDetails = () => {
 
   return (
     <div>
-      <HeaderComponent nav={navigate} isLogoutVisible={true}/>
+      <HeaderComponent nav={navigate} isLogoutVisible={true} />
 
       <div className="components-wrapper">
         <div
           className="citizensInformation"
           style={{
-            display: isButtonClicked ? "none" : "block",
-          }}
-        >
-          <Link className="link-styles" to="/citizens">
-            <button className="goto-citizens">&lt; 주민 목록</button>
-          </Link>
-          <CitizenInfor />
-          <button
-            className="goto-counsel"
-            onClick={() => setButtonClicked(!isButtonClicked)}
-          >
-            상담리스트 &gt;
-          </button>
-        </div>
-        <div
-          className="counselList"
-          style={{
             display: isButtonClicked ? "block" : "none",
           }}
         >
           <button
-            className="goto-citizensInformation"
+            className="goto-counsel"
             onClick={() => setButtonClicked(!isButtonClicked)}
           >
             &lt;
           </button>
+          <CitizenInfor />
+        </div>
+        <div
+          className="counselList"
+          style={{
+            display: isButtonClicked ? "none" : "block",
+          }}
+        >
+          <Link className="link-styles" to="/citizens">
+            <button className="goto-citizens">&lt;</button>
+          </Link>
           <div className="citiznesCounselList">
             <CitizenCounselList />
           </div>
+          <button
+            className="goto-citizensInformation"
+            onClick={() => setButtonClicked(!isButtonClicked)}
+          >
+            상세 정보 &gt;
+          </button>
         </div>
       </div>
     </div>

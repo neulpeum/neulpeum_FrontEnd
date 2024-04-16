@@ -1,4 +1,3 @@
-/* AddCounseling.css */
 .addCounseling-wrapper {
     margin: 0 auto;
     width: 19.25rem;
@@ -180,7 +179,10 @@
     margin-left: auto;
     padding: 0;
 }
+
+
 /* Modal.css */
+
 .addCounsel-modal {
     position: absolute;
     top: 50%;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import 'styles/ForPages/CitizensDetails/CitizenInfor.css';
+import "styles/ForPages/CitizensDetails/CitizenInfor.css";
 
 export default function CitizenInfor() {
   const location = useLocation();
@@ -12,7 +12,7 @@ export default function CitizenInfor() {
   const [originalFields, setOriginalFields] = useState([...fields]);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
-  
+
   const birthDateRegex =
     /^(?:\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[-]\d{1}|)$/;
   const phoneNumRegex = /^(?:\d{3}[-]\d{4}[-]\d{4}|)$/;
@@ -75,6 +75,15 @@ export default function CitizenInfor() {
     setFields([...originalFields]);
   };
 
+  function areArrayEqual(arr1, arr2) {
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   const handleSaveClick = async () => {
     let dateFlag = 0;
     let numFlag = 0;
@@ -96,40 +105,41 @@ export default function CitizenInfor() {
     }
 
     if (dateFlag === 0 && numFlag === 0) {
-      setIsEditing(false);
+      if (!areArrayEqual(originalFields, fields)) {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const day = date.getDate().toString().padStart(2, "0");
+        const today = `${year}-${month}-${day}`;
 
-      const date = new Date();
-      const today = `${date.getFullYear()}.${
-        date.getMonth() + 1
-      }.${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
-
-      setFields((prevFields) => {
-        const updatedFields = [...prevFields];
-        updatedFields[8] = today;
-        return updatedFields;
-      });
-
-      const patientData = {
-        patientId: fields[0],
-        patientName: fields[1],
-        birthDate: fields[2],
-        phoneNum: fields[3],
-        address: fields[4],
-        disease: fields[5],
-        specialReport: fields[6],
-      };
-      axios
-        .put("/api/patientInfo", patientData)
-        .then(() => {
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
+        setFields((prevFields) => {
+          const updatedFields = [...prevFields];
+          updatedFields[8] = today;
+          return updatedFields;
         });
+
+        const patientData = {
+          patientId: fields[0],
+          patientName: fields[1],
+          birthDate: fields[2],
+          phoneNum: fields[3],
+          address: fields[4],
+          disease: fields[5],
+          specialReport: fields[6],
+        };
+        axios
+          .put("/api/patientInfo", patientData)
+          .then(() => {})
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      }
+      setIsEditing(false);
     }
   };
 
   const regexStyle = {
-    display: "inline-block",
+    display: "none",
     fontSize: "0.6875rem",
     margin: "0",
     color: "#FF4949",
@@ -343,13 +353,17 @@ export default function CitizenInfor() {
             <p> 등록일자 </p>
           </div>
           <div className="content-wrapper">
-            <span>{fields[7] ? fields[7].split(" ")[0] : ""}</span>
+            <span>
+              {fields[7] ? fields[7].split(" ")[0].replace(/\./g, "-") : ""}
+            </span>
           </div>
           <div className="category-wrapper">
             <p> 수정일자 </p>
           </div>
           <div className="content-wrapper">
-            <span>{fields[8] ? fields[8].split(" ")[0] : ""}</span>
+            <span>
+              {fields[8] ? fields[8].split(" ")[0].replace(/\./g, "-") : ""}
+            </span>
           </div>
         </div>
         <div>

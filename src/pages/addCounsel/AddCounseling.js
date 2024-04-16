@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import 'styles/ForPages/AddCounseling/AddCounseling.css';
+import "styles/ForPages/AddCounseling/AddCounseling.css";
 
 export default function AddCounseling() {
   Modal.setAppElement("#root");
@@ -12,19 +12,16 @@ export default function AddCounseling() {
   const [drugData, setDrugData] = useState([]);
   const [selectDrugs, setSelectDrugs] = useState([]);
   const [selectedDrug, setSelectedDrug] = useState("");
+  const navigate = useNavigate();
 
   const location = useLocation();
   const patientId = location.state.patientId;
   const patientName = location.state.patientName;
-  // const tempProviderName = "박서연";
-  // const providerName = tempProviderName;
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(
-          "/api/patient/drug"
-        );
+        const response = await axios.get("/api/patient/drug");
         const drugDataWithId = response.data.map((drug, index) => ({
           ...drug,
           id: index,
@@ -49,10 +46,13 @@ export default function AddCounseling() {
   }, []);
 
   const date = new Date();
-  const today = `${date.getFullYear()}.${
-    date.getMonth() + 1
-  }.${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
-  const navigate = useNavigate();
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  const today = `${year}.${month}.${day} ${hours}:${minutes}`;
 
   const handleChange = (index, e) => {
     const newFields = [...data];
@@ -71,11 +71,12 @@ export default function AddCounseling() {
   };
 
   const handleSaveClick = async () => {
-    const drugNames = selectDrugs.map((drug) => drug.drugName).join(", ");
+    const drugNames = selectDrugs
+      .map((drug) => `${drug.drugName} ${drug.usedAmount}개`)
+      .join(", ");
 
     const consultData = {
       patientId: `${patientId}`,
-      // providerName: `${providerName}`,
       providerName: data[0],
       takingDrug: `${drugNames}`,
       consultContent: data[1],
@@ -104,7 +105,7 @@ export default function AddCounseling() {
 
     document.body.style = "overflow: auto";
     navigate("/citizensDetails", {
-      state: { id: patientId, isButtonClicked: true },
+      state: { id: patientId },
     });
   };
 
@@ -233,7 +234,6 @@ export default function AddCounseling() {
                 onChange={(e) => handleChange(0, e)}
                 ref={(el) => (inputRefs.current[0] = el)}
               />
-              {/* <p>{tempProviderName}</p> */}
             </div>
             <p className="wrongProvider" style={wrongInputStyle}>
               ※ 상담자를 입력하세요.
