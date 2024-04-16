@@ -34,12 +34,12 @@ const SearchInputContainer = styled.div`
       border: 1px solid black;
       `
       : `
-    width: 50%;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    border: 1px solid black;
-    margin: 0;
+      width: 50%;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid black;
+      margin: 0;
     `}
 `;
 
@@ -47,19 +47,19 @@ const SearchInput = styled.input`
   ${(props) =>
     props.$using === "drugs"
       ? `
-    width: 100%;
-    min-height: 56px;
-    border: 1px solid white;
-    font-size: 20px;
-    padding: 10px;
+      width: 100%;
+      min-height: 56px;
+      border: 1px solid white;
+      font-size: 20px;
+      padding: 10px;
     `
       : `
-    width: 100%;
-    border: 1px solid white;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 12px;
-    font-size: 16px;
+      width: 100%;
+      border: 1px solid white;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 12px;
+      font-size: 16px;
     `}
 `;
 
@@ -67,14 +67,14 @@ const SearchIcon = styled.img`
   ${(props) =>
     props.$using === "drugs"
       ? `
-    padding: 5px;
-    cursor: pointer;
-    margin-right:4px;
+      padding: 5px;
+      cursor: pointer;
+      margin-right:4px;
     `
       : `
-    padding: 5px;
-    cursor: pointer;
-    margin-right:4px;
+      padding: 5px;
+      cursor: pointer;
+      margin-right:4px;
     `}
 `;
 

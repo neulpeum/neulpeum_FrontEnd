@@ -13,6 +13,7 @@ export default function AddCounseling() {
   const [selectDrugs, setSelectDrugs] = useState([]);
   const [selectedDrug, setSelectedDrug] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const location = useLocation();
   const patientId = location.state.patientId;
@@ -28,11 +29,7 @@ export default function AddCounseling() {
         }));
         setDrugData(drugDataWithId);
       } catch (error) {
-        if (error.response.status === 401 || error.response.status === 403) {
-          alert("접근 권한이 없습니다");
-          navigate(-1);
-          return;
-        }
+        setError(error);
         console.error("Error fetching data:", error);
       }
     };
@@ -205,6 +202,14 @@ export default function AddCounseling() {
     margin: "0.31rem 0 0 0.56rem",
     display: "none",
   };
+
+  if (error) {
+    if (error.response.status === 401 || error.response.status === 403) {
+      alert("접근 권한이 없습니다");
+      navigate(-1);
+    }
+    return;
+  }
 
   return (
     <div>

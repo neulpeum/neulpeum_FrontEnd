@@ -51,7 +51,7 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
               prepareRow(row);
               
               let rowClassName = 'Drugtable-row';
-            if (row.original && row.original.status) {
+            if (row.original && row.original.isAdd) {
               rowClassName += " add";  
             }  else if (row.original && row.original.isModified) {
               rowClassName += " modify";
