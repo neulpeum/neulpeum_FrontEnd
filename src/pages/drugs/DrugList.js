@@ -1,19 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import 'styles/ForPages/Drugs/DrugList.css';
-
-const DrugsTableStyledBtn = styled.button`
-    width: 25px;
-    height: 25px;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 100%;
-    color: white;
-    background-color: #AED391;
-    border: none;
-    cursor: pointer;
-`
 
 const DrugList = ({ columns, data, onQuantityChange}) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -27,28 +14,6 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
       useGlobalFilter,
       useSortBy
     );
-
-  const sortSytle = {
-    fontSize: "0.8rem",
-    marginLeft: "0.3rem",
-  };
-
-  function FormatDate(date) {
-    if (date === null) {
-      return <>아직 사용되지 않았습니다.</>;
-    }
-    const dateFormatRegex = /^\d{4}\.\d{2}\.\d{2} \d{2}:\d{2}$/;
-    const dateOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    if (dateFormatRegex.test(date)) {
-      return new Date(date.split(" ")[0]).toLocaleDateString("kr", dateOptions);
-    } else {
-      return new Date(date).toLocaleDateString("kr", dateOptions);
-    }
-  }
 
   return (
     <div className="Drugtable-wrapper">
@@ -68,9 +33,9 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
                     {column.render("Header")}
                     {column.isSorted ? (
                       column.isSortedDesc ? (
-                        <span style={sortSytle}>▼</span> // 내림차순 화살표
+                        <span>▼</span> 
                       ) : (
-                        <span style={sortSytle}>▲</span> // 오름차순 화살표
+                        <span>▲</span>
                       )
                     ) : (
                       <span>&nbsp;</span>
@@ -86,7 +51,7 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
               prepareRow(row);
               
               let rowClassName = 'Drugtable-row';
-            if (row.original && row.original.status) {
+            if (row.original && row.original.isAdd) {
               rowClassName += " add";  
             }  else if (row.original && row.original.isModified) {
               rowClassName += " modify";
@@ -95,17 +60,15 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
               return (
                 <tr {...row.getRowProps()} className={rowClassName}>
                   {row.cells.map(cell => {
-                    if (cell.column.id === 'expireDate' || 
-                    cell.column.id === 'drugEnrollTime' || 
-                    cell.column.id === 'drugModifiedTime') {
-                      return <td className="Drugtable-cell" {...cell.getCellProps()}>{FormatDate(cell.value)}</td>;
+                    if (cell.column.id === 'drugModifiedTime' && cell.value === null) {
+                      return <td className="Drugtable-cell" {...cell.getCellProps()}>아직 사용되지 않았습니다.</td>;
                     } 
                     else if (cell.column.id === 'usableAmount') {
                       return  <td className="Drugtable-cell" {...cell.getCellProps()}>
-                        <div className='usableAmount-cell' style={{display: 'flex', justifyContent: 'space-between', padding: '0 20px'}}>
-                          <DrugsTableStyledBtn onClick={() => {onQuantityChange(row.index, +1)} }>+</DrugsTableStyledBtn>
+                        <div className='usableAmount-cell'>
+                          <button onClick={() => {onQuantityChange(row.index, +1)} }>+</button>
                           {cell.render('Cell')}
-                          <DrugsTableStyledBtn onClick={() => {onQuantityChange(row.index, -1)} }>-</DrugsTableStyledBtn>
+                          <button onClick={() => {onQuantityChange(row.index, -1)} }>-</button>
                         </div>
                       </td>
                     }

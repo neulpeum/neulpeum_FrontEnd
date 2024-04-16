@@ -12,19 +12,35 @@ export default function CitizenInfor() {
   const [originalFields, setOriginalFields] = useState([...fields]);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const birthDateRegex =
     /^(?:\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[-]\d{1}|)$/;
   const phoneNumRegex = /^(?:\d{3}[-]\d{4}[-]\d{4}|)$/;
 
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(
+          `/api/patientInfo?patientId=${patientId}`
+        );
+        const newData = response.data;
+  
+        const replaceNullWithEmptyString = (value) =>
+          value === null ? "" : value;
+        setFields(Object.values(newData).map(replaceNullWithEmptyString));
+      } catch (error) {
+        setError(error);
+        console.error("Error fetching data:", error);
+      }
+    };
     getData();
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [patientId]);
 
   const handleResize = () => {
     setIsLargeScreen(window.innerWidth >= 769);
@@ -33,26 +49,6 @@ export default function CitizenInfor() {
   useEffect(() => {
     setIsEditing(false);
   }, [isLargeScreen]);
-
-  const getData = async () => {
-    try {
-      const response = await axios.get(
-        `/api/patientInfo?patientId=${patientId}`
-      );
-      const newData = response.data;
-
-      const replaceNullWithEmptyString = (value) =>
-        value === null ? "" : value;
-      setFields(Object.values(newData).map(replaceNullWithEmptyString));
-    } catch (error) {
-      if (error.response.status === 401 || error.response.status === 403) {
-        alert("접근 권한이 없습니다");
-        navigate(-1);
-        return;
-      }
-      console.error("Error fetching data:", error);
-    }
-  };
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -171,6 +167,14 @@ export default function CitizenInfor() {
       textarea.style.height = `${height + 8}px`;
     }
   };
+
+  if (error) {
+    if (error.response.status === 401 || error.response.status === 403) {
+      alert("접근 권한이 없습니다");
+      navigate(-1);
+    }
+    return;
+  }
 
   return (
     <div>

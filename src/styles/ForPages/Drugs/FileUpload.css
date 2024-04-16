@@ -37,14 +37,20 @@
     color: rgba(0, 0, 0, 0.5);
     margin: 12px;
 }
+.upload-btns-container {
+    display: flex;
+    align-self: flex-end;
+    gap: 7px;
+}
 .upload-container button {
-    width: 104px;
-    height: 37px;
-    font-size: 20px;
+    width: 80px;
+    height: 31px;
+    font-size: 16px;
     color: white;
     background-color: #aed391;
     align-self: flex-end;
     border: 0px;
     border-radius: 10px 10px;
+    white-space: nowrap;
     cursor: pointer;
 }

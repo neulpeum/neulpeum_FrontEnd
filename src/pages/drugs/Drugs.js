@@ -10,6 +10,7 @@ import NoResultView from "components/NoResult";
 import DrugList from "./DrugList";
 import FileUpload from "./FileUpload";
 import 'styles/ForPages/Drugs/Drugs.css';
+import { MyDate } from 'utils/MyDate';
 
 const UiPanelContainer = styled.div`
   display: flex;
@@ -31,16 +32,14 @@ const DrugsStyledBtn = styled.button`
   border: none;
   cursor: pointer;
 `;
+
 const Drugs = () => {
-  const [originalDrugs, setOriginalDrugs] = useState([]); 
-  const [uploadDrugs, setUploadDrugs] = useState([]);
+  const [originalDrugs, setOriginalDrugs] = useState([]); //부동의 데이터
   const [filterData, setFilterData] = useState([]);
   const [criKeyword, setCriKeryword] = useState("");
-
   const [renderingData, setRenderingData] = useState([]); 
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const currentDate = new Date();
 
   const columns = [
     { Header: "약 아이디", accessor: "drugId", type: "number" },
@@ -51,44 +50,46 @@ const Drugs = () => {
     { Header: "마지막 사용 일자", accessor: "drugModifiedTime", type: "text" },
   ];
 
+  const handleGetDatafromServer = (data) => {
+    setOriginalDrugs(data.map((array) => {
+      return {
+        ...array,
+        expireDate: MyDate.convertDate(array.expireDate, 3),
+        drugEnrollTime: MyDate.convertDate(array.drugEnrollTime, 3),
+        drugModifiedTime: MyDate.convertDate(array.drugModifiedTime, 3), 
+      };
+    }));
+  }
+
   useEffect(() => {
     const getDatafromServer = () => {
       axios
         .get("/api/drug")
-        .then((response) => {
-          setOriginalDrugs(response.data);
-        })
+        .then((response) => handleGetDatafromServer(response.data))
         .catch((error) => setError(error));
     };
     getDatafromServer();
   }, []);
 
   const ReadJsonDrugs = (jsonDrugs) => {
-    try {
-      const FormattedDrugs = jsonDrugs.slice(1).map((row, index) => {
-        const [drugName, expireDate, usableAmount, usable] = row;
+    if (jsonDrugs.length !== 0) {
+      try {
+        const FormattedDrugs = jsonDrugs.slice(1).map((row, index) => {
+          const [drugName, expireDate, usableAmount, usable] = row;
 
-        const dateOptions = {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        };
-        const currentDate = new Date()
-          .toLocaleDateString("kr", dateOptions)
-          .split(".")
-          .join("-");
-        return {
-          drugId: index,
-          drugName: drugName,
-          expireDate: ConvertedDate(expireDate),
-          usableAmount: usableAmount-usable,
-          drugEnrollTime: currentDate,
-          drugModifiedTime: null,
-        };
-      });
-      setUploadDrugs(FormattedDrugs);
-    } catch (error) {
-      console.log("파일을 읽던 중 에러가 발생했습니다.", error);
+          return {
+            drugId: index,
+            drugName: drugName,
+            expireDate: MyDate.convertDate(ConvertedDate(expireDate), 3),
+            usableAmount: (usableAmount-usable),
+            drugEnrollTime: MyDate.convertDate(MyDate.createCurrentDate(), 3),
+            drugModifiedTime: null,
+          };
+        });
+        setRenderingData(FormattedDrugs, 3);
+      } catch (error) {
+        console.log("파일을 읽던 중 에러가 발생했습니다.", error);
+      }
     }
   };
 
@@ -117,10 +118,6 @@ const Drugs = () => {
   }, [originalDrugs]);
 
   useEffect(() => {
-    setRenderingData(uploadDrugs);
-  }, [uploadDrugs]);
-
-  useEffect(() => {
     setFilterData(renderingData);
   }, [renderingData]);
 
@@ -129,48 +126,61 @@ const Drugs = () => {
     const modifyData = [];
 
     data.forEach((renderingItem) => {
-      const existingIndex = originalDrugs.findIndex(
-        (originalItem) => originalItem.drugId === renderingItem.drugId
-      );
+      const existingIndex = originalDrugs.findIndex((originalItem) => originalItem.drugId === renderingItem.drugId);
+
+      const drugId = renderingItem.drugId;
+      const drugName = renderingItem.drugName;
+      const expireDate = MyDate.convertDate(renderingItem.expireDate, 0);
+      const usableAmount = renderingItem.usableAmount;
 
       if (existingIndex === -1) {
         newData.push({
-          drugId: renderingItem.drugId + originalDrugs.length + 1,
-          drugName: renderingItem.drugName,
-          expireDate: renderingItem.expireDate,
-          usableAmount: renderingItem.usableAmount,
+          drugId: drugId + originalDrugs.length + 1,
+          drugName: drugName,
+          expireDate: expireDate,
+          usableAmount: usableAmount,
         });
       } else if (renderingItem.isModified) {
-        modifyData.push({ ...originalDrugs[existingIndex], ...renderingItem });
+        const modifiedDrug = { ...originalDrugs[existingIndex], ...renderingItem };
+        modifiedDrug.expireDate = expireDate;
+        modifyData.push(modifiedDrug);
       }
     });
     return [newData, modifyData];
   };
 
-  const addStatusToData = (data, status) => {
-    return data.map((item) => ({ ...item, status }));
-  };
+  const PostProcessing = (newData, modifyData) => {
+    alert("약데이터가 성공적으로 등록되었습니다.");
+
+    const newDataWithTimestamp = newData.map(item => ({
+      ...item,
+      expireDate: MyDate.convertDate(item.expireDate, 3),
+      drugEnrollTime: MyDate.convertDate(MyDate.createCurrentDate(), 3),
+      drugModifiedTime: null,
+      isAdd: true
+    }));
+
+    const modifyDataWithTimestamp = modifyData.map(item => ({
+        ...item,
+        expireDate: MyDate.convertDate(item.expireDate, 3),
+        drugModifiedTime: MyDate.convertDate(MyDate.createCurrentDate(), 3),
+    }));
+
+    setOriginalDrugs(prevState => [
+        ...prevState.map(item => {
+            const modifiedItem = modifyDataWithTimestamp.find(modifyItem => modifyItem.drugId === item.drugId);
+            return modifiedItem ? { ...item, ...modifiedItem } : item;
+        }),
+        ...newDataWithTimestamp
+    ]);
+  }
 
   const UpdateDrugs = async () => {
-    if (!renderingData)
-      return alert("업데이트할 약 데이터가 존재하지 않습니다.");
-
+    if (!renderingData) return alert("업데이트될 약 데이터가 보이지 않습니다.");
     const [newData, modifyData] = ChangeDrugForm(renderingData);
     axios
       .put("/api/drug", [...newData, ...modifyData])
-      .then((response) => {
-        alert("약데이터가 성공적으로 등록되었습니다.");
-        setOriginalDrugs((prevState) =>
-          prevState.map((item) => {
-            const modifiedItem = modifyData.find((modifyItem) => modifyItem.drugId === item.drugId);
-            return modifiedItem ? { ...item, ...modifiedItem } : item;
-          })
-        );
-        setOriginalDrugs([
-          ...originalDrugs,
-          ...addStatusToData(newData, "add"),
-        ]);
-      })
+      .then((response) => PostProcessing(newData, modifyData))
       .catch((error) => setError(error));
   };
 
@@ -185,6 +195,7 @@ const Drugs = () => {
           criteria === "drugModifiedTime"
         ) {
           const datePart = item[criteria].split(" ")[0];
+          console.log(datePart);
           if (datePart.includes(keyword)) {
             results.push(item);
           }
@@ -241,8 +252,7 @@ const Drugs = () => {
 
   function generateExcel() {
     const type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const dateOptions = { year: 'numeric', month: 'long',day: 'numeric',};
-    const name = `늘픔_${currentDate.toLocaleString('ko-KR', dateOptions)}, ${currentDate.getHours()}시 ${currentDate.getMinutes()}분`;
+    const name = `늘픔_${MyDate.convertDate(MyDate.createCurrentDate(), 4)}`;
 
     const headerStyle = {
       font: { bold: true, sz: '24' },
@@ -291,20 +301,21 @@ const Drugs = () => {
           onQuantityChange={handleQuantityChange}
         />
         <div style={{display: 'flex', flexDirection: 'row', gap: '10px', alignSelf: 'flex-end'}}>
+          {/* <DrugsStyledBtn >변경사항 초기화</DrugsStyledBtn> */}
           <DrugsStyledBtn onClick={generateExcel}>엑셀 양식 다운로드</DrugsStyledBtn>
           <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
         </div>
       </div>
     );
 
-    if (error) {
-      if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
-        alert("접근 권한이 없습니다");
-        navigate(-1);
-        return;
-      }
+  if (error) {
+    console.log(error)
+    if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
+      alert("접근 권한이 없습니다");
     }
-    // (nav, isLogoutVisible)
+    navigate(-1);
+  }
+
   return (
     <>
       <HeaderComponent nav={navigate} isLogoutVisible={true}/>
