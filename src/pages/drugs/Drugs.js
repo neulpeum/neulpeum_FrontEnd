@@ -10,6 +10,7 @@ import NoResultView from "components/NoResult";
 import DrugList from "./DrugList";
 import FileUpload from "./FileUpload";
 import 'styles/ForPages/Drugs/Drugs.css';
+import { MyDate } from 'utils/MyDate';
 
 const UiPanelContainer = styled.div`
   display: flex;
@@ -51,13 +52,23 @@ const Drugs = () => {
     { Header: "마지막 사용 일자", accessor: "drugModifiedTime", type: "text" },
   ];
 
+  const handelGetDatafromServer = (data) => {
+    const updatedData = data.map((array) => {
+      return {
+        ...array,
+        expireDate: MyDate.convertDate(array.expireDate, 3),
+        drugEnrollTime: MyDate.convertDate(array.drugEnrollTime, 3),
+        drugModifiedTime: MyDate.convertDate(array.drugModifiedTime, 3), 
+      };
+    });
+    setOriginalDrugs(updatedData);
+  }
+
   useEffect(() => {
     const getDatafromServer = () => {
       axios
         .get("/api/drug")
-        .then((response) => {
-          setOriginalDrugs(response.data);
-        })
+        .then((response) => handelGetDatafromServer(response.data))
         .catch((error) => setError(error));
     };
     getDatafromServer();
@@ -68,25 +79,17 @@ const Drugs = () => {
       const FormattedDrugs = jsonDrugs.slice(1).map((row, index) => {
         const [drugName, expireDate, usableAmount, usable] = row;
 
-        const dateOptions = {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        };
-        const currentDate = new Date()
-          .toLocaleDateString("kr", dateOptions)
-          .split(".")
-          .join("-");
         return {
           drugId: index,
           drugName: drugName,
-          expireDate: ConvertedDate(expireDate),
-          usableAmount: usableAmount-usable,
-          drugEnrollTime: currentDate,
+          expireDate: MyDate.convertDate(ConvertedDate(expireDate), 3),
+          usableAmount: (usableAmount-usable),
+          drugEnrollTime: MyDate.convertDate(MyDate.createCurrentDate(), 3),
           drugModifiedTime: null,
         };
       });
-      setUploadDrugs(FormattedDrugs);
+      console.log(FormattedDrugs);
+      setUploadDrugs(FormattedDrugs, 3);
     } catch (error) {
       console.log("파일을 읽던 중 에러가 발생했습니다.", error);
     }
@@ -297,14 +300,13 @@ const Drugs = () => {
       </div>
     );
 
-    if (error) {
-      if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
-        alert("접근 권한이 없습니다");
-        navigate(-1);
-        return;
-      }
+  if (error) {
+    if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
+      alert("접근 권한이 없습니다");
     }
-    // (nav, isLogoutVisible)
+    navigate(-1);
+  }
+
   return (
     <>
       <HeaderComponent nav={navigate} isLogoutVisible={true}/>

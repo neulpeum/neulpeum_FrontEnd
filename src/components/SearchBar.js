@@ -135,7 +135,7 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               <option value="">전체</option>
               <option value="drugName">약 이름</option>
               <option value="expireDate">유통기한</option>
-              <option value="drugEnrollTime">입고 일자</option>
+              <option value="drugEnrollTime">등록일자</option>
               <option value="drugModifiedTime">마지막 사용 일자</option>
             </select>
             <div

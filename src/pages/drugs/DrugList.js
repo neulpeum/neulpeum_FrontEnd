@@ -33,23 +33,6 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
     marginLeft: "0.3rem",
   };
 
-  function FormatDate(date) {
-    if (date === null) {
-      return <>아직 사용되지 않았습니다.</>;
-    }
-    const dateFormatRegex = /^\d{4}\.\d{2}\.\d{2} \d{2}:\d{2}$/;
-    const dateOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    if (dateFormatRegex.test(date)) {
-      return new Date(date.split(" ")[0]).toLocaleDateString("kr", dateOptions);
-    } else {
-      return new Date(date).toLocaleDateString("kr", dateOptions);
-    }
-  }
-
   return (
     <div className="Drugtable-wrapper">
       <table {...getTableProps()} className="Drugtable">
@@ -95,10 +78,8 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
               return (
                 <tr {...row.getRowProps()} className={rowClassName}>
                   {row.cells.map(cell => {
-                    if (cell.column.id === 'expireDate' || 
-                    cell.column.id === 'drugEnrollTime' || 
-                    cell.column.id === 'drugModifiedTime') {
-                      return <td className="Drugtable-cell" {...cell.getCellProps()}>{FormatDate(cell.value)}</td>;
+                    if (cell.column.id === 'drugModifiedTime' && cell.value === null) {
+                      return <td className="Drugtable-cell" {...cell.getCellProps()}>아직 사용되지 않았습니다.</td>;
                     } 
                     else if (cell.column.id === 'usableAmount') {
                       return  <td className="Drugtable-cell" {...cell.getCellProps()}>
