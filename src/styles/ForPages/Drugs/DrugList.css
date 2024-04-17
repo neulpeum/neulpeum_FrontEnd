@@ -16,6 +16,7 @@
 .Drugtable {
     width: fit-content;
     border-collapse: collapse;
+    width: 100%;
 }
 
 .Drugtable-row {
@@ -31,6 +32,7 @@
 .Drugtable-header {
     padding: 0;
     font-size: 28px;
+    width: 20%;
     font-weight: bold;
     position: sticky;
     top: 0px;
@@ -39,7 +41,6 @@
     border: 1px solid black;
     background: white;
     padding: 30px 0;
-    width: 222px;
     white-space: nowrap;
 }
 .Drugtable-header-container span {
