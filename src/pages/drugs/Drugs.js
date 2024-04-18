@@ -194,9 +194,10 @@ const Drugs = () => {
           criteria === "drugEnrollTime" ||
           criteria === "drugModifiedTime"
         ) {
-          const datePart = item[criteria].split(" ")[0];
+          const datePart = item[criteria];
+          console.log(keyword);
           console.log(datePart);
-          if (datePart.includes(keyword)) {
+          if (datePart.includes(keyword)){
             results.push(item);
           }
         } else if (
