@@ -34,7 +34,7 @@ const SearchInputContainer = styled.div`
       border: 1px solid black;
       `
       : `
-      width: 50%;
+      width: 85%;
       display: flex;
       align-items: center;
       gap: 5px;

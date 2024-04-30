@@ -1,8 +1,17 @@
 .table-wrapper {
-    width: 1180px;
+    width: 90%;
     overflow-x: auto;
     margin: 0 auto;
     margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .table-wrapper {
+        width: 80%;
+        overflow-x: auto;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
 }
 
 .table {
