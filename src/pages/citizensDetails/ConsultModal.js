@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "styles/ForPages/CitizensDetails/ConsultModal.css";
 
-export default function ConsultModal({ onClose, consultId }) {
+export default function ConsultModal({ onClose, consultId, patientId }) {
   Modal.setAppElement("#root");
 
   const [consultData, setConsultData] = useState([]);
@@ -96,6 +96,7 @@ export default function ConsultModal({ onClose, consultId }) {
   const handleEditClick = () => {
     setIsEditing(true);
     setOriginalFields(fields);
+    console.log(patientId);
   };
 
   useEffect(() => {
@@ -130,6 +131,11 @@ export default function ConsultModal({ onClose, consultId }) {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+
+    navigate("/citizensDetails", {
+      state: { id: patientId },
+    });
+    onClose();
   };
 
   const handleChange = (e) => {
@@ -199,7 +205,9 @@ export default function ConsultModal({ onClose, consultId }) {
                   </div>
                 ) : (
                   <div>
-                    <button onClick={handleEditClick}>수정</button>
+                    <button id="modifyBtn" onClick={handleEditClick}>
+                      상담내용 수정
+                    </button>
                   </div>
                 )}
               </div>

@@ -27,7 +27,7 @@
     display: inline-block;
     margin: 0;
     color: #878485;
-    font-size: 1.375rem;
+    font-size: 1.09375rem;
 }
 
 .content-wrapper {
@@ -37,7 +37,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    white-space: pre-wrap;
+    word-break: break-all;
 }
 
 .content-wrapper span {
@@ -45,7 +45,7 @@
     font-size: 1.125rem;
     margin: 0;
     margin-bottom: 0.2rem;
-    padding-left: 0.2rem;
+    padding-left: 1rem;
 }
 
 .content-wrapper input,
@@ -94,5 +94,8 @@
     }
     .citizenInfor-wrapper {
         border: none;
+    }
+    .infor-wrapper {
+        margin-top: 2.5rem;
     }
 }

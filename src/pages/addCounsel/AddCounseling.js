@@ -7,6 +7,9 @@ import "styles/ForPages/AddCounseling/AddCounseling.css";
 export default function AddCounseling() {
   Modal.setAppElement("#root");
 
+  const [isOpening, setIsOpening] = useState(true);
+  // const [isActive, setIsActive] = useState(false);
+  const [activeIndex, setActiveIndex] = useState([]);
   const inputRefs = useRef([]);
   const [data, setData] = useState([""]);
   const [drugData, setDrugData] = useState([]);
@@ -149,8 +152,36 @@ export default function AddCounseling() {
     document.body.style = "overflow: auto";
   };
 
+  const showOtc = () => {
+    if (isOpening) {
+      setIsOpening(false);
+      document.querySelector(".drugSelectBtn").innerHTML =
+        "제공 otc 선택하기 ∨";
+    } else {
+      setIsOpening(true);
+      document.querySelector(".drugSelectBtn").innerHTML =
+        "제공 otc 선택하기 ∧";
+    }
+  };
+
+  const handleMultipleActions = (event, drugIndex) => {
+    handleActive(drugIndex);
+    handleDropdownChange(event);
+  };
+
+  const handleActive = (drugIndex) => {
+    const index = activeIndex.indexOf(drugIndex);
+    if (index !== -1) {
+      setActiveIndex(activeIndex.filter((index) => index !== drugIndex));
+    } else {
+      setActiveIndex([...activeIndex, drugIndex]);
+    }
+  };
+
   const handleDropdownChange = (event) => {
-    const selectedDrugName = event.target.value;
+    console.log("change");
+    const selectedDrugName = event.target.dataset.drugname;
+    console.log(selectedDrugName);
     setSelectedDrug(selectedDrugName);
     if (selectedDrugName) {
       const findDrug = drugData.find(
@@ -187,13 +218,16 @@ export default function AddCounseling() {
   };
 
   const dropwonStyle = {
-    width: "6.1875rem",
+    width: "9.4375rem",
     height: "1.4375rem",
-    paddingLeft: "0.37rem",
-    paddingTop: "0.2rem",
     border: "1px solid #000",
     outline: "none",
     fontSize: "0.9375rem",
+    borderRadius: "0.625rem",
+    backgroundColor: "white",
+    cursor: "pointer",
+    padding: "0",
+    fontWeight: "bold",
   };
 
   const wrongInputStyle = {
@@ -244,23 +278,47 @@ export default function AddCounseling() {
               ※ 상담자를 입력하세요.
             </p>
           </div>
-          <div className="counsel-category-wrapper">
-            <p> 제공 otc </p>
-          </div>
           <div className="counselOtc-content-wrapper">
             <div className="drugDropdown-wrapper">
-              <select
+              <button
+                className="drugSelectBtn"
+                style={dropwonStyle}
+                onClick={showOtc}
+              >
+                제공 otc 선택하기 ∧
+              </button>
+              <div className="drugOption-wrapper">
+                {isOpening &&
+                  drugData.map((drug, drugIndex) => (
+                    <p
+                      className={
+                        activeIndex.includes(drugIndex)
+                          ? "drugOption-active"
+                          : "drugOption"
+                      }
+                      key={drug.id}
+                      data-drugname={drug.drugName}
+                      onClick={(event) =>
+                        handleMultipleActions(event, drugIndex)
+                      }
+                    >
+                      {drug.drugName}
+                    </p>
+                  ))}
+              </div>
+
+              {/* <select
                 value={selectedDrug || ""}
                 onChange={(event) => handleDropdownChange(event)}
                 style={dropwonStyle}
               >
-                <option value="">제공otc</option>
+                <option value="">제공otc 선택하기</option>
                 {drugData.map((drug, drugIndex) => (
                   <option key={drug.id} value={drug.drugName}>
                     {drug.drugName}
                   </option>
                 ))}
-              </select>
+              </select> */}
             </div>
             {selectDrugs.length > 0 ? (
               <div className="selectDrugs-wrapper">
@@ -324,7 +382,7 @@ export default function AddCounseling() {
             <button
               onClick={() =>
                 navigate("/citizensDetails", {
-                  state: { id: patientId, isButtonClicked: true },
+                  state: { id: patientId },
                 })
               }
             >

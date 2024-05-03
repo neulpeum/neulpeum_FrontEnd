@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import 'styles/ForComps/Search.css';
+import "styles/ForComps/Search.css";
 
 export default function Search({ onSubmit }) {
   const [searchCriteria, setSearchCriteria] = useState("");
@@ -21,10 +21,8 @@ export default function Search({ onSubmit }) {
   const criteriaStyle = {
     width: "7.8125rem",
     height: "2.75rem",
-    marginRight: "0.62rem",
     paddingLeft: "0.56rem",
     paddingTop: "0.2rem",
-    fontSize: "1.25rem",
     border: "1px solid #000",
     outline: "none",
   };

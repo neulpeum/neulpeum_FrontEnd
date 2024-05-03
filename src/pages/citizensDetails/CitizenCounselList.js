@@ -255,7 +255,11 @@ export default function CitizenCounselList() {
           </tbody>
         </table>
         {isOpen && consultId && (
-          <ConsultModal onClose={closeModal} consultId={consultId} />
+          <ConsultModal
+            onClose={closeModal}
+            consultId={consultId}
+            patientId={patientId}
+          />
         )}
       </div>
     );

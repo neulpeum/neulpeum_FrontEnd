@@ -61,7 +61,8 @@ const CitizensDetails = () => {
             className="goto-counsel"
             onClick={() => setButtonClicked(!isButtonClicked)}
           >
-            &lt;
+            <img src="/icons/ic_leftBtn.svg" alt="" />
+            <span>상담리스트</span>
           </button>
           <CitizenInfor />
         </div>
@@ -72,7 +73,9 @@ const CitizensDetails = () => {
           }}
         >
           <Link className="link-styles" to="/citizens">
-            <button className="goto-citizens">&lt;</button>
+            <button className="goto-citizens">
+              <img src="/icons/ic_leftBtn.svg" alt="" />
+            </button>
           </Link>
           <div className="citiznesCounselList">
             <CitizenCounselList />
@@ -81,7 +84,8 @@ const CitizensDetails = () => {
             className="goto-citizensInformation"
             onClick={() => setButtonClicked(!isButtonClicked)}
           >
-            상세 정보 &gt;
+            <span>상세정보</span>
+            <img src="/icons/ic_rightBtn.svg" alt="" />
           </button>
         </div>
       </div>
