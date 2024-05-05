@@ -6,3 +6,9 @@
     margin: 0.5rem auto;
     gap: 0.5rem;
 }
+.drug-btns-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-self: flex-end;
+}

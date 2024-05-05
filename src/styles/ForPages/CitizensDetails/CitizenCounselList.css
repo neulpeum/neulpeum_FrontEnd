@@ -60,15 +60,28 @@
 .counselTable td {
   text-align: center;
   vertical-align: middle;
-  border: 1px solid #000;
   padding: 8px;
   white-space: nowrap;
 }
 
 .counselTable th {
+  position: sticky;
+  top: 0;
+  padding: 0;
+  font-size: 1.25rem;
+}
+
+.counselTable th > div {
+  border: 1px solid #000;
+  background: #fff;
   padding-top: 1.3rem;
   padding-bottom: 1.2rem;
-  font-size: 1.25rem;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.counselTable td {
+  border: 1px solid #000;
 }
 
 .conselTakingDrug-wrapper {

@@ -31,13 +31,15 @@ const RoundedInput = styled.input`
   font-size: 15px;
   border: 0px solid black;
   width: 100%;
+  height: 100%;
 
   @media (max-width: 768px) {
     font-size: 12px;
   }
 `;
-const InputBox= styled.div`
-  width: 60%;
+const InputBox = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 const CustomInput = ({value, onChange, placeholder, icon, isPassword, onKeyDown}) => {

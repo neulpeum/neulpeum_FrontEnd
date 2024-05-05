@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('Images/img_main_background.svg');
+    background-image: url('Images/img_main_background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -30,12 +30,6 @@
     height: 242px;
 }
 
-.main-footer {
-    width: 100%;
-    height: 113px;
-    background-color: #99D5E4;
-}
-
 @media (max-width: 768px) {
     .main-content > p {
         margin-top: 75px;
@@ -45,8 +39,5 @@
         margin-top: 95px;
         width: 209px;
         height: 170px;
-    }
-    .main-footer {
-        min-height: 109px;
     }
 }
