@@ -7,7 +7,8 @@ import Search from "components/Search";
 import NoResultView from "components/NoResult";
 import "styles/ForPages/CitizensDetails/CitizenCounselList.css";
 
-export default function CitizenCounselList() {
+export default function CitizenCounselList(props) {
+  const { onLoadingUpdate } = props;
   const [name, setName] = useState("");
   const [criKeyword, setCriKeryword] = useState("");
   const [data, setData] = useState([]);
@@ -23,6 +24,7 @@ export default function CitizenCounselList() {
   useEffect(() => {
     const getName = async () => {
       try {
+        onLoadingUpdate(true);
         const response = await axios.get(
           `/api/patientInfo?patientId=${patientId}`
         );
@@ -35,6 +37,7 @@ export default function CitizenCounselList() {
         }
         console.error("Error fetching data:", error);
       }
+      onLoadingUpdate(false);
     };
     getName();
     const getData = async () => {
@@ -282,8 +285,9 @@ export default function CitizenCounselList() {
     <div className="citizenCounselList-wrapper">
       <div className="counselList-wrapper">
         <div className="ment-wrapper">
-          <p className="citizenName">{name}</p>
-          <p className="citizensCounList">님의 상담 리스트</p>
+          <p className="citizenName">
+            {name} <span className="citizensCounList">님의 상담 리스트</span>
+          </p>
         </div>
         <div className="searchBar-wrapper">
           <Search onSubmit={search} />

@@ -22,6 +22,7 @@
     transform: translate(-50%, -50%);
     width: 70%;
     max-width: 68.875rem;
+    min-width: 50rem;
     height: 80%;
     max-height: 45.06255rem;
     min-height: 42rem;
@@ -37,7 +38,7 @@
 }
 
 .modal-content-wrapper {
-    height: 90%;
+    height: 100%;
 }
 
 .modal-title {
@@ -55,9 +56,20 @@
     margin-top: 0.19rem;
 }
 
-.modal-title img {
-    width: 2.66369rem;
-    height: 2.03856rem;
+.modal-img-wrapper {
+    display: flex;
+}
+
+.trash-icon {
+    width: 2.625rem;
+    height: 2.625rem;
+    margin-right: 1.8rem;
+    cursor: pointer;
+}
+
+.close-icon {
+    width: 2.1875rem;
+    height: 2.6rem;
     cursor: pointer;
 }
 
@@ -92,12 +104,25 @@
     overflow-y: auto;
 }
 
+.modal-counsel::-webkit-scrollbar {
+    border: 0px solid #9b6a2f;
+}
+
+.modal-counsel::-webkit-scrollbar-thumb {
+    background: gray;
+}
+
+.modal-counsel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
 .modal-counsel p,
 .modal-counsel textarea {
     display: inline-block;
     font-size: 1.5rem;
     margin: 0;
     background-color: #aed391;
+    word-break: break-all;
 }
 
 .modalCounselTextarea {
@@ -131,11 +156,62 @@
     cursor: pointer;
 }
 
+
+/* Modal.css */
+
+.remove-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* max-width: 20.5625rem; */
+    width: 30rem;
+    height: 10rem;
+    border-radius: 0.3125rem;
+    background-color: #e8e8e8;
+    outline: none;
+    border: 1px solid #000;
+}
+
+.removeModal-gr {
+    height: 2rem;
+    border-radius: 0.3125rem 0.3125rem 0rem 0rem;
+    border-bottom: 1px solid #000;
+    background-color: #aed392;
+}
+
+.removeModal-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.removeModal-content-wrapper p {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.removeModal-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.removeModal-btn-wrapper button {
+    width: 4rem;
+    height: 2rem;
+    border-radius: 0.3125rem;
+    border: 0.7px solid #000;
+    background-color: #d9d9d9;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
 @media (max-width: 768px) {
     .counsel-modal {
         width: 90%;
         max-width: 21.625rem;
-        min-width: 18rem;
+        min-width: 20rem;
         max-height: 29.43753rem;
         min-height: 29.43753rem;
         border-radius: 1.25rem;
@@ -156,8 +232,11 @@
         margin-top: 0.1rem;
     }
     .modal-title img {
-        width: 0.83631rem;
-        height: 1.33169rem;
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+    .trash-icon {
+        margin-right: 0.4rem;
     }
     .m-name,
     .m-date {
@@ -206,5 +285,28 @@
         border: none;
         margin-right: 0.6rem;
         font-size: 0.875rem;
+    }
+    /* Modal.css */
+    .remove-modal {
+        max-width: 20.5625rem;
+        width: 80%;
+        height: 7.4374rem;
+    }
+    .removeModal-gr {
+        height: 1.4375rem;
+    }
+    .removeModal-content-wrapper {
+        margin: 0;
+    }
+    .removeModal-content-wrapper p {
+        font-size: 1rem;
+    }
+    .removeModal-btn-wrapper {
+        gap: 1rem;
+    }
+    .removeModal-btn-wrapper button {
+        width: 2.75rem;
+        height: 1.25rem;
+        font-size: 0.825rem;
     }
 }

@@ -3,12 +3,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "styles/ForPages/CitizensDetails/CitizenInfor.css";
 
-export default function CitizenInfor() {
+export default function CitizenInfor(props) {
+  const { onLoadingUpdate } = props;
   const location = useLocation();
   const patientId = location.state.id;
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const [fields, setFields] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [isFieldsModified, setIsFieldsModified] = useState(false);
   const [originalFields, setOriginalFields] = useState([...fields]);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
@@ -21,11 +23,12 @@ export default function CitizenInfor() {
   useEffect(() => {
     const getData = async () => {
       try {
+        onLoadingUpdate(true);
         const response = await axios.get(
           `/api/patientInfo?patientId=${patientId}`
         );
         const newData = response.data;
-  
+
         const replaceNullWithEmptyString = (value) =>
           value === null ? "" : value;
         setFields(Object.values(newData).map(replaceNullWithEmptyString));
@@ -33,6 +36,7 @@ export default function CitizenInfor() {
         setError(error);
         console.error("Error fetching data:", error);
       }
+      onLoadingUpdate(false);
     };
     getData();
     handleResize();
@@ -63,6 +67,12 @@ export default function CitizenInfor() {
       }
     }
   }, [isEditing]);
+
+  useEffect(() => {
+    if (isEditing) {
+      setIsFieldsModified(!areArrayEqual(originalFields, fields));
+    }
+  }, [fields]);
 
   const handleCancelClick = () => {
     document.querySelector(".birthDateError").style.display = "none";
@@ -129,6 +139,7 @@ export default function CitizenInfor() {
           .catch((error) => {
             console.error("Error fetching data:", error);
           });
+        setIsFieldsModified(false);
       }
       setIsEditing(false);
     }
@@ -373,7 +384,9 @@ export default function CitizenInfor() {
         <div>
           {isEditing ? (
             <div className="btn-wrapper">
-              <button onClick={handleSaveClick}>확인</button>
+              <button onClick={handleSaveClick} disabled={!isFieldsModified}>
+                확인
+              </button>
               <button onClick={handleCancelClick}>취소</button>
             </div>
           ) : (

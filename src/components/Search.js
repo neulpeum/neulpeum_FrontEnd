@@ -4,6 +4,7 @@ import "styles/ForComps/Search.css";
 export default function Search({ onSubmit }) {
   const [searchCriteria, setSearchCriteria] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [isInputFocused, setInputFocused] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,6 +17,14 @@ export default function Search({ onSubmit }) {
 
   const handleKeywordChange = (event) => {
     setSearchKeyword(event.target.value);
+  };
+
+  const handleInputFocus = () => {
+    setInputFocused(true);
+  };
+
+  const handleInputBlur = () => {
+    setInputFocused(false);
   };
 
   const criteriaStyle = {
@@ -45,9 +54,15 @@ export default function Search({ onSubmit }) {
         name="filter"
         value={searchKeyword}
         onChange={handleKeywordChange}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
       ></input>
       <button type="submit" className="searchBtn">
-        <img src="/icons/ic_counSearch.svg" alt="검색" className="search-img" />
+        <img
+          src="/icons/ic_counSearch.svg"
+          alt="검색"
+          className={`search-img${isInputFocused ? "-focused" : ""}`}
+        />
       </button>
     </form>
   );

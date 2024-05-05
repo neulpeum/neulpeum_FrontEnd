@@ -1,11 +1,23 @@
 .components-wrapper {
     width: 100%;
-    margin-top: 4.3rem;
-    margin-bottom: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
     flex-direction: row;
     gap: 3.38rem;
+}
+
+.loading-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-wrapper img {
+    width: 12rem;
+    height: 12rem;
 }
 
 .link-styles {
@@ -30,7 +42,6 @@
     display: flex;
     align-items: center;
     float: left;
-    font-size: 1.25rem;
     border: none;
     background-color: white;
     display: none;
@@ -42,6 +53,7 @@
 .goto-counsel img {
     height: 1.25rem;
     width: 1.25rem;
+    vertical-align: middle;
 }
 
 .goto-citizensInformation span,
@@ -50,6 +62,7 @@
     margin-left: 0.25rem;
     margin-right: 0.25rem;
     font-weight: 600;
+    vertical-align: middle;
 }
 
 .goto-citizensInformation {
@@ -61,12 +74,15 @@
     cursor: pointer;
     padding: 0;
     margin-right: 2rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
+}
+
+.goto-citizensInformation img {
+    vertical-align: middle;
 }
 
 .citiznesInformation,
 .citiznesCounselList {
-    height: 37.5675rem;
     overflow: hidden;
 }
 

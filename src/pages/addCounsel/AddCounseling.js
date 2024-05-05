@@ -8,13 +8,11 @@ export default function AddCounseling() {
   Modal.setAppElement("#root");
 
   const [isOpening, setIsOpening] = useState(true);
-  // const [isActive, setIsActive] = useState(false);
   const [activeIndex, setActiveIndex] = useState([]);
   const inputRefs = useRef([]);
   const [data, setData] = useState([""]);
   const [drugData, setDrugData] = useState([]);
   const [selectDrugs, setSelectDrugs] = useState([]);
-  const [selectedDrug, setSelectedDrug] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
@@ -166,23 +164,23 @@ export default function AddCounseling() {
 
   const handleMultipleActions = (event, drugIndex) => {
     handleActive(drugIndex);
-    handleDropdownChange(event);
+    handleDropdownChange(event, drugIndex);
   };
 
   const handleActive = (drugIndex) => {
     const index = activeIndex.indexOf(drugIndex);
     if (index !== -1) {
       setActiveIndex(activeIndex.filter((index) => index !== drugIndex));
+      setSelectDrugs(
+        selectDrugs.filter((drug) => drug.drugIndex !== drugIndex)
+      );
     } else {
       setActiveIndex([...activeIndex, drugIndex]);
     }
   };
 
-  const handleDropdownChange = (event) => {
-    console.log("change");
+  const handleDropdownChange = (event, drugIndex) => {
     const selectedDrugName = event.target.dataset.drugname;
-    console.log(selectedDrugName);
-    setSelectedDrug(selectedDrugName);
     if (selectedDrugName) {
       const findDrug = drugData.find(
         (drug) => drug.drugName === selectedDrugName
@@ -192,11 +190,11 @@ export default function AddCounseling() {
           (existingDrug) => existingDrug.drugName === selectedDrugName
         );
         if (!isDuplicate) {
+          findDrug.drugIndex = drugIndex;
           setSelectDrugs((prevDrugs) => [...prevDrugs, findDrug]);
         }
       }
     }
-    setSelectedDrug("");
   };
 
   const handleInputChange = (index, key, value) => {
@@ -209,12 +207,14 @@ export default function AddCounseling() {
     });
   };
 
-  const removeDrug = (index) => {
+  const removeDrug = (drug, index) => {
     setSelectDrugs((prevDrugs) => {
       const updateDrugs = [...prevDrugs];
       updateDrugs.splice(index, 1);
       return updateDrugs;
     });
+    const drugIndex = drug.drugIndex;
+    setActiveIndex(activeIndex.filter((index) => index !== drugIndex));
   };
 
   const dropwonStyle = {
@@ -249,8 +249,9 @@ export default function AddCounseling() {
     <div>
       <div className="addCounseling-wrapper">
         <div className="counselTitle-wrapper">
-          <p className="counselName"> {patientName} </p>
-          <p className="counselTitle"> 님 상담추가 </p>
+          <p className="counselName">
+            {patientName} <span className="counselTitle">님 상담추가</span>
+          </p>
         </div>
         <div className="counsel-wrapper">
           <div className="counsel-category-wrapper">
@@ -306,19 +307,6 @@ export default function AddCounseling() {
                     </p>
                   ))}
               </div>
-
-              {/* <select
-                value={selectedDrug || ""}
-                onChange={(event) => handleDropdownChange(event)}
-                style={dropwonStyle}
-              >
-                <option value="">제공otc 선택하기</option>
-                {drugData.map((drug, drugIndex) => (
-                  <option key={drug.id} value={drug.drugName}>
-                    {drug.drugName}
-                  </option>
-                ))}
-              </select> */}
             </div>
             {selectDrugs.length > 0 ? (
               <div className="selectDrugs-wrapper">
@@ -335,7 +323,7 @@ export default function AddCounseling() {
                     <p className="selectDrugsAmount">
                       재고 : {drug.totalUsableAmount} 개
                     </p>
-                    <button onClick={() => removeDrug(index)}>X</button>
+                    <button onClick={() => removeDrug(drug, index)}>X</button>
                   </div>
                 ))}
               </div>
@@ -371,7 +359,7 @@ export default function AddCounseling() {
               <div className="addModal-wrapper">
                 <div className="addModal-gr"> </div>
                 <div className="addModal-content-wrapper">
-                  <p> 저장하시겠습니까 ? </p>
+                  <p> 저장하시겠습니까? </p>
                   <div className="addModal-btn-wrapper">
                     <button onClick={handleSaveClick}> 저장 </button>
                     <button onClick={closeModal}> 취소 </button>

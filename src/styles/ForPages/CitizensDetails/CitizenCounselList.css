@@ -14,7 +14,8 @@
     margin: 0 0 0.5rem 0;
 }
 
-.ment-wrapper p {
+.ment-wrapper p,
+.ment-wrapper span {
     display: inline-block;
     font-weight: bold;
 }
@@ -34,6 +35,19 @@
     height: 29.9375rem;
     overflow: auto;
     margin: 0 auto;
+    /* max-height: 40vh; */
+}
+
+.list-wrapper::-webkit-scrollbar {
+    border: 0px solid #9b6a2f;
+}
+
+.list-wrapper::-webkit-scrollbar-thumb {
+    background: gray;
+}
+
+.list-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .counselTable {
@@ -90,6 +104,7 @@
     .list-wrapper {
         min-width: 20rem;
         width: 95%;
+        max-height: 55vh;
     }
     .citizenName {
         font-size: 2rem;
@@ -100,5 +115,10 @@
     }
     .conselTakingDrug-wrapper {
         margin-left: 0.5rem;
+    }
+    @media (max-height: 670px) {
+        .list-wrapper {
+            max-height: 45vh;
+        }
     }
 }
