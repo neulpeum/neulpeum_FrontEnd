@@ -4,7 +4,8 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import "styles/ForPages/AddCounseling/AddCounseling.css";
 
-export default function AddCounseling() {
+export default function AddCounseling(props) {
+  const { onLoadingUpdate } = props;
   Modal.setAppElement("#root");
 
   const [isOpening, setIsOpening] = useState(true);
@@ -23,6 +24,7 @@ export default function AddCounseling() {
   useEffect(() => {
     const getData = async () => {
       try {
+        onLoadingUpdate(true);
         const response = await axios.get("/api/patient/drug");
         const drugDataWithId = response.data.map((drug, index) => ({
           ...drug,
@@ -33,6 +35,7 @@ export default function AddCounseling() {
         setError(error);
         console.error("Error fetching data:", error);
       }
+      onLoadingUpdate(false);
     };
     getData();
     const firstInput = inputRefs.current[0];
