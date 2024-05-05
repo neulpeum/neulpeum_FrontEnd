@@ -20,12 +20,6 @@
     height: 12rem;
 }
 
-.link-styles {
-    text-decoration: none;
-    display: inline-block;
-    margin-left: 2rem;
-}
-
 .goto-citizens {
     font-size: 1.25rem;
     border: none;
@@ -38,7 +32,7 @@
     left: 7%;
 }
 
-.goto-counsel {
+/* .goto-counsel {
     display: flex;
     align-items: center;
     float: left;
@@ -48,7 +42,7 @@
     cursor: pointer;
     padding: 0;
     margin-right: 2rem;
-}
+} */
 
 .goto-counsel img {
     height: 1.25rem;

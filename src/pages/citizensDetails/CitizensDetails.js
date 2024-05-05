@@ -94,12 +94,8 @@ const CitizensDetails = () => {
             className="goto-counsel"
             onClick={() => setButtonClicked(!isButtonClicked)}
           >
-<<<<<<< HEAD
-            <img src="/icons/ic_leftBtn.svg" alt="" />
-            <span>상담리스트</span>
-=======
             <img src='/icons/ic_back.png' alt=''/>
->>>>>>> 12aca22 (2024.5.5)
+            <span>상담리스트</span>
           </button>
           <CitizenInfor onLoadingUpdate={handleInforLoadingUpdate} />
         </div>
@@ -114,15 +110,8 @@ const CitizensDetails = () => {
             display: isButtonClicked ? "none" : "block",
           }}
         >
-<<<<<<< HEAD
-          <Link className="link-styles" to="/citizens">
-            <button className="goto-citizens">
-              <img src="/icons/ic_leftBtn.svg" alt="" />
-            </button>
-=======
           <Link to="/citizens">
             <img className="goto-back" src='/icons/ic_back.png' alt=''/>
->>>>>>> 12aca22 (2024.5.5)
           </Link>
           <div className="citiznesCounselList">
             <CitizenCounselList
