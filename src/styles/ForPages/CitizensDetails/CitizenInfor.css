@@ -1,121 +1,119 @@
 .citizenInfor-wrapper {
-    width: 22.75rem;
-    border: 1px solid #000;
-    display: flex;
-    flex-direction: column;
-    margin-top: 1.005rem;
-    /* max-height: 60vh;
-    overflow-y: auto; */
+  width: 22.75rem;
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.005rem;
 }
 
 .citizenInfor-wrapper::-webkit-scrollbar {
-    border: 0px solid #9b6a2f;
+  border: 0px solid #9b6a2f;
 }
 
 .citizenInfor-wrapper::-webkit-scrollbar-thumb {
-    background: gray;
+  background: gray;
 }
 
 .citizenInfor-wrapper::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .infor-wrapper {
-    display: flex;
-    margin-top: 2.06rem;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  margin-top: 2.06rem;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .category-wrapper {
-    width: 18rem;
-    margin: 0 auto;
-    margin-bottom: 0.38rem;
+  width: 18rem;
+  margin: 0 auto;
+  margin-bottom: 0.38rem;
 }
 
 .category-wrapper img {
-    margin-right: 0.19rem;
+  margin-right: 0.19rem;
 }
 
 .category-wrapper p {
-    display: inline-block;
-    margin: 0;
-    color: #878485;
-    font-size: 1.09375rem;
+  display: inline-block;
+  margin: 0;
+  color: #878485;
+  font-size: 1.09375rem;
 }
 
 .content-wrapper {
-    width: 18rem;
-    margin: 0 auto;
-    margin-bottom: 0.81rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    word-break: break-all;
+  width: 18rem;
+  margin: 0 auto;
+  margin-bottom: 0.81rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  word-break: break-all;
 }
 
 .content-wrapper span {
-    display: inline-block;
-    font-size: 1.125rem;
-    margin: 0;
-    margin-bottom: 0.2rem;
-    padding-left: 1rem;
+  display: inline-block;
+  font-size: 1.125rem;
+  margin: 0;
+  margin-bottom: 0.2rem;
+  padding-left: 1rem;
 }
 
 .content-wrapper input,
 .inforCounselTextarea {
-    display: inline-block;
-    font-size: 1.125rem;
-    margin: 0;
-    margin-bottom: 0.2rem;
-    padding-left: 0.2rem;
-    border: none;
-    border-bottom: 1px solid #000;
-    outline: none;
+  display: inline-block;
+  font-size: 1.125rem;
+  margin: 0;
+  margin-bottom: 0.2rem;
+  padding-left: 0.2rem;
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
 }
 
 .inforCounselTextarea {
-    resize: none;
+  resize: none;
 }
 
 .inforCounselTextarea::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .btn-wrapper {
-    width: 18rem;
-    margin: 0 auto;
-    margin-bottom: 1.37rem;
-    height: 7%;
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.37rem;
+  width: 18rem;
+  margin: 0 auto;
+  margin-bottom: 1.37rem;
+  height: 7%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.37rem;
 }
 
 .btn-wrapper button {
-    width: 4.25rem;
-    height: 1.8125rem;
-    border-radius: 0.3125rem;
-    border: none;
-    background-color: #95d1d9;
-    color: #fff;
-    cursor: pointer;
+  width: 4.25rem;
+  height: 1.8125rem;
+  border-radius: 0.3125rem;
+  border: none;
+  background-color: #95d1d9;
+  color: #fff;
+  cursor: pointer;
 }
 
 .btn-wrapper button:disabled {
-    background-color: #d9d9d9;
-    color: #fff;
+  background-color: #d9d9d9;
+  color: #fff;
 }
 
 @media (max-width: 768px) {
-    .btn-wrapper {
-        display: none;
-    }
-    .citizenInfor-wrapper {
-        border: none;
-        max-height: none;
-    }
-    .infor-wrapper {
-        margin-top: 2.5rem;
-    }
+  .btn-wrapper {
+    display: none;
+  }
+  .citizenInfor-wrapper {
+    border: none;
+    max-height: none;
+  }
+  .infor-wrapper {
+    margin-top: 2.5rem;
+  }
 }
