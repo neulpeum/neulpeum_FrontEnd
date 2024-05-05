@@ -4,17 +4,20 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "styles/ForPages/CitizensDetails/ConsultModal.css";
 
-export default function ConsultModal({ onClose, consultId }) {
+export default function ConsultModal({ onClose, consultId, patientId }) {
   Modal.setAppElement("#root");
 
+  const [isRemoveOpen, setIsRemoveOpen] = useState(false);
   const [consultData, setConsultData] = useState([]);
   const [formattedDateTime, setFormattedDateTime] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [fields, setFields] = useState("");
+  const [isFieldsModified, setIsFieldsModified] = useState(false);
   const [originalFields, setOriginalFields] = useState("");
   const inputRefs = useRef([]);
   const navigate = useNavigate();
   const modalRef = useRef(null);
+  const removeRef = useRef(null);
   const btnRef = useRef(null);
   const modal = document.querySelector(".modalOut");
 
@@ -41,7 +44,11 @@ export default function ConsultModal({ onClose, consultId }) {
 
     const handleEscKey = (event) => {
       if (event.keyCode === 27) {
-        onClose();
+        if (removeRef.current) {
+          closeRemoveModal();
+        } else {
+          onClose();
+        }
       }
     };
 
@@ -56,6 +63,12 @@ export default function ConsultModal({ onClose, consultId }) {
       const tagName = event.target.tagName.toLowerCase();
 
       if (
+        tagName !== "img" &&
+        removeRef.current &&
+        !removeRef.current.contains(event.target)
+      ) {
+        closeRemoveModal();
+      } else if (
         tagName !== "button" &&
         modal &&
         modalRef.current &&
@@ -109,9 +122,14 @@ export default function ConsultModal({ onClose, consultId }) {
     }
   }, [isEditing]);
 
+  useEffect(() => {
+    if (isEditing) {
+      setIsFieldsModified(fields !== originalFields);
+    }
+  }, [fields]);
+
   const handleCancelClick = () => {
     setIsEditing(false);
-    // 취소 버튼을 클릭하면 아무것도 하지 않습니다.
     setFields(originalFields);
   };
 
@@ -130,20 +148,27 @@ export default function ConsultModal({ onClose, consultId }) {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+
+    navigate("/citizensDetails", {
+      state: { id: patientId },
+    });
+    onClose();
   };
 
   const handleChange = (e) => {
     setFields(e.target.value);
   };
 
-  const autoResizeTextarea = () => {
-    let textarea = document.querySelector(".modalCounselTextarea");
+  const openRemoveModal = () => {
+    setIsRemoveOpen(true);
+  };
 
-    if (textarea) {
-      textarea.style.height = "auto";
-      let height = textarea.scrollHeight;
-      textarea.style.height = `${height + 8}px`;
-    }
+  const closeRemoveModal = () => {
+    setIsRemoveOpen(false);
+  };
+
+  const handleRemoveClick = async () => {
+    onClose();
   };
 
   return (
@@ -154,14 +179,32 @@ export default function ConsultModal({ onClose, consultId }) {
             <div className="modal-content-wrapper">
               <div className="modal-title">
                 <div>
-                  <p className="m-name">{consultData.providerName}</p>
-                  <p>&nbsp;님이&nbsp;</p>
-                  <p className="m-date"> {formattedDateTime} </p>
-                  <p>에</p>
-                  <br></br>
-                  <p>상담한 내용입니다.</p>
+                  <p>
+                    <span className="m-name">{consultData.providerName}</span>
+                    님이
+                    <span className="m-date"> {formattedDateTime}</span>에
+                    <br /> 상담한 내용입니다.
+                  </p>
                 </div>
-                <div>
+                <div className="modal-img-wrapper">
+                  <img
+                    src="/icons/ic_trashCan.svg"
+                    className="trash-icon"
+                    alt=""
+                    onClick={openRemoveModal}
+                  />
+                  <Modal className="remove-modal" isOpen={isRemoveOpen}>
+                    <div ref={removeRef} className="removeModal-wrapper">
+                      <div className="removeModal-gr"> </div>
+                      <div className="removeModal-content-wrapper">
+                        <p> 삭제하시겠습니까? </p>
+                        <div className="removeModal-btn-wrapper">
+                          <button onClick={handleRemoveClick}> 삭제 </button>
+                          <button onClick={closeRemoveModal}> 취소 </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Modal>
                   <img
                     src="/icons/ic_closeBtn.svg"
                     className="close-icon"
@@ -181,8 +224,6 @@ export default function ConsultModal({ onClose, consultId }) {
                       value={fields}
                       ref={(el) => (inputRefs.current[0] = el)}
                       onChange={(e) => handleChange(e)}
-                      onKeyDown={autoResizeTextarea}
-                      onKeyUp={autoResizeTextarea}
                     ></textarea>
                   ) : (
                     <div>
@@ -194,12 +235,19 @@ export default function ConsultModal({ onClose, consultId }) {
               <div ref={btnRef} className="modal-btn-wrapper">
                 {isEditing ? (
                   <div>
-                    <button onClick={handleSaveClick}>확인</button>
+                    <button
+                      onClick={handleSaveClick}
+                      disabled={!isFieldsModified}
+                    >
+                      확인
+                    </button>
                     <button onClick={handleCancelClick}>취소</button>
                   </div>
                 ) : (
                   <div>
-                    <button onClick={handleEditClick}>수정</button>
+                    <button id="modifyBtn" onClick={handleEditClick}>
+                      상담내용 수정
+                    </button>
                   </div>
                 )}
               </div>

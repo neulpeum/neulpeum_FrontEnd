@@ -7,11 +7,12 @@ import "styles/ForPages/AddCounseling/AddCounseling.css";
 export default function AddCounseling() {
   Modal.setAppElement("#root");
 
+  const [isOpening, setIsOpening] = useState(true);
+  const [activeIndex, setActiveIndex] = useState([]);
   const inputRefs = useRef([]);
   const [data, setData] = useState([""]);
   const [drugData, setDrugData] = useState([]);
   const [selectDrugs, setSelectDrugs] = useState([]);
-  const [selectedDrug, setSelectedDrug] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
@@ -149,9 +150,37 @@ export default function AddCounseling() {
     document.body.style = "overflow: auto";
   };
 
-  const handleDropdownChange = (event) => {
-    const selectedDrugName = event.target.value;
-    setSelectedDrug(selectedDrugName);
+  const showOtc = () => {
+    if (isOpening) {
+      setIsOpening(false);
+      document.querySelector(".drugSelectBtn").innerHTML =
+        "제공 otc 선택하기 ∨";
+    } else {
+      setIsOpening(true);
+      document.querySelector(".drugSelectBtn").innerHTML =
+        "제공 otc 선택하기 ∧";
+    }
+  };
+
+  const handleMultipleActions = (event, drugIndex) => {
+    handleActive(drugIndex);
+    handleDropdownChange(event, drugIndex);
+  };
+
+  const handleActive = (drugIndex) => {
+    const index = activeIndex.indexOf(drugIndex);
+    if (index !== -1) {
+      setActiveIndex(activeIndex.filter((index) => index !== drugIndex));
+      setSelectDrugs(
+        selectDrugs.filter((drug) => drug.drugIndex !== drugIndex)
+      );
+    } else {
+      setActiveIndex([...activeIndex, drugIndex]);
+    }
+  };
+
+  const handleDropdownChange = (event, drugIndex) => {
+    const selectedDrugName = event.target.dataset.drugname;
     if (selectedDrugName) {
       const findDrug = drugData.find(
         (drug) => drug.drugName === selectedDrugName
@@ -161,11 +190,11 @@ export default function AddCounseling() {
           (existingDrug) => existingDrug.drugName === selectedDrugName
         );
         if (!isDuplicate) {
+          findDrug.drugIndex = drugIndex;
           setSelectDrugs((prevDrugs) => [...prevDrugs, findDrug]);
         }
       }
     }
-    setSelectedDrug("");
   };
 
   const handleInputChange = (index, key, value) => {
@@ -178,22 +207,27 @@ export default function AddCounseling() {
     });
   };
 
-  const removeDrug = (index) => {
+  const removeDrug = (drug, index) => {
     setSelectDrugs((prevDrugs) => {
       const updateDrugs = [...prevDrugs];
       updateDrugs.splice(index, 1);
       return updateDrugs;
     });
+    const drugIndex = drug.drugIndex;
+    setActiveIndex(activeIndex.filter((index) => index !== drugIndex));
   };
 
   const dropwonStyle = {
-    width: "6.1875rem",
+    width: "9.4375rem",
     height: "1.4375rem",
-    paddingLeft: "0.37rem",
-    paddingTop: "0.2rem",
     border: "1px solid #000",
     outline: "none",
     fontSize: "0.9375rem",
+    borderRadius: "0.625rem",
+    backgroundColor: "white",
+    cursor: "pointer",
+    padding: "0",
+    fontWeight: "bold",
   };
 
   const wrongInputStyle = {
@@ -215,8 +249,9 @@ export default function AddCounseling() {
     <div>
       <div className="addCounseling-wrapper">
         <div className="counselTitle-wrapper">
-          <p className="counselName"> {patientName} </p>
-          <p className="counselTitle"> 님 상담추가 </p>
+          <p className="counselName">
+            {patientName} <span className="counselTitle">님 상담추가</span>
+          </p>
         </div>
         <div className="counsel-wrapper">
           <div className="counsel-category-wrapper">
@@ -244,23 +279,34 @@ export default function AddCounseling() {
               ※ 상담자를 입력하세요.
             </p>
           </div>
-          <div className="counsel-category-wrapper">
-            <p> 제공 otc </p>
-          </div>
           <div className="counselOtc-content-wrapper">
             <div className="drugDropdown-wrapper">
-              <select
-                value={selectedDrug || ""}
-                onChange={(event) => handleDropdownChange(event)}
+              <button
+                className="drugSelectBtn"
                 style={dropwonStyle}
+                onClick={showOtc}
               >
-                <option value="">제공otc</option>
-                {drugData.map((drug, drugIndex) => (
-                  <option key={drug.id} value={drug.drugName}>
-                    {drug.drugName}
-                  </option>
-                ))}
-              </select>
+                제공 otc 선택하기 ∧
+              </button>
+              <div className="drugOption-wrapper">
+                {isOpening &&
+                  drugData.map((drug, drugIndex) => (
+                    <p
+                      className={
+                        activeIndex.includes(drugIndex)
+                          ? "drugOption-active"
+                          : "drugOption"
+                      }
+                      key={drug.id}
+                      data-drugname={drug.drugName}
+                      onClick={(event) =>
+                        handleMultipleActions(event, drugIndex)
+                      }
+                    >
+                      {drug.drugName}
+                    </p>
+                  ))}
+              </div>
             </div>
             {selectDrugs.length > 0 ? (
               <div className="selectDrugs-wrapper">
@@ -277,7 +323,7 @@ export default function AddCounseling() {
                     <p className="selectDrugsAmount">
                       재고 : {drug.totalUsableAmount} 개
                     </p>
-                    <button onClick={() => removeDrug(index)}>X</button>
+                    <button onClick={() => removeDrug(drug, index)}>X</button>
                   </div>
                 ))}
               </div>
@@ -313,7 +359,7 @@ export default function AddCounseling() {
               <div className="addModal-wrapper">
                 <div className="addModal-gr"> </div>
                 <div className="addModal-content-wrapper">
-                  <p> 저장하시겠습니까 ? </p>
+                  <p> 저장하시겠습니까? </p>
                   <div className="addModal-btn-wrapper">
                     <button onClick={handleSaveClick}> 저장 </button>
                     <button onClick={closeModal}> 취소 </button>
@@ -324,7 +370,7 @@ export default function AddCounseling() {
             <button
               onClick={() =>
                 navigate("/citizensDetails", {
-                  state: { id: patientId, isButtonClicked: true },
+                  state: { id: patientId },
                 })
               }
             >

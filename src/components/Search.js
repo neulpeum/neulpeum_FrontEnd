@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import 'styles/ForComps/Search.css';
+import "styles/ForComps/Search.css";
 
 export default function Search({ onSubmit }) {
   const [searchCriteria, setSearchCriteria] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [isInputFocused, setInputFocused] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,13 +19,19 @@ export default function Search({ onSubmit }) {
     setSearchKeyword(event.target.value);
   };
 
+  const handleInputFocus = () => {
+    setInputFocused(true);
+  };
+
+  const handleInputBlur = () => {
+    setInputFocused(false);
+  };
+
   const criteriaStyle = {
     width: "7.8125rem",
     height: "2.75rem",
-    marginRight: "0.62rem",
     paddingLeft: "0.56rem",
     paddingTop: "0.2rem",
-    fontSize: "1.25rem",
     border: "1px solid #000",
     outline: "none",
   };
@@ -47,9 +54,15 @@ export default function Search({ onSubmit }) {
         name="filter"
         value={searchKeyword}
         onChange={handleKeywordChange}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
       ></input>
       <button type="submit" className="searchBtn">
-        <img src="/icons/ic_counSearch.svg" alt="검색" className="search-img" />
+        <img
+          src="/icons/ic_counSearch.svg"
+          alt="검색"
+          className={`search-img${isInputFocused ? "-focused" : ""}`}
+        />
       </button>
     </form>
   );
