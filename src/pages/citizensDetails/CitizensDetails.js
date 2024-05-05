@@ -94,7 +94,7 @@ const CitizensDetails = () => {
             className="goto-counsel"
             onClick={() => setButtonClicked(!isButtonClicked)}
           >
-            <img src="/icons/ic_leftBtn.svg" alt="" />
+            <img src='/icons/ic_back.png' alt=''/>
             <span>상담리스트</span>
           </button>
           <CitizenInfor onLoadingUpdate={handleInforLoadingUpdate} />
@@ -110,10 +110,8 @@ const CitizensDetails = () => {
             display: isButtonClicked ? "none" : "block",
           }}
         >
-          <Link className="link-styles" to="/citizens">
-            <button className="goto-citizens">
-              <img src="/icons/ic_leftBtn.svg" alt="" />
-            </button>
+          <Link to="/citizens">
+            <img className="goto-back" src='/icons/ic_back.png' alt=''/>
           </Link>
           <div className="citiznesCounselList">
             <CitizenCounselList

@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as XLSX from 'xlsx';
 import "styles/ForPages/Drugs/FileUpload.css";
 
-
-const FileUpload = ({ UploadedFile } ) => {
+// 여기 할거 남아있음. 날짜가 이상한 형식일 경우, 이를테면 33일이라던가, 오늘이 2024년인데 유통기한으로 2023년 이 온다거나
+// 일때 업로드 거부할 수 잇도록!
+const FileUpload = ({ Uploading } ) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [convertedFile, setConvertedFile] = useState(null);
 
@@ -14,7 +15,7 @@ const FileUpload = ({ UploadedFile } ) => {
   const fileIconRef = useRef();
 
   const transmitDrugsData = async () => {
-    if (convertedFile) await UploadedFile(convertedFile);
+    if (convertedFile) await Uploading(convertedFile);
     else alert("현재 업로드된 파일이 없습니다. 파일을 선택하고 업로드한 후 다시 시도해주세요.");
   }
   const clearData = () => {
@@ -137,8 +138,8 @@ const FileUpload = ({ UploadedFile } ) => {
         </div>
         <p>{selectedFile ? `선택된 파일: ${selectedFile.name}` : '액셀 파일을 업로드하세요'}</p>
         <div className="upload-btns-container">
-          <button onClick={clearData}>취소</button>
-          <button onClick={transmitDrugsData}>업로드</button>
+          <button className={((selectedFile) ? 'active' : 'inactive')} onClick={clearData}>취소</button>
+          <button className={((selectedFile) ? 'active' : 'inactive')} onClick={transmitDrugsData}>업로드</button>
         </div>
       </label>
       <input 

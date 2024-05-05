@@ -182,6 +182,7 @@ export default function CitizenCounselList(props) {
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                    <div>
                     {column.render("Header")}
                     {column.isSorted ? (
                       column.isSortedDesc ? (
@@ -192,6 +193,7 @@ export default function CitizenCounselList(props) {
                     ) : (
                       <span>&nbsp;</span>
                     )}
+                    </div>
                   </th>
                 ))}
               </tr>

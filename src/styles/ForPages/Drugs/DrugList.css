@@ -1,35 +1,67 @@
-.Drugtable-wrapper {
-    border: 1px solid black;
+.drugList-wrapper {
     max-height: 400px;
-    overflow-y: scroll;
+    overflow: auto;
+    border: 1px solid black;
 }
-.Drugtable-wrapper::-webkit-scrollbar {
+.drugList-wrapper::-webkit-scrollbar {
     border: 0px solid #9b6a2f;
 }
-.Drugtable-wrapper::-webkit-scrollbar-thumb {
+.drugList-wrapper::-webkit-scrollbar-thumb {
     background: gray;
 }
-.Drugtable-wrapper::-webkit-scrollbar-track {
+.drugList-wrapper::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, .1);
 }
 
-.Drugtable {
+.drugTable {
     width: fit-content;
     border-collapse: collapse;
-    width: 100%;
 }
 
-.Drugtable-row {
-    background-color: white;
+.drugTable th,
+.drugTable td {
+  text-align: center;
+  white-space: nowrap;
 }
-.Drugtable-row.add {
+
+.drugTable > thead > tr > th {
+    position: sticky;
+    top: 0;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 0;
+}
+.drugTable > thead > tr > th > div {
+    border: 1px solid black;
+    background: white;
+    padding: 30px 0;
+}
+
+.drugTable > tbody > tr > td {
+    font-size: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.drugTable > tbody > tr.add {
     background-color: rgba(217, 217, 217, 0.5);
 }
-.Drugtable-row.modify {
+.drugTable > tbody > tr.modify {
     background-color: rgba(149, 209, 217, 0.5);
 }
 
-.Drugtable-header {
+/* .drugTable-row {
+    background-color: white;
+}
+.drugTable-row.add {
+    background-color: rgba(217, 217, 217, 0.5);
+}
+.drugTable-row.modify {
+    background-color: rgba(149, 209, 217, 0.5);
+}
+
+.drugTable-header {
     padding: 0;
     font-size: 28px;
     width: 20%;
@@ -37,23 +69,23 @@
     position: sticky;
     top: 0px;
 }
-.Drugtable-header-container {
+.drugTable-header-container {
     border: 1px solid black;
     background: white;
     padding: 30px 0;
     white-space: nowrap;
 }
-.Drugtable-header-container span {
+.drugTable-header-container span {
     font-size: 0.8rem;
     margin-left: 0.3rem;
 }
 
-.Drugtable-cell {
+.drugTable-cell {
     border: 1px solid black;
     padding: 15px 0;
     text-align: center;
     font-size: 20px;
-}
+} */
 
 .usableAmount-cell {
     display: flex;

@@ -45,7 +45,7 @@
 .upload-container button {
     width: 80px;
     height: 31px;
-    font-size: 16px;
+    font-size: 20px;
     color: white;
     background-color: #aed391;
     align-self: flex-end;
@@ -53,4 +53,10 @@
     border-radius: 10px 10px;
     white-space: nowrap;
     cursor: pointer;
+}
+.upload-container button.active {
+    display: block;
+}
+.upload-container button.inactive {
+    visibility: hidden;
 }

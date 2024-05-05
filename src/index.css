@@ -10,6 +10,20 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.goto-back {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    cursor: pointer;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .goto-back {
+        display: block;
+    }
+}
+
 * {
     box-sizing: border-box;
 }
