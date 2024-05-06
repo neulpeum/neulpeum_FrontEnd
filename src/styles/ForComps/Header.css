@@ -24,6 +24,45 @@
 .logout {
     position: absolute;
     top: 0;
+    right: 0;
+    width: 15%;
+    max-width: 131px;
+    min-width: 76px;
+}
+
+@media (max-width: 768px) {
+    .logo-container > img {
+        width: 94px;
+        height: 67px;
+    }
+}
+
+/* .header-container {
+    position: relative;
+    margin-top: 20px;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo-container {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.logo-container > img {
+    width: 280px;
+    height: 218px;
+}
+
+.logo {
+    width: 15%;
+    height: auto;
+}
+
+.logout {
+    position: absolute;
+    top: 0;
     right: 17px;
     width: 15%;
     max-width: 131px;
@@ -60,43 +99,4 @@
 .subMenu-container {
     display: flex;
     justify-content: center;
-}
-
-/* .header-container {
-    position: relative;
-    margin-top: 20px;
-    padding: 0;
-    display: flex;
-    justify-content: space-between;
-}
-
-.logo-container {
-    text-align: center;
-    flex-grow: 1;
-}
-
-.logo-container > img {
-    width: 280px;
-    height: 218px;
-}
-
-.logo {
-    width: 15%;
-    height: auto;
-}
-
-.logout {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 15%;
-    max-width: 131px;
-    min-width: 76px;
-}
-
-@media (max-width: 768px) {
-    .logo-container > img {
-        width: 94px;
-        height: 67px;
-    }
 } */

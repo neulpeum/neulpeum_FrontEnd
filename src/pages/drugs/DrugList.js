@@ -18,13 +18,13 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
   return (
     <div className="drugList-wrapper">
       <table {...getTableProps()} className="drugTable">
-        <colgroup>
+        {/* <colgroup>
           <col style={{ width: "20%" }} />
           <col style={{ width: "20%" }} />
           <col style={{ width: "20%" }} />
           <col style={{ width: "20%" }} />
           <col style={{ width: "20%" }} />
-        </colgroup>
+        </colgroup> */}
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
