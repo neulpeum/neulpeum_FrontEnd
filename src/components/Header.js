@@ -27,37 +27,51 @@ const createHeader = ({nav, isLogoutVisible}) => {
     })
   };
 
-  const mainView = 
-    (isMobile) ? 
-      <div className="header-container">
-        <Link to={dest}>
-          <img src="/icons/ic_logo.svg" alt="home-button" className="logo"/>
+  // const mainView = 
+  //   (isMobile) ? 
+  //     <div className="header-container">
+  //       <Link to={dest}>
+  //         <img src="/icons/ic_logo.svg" alt="home-button" className="logo"/>
+  //       </Link>
+  //       {visible && (
+  //         <div onClick={logout} className='logout-container'>
+  //           <img src='/icons/ic_logout.svg' alt='logout' className='logout'/>
+  //         </div>
+  //       )}
+  //     </div> 
+  //   : 
+  //   <div className='my-header-container'>
+  //       <Link className='home-button' to={dest}>
+  //         <img src="/icons/ic_logo.svg" alt="home-button" className="logo"/>
+  //       </Link>
+  //     <div className='subMenu-container'>
+  //       <Link to={'/drugs'}>약 재고화면</Link>
+  //       <Link to={'/citizens'}>주민 화면</Link>
+  //       <Link to={'/accountSettings'}>개인정보 수정 화면</Link>
+  //     </div>
+  //     {visible && (
+  //     <div onClick={logout} className='logout-container'>
+  //       <img src='/icons/ic_logout.svg' alt='logout' className='logout'/>
+  //     </div>
+  //   )}
+  //   </div>
+
+  // return(
+  //     <>{mainView}</>
+  // )
+  return(
+    <div className="header-container">
+      <div className="logo-container">
+        <Link className="home-button" to={dest}>
+          <img src="/icons/ic_logo.svg" alt="logo" className="logo"/>
         </Link>
-        {visible && (
-          <div onClick={logout} className='logout-container'>
-            <img src='/icons/ic_logout.svg' alt='logout' className='logout'/>
-          </div>
-        )}
-      </div> 
-    : 
-    <div className='my-header-container'>
-        <Link className='home-button' to={dest}>
-          <img src="/icons/ic_logo.svg" alt="home-button" className="logo"/>
-        </Link>
-      <div className='subMenu-container'>
-        <Link to={'/drugs'}>약 재고화면</Link>
-        <Link to={'/citizens'}>주민 화면</Link>
-        <Link to={'/accountSettings'}>개인정보 수정 화면</Link>
       </div>
       {visible && (
-      <div onClick={logout} className='logout-container'>
-        <img src='/icons/ic_logout.svg' alt='logout' className='logout'/>
-      </div>
-    )}
+        <div onClick={logout}>
+          <img src='/icons/ic_logout.svg' alt='logout' className='logout'/>
+        </div>
+      )}
     </div>
-
-  return(
-      <>{mainView}</>
   )
 }
 

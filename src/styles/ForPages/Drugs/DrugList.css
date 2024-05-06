@@ -14,7 +14,7 @@
 }
 
 .drugTable {
-    width: fit-content;
+    width: 100%;
     border-collapse: collapse;
 }
 
@@ -31,6 +31,7 @@
     font-size: 24px;
     padding: 0;
 }
+
 .drugTable > thead > tr > th > div {
     border: 1px solid black;
     background: white;
@@ -50,42 +51,6 @@
 .drugTable > tbody > tr.modify {
     background-color: rgba(149, 209, 217, 0.5);
 }
-
-/* .drugTable-row {
-    background-color: white;
-}
-.drugTable-row.add {
-    background-color: rgba(217, 217, 217, 0.5);
-}
-.drugTable-row.modify {
-    background-color: rgba(149, 209, 217, 0.5);
-}
-
-.drugTable-header {
-    padding: 0;
-    font-size: 28px;
-    width: 20%;
-    font-weight: bold;
-    position: sticky;
-    top: 0px;
-}
-.drugTable-header-container {
-    border: 1px solid black;
-    background: white;
-    padding: 30px 0;
-    white-space: nowrap;
-}
-.drugTable-header-container span {
-    font-size: 0.8rem;
-    margin-left: 0.3rem;
-}
-
-.drugTable-cell {
-    border: 1px solid black;
-    padding: 15px 0;
-    text-align: center;
-    font-size: 20px;
-} */
 
 .usableAmount-cell {
     display: flex;

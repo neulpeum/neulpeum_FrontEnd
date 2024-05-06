@@ -1,37 +1,78 @@
-.table-wrapper {
+.citizenTable-wrapper {
     width: 90%;
-    overflow-x: auto;
     margin: 0 auto;
     margin-top: 20px;
 }
 
 @media (max-width: 768px) {
-    .table-wrapper {
+    .citizenTable-wrapper {
         width: 80%;
-        overflow-x: auto;
         margin: 0 auto;
         margin-top: 20px;
     }
 }
 
-.table {
+.citizenTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-}
-
-.table-row {
-    background-color: white;
-}
-
-.table-header,
-.table-cell {
     border: 1px solid black;
-    padding: 10px;
-    text-align: left;
 }
 
-.table-cell button {
+.citizenTable > thead > tr {
+    display: table;
+    width: 100%;
+}
+
+.citizenTable th,
+.citizenTable td {
+    text-align: center;
+}
+
+.citizenTable > thead > tr > th {
+    background: white;
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.citizenTable > tbody {
+    display: block;
+    overflow-y: scroll;
+    max-height: 420px;
+}
+
+.citizenTable > tbody > tr {
+    display: table;
+    width: 100%;
+}
+
+.citizenTable > tbody > tr > td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid black;
+}
+
+.citizenTable > thead > tr > th:nth-child(1),
+.citizenTable > tbody > tr > td:nth-child(1) {
+    width: 10%;
+}
+.citizenTable > thead > tr > th:nth-child(2),
+.citizenTable > tbody > tr > td:nth-child(2) {
+    width: 20%;
+}
+
+.citizenTable > thead > tr > th:nth-child(3),
+.citizenTable > tbody > tr > td:nth-child(3) {
+    width: 10%;
+}
+
+.citizenTable > tbody > tr > td:nth-child(4),
+.citizenTable > thead > tr > th:nth-child(4){
+    width: 60%;
+}
+
+.citizenTable-cell button {
     border: 1px solid #000;
     border-radius: 5px;
     padding: 5px 10px;
@@ -49,6 +90,8 @@
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
+    text-align: left;
+    /* width: inherit; */
 }
 
 .DetailButton {
@@ -58,17 +101,27 @@
 }
 
 @media (max-width: 768px) {
-    .table-cell:nth-child(4),
-    .table-header:nth-child(4),
-    .table-cell:nth-child(5),
-    .table-header:nth-child(5),
-    .table-cell:nth-child(6),
-    .table-header:nth-child(6) {
+    .citizenTable > thead > tr > th:nth-child(1),
+    .citizenTable > tbody > tr > td:nth-child(1) {
+        width: 20%;
+    }
+    .citizenTable > thead > tr > th:nth-child(2),
+    .citizenTable > tbody > tr > td:nth-child(2) {
+        width: 50%;
+    }
+
+    .citizenTable > thead > tr > th:nth-child(3),
+    .citizenTable > tbody > tr > td:nth-child(3) {
+        width: 30%;
+    }
+
+    .citizenTable > tbody > tr > td:nth-child(4),
+    .citizenTable > thead > tr > th:nth-child(4){
         display: none;
     }
-    .table-wrapper {
+
+    .citizenTable-wrapper {
         width: 85%;
-        overflow-x: auto;
         margin: 0 auto;
     }
 }
