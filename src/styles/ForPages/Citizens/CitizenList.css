@@ -1,5 +1,5 @@
 .citizenTable-wrapper {
-    width: 90%;
+    width: 90.3%;
     margin: 0 auto;
     margin-top: 20px;
 }
@@ -22,6 +22,7 @@
 .citizenTable > thead > tr {
     display: table;
     width: 100%;
+    height: 6vh;
 }
 
 .citizenTable th,
@@ -31,7 +32,7 @@
 
 .citizenTable > thead > tr > th {
     background: white;
-    border: 1px solid black;
+    border: 0.1px solid black;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -39,7 +40,7 @@
 .citizenTable > tbody {
     display: block;
     overflow-y: scroll;
-    max-height: 420px;
+    max-height: 55vh;
 }
 
 .citizenTable > tbody > tr {
@@ -50,7 +51,7 @@
 .citizenTable > tbody > tr > td {
     padding-top: 10px;
     padding-bottom: 10px;
-    border: 1px solid black;
+    border: 0.1px solid black;
 }
 
 .citizenTable > thead > tr > th:nth-child(1),
@@ -123,5 +124,10 @@
     .citizenTable-wrapper {
         width: 85%;
         margin: 0 auto;
+    }
+    .citizenTable > tbody {
+        display: block;
+        overflow-y: scroll;
+        max-height: 70vh;
     }
 }

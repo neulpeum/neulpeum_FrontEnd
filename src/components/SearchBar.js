@@ -48,12 +48,12 @@ const SearchInput = styled.input`
   ${(props) =>
     props.$using === "drugs"
       ? `
-      width: 90%;
+      width: 100%;
       border: 1px solid white;
       font-size: 20px;
     `
       : `
-      width: 90%;
+      width: 100%;
       border: 1px solid white;
       padding-top: 20px;
       padding-bottom: 20px;
