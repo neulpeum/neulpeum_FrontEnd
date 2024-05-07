@@ -188,15 +188,18 @@ const Drugs = () => {
 
   function search(keyword, criteria) {
     const result = [];
-    setCriKeyword([keyword, criteria]);
+    // inputText.split(' ').join('');
+    setCriKeyword([keyword.split(' ').join(''), criteria]);
 
     renderingData.forEach((item) => {
       if (criteria) {
-        if (item[criteria].includes(keyword))
+        if (item[criteria].split(' ').join('').includes(keyword))
           result.push(item.drugId);
       } else {
-        if (item["expireDate"].includes(keyword) || item["drugEnrollTime"].includes(keyword) ||
-          (item["drugModifiedTime"] && item["drugModifiedTime"].includes(keyword)) || item["drugName"].includes(keyword))
+        if (item["expireDate"].split(' ').join('').includes(keyword) 
+        || item["drugEnrollTime"].split(' ').join('').includes(keyword) 
+        || (item["drugModifiedTime"] && item["drugModifiedTime"].split(' ').join('').includes(keyword)) 
+        || item["drugName"].split(' ').join('').includes(keyword))
           result.push(item.drugId);
         }
       });
