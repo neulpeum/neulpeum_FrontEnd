@@ -30,6 +30,7 @@ const SearchInputContainer = styled.div`
     props.$using === "drugs"
       ? `
       display: flex;
+      align-items: center;
       width: 100%;
       height: 42.75%;
       border: 1px solid black;
@@ -51,7 +52,7 @@ const SearchInput = styled.input`
       ? `
       width: 100%;
       border: 1px solid white;
-      font-size: 20px;
+      font-size: 1.3vw;
     `
       : `
       width: 100%;
@@ -67,7 +68,8 @@ const SearchIcon = styled.img`
   ${(props) =>
     props.$using === "drugs"
       ? `
-      padding: 5px;
+      width: 6%;
+      height: 53.57%;
       cursor: pointer;
       margin-right:4px;
     `
