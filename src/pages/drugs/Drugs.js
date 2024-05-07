@@ -258,24 +258,24 @@ const Drugs = () => {
   }
 
   const drugView =
-    <div className="drug-table">
-      {(criKeyword[0] === '')
-      ? <DrugList columns={columns.slice(1, 6)} data={renderingData} onQuantityChange={handleQuantityChange}/> 
-        : (searchResults.length > 0) 
-        ? <>
-          {/* <p>{criKeyword[0]}을 {criKeyword[1]} 기준으로 검색한 내용입니다.</p> */}
-          {/* const data ={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} */}
-          <DrugList columns={columns.slice(1, 6)} data={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} onQuantityChange={handleQuantityChange}/> 
-          </>
-          : 
-          <NoResultView name={criKeyword[0]} explain={"과 일치하는 내용이 없습니다."}/>
-      }
-      <div className="drug-btns-container">
-        <DrugsStyledBtn onClick={handleInitialized}>변경사항 초기화</DrugsStyledBtn>
-        <DrugsStyledBtn onClick={generateExcel}>엑셀파일 다운로드</DrugsStyledBtn>
-        <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
-      </div>
+  <> {(criKeyword[0] === '')
+    ? <DrugList columns={columns.slice(1, 6)} data={renderingData} onQuantityChange={handleQuantityChange}/> 
+      : (searchResults.length > 0) 
+      ? <>
+        {/* <p>{criKeyword[0]}을 {criKeyword[1]} 기준으로 검색한 내용입니다.</p> */}
+        {/* const data ={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} */}
+        <DrugList columns={columns.slice(1, 6)} data={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} onQuantityChange={handleQuantityChange}/> 
+        </>
+        : 
+        <NoResultView name={criKeyword[0]} explain={"과 일치하는 내용이 없습니다."}/>
+    }
+    <div className="drug-btns-container">
+      <DrugsStyledBtn onClick={handleInitialized}>변경사항 초기화</DrugsStyledBtn>
+      <DrugsStyledBtn onClick={generateExcel}>엑셀파일 다운로드</DrugsStyledBtn>
+      <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
     </div>
+  </>
+      
 
   return (
     <>

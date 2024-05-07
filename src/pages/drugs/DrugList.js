@@ -30,7 +30,6 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  <div>
                     {column.render("Header")}
                     {column.isSorted ? (
                       column.isSortedDesc ? (
@@ -41,7 +40,6 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
                     ) : (
                       <span>&nbsp;</span>
                     )}
-                  </div>
                 </th>
               ))}
             </tr>

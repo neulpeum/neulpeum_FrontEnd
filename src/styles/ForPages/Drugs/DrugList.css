@@ -1,16 +1,7 @@
 .drugList-wrapper {
-    max-height: 400px;
-    overflow: auto;
-    border: 1px solid black;
-}
-.drugList-wrapper::-webkit-scrollbar {
-    border: 0px solid #9b6a2f;
-}
-.drugList-wrapper::-webkit-scrollbar-thumb {
-    background: gray;
-}
-.drugList-wrapper::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, .1);
+    width: 77.8vw;
+    margin: 5px auto;
+    /* border: 1px solid black; */
 }
 
 .drugTable {
@@ -22,27 +13,46 @@
 .drugTable td {
   text-align: center;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  border: 1px solid black;
+}
+
+.drugTable > thead > tr {
+    display: table;
+    width: 100%;
+    height: 16.6%;
 }
 
 .drugTable > thead > tr > th {
-    position: sticky;
-    top: 0;
     font-weight: bold;
     font-size: 24px;
-    padding: 0;
+    height: 8vh;
 }
 
-.drugTable > thead > tr > th > div {
-    border: 1px solid black;
-    background: white;
-    padding: 30px 0;
+.drugTable > tbody {
+    display: block;
+    overflow-y: scroll;
+    max-height: 47.5vh;
+}
+
+/* .drugTable tbody::-webkit-scrollbar {
+    border: 0px solid #9b6a2f;
+}
+.drugTable tbody::-webkit-scrollbar-thumb {
+    background: gray;
+}
+.drugTable tbody::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, .1);
+} */
+
+.drugTable > tbody > tr {
+    display: table;
+    width: 100%;
+    height: 16.6%;
 }
 
 .drugTable > tbody > tr > td {
     font-size: 20px;
-    padding: 15px 0;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
 }
 
 .drugTable > tbody > tr.add {
@@ -51,6 +61,36 @@
 .drugTable > tbody > tr.modify {
     background-color: rgba(149, 209, 217, 0.5);
 }
+
+.drugTable > thead > tr > th:nth-child(1),
+.drugTable > tbody > tr > td:nth-child(1),
+.drugTable > thead > tr > th:nth-child(2),
+.drugTable > tbody > tr > td:nth-child(2),
+.drugTable > thead > tr > th:nth-child(3),
+.drugTable > tbody > tr > td:nth-child(3),
+.drugTable > thead > tr > th:nth-child(4),
+.drugTable > tbody > tr > td:nth-child(4),
+.drugTable > thead > tr > th:nth-child(5),
+.drugTable > tbody > tr > td:nth-child(5) {
+    width: 62vw;
+    height: 7vh;
+    /* width: 20%;
+    height: 16.6%; */
+}
+/* .citizenTable > thead > tr > th:nth-child(2),
+.citizenTable > tbody > tr > td:nth-child(2) {
+    width: 20%;
+}
+
+.citizenTable > thead > tr > th:nth-child(3),
+.citizenTable > tbody > tr > td:nth-child(3) {
+    width: 20%;
+}
+
+.citizenTable > tbody > tr > td:nth-child(4),
+.citizenTable > thead > tr > th:nth-child(4){
+    width: 20%;
+} */
 
 .usableAmount-cell {
     display: flex;
