@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import 'styles/ForComps/SearchBar.css'
 
 const SearchBarContainer = styled.div`
   ${(props) =>
@@ -11,7 +12,7 @@ const SearchBarContainer = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 14.5%;
     `
       : `
     display: flex;
@@ -29,8 +30,9 @@ const SearchInputContainer = styled.div`
     props.$using === "drugs"
       ? `
       display: flex;
+      align-items: center;
       width: 100%;
-      height: 56px;
+      height: 42.75%;
       border: 1px solid black;
       padding: 8px;
       `
@@ -50,7 +52,7 @@ const SearchInput = styled.input`
       ? `
       width: 100%;
       border: 1px solid white;
-      font-size: 20px;
+      font-size: 1.3vw;
     `
       : `
       width: 100%;
@@ -66,7 +68,8 @@ const SearchIcon = styled.img`
   ${(props) =>
     props.$using === "drugs"
       ? `
-      padding: 5px;
+      width: 6%;
+      height: 53.57%;
       cursor: pointer;
       margin-right:4px;
     `
@@ -85,16 +88,6 @@ const PlusIcon = styled.img`
     display: none;
   }
 `;
-
-const criteriaStyle = {
-  width: "11rem",
-  height: "3.5rem",
-  paddingLeft: "0.56rem",
-  paddingTop: "0.2rem",
-  fontSize: "1.25rem",
-  border: "1px solid #000",
-  outline: "none",
-};
 
 const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
   const [keyword, setKeyword] = useState("");
@@ -124,12 +117,14 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
+              height: "42.75%",
+              width: "100%",
             }}
           >
             <select
               value={searchCriteria}
               onChange={handleCriteriaChange}
-              style={criteriaStyle}
+              className="criteriaStyle"
             >
               <option value="">전체</option>
               <option value="drugName">약 이름</option>
@@ -141,17 +136,18 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                width: "fit-content",
+                width: "25%",
+                height: '100%',
                 gap: "8px",
                 marginLeft: "20px",
               }}
             >
-              <img src="/icons/ic_grey_circle.svg" alt="" />
+              <div className="gray-circle"/> 
               <span
                 style={{
-                  whiteSpace: "nowrap",
                   fontSize: "20px",
                   overflow: "hidden",
+                  whiteSpace: 'nowrap',
                 }}
               >
                 추가된 행
@@ -161,17 +157,18 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                width: "fit-content",
+                width: "25%",
+                height: '100%',
                 gap: "8px",
                 marginLeft: "20px",
               }}
             >
-              <img src="/icons/ic_green_circle.svg" alt="" />
+              <div className="blue-circle"/>
               <span
                 style={{
-                  whiteSpace: "nowrap",
                   fontSize: "20px",
                   overflow: "hidden",
+                  whiteSpace: 'nowrap',
                 }}
               >
                 수정된 행

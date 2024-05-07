@@ -132,7 +132,7 @@ const FileUpload = ({ Uploading } ) => {
   return (
     <div className="upload-container">
       <label className={!isActive ? 'contents' : 'contents active'}  htmlFor="input" ref={uploadBoxRef} >
-        <div>
+        <div className='upload-icon-container'>
           <img src="/icons/ic_fileImg.svg" alt="파일 아이콘 이미지" ref={fileIconRef}/>
           <span>{' '}파일 선택</span>
         </div>
