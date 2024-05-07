@@ -35,6 +35,7 @@
   height: 29.9375rem;
   overflow: auto;
   margin: 0 auto;
+  border: 1px solid #000;
 }
 
 .list-wrapper::-webkit-scrollbar {
@@ -51,6 +52,7 @@
 
 .counselTable {
   width: 100%;
+  height: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   font-size: 1.25rem;
@@ -69,10 +71,8 @@
   top: 0;
   padding: 0;
   font-size: 1.25rem;
-}
-
-.counselTable th > div {
-  border: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
   background: #fff;
   padding-top: 1.3rem;
   padding-bottom: 1.2rem;
@@ -81,7 +81,11 @@
 }
 
 .counselTable td {
-  border: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+.counselTable tr:not(:last-child) {
+  border-bottom: 1px solid #000;
 }
 
 .conselTakingDrug-wrapper {
