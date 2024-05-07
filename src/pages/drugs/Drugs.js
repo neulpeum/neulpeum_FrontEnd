@@ -34,10 +34,10 @@ const DrugsStyledBtn = styled.button`
 `;
 
 const Drugs = () => {
-  const [originalDrugs, setOriginalDrugs] = useState([]); //부동의 데이터
-  const [filterData, setFilterData] = useState([]);
-  const [criKeyword, setCriKeryword] = useState("");
-  const [renderingData, setRenderingData] = useState([]); 
+  const [originalDrugs, setOriginalDrugs] = useState([]);
+  const [renderingData, setRenderingData] = useState([]);
+  const [criKeyword, setCriKeyword] = useState(['', '']);
+  const [searchResults, setSearchResults] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -51,25 +51,39 @@ const Drugs = () => {
   ];
 
   const handleGetDatafromServer = (data) => {
-    setOriginalDrugs(data.map((array) => {
+    const FormattedData = data.map((array) => {
       return {
         ...array,
         expireDate: MyDate.convertDate(array.expireDate, 3),
         drugEnrollTime: MyDate.convertDate(array.drugEnrollTime, 3),
         drugModifiedTime: MyDate.convertDate(array.drugModifiedTime, 3), 
       };
-    }));
+    });
+    setOriginalDrugs(FormattedData);
+    setRenderingData(FormattedData);
+    // setOriginalDrugs(data.map((array) => {
+    //   return {
+    //     ...array,
+    //     expireDate: MyDate.convertDate(array.expireDate, 3),
+    //     drugEnrollTime: MyDate.convertDate(array.drugEnrollTime, 3),
+    //     drugModifiedTime: MyDate.convertDate(array.drugModifiedTime, 3), 
+    //   };
+    // }));
   }
 
   useEffect(() => {
-    const getDatafromServer = () => {
-      axios
+    const getDatafromServer = async () => {
+      await axios
         .get("/api/drug")
         .then((response) => handleGetDatafromServer(response.data))
         .catch((error) => setError(error));
     };
     getDatafromServer();
   }, []);
+
+  // useEffect(() => {
+  //   setRenderingData(originalDrugs);
+  // }, [originalDrugs]);
 
   const ReadJsonDrugs = (jsonDrugs) => {
     if (jsonDrugs.length !== 0) {
@@ -78,7 +92,7 @@ const Drugs = () => {
           const [drugName, expireDate, usableAmount, usable] = row;
 
           return {
-            drugId: index,
+            drugId: index + originalDrugs.length,
             drugName: drugName,
             expireDate: MyDate.convertDate(ConvertedDate(expireDate), 3),
             usableAmount: (usableAmount-usable),
@@ -113,20 +127,14 @@ const Drugs = () => {
     });
   };
 
-  useEffect(() => {
-    setRenderingData(originalDrugs);
-  }, [originalDrugs]);
-
-  useEffect(() => {
-    setFilterData(renderingData);
-  }, [renderingData]);
-
   const ChangeDrugForm = (data) => {
     const newData = [];
     const modifyData = [];
 
     data.forEach((renderingItem) => {
-      const existingIndex = originalDrugs.findIndex((originalItem) => originalItem.drugId === renderingItem.drugId);
+      //여기서 기존에 있는 약데이터들과비교해서 새로운 약데이터를 찾을때 drugId를 통해 알아보는데 이게 맨 처음사이트를 사용할때 문제가 될 수 있음 차후에 알아보겟음
+      const existingIndex = originalDrugs.findIndex((originalItem) => 
+      originalItem.drugId === renderingItem.drugId && originalItem.drugName === renderingItem.drugName);
 
       const drugId = renderingItem.drugId;
       const drugName = renderingItem.drugName;
@@ -151,7 +159,6 @@ const Drugs = () => {
 
   const PostProcessing = (newData, modifyData) => {
     alert("약데이터가 성공적으로 등록되었습니다.");
-
     const newDataWithTimestamp = newData.map(item => ({
       ...item,
       expireDate: MyDate.convertDate(item.expireDate, 3),
@@ -173,6 +180,8 @@ const Drugs = () => {
         }),
         ...newDataWithTimestamp
     ]);
+    setRenderingData(originalDrugs);
+    console.log(renderingData, originalDrugs);
   }
 
   const UpdateDrugs = async () => {
@@ -184,70 +193,25 @@ const Drugs = () => {
       .catch((error) => setError(error));
   };
 
+  const handleInitialized = () => {
+    setRenderingData(originalDrugs);
+  }
+
   function search(keyword, criteria) {
-    setCriKeryword(keyword);
-    const results = [];
-    if (criteria) {
-      renderingData.forEach((item) => {
-        if (
-          criteria === "expireDate" ||
-          criteria === "drugEnrollTime" ||
-          criteria === "drugModifiedTime"
-        ) {
-          const datePart = item[criteria].split(" ")[0];
-          console.log(datePart);
-          if (datePart.includes(keyword)) {
-            results.push(item);
-          }
-        } else if (
-          criteria === "drugName" &&
-          item["drugName"].includes(keyword)
-        ) {
-          results.push(item);
+    const result = [];
+    setCriKeyword([keyword, criteria]);
+
+    renderingData.forEach((item) => {
+      if (criteria) {
+        if (item[criteria].includes(keyword))
+          result.push(item.drugId);
+      } else {
+        if (item["expireDate"].includes(keyword) || item["drugEnrollTime"].includes(keyword) ||
+          (item["drugModifiedTime"] && item["drugModifiedTime"].includes(keyword)) || item["drugName"].includes(keyword))
+          result.push(item.drugId);
         }
       });
-      if (results.length !== 0) {
-        setFilterData(results);
-      } else {
-        setFilterData([]);
-        setCriKeryword(keyword);
-      }
-    } else {
-      renderingData.forEach((item) => {
-        if (
-          item["expireDate"].includes(keyword) ||
-          item["drugEnrollTime"].includes(keyword) ||
-          item["drugModifiedTime"].includes(keyword)
-        ) {
-          const datePart1 = item["expireDate"].split(" ")[0];
-          const datePart2 = item["drugEnrollTime"].split(" ")[0];
-          const datePart3 = item["drugModifiedTime"].split(" ")[0];
-          if (
-            datePart1.includes(keyword) ||
-            datePart2.includes(keyword) ||
-            datePart3.includes(keyword)
-          ) {
-            results.push(item);
-          }
-        } else {
-          for (const key in item) {
-            if (
-              item[key] &&
-              typeof item[key] === "string" &&
-              item[key].includes(keyword)
-            ) {
-              results.push(item);
-            }
-          }
-        }
-      });
-      if (results.length !== 0) {
-        setFilterData(results);
-      } else {
-        setFilterData([]);
-        setCriKeryword(keyword);
-      }
-    }
+    setSearchResults(result);
   }
 
   function generateExcel() {
@@ -285,29 +249,6 @@ const Drugs = () => {
     FileSaver.saveAs(excelFile, name);
   }
 
-  const mainView =
-    criKeyword && filterData.length === 0 ? (
-      <>
-        <NoResultView
-          name={""}
-          explain={"현재 등록된 약 정보가 없습니다"}
-        ></NoResultView>
-      </>
-    ) : (
-      <div className="drug-table">
-        <DrugList
-          columns={columns.slice(1, 6)}
-          data={filterData}
-          onQuantityChange={handleQuantityChange}
-        />
-        <div style={{display: 'flex', flexDirection: 'row', gap: '10px', alignSelf: 'flex-end'}}>
-          {/* <DrugsStyledBtn >변경사항 초기화</DrugsStyledBtn> */}
-          <DrugsStyledBtn onClick={generateExcel}>엑셀 양식 다운로드</DrugsStyledBtn>
-          <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
-        </div>
-      </div>
-    );
-
   if (error) {
     console.log(error)
     if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
@@ -316,15 +257,34 @@ const Drugs = () => {
     navigate(-1);
   }
 
+  const drugView =
+    <div className="drug-table">
+      {(criKeyword[0] === '')
+      ? <DrugList columns={columns.slice(1, 6)} data={renderingData} onQuantityChange={handleQuantityChange}/> 
+        : (searchResults.length > 0) 
+        ? <>
+          {/* <p>{criKeyword[0]}을 {criKeyword[1]} 기준으로 검색한 내용입니다.</p> */}
+          {/* const data ={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} */}
+          <DrugList columns={columns.slice(1, 6)} data={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} onQuantityChange={handleQuantityChange}/> 
+          </>
+          : 
+          <NoResultView name={criKeyword[0]} explain={"과 일치하는 내용이 없습니다."}/>
+      }
+      <div className="drug-btns-container">
+        <DrugsStyledBtn onClick={handleInitialized}>변경사항 초기화</DrugsStyledBtn>
+        <DrugsStyledBtn onClick={generateExcel}>엑셀파일 다운로드</DrugsStyledBtn>
+        <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
+      </div>
+    </div>
+
   return (
     <>
       <HeaderComponent nav={navigate} isLogoutVisible={true}/>
       <UiPanelContainer>
-        <FileUpload UploadedFile={ReadJsonDrugs} />
+        <FileUpload Uploading={ReadJsonDrugs} />
         <SearchBar search={search} currentPage={"Drugs"} />
       </UiPanelContainer>
-      {mainView}
-
+      {drugView}
     </>
   );
 };

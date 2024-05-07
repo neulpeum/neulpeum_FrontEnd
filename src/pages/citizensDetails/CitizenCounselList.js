@@ -182,16 +182,18 @@ export default function CitizenCounselList(props) {
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render("Header")}
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <span style={sortSytle}>▼</span> // 내림차순 화살표
+                    <div>
+                      {column.render("Header")}
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <span style={sortSytle}>▼</span> // 내림차순 화살표
+                        ) : (
+                          <span style={sortSytle}>▲</span> // 오름차순 화살표
+                        )
                       ) : (
-                        <span style={sortSytle}>▲</span> // 오름차순 화살표
-                      )
-                    ) : (
-                      <span>&nbsp;</span>
-                    )}
+                        <span>&nbsp;</span>
+                      )}
+                    </div>
                   </th>
                 ))}
               </tr>

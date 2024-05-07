@@ -118,14 +118,14 @@ const CitizensDetails = () => {
 
   return (
     <div>
-      <style>
+      {/* <style>
         {`
           ${mediaQuery1280} { html { font-size: 12px; } }
            ${mediaQuery1920} { html { font-size: 19px; } }
            ${mediaQuery2560} { html { font-size: 26px; } }
            ${mediaQuery3840} { html { font-size: 38px; } }
            `}
-      </style>
+      </style> */}
       <HeaderComponent nav={navigate} isLogoutVisible={true} />
       <div className="components-wrapper">
         <div
@@ -138,7 +138,7 @@ const CitizensDetails = () => {
             className="goto-counsel"
             onClick={() => setButtonClicked(!isButtonClicked)}
           >
-            <img src="/icons/ic_leftBtn.svg" alt="" />
+            <img src="/icons/ic_back.png" alt="" />
             <span>상담리스트</span>
           </button>
           <CitizenInfor onLoadingUpdate={handleInforLoadingUpdate} />
@@ -154,10 +154,8 @@ const CitizensDetails = () => {
             display: isButtonClicked ? "none" : "block",
           }}
         >
-          <Link className="link-styles" to="/citizens">
-            <button className="goto-citizens">
-              <img src="/icons/ic_leftBtn.svg" alt="" />
-            </button>
+          <Link to="/citizens">
+            <img className="goto-back" src="/icons/ic_back.png" alt="" />
           </Link>
           <div className="citiznesCounselList">
             <CitizenCounselList

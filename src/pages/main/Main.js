@@ -35,7 +35,6 @@ const Main = () => {
   }
  
   return (
-    <>
     <div className="main-container">
       <div className="main-logo-container">
           <img src="/icons/ic_logo.svg" alt="logo" className="logo" />
@@ -47,8 +46,6 @@ const Main = () => {
         <LoginButton onLoginClick={login}/>
       </div>
     </div>
-    <div className="main-footer"/>
-    </>
   );
 };
 

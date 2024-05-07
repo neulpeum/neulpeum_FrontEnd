@@ -91,8 +91,8 @@ const Citizens = () => {
   return (
     <div>
       <HeaderComponent nav={navigate} isLogoutVisible={true}/>
-      <Link className="link-styles" to="/">
-        <button className="goto-citizens">&lt;</button>
+      <Link className='goto-back' to="/">
+        <img src='/icons/ic_back.png' alt=''/>
       </Link>
       <SearchBar sort={sortData} search={search} currentPage={"Citizens"} isReversed={isReversed} onCitizenAddClick={navigateToCitizenAdd}/>
       {mainView}

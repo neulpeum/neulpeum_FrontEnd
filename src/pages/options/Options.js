@@ -7,7 +7,6 @@ import 'styles/ForPages/Options/Options.css';
 
 const Options = () => {
     return ( 
-      <>
       <div className="option-container">
         <div className="option-logo-container">
           <img src="/icons/ic_logo.svg" alt="logo" className="logo" />
@@ -27,8 +26,6 @@ const Options = () => {
         </div>
         </div>
       </div>
-      <div className="option-footer"/>
-      </>
     );
   };
 
