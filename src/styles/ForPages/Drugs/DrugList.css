@@ -1,65 +1,53 @@
-.drugList-wrapper {
-    width: 77.8vw;
-    margin: 5px auto;
-    /* border: 1px solid black; */
-}
-
 .drugTable {
-    width: 100%;
+    width: 77.8vw;
+    height: 47.5vh;
+    margin: 5px auto;
     border-collapse: collapse;
+    /* border-left: 1px solid black;
+    border-right:1px solid black;
+    border-bottom:1px solid black; */
 }
 
 .drugTable th,
 .drugTable td {
   text-align: center;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   border: 1px solid black;
 }
 
 .drugTable > thead > tr {
     display: table;
     width: 100%;
-    height: 16.6%;
+    height: 7.9vh;
 }
 
 .drugTable > thead > tr > th {
     font-weight: bold;
-    font-size: 24px;
-    height: 8vh;
+    /* font-size: 24px; */
+    font-size: 1.6vw;
 }
 
 .drugTable > tbody {
     display: block;
     overflow-y: scroll;
-    max-height: 47.5vh;
+    height: 39.6vh;
 }
-
-/* .drugTable tbody::-webkit-scrollbar {
-    border: 0px solid #9b6a2f;
-}
-.drugTable tbody::-webkit-scrollbar-thumb {
-    background: gray;
-}
-.drugTable tbody::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, .1);
-} */
 
 .drugTable > tbody > tr {
     display: table;
     width: 100%;
-    height: 16.6%;
+    height: 20%;
 }
 
 .drugTable > tbody > tr > td {
-    font-size: 20px;
+    /* font-size: 20px; */
+    font-size: 1.3vw;
 }
 
 .drugTable > tbody > tr.add {
-    background-color: rgba(217, 217, 217, 0.5);
+    background-color: rgba(217, 217, 217, 0.4);
 }
 .drugTable > tbody > tr.modify {
-    background-color: rgba(149, 209, 217, 0.5);
+    background-color: rgba(149, 209, 217, 0.3);
 }
 
 .drugTable > thead > tr > th:nth-child(1),
@@ -72,40 +60,27 @@
 .drugTable > tbody > tr > td:nth-child(4),
 .drugTable > thead > tr > th:nth-child(5),
 .drugTable > tbody > tr > td:nth-child(5) {
-    width: 62vw;
-    height: 7vh;
-    /* width: 20%;
-    height: 16.6%; */
-}
-/* .citizenTable > thead > tr > th:nth-child(2),
-.citizenTable > tbody > tr > td:nth-child(2) {
     width: 20%;
 }
-
-.citizenTable > thead > tr > th:nth-child(3),
-.citizenTable > tbody > tr > td:nth-child(3) {
-    width: 20%;
-}
-
-.citizenTable > tbody > tr > td:nth-child(4),
-.citizenTable > thead > tr > th:nth-child(4){
-    width: 20%;
-} */
 
 .usableAmount-cell {
     display: flex;
-    justify-content: space-between;
-    padding: 0 20px;
+    justify-content: center;
 }
 
 .usableAmount-cell button {
-    width: 25px;
-    height: 25px;
-    font-size: 20px;
+    width: 1.73vw;
+    height: 1.73vw;
+    /* font-size: 20px; */
+    font-size: 1.3vw;
     font-weight: bold;
     border-radius: 100%;
     color: white;
     background-color: #AED391;
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    margin: 0 0.83vw;
 }

@@ -15,22 +15,10 @@ import { MyDate } from 'utils/MyDate';
 const UiPanelContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 2rem 11.5% 0 11.5%;
-  width: 75%;
-  height: 12.7%;
-  gap: 1rem;
-`;
-
-const DrugsStyledBtn = styled.button`
-  width: 192px;
-  height: 48px;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 5px;
-  color: white;
-  background-color: #aed391;
-  border: none;
-  cursor: pointer;
+  margin: 10.74vh auto 0 auto;
+  width: 77.77vw;
+  height: 12.79vh;
+  gap: 1.38vw;
 `;
 
 const Drugs = () => {
@@ -51,6 +39,7 @@ const Drugs = () => {
   ];
 
   const handleGetDatafromServer = (data) => {
+    console.log(data);
     const FormattedData = data.map((array) => {
       return {
         ...array,
@@ -59,8 +48,9 @@ const Drugs = () => {
         drugModifiedTime: MyDate.convertDate(array.drugModifiedTime, 3), 
       };
     });
-    setOriginalDrugs(FormattedData);
+    const deepCopyArray = JSON.parse(JSON.stringify(FormattedData));
     setRenderingData(FormattedData);
+    setOriginalDrugs(deepCopyArray);
     // setOriginalDrugs(data.map((array) => {
     //   return {
     //     ...array,
@@ -80,10 +70,6 @@ const Drugs = () => {
     };
     getDatafromServer();
   }, []);
-
-  // useEffect(() => {
-  //   setRenderingData(originalDrugs);
-  // }, [originalDrugs]);
 
   const ReadJsonDrugs = (jsonDrugs) => {
     if (jsonDrugs.length !== 0) {
@@ -119,12 +105,12 @@ const Drugs = () => {
   }
 
   const handleQuantityChange = (index, change) => {
-    setRenderingData((prevData) => {
-      const newData = [...prevData];
-      newData[index].usableAmount += change;
-      newData[index].isModified = true;
-      return newData;
-    });
+      setRenderingData((prevData) => {
+        const newData = [...prevData];
+        newData[index].usableAmount += change;
+        newData[index].isModified = true;
+        return newData;
+      });
   };
 
   const ChangeDrugForm = (data) => {
@@ -181,7 +167,6 @@ const Drugs = () => {
         ...newDataWithTimestamp
     ]);
     setRenderingData(originalDrugs);
-    console.log(renderingData, originalDrugs);
   }
 
   const UpdateDrugs = async () => {
@@ -194,7 +179,11 @@ const Drugs = () => {
   };
 
   const handleInitialized = () => {
-    setRenderingData(originalDrugs);
+    if (!originalDrugs) return;
+    const deepCopyArray = JSON.parse(JSON.stringify(originalDrugs));
+    console.log(deepCopyArray);
+    setRenderingData(deepCopyArray);
+    console.log(renderingData, originalDrugs);
   }
 
   function search(keyword, criteria) {
@@ -263,20 +252,14 @@ const Drugs = () => {
       : (searchResults.length > 0) 
       ? <>
         {/* <p>{criKeyword[0]}을 {criKeyword[1]} 기준으로 검색한 내용입니다.</p> */}
-        {/* const data ={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} */}
         <DrugList columns={columns.slice(1, 6)} data={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} onQuantityChange={handleQuantityChange}/> 
         </>
         : 
         <NoResultView name={criKeyword[0]} explain={"과 일치하는 내용이 없습니다."}/>
     }
-    <div className="drug-btns-container">
-      <DrugsStyledBtn onClick={handleInitialized}>변경사항 초기화</DrugsStyledBtn>
-      <DrugsStyledBtn onClick={generateExcel}>엑셀파일 다운로드</DrugsStyledBtn>
-      <DrugsStyledBtn onClick={UpdateDrugs}>변경사항 저장</DrugsStyledBtn>
-    </div>
   </>
       
-
+      // console.log(originalDrugs, renderingData);
   return (
     <>
       <HeaderComponent nav={navigate} isLogoutVisible={true}/>
@@ -285,6 +268,15 @@ const Drugs = () => {
         <SearchBar search={search} currentPage={"Drugs"} />
       </UiPanelContainer>
       {drugView}
+      <div className="drugButtons-container">
+        <div className="left-btn">
+          <button onClick={generateExcel}>엑셀파일 다운로드</button>
+        </div>
+        <div className="right-btns">
+          <button onClick={handleInitialized}>변경사항 초기화</button>
+          <button onClick={UpdateDrugs}>변경사항 저장</button>
+        </div>
+    </div>
     </>
   );
 };
