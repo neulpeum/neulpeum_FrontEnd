@@ -50,25 +50,27 @@ const CitizensDetails = () => {
     setMediaQuery2560(getBtMediaQuery(1920, 2560, dpr));
     setMediaQuery3840(getMinMediaQuery(3840, dpr));
 
-    console.log(dpr);
-    console.log(mediaQuery1280);
-    console.log(mediaQuery1920);
-    console.log(mediaQuery2560);
-    console.log(mediaQuery3840);
+    // console.log(dpr);
+    // console.log(mediaQuery1280);
+    // console.log(mediaQuery1920);
+    // console.log(mediaQuery2560);
+    // console.log(mediaQuery3840);
   }, [dpr]);
 
   useEffect(() => {
     if (loadingInfor || loadingCounselList) {
       setLoading(true);
     } else {
-      setLoading(false);
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 500);
+      return () => clearTimeout(timer);
     }
   }, [loadingInfor, loadingCounselList]);
 
   useEffect(() => {
     const citizensInformation = document.querySelector(".citizensInformation");
     const counselList = document.querySelector(".counselList");
-
     if (loading) {
       citizensInformation.style.setProperty("display", "none");
       counselList.style.setProperty("display", "none");

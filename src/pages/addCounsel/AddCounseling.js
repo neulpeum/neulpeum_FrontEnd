@@ -83,23 +83,23 @@ export default function AddCounseling(props) {
       consultContent: data[1],
     };
 
-    const takingDrugData = selectDrugs.map((item) => {
-      return {
-        drugName: item.drugName,
-        usedAmount: item.usedAmount,
-      };
-    });
-
     axios
       .post("/api/patient/consult", consultData)
-      .then(() => {})
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-
-    axios
-      .patch("/api/patient/drug", takingDrugData)
-      .then(() => {})
+      .then((response) => {
+        const takingDrugData = selectDrugs.map((item) => {
+          return {
+            consultId: response.data,
+            drugName: item.drugName,
+            usedAmount: item.usedAmount,
+          };
+        });
+        axios
+          .patch("/api/patient/drug", takingDrugData)
+          .then(() => {})
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
@@ -220,6 +220,16 @@ export default function AddCounseling(props) {
     setActiveIndex(activeIndex.filter((index) => index !== drugIndex));
   };
 
+  function limitAmount(event, totalUsableAmount) {
+    event.target.value = event.target.value.replace(/[^0-9]/g, "");
+
+    var inputValue = event.target.value;
+
+    if (inputValue > totalUsableAmount) {
+      event.target.value = totalUsableAmount;
+    }
+  }
+
   const dropwonStyle = {
     width: "9.4375rem",
     height: "1.4375rem",
@@ -293,22 +303,25 @@ export default function AddCounseling(props) {
               </button>
               <div className="drugOption-wrapper">
                 {isOpening &&
-                  drugData.map((drug, drugIndex) => (
-                    <p
-                      className={
-                        activeIndex.includes(drugIndex)
-                          ? "drugOption-active"
-                          : "drugOption"
-                      }
-                      key={drug.id}
-                      data-drugname={drug.drugName}
-                      onClick={(event) =>
-                        handleMultipleActions(event, drugIndex)
-                      }
-                    >
-                      {drug.drugName}
-                    </p>
-                  ))}
+                  drugData.map(
+                    (drug, drugIndex) =>
+                      drug.totalUsableAmount > 0 && (
+                        <p
+                          className={
+                            activeIndex.includes(drugIndex)
+                              ? "drugOption-active"
+                              : "drugOption"
+                          }
+                          key={drug.id}
+                          data-drugname={drug.drugName}
+                          onClick={(event) =>
+                            handleMultipleActions(event, drugIndex)
+                          }
+                        >
+                          {drug.drugName}
+                        </p>
+                      )
+                  )}
               </div>
             </div>
             {selectDrugs.length > 0 ? (
@@ -321,6 +334,8 @@ export default function AddCounseling(props) {
                       onChange={(e) =>
                         handleInputChange(index, drug.id, e.target.value)
                       }
+                      onInput={(e) => limitAmount(e, drug.totalUsableAmount)}
+                      // onInput={handleInputReplace}
                     />
                     <p style={{ margin: "0 0.38rem 0 0.31rem" }}>개</p>
                     <p className="selectDrugsAmount">

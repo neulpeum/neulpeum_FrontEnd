@@ -27,6 +27,7 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
         `/api/patient/consultInfo?consultId=${consultId}`
       );
       setConsultData(response.data);
+      console.log(response.data);
       setFields(response.data.consultContent);
     } catch (error) {
       if (error.response.status === 401 || error.response.status === 403) {
@@ -39,6 +40,7 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
   }, [consultId, navigate]);
 
   useEffect(() => {
+    console.log("dd");
     getConsultData();
     document.body.style = "overflow: hidden";
 
@@ -168,6 +170,15 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
   };
 
   const handleRemoveClick = async () => {
+    axios
+      .delete(`/api/patient/consultDelete?consultId=${consultId}`)
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+    navigate("/citizensDetails", {
+      state: { id: patientId },
+    });
     onClose();
   };
 
