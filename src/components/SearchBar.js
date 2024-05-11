@@ -145,7 +145,7 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               <div className="gray-circle"/> 
               <span
                 style={{
-                  fontSize: "20px",
+                  fontSize: "1.3vw",
                   overflow: "hidden",
                   whiteSpace: 'nowrap',
                 }}
@@ -166,7 +166,7 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               <div className="blue-circle"/>
               <span
                 style={{
-                  fontSize: "20px",
+                  fontSize: "1.3vw",
                   overflow: "hidden",
                   whiteSpace: 'nowrap',
                 }}

@@ -39,7 +39,6 @@
 }
 
 .drugTable > tbody > tr > td {
-    /* font-size: 20px; */
     font-size: 1.3vw;
 }
 
@@ -71,7 +70,6 @@
 .usableAmount-cell button {
     width: 1.73vw;
     height: 1.73vw;
-    /* font-size: 20px; */
     font-size: 1.3vw;
     font-weight: bold;
     border-radius: 100%;
