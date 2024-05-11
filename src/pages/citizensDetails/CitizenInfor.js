@@ -169,15 +169,15 @@ export default function CitizenInfor(props) {
     setFields(newFields);
   };
 
-  const autoResizeTextarea = () => {
-    let textarea = document.querySelector(".inforCounselTextarea");
+  // const autoResizeTextarea = () => {
+  //   let textarea = document.querySelector(".inforCounselTextarea");
 
-    if (textarea) {
-      textarea.style.height = "auto";
-      let height = textarea.scrollHeight;
-      textarea.style.height = `${height + 8}px`;
-    }
-  };
+  //   if (textarea) {
+  //     textarea.style.height = "auto";
+  //     let height = textarea.scrollHeight;
+  //     textarea.style.height = `${height + 8}px`;
+  //   }
+  // };
 
   if (error) {
     if (error.response.status === 401 || error.response.status === 403) {
@@ -348,8 +348,8 @@ export default function CitizenInfor(props) {
                 className="inforCounselTextarea"
                 value={fields[6]}
                 onChange={(e) => handleChange(6, e)}
-                onKeyDown={autoResizeTextarea}
-                onKeyUp={autoResizeTextarea}
+                // onKeyDown={autoResizeTextarea}
+                // onKeyUp={autoResizeTextarea}
                 ref={(el) => (inputRefs.current[5] = el)}
                 onFocus={(e) =>
                   e.target.setSelectionRange(
@@ -360,7 +360,7 @@ export default function CitizenInfor(props) {
               ></textarea>
             ) : (
               <div>
-                <span>{fields[6]}</span>
+                <span className="textareaSpan">{fields[6]}</span>
               </div>
             )}
           </div>
@@ -381,20 +381,19 @@ export default function CitizenInfor(props) {
             </span>
           </div>
         </div>
-        <div>
-          {isEditing ? (
-            <div className="btn-wrapper">
-              <button onClick={handleSaveClick} disabled={!isFieldsModified}>
-                확인
-              </button>
-              <button onClick={handleCancelClick}>취소</button>
-            </div>
-          ) : (
-            <div className="btn-wrapper">
-              <button onClick={handleEditClick}>수정</button>
-            </div>
-          )}
-        </div>
+
+        {isEditing ? (
+          <div className="btn-wrapper">
+            <button onClick={handleSaveClick} disabled={!isFieldsModified}>
+              확인
+            </button>
+            <button onClick={handleCancelClick}>취소</button>
+          </div>
+        ) : (
+          <div className="btn-wrapper">
+            <button onClick={handleEditClick}>수정</button>
+          </div>
+        )}
       </div>
     </div>
   );

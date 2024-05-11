@@ -22,9 +22,9 @@ export default function CitizenCounselList(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("dd");
     const getName = async () => {
       try {
-        onLoadingUpdate(true);
         const response = await axios.get(
           `/api/patientInfo?patientId=${patientId}`
         );
@@ -37,11 +37,11 @@ export default function CitizenCounselList(props) {
         }
         console.error("Error fetching data:", error);
       }
-      onLoadingUpdate(false);
     };
     getName();
     const getData = async () => {
       try {
+        onLoadingUpdate(true);
         const response = await axios.get(
           `/api/patient/consult?patientId=${patientId}`
         );
@@ -55,6 +55,7 @@ export default function CitizenCounselList(props) {
         }
         console.error("Error fetching data:", error);
       }
+      onLoadingUpdate(false);
     };
     getData();
   }, [navigate, patientId]);

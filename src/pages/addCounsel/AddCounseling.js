@@ -335,7 +335,6 @@ export default function AddCounseling(props) {
                         handleInputChange(index, drug.id, e.target.value)
                       }
                       onInput={(e) => limitAmount(e, drug.totalUsableAmount)}
-                      // onInput={handleInputReplace}
                     />
                     <p style={{ margin: "0 0.38rem 0 0.31rem" }}>개</p>
                     <p className="selectDrugsAmount">

@@ -49,21 +49,24 @@ export default function Search({ onSubmit }) {
         <option value="providerName">상담자</option>
         <option value="takingDrug">제공 otc</option>
       </select>
-      <input
-        className="searchBar"
-        name="filter"
-        value={searchKeyword}
-        onChange={handleKeywordChange}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-      ></input>
-      <button type="submit" className="searchBtn">
-        <img
-          src="/icons/ic_counSearch.svg"
-          alt="검색"
-          className={`search-img${isInputFocused ? "-focused" : ""}`}
-        />
-      </button>
+      <div className={`search-wrapper${isInputFocused ? "-focused" : ""}`}>
+        <input
+          className="searchBar"
+          name="filter"
+          value={searchKeyword}
+          onChange={handleKeywordChange}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+        ></input>
+        <button type="submit" className="searchBtn">
+          <img
+            src="/icons/ic_counSearch.svg"
+            alt="검색"
+            // className="search-img"
+            className={`search-img${isInputFocused ? "-focused" : ""}`}
+          />
+        </button>
+      </div>
     </form>
   );
 }

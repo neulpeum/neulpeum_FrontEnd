@@ -1,9 +1,11 @@
 .citizenInfor-wrapper {
     width: 22.75rem;
+    height: 39rem;
     border: 1px solid #000;
     display: flex;
     flex-direction: column;
     margin-top: 1.005rem;
+    overflow-y: auto;
 }
 
 .citizenInfor-wrapper::-webkit-scrollbar {
@@ -32,6 +34,8 @@
 }
 
 .category-wrapper img {
+    width: 1rem;
+    height: 1rem;
     margin-right: 0.19rem;
 }
 
@@ -50,6 +54,7 @@
     flex-direction: column;
     justify-content: space-between;
     word-break: break-all;
+    white-space: pre-wrap;
 }
 
 .content-wrapper span {
@@ -60,13 +65,30 @@
     padding-left: 1rem;
 }
 
+.textareaSpan {
+    height: 2.7rem;
+    width: 18rem;
+    overflow-y: auto;
+}
+
+.textareaSpan::-webkit-scrollbar {
+    border: 0px solid #9b6a2f;
+}
+
+.textareaSpan::-webkit-scrollbar-thumb {
+    background: gray;
+}
+
+.textareaSpan::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
 .content-wrapper input,
 .inforCounselTextarea {
     display: inline-block;
     font-size: 1.125rem;
-    margin: 0;
-    margin-bottom: 0.2rem;
-    padding-left: 0.2rem;
+    margin: 0 1rem 0.1rem 1rem;
+    padding: 0;
     border: none;
     border-bottom: 1px solid #000;
     outline: none;
@@ -84,8 +106,6 @@
 .btn-wrapper {
     width: 18rem;
     margin: 0 auto;
-    margin-bottom: 1.37rem;
-    height: 7%;
     display: flex;
     justify-content: flex-end;
     gap: 0.37rem;
@@ -107,12 +127,12 @@
 }
 
 @media (max-width: 768px) {
-    .btn-wrapper {
-        display: none;
-    }
     .citizenInfor-wrapper {
         border: none;
-        max-height: none;
+        height: 100%;
+    }
+    .btn-wrapper {
+        display: none;
     }
     .infor-wrapper {
         margin-top: 2.5rem;
