@@ -1,12 +1,12 @@
 .gray-circle {
-    width: 35px;
-    height: 35px;
+    width: 2.3vw;
+    height: 2.3vw;
     border-radius: 50%;
     background-color: rgba(217, 217, 217, 0.4);
 }
 .blue-circle {
-    width: 35px;
-    height: 35px;
+    width: 2.3vw;
+    height: 2.3vw;
     border-radius: 50%;
     background-color: rgba(149, 209, 217, 0.3);
 }
