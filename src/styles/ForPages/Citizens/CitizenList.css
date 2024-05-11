@@ -1,22 +1,9 @@
-.citizenTable-wrapper {
-    width: 90.3%;
-    margin: 0 auto;
-    margin-top: 20px;
-}
-
-@media (max-width: 768px) {
-    .citizenTable-wrapper {
-        width: 80%;
-        margin: 0 auto;
-        margin-top: 20px;
-    }
-}
-
 .citizenTable {
-    width: 100%;
+    width: 82vw;
+    height: 53.22vh;
+    margin: 4.05vh auto 0 auto;
     border-collapse: collapse;
-    margin-top: 20px;
-    border: 1px solid black;
+    table-layout: fixed;
 }
 
 .citizenTable > thead > tr {
@@ -28,31 +15,30 @@
 .citizenTable th,
 .citizenTable td {
     text-align: center;
-    white-space: nowrap;
+    border: 1px solid black;
 }
 
 .citizenTable > thead > tr > th {
     background: white;
-    border: 0.1px solid black;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    /* border: 0.1px solid black; */
+    font-size: 1.3vw;
 }
 
 .citizenTable > tbody {
     display: block;
     overflow-y: scroll;
-    max-height: 55vh;
+    height: 47.2vh;
 }
 
 .citizenTable > tbody > tr {
     display: table;
     width: 100%;
+    height: 12.5%;
 }
 
 .citizenTable > tbody > tr > td {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border: 0.1px solid black;
+    /* border: 0.1px solid black; */
+    font-size: 1.3vw;
 }
 
 .citizenTable > thead > tr > th:nth-child(1),
@@ -61,29 +47,17 @@
 }
 .citizenTable > thead > tr > th:nth-child(2),
 .citizenTable > tbody > tr > td:nth-child(2) {
-    width: 20%;
+    width: 21%;
 }
 
 .citizenTable > thead > tr > th:nth-child(3),
 .citizenTable > tbody > tr > td:nth-child(3) {
-    width: 10%;
+    width: 12.5%;
 }
 
 .citizenTable > tbody > tr > td:nth-child(4),
 .citizenTable > thead > tr > th:nth-child(4){
-    width: 60%;
-}
-
-.citizenTable-cell button {
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    background-color: transparent;
-    color: #000;
-    position: relative;
-    margin: 0 auto;
-    display: block;
+    width: 56.5%;
 }
 
 .DetailButtonContainer {
@@ -92,17 +66,22 @@
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
+    padding: 0 1.3vw;
     text-align: left;
-    /* width: inherit; */
 }
 
 .DetailButton {
-    font-size: 26px;
+    font-size: 1.8vw;
     font-weight: bold;
     cursor: pointer;
 }
 
 @media (max-width: 768px) {
+    .citizenTable {
+        width: 77.1vw;
+        height: 51.9vh;
+    }
+
     .citizenTable > thead > tr > th:nth-child(1),
     .citizenTable > tbody > tr > td:nth-child(1) {
         width: 20%;
@@ -122,10 +101,6 @@
         display: none;
     }
 
-    .citizenTable-wrapper {
-        width: 85%;
-        margin: 0 auto;
-    }
     .citizenTable > tbody {
         display: block;
         overflow-y: scroll;
