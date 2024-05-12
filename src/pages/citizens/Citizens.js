@@ -20,10 +20,8 @@ const Citizens = () => {
 
   useEffect(() => {
     const fetchCitizens = async () => {
-        try {
-          setError(null);
-          setOriginalCitizens(null);
-          setLoading(true);
+      try {
+        setLoading(true); // 로딩 상태 시작
         const res = await axios.get(
           "/api/patient",
           {
@@ -37,10 +35,13 @@ const Citizens = () => {
 
         setOriginalCitizens(res.data);
         setCitizens(res.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       } catch (e) {
         setError(e);
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchCitizens();
   }, []);
@@ -74,7 +75,9 @@ const Citizens = () => {
   ];
 
   
-  if (loading) return <div>로딩중..</div>;
+  if (loading) return <div className="loading-wrapper">
+    <img src="/icons/ic_spinner2.gif" alt="" />
+  </div>;
   if (error) {
     if (error.response.status === 401 || error.response.status === 403) {
       alert("접근 권한이 없습니다");
