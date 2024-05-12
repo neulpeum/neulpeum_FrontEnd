@@ -18,7 +18,7 @@ const Citizens = () => {
   const navigate = useNavigate();
   const [finalKeyword, setFinalKeyword] = useState("");
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchCitizens = async () => {
         try {
           setError(null);

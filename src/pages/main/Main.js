@@ -11,6 +11,24 @@ const Main = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   
+
+  const checkSession = async () => {
+      try {
+        await axios.get(
+          "/api/patient",
+          {
+            withCredentials: true,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": "*",
+            }
+          },{ withCredentials: true }
+        );
+        navigate("/citizens");
+    } catch (e) {}
+  };
+  checkSession();
+
   const login = async () => {
     const loginRequest = {
       "username" : id,
@@ -18,14 +36,8 @@ const Main = () => {
     }
     axios
     .post("/api/login", loginRequest, { withCredentials: true })
-    .then((res) => {
-      const isMobile = window.innerWidth <= 768;
-      const destination = isMobile ? "/citizens" : "/options";
-      navigate(destination);
-    })
-    .catch((error) => {
-      alert("아이디나 비밀번호가 일치하지 않습니다. 다시 시도해주세요.")
-    });
+    .then((res) => { navigate("/citizens");})
+    .catch((error) => { alert("아이디나 비밀번호가 일치하지 않습니다. 다시 시도해주세요.") });
   };
 
   const activeEnter = (e) => {
