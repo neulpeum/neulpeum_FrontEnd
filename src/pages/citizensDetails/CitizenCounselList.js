@@ -17,12 +17,31 @@ export default function CitizenCounselList(props) {
   const tableRef = useRef(null);
   const [filterData, setFilterData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isRemove, setIsRemove] = useState(false);
   const location = useLocation();
   const patientId = location.state.id;
   const navigate = useNavigate();
 
+  const getData = async () => {
+    try {
+      onLoadingUpdate(true);
+      const response = await axios.get(
+        `/api/patient/consult?patientId=${patientId}`
+      );
+      setData(response.data);
+      setFilterData(response.data);
+    } catch (error) {
+      if (error.response.status === 401 || error.response.status === 403) {
+        alert("접근 권한이 없습니다");
+        navigate(-1);
+        return;
+      }
+      console.error("Error fetching data:", error);
+    }
+    onLoadingUpdate(false);
+  };
+
   useEffect(() => {
-    console.log("dd");
     const getName = async () => {
       try {
         const response = await axios.get(
@@ -39,26 +58,12 @@ export default function CitizenCounselList(props) {
       }
     };
     getName();
-    const getData = async () => {
-      try {
-        onLoadingUpdate(true);
-        const response = await axios.get(
-          `/api/patient/consult?patientId=${patientId}`
-        );
-        setData(response.data);
-        setFilterData(response.data);
-      } catch (error) {
-        if (error.response.status === 401 || error.response.status === 403) {
-          alert("접근 권한이 없습니다");
-          navigate(-1);
-          return;
-        }
-        console.error("Error fetching data:", error);
-      }
-      onLoadingUpdate(false);
-    };
     getData();
   }, [navigate, patientId]);
+
+  useEffect(() => {
+    getData();
+  }, [isRemove]);
 
   const search = (keyword, criteria) => {
     const results = [];
@@ -156,7 +161,10 @@ export default function CitizenCounselList(props) {
     }
   };
 
-  const closeModal = () => {
+  const closeModal = (boolean) => {
+    if (boolean) {
+      setIsRemove(boolean);
+    }
     setIsOpen(false);
     document.body.style = "overflow: auto";
   };
