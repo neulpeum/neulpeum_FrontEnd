@@ -27,7 +27,7 @@
 
 .searchBar {
     width: 22rem;
-    outline: none;
+    /* outline: none; */
     padding-left: 1rem;
     font-size: 1.25rem;
     background: #fff;
@@ -86,6 +86,7 @@
     }
     .searchBar {
         flex-shrink: 1;
+        font-size: 1rem;
     }
     .search-img {
         flex-shrink: 3;
