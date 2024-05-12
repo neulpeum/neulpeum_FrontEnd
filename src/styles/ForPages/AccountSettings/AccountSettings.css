@@ -1,0 +1,49 @@
+/* .account-container {
+    width: 70%;
+    height: fit-content;
+    margin: 50px auto;
+}
+
+.switch-btns-container {
+    width: 70%;
+    height: fit-content;
+    margin: 50px auto;
+}
+
+.switch-btns-container button {
+    flex: 1;
+    border: 0.5px solid black;
+    padding: 1.38rem 0;
+    border-radius: 2rem 2rem 0 0;
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+    cursor: pointer;
+} 
+.pickIcon {
+    vertical-align: top;
+    margin-right: 15px;
+    width: 32px;
+    height: 32px;
+}
+*/
+
+
+
+/*
+const TabButton = styled.button`
+    flex: 1;
+    border: 0.5px solid black;
+    padding: 1.38rem 0;
+    border-radius: 2rem 2rem 0 0;
+    color: black;
+    font-weight: bold;
+    font-size: 30px;
+    cursor: pointer;
+`;
+const PickIcon = styled.img`
+    vertical-align: top;
+    margin-right: 15px;
+    width: 32px;
+    height: 32px;
+` */

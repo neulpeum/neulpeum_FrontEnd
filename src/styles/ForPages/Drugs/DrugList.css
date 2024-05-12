@@ -3,6 +3,7 @@
     height: 47.5vh;
     margin: 5px auto;
     border-collapse: collapse;
+    /* table-layout: fixed; */
     /* border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black; */
@@ -21,7 +22,6 @@
 
 .drugTable>thead>tr>th {
     font-weight: bold;
-    /* font-size: 24px; */
     font-size: 1.6vw;
     background-color: #aed391;
     color: #fff;

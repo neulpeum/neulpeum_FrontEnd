@@ -17,10 +17,12 @@ const SearchBarContainer = styled.div`
       : `
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 77.8vw;
+    height: 5.47vh;
     align-items: center;
     justify-content: center;
-    margin-top: 36px;
+    gap: 10px;
+    margin: 11.5vh auto 0 auto;
     `}
 `;
 
@@ -56,14 +58,14 @@ const SearchInput = styled.input`
     `
       : `
       width: 100%;
-      height: 100%
+      height: 100%;
       border: 1px solid white;
-      padding-top: 20px;
-      padding-bottom: 20px;
+      // padding-top: 20px;
+      // padding-bottom: 20px;
       padding-left: 12px;
-      font-size: 16px;
       border: 2px solid #aed391;
       border-radius: 1.25rem;
+      font-size: 1.2vw;
     `}
 `;
 
@@ -105,7 +107,6 @@ const PlusIcon = styled.img`
     #95d1d9 99.67%
   );
   border-radius: 50%;
-
   @media (max-width: 768px) {
     display: none;
   }
