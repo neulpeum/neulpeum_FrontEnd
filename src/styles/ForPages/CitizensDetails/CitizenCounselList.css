@@ -33,13 +33,18 @@
 .list-wrapper {
     width: 35rem;
     max-height: 32rem;
-    overflow: auto;
+    overflow-y: auto;
     margin: 0 auto;
-    border: 1px solid #000;
-    border-right: none;
+    border-radius: 0.625rem;
 }
 
 .list-wrapper::-webkit-scrollbar {
+    display: none;
+    /* WebKit 기반 브라우저(Chrome, Safari 등)에는 해당 */
+}
+
+
+/* .list-wrapper::-webkit-scrollbar {
     border: 0px solid #9b6a2f;
 }
 
@@ -49,7 +54,7 @@
 
 .list-wrapper::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.1);
-}
+} */
 
 .counselTable {
     width: 100%;
@@ -59,12 +64,17 @@
     font-size: 1.25rem;
 }
 
+.counselTable thead {
+    height: 5rem;
+}
+
 .counselTable th,
 .counselTable td {
     text-align: center;
     vertical-align: middle;
     padding: 8px;
     white-space: nowrap;
+    /* border-right: 1px solid #000; */
 }
 
 .counselTable th {
@@ -72,22 +82,26 @@
     top: 0;
     padding: 0;
     font-size: 1.25rem;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
     background: #fff;
     padding-top: 1.3rem;
     padding-bottom: 1.2rem;
     padding-left: 8px;
     padding-right: 8px;
+    background-color: #aed391;
+    color: #fff;
+}
+
+.counselTable tbody {
+    background: rgba(184, 184, 184, 0.1);
+    box-shadow: -5px -5px 10px 0px rgba(211, 211, 211, 0.25) inset;
 }
 
 .counselTable td {
-    border-right: 1px solid #000;
     white-space: pre-wrap;
 }
 
 .counselTable tr:not(:last-child) {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #bab4b4;
 }
 
 .conselTakingDrug-wrapper {
@@ -95,7 +109,7 @@
     flex-direction: column;
     justify-content: flex-start;
     margin-left: 1.2rem;
-    padding-top: 0.5rem;
+    /* padding-top: 0.5rem; */
 }
 
 .inquiry-btn {
