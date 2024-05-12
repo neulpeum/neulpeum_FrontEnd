@@ -23,7 +23,7 @@ export default function AddCounsel() {
 
   return (
     <div>
-      <HeaderComponent nav={navigate} isLogoutVisible={false} />
+      <HeaderComponent nav={navigate} isLogoutVisible={false}  acitveTab={"citizens"}/>
       {loading && (
         <div className="loading-wrapper">
           <img src="/icons/ic_spinner2.gif" alt="" />

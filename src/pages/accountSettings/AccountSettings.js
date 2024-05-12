@@ -61,7 +61,7 @@ const AccountSetting = () => {
 
     return (
         <>
-            <HeaderComponent nav = {navigate} isLogoutVisible = {true}/>
+            <HeaderComponent nav = {navigate} isLogoutVisible = {true} acitveTab={"account"}/>
             <AccountContainer>
                 <SwitchButtonContainer>
                     {TabButtons.map((tab, index) => (

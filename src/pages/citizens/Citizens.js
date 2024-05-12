@@ -93,7 +93,7 @@ const Citizens = () => {
 
   return (
     <div>
-      <HeaderComponent nav={navigate} isLogoutVisible={true} isActiveCitizenTab={true}/>
+      <HeaderComponent nav={navigate} isLogoutVisible={true}  acitveTab={"citizens"}/>
       <Link className='goto-back' to="/">
         <img src='/icons/ic_back.png' alt=''/>
       </Link>
