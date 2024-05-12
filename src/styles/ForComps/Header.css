@@ -118,12 +118,34 @@
     white-space: nowrap;
 }
 
-.subMenu-container .active {
-    color: #95D1D9; /* 선택된 링크의 텍스트 색상 */
-    text-align: center;
+.subMenu-container a:after {
+    content: "";
+    display: block;
+    width: 202px;
+    color: #95D1D9;
+    left: 50%;
+    transform: translate(0%, 1350%);
 }
 
-.subMenu-container .active:after {
+.subMenu-container .drugActive:after {
+    content: '';
+    display: block;
+    width: 202px;
+    color: #95D1D9;
+    border-bottom: 5px solid currentColor;
+    transform: translate(-20%, 1350%);
+}
+
+.subMenu-container .citizenActive:after {
+    content: '';
+    display: block;
+    width: 202px;
+    color: #95D1D9;
+    border-bottom: 5px solid currentColor;
+    transform: translate(-25%, 1350%);
+}
+
+.subMenu-container .accountActive:after {
     content: '';
     display: block;
     width: 14vw;

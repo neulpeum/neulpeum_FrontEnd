@@ -6,10 +6,15 @@
     table-layout: fixed;
 }
 
-.citizenTable > thead > tr {
+.citizenTable>thead>tr {
     display: table;
     width: 100%;
     height: 6vh;
+    border-radius: 0.625rem;
+}
+
+.citizenTable thead {
+    border-radius: 0.625rem;
 }
 
 .citizenTable th,
@@ -21,18 +26,24 @@
 }
 
 .citizenTable > thead > tr > th {
-    background: white;
     /* border: 0.1px solid black; */
     font-size: 1.3vw;
+    background-color: #aed391;
+    color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.citizenTable > tbody {
+.citizenTable>tbody {
     display: block;
     overflow-y: scroll;
     height: 47.2vh;
+    max-height: 55vh;
+    background: rgba(184, 184, 184, 0.1);
+    box-shadow: -5px -5px 10px 0px rgba(211, 211, 211, 0.25) inset;
 }
 
-.citizenTable > tbody > tr {
+.citizenTable>tbody>tr {
     display: table;
     table-layout: fixed;
     width: 100%;
@@ -43,11 +54,16 @@
     /* border: 0.1px solid black; */
     font-size: 1.3vw;
 }
+.citizenTable tr:not(:last-child) {
+    border-bottom: 1px solid #bab4b4;
+}
 
-.citizenTable > thead > tr > th:nth-child(1),
-.citizenTable > tbody > tr > td:nth-child(1) {
+
+.citizenTable>thead>tr>th:nth-child(1),
+.citizenTable>tbody>tr>td:nth-child(1) {
     width: 10%;
 }
+
 .citizenTable > thead > tr > th:nth-child(2),
 .citizenTable > tbody > tr > td:nth-child(2) {
     width: 21%;
@@ -94,21 +110,18 @@
     .citizenTable > tbody > tr > td:nth-child(1) {
         width: 20%;
     }
-    .citizenTable > thead > tr > th:nth-child(2),
-    .citizenTable > tbody > tr > td:nth-child(2) {
+    .citizenTable>thead>tr>th:nth-child(2),
+    .citizenTable>tbody>tr>td:nth-child(2) {
         width: 50%;
     }
-
-    .citizenTable > thead > tr > th:nth-child(3),
-    .citizenTable > tbody > tr > td:nth-child(3) {
+    .citizenTable>thead>tr>th:nth-child(3),
+    .citizenTable>tbody>tr>td:nth-child(3) {
         width: 30%;
     }
-
-    .citizenTable > tbody > tr > td:nth-child(4),
-    .citizenTable > thead > tr > th:nth-child(4){
+    .citizenTable>tbody>tr>td:nth-child(4),
+    .citizenTable>thead>tr>th:nth-child(4) {
         display: none;
     }
-
     .citizenTable > tbody {
         display: block;
         overflow-y: scroll;

@@ -286,7 +286,7 @@ const Drugs = () => {
 
   return (
     <>
-      <HeaderComponent nav={navigate} isLogoutVisible={true}/>
+      <HeaderComponent nav={navigate} isLogoutVisible={true}  acitveTab={"drugs"}/>
       <UiPanelContainer>
         <FileUpload Uploading={ReadJsonDrugs} />
         <SearchBar search={search} currentPage={"Drugs"} />

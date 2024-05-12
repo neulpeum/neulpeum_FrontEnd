@@ -240,7 +240,7 @@ export default function CitizenCounselList(props) {
                             style={{
                               cursor: "pointer",
                               border: "none",
-                              backgroundColor: "white",
+                              backgroundColor: "transparent",
                             }}
                           >
                             {">"}

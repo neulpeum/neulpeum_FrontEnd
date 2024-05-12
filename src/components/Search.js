@@ -32,8 +32,10 @@ export default function Search({ onSubmit }) {
     height: "2.75rem",
     paddingLeft: "0.56rem",
     paddingTop: "0.2rem",
-    border: "1px solid #000",
     outline: "none",
+    border: "2px solid #aed391",
+    background: "#FFF",
+    borderRadius: "1.25rem",
   };
 
   return (
@@ -49,14 +51,15 @@ export default function Search({ onSubmit }) {
         <option value="providerName">상담자</option>
         <option value="takingDrug">제공 otc</option>
       </select>
-      <div className={`search-wrapper${isInputFocused ? "-focused" : ""}`}>
+      <div className="search-wrapper">
         <input
           className="searchBar"
           name="filter"
           value={searchKeyword}
+          placeholder="검색할 내용을 입력하세요."
           onChange={handleKeywordChange}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
+          // onFocus={handleInputFocus}
+          // onBlur={handleInputBlur}
         ></input>
         <button type="submit" className="searchBtn">
           <img

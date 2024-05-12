@@ -55,7 +55,7 @@ export default function CitizenAdd() {
   
   return (
     <div>
-        <HeaderComponent />
+        <HeaderComponent  acitveTab={"citizens"}/>
         <div className="citizenAdd-wrapper">
             <div className="line-text">
                 <div className="line" />
