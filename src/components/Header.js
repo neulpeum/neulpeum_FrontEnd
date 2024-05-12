@@ -6,7 +6,7 @@ import 'styles/ForComps/Header.css';
 
 const createHeader = ({nav, isLogoutVisible}) => {
   const isMobile = window.innerWidth <= 768
-  const dest = isMobile ? "/citizens" : "/options"; 
+  const dest = "/citizens"; 
   // 데스크탑버전시 시민페이지로 모바일 버전시 옵션으로 돌아가는데 이번에 옵션페이지가 없어진다면 그다음에 어디로 연결할지 토론
   const visible = isLogoutVisible;
 

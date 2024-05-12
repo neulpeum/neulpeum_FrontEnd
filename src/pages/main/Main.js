@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from "axios";
 import CustomInput from './CustomInput';
@@ -27,7 +27,10 @@ const Main = () => {
         navigate("/citizens");
     } catch (e) {}
   };
-  checkSession();
+
+  useEffect(() => {
+    checkSession();
+  }, []);
 
   const login = async () => {
     const loginRequest = {

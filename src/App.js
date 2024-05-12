@@ -6,7 +6,6 @@ import Citizens from "pages/citizens/Citizens";
 import CitizensDetails from "pages/citizensDetails/CitizensDetails";
 import CitizenAdd from "pages/citizenAdd/CitizenAdd";
 import Main from "pages/main/Main";
-import Options from "pages/options/Options";
 import AddCounsel from "pages/addCounsel/Addcounsel";
 import AccountSetting from "pages/accountSettings/AccountSettings";
 
@@ -17,7 +16,6 @@ const App = () => {
         <Route path="/" element={<Main />} />{" "}
         <Route path="/citizens" element={<Citizens />} />{" "}
         <Route path="/citizensDetails" element={<CitizensDetails />} />{" "}
-        <Route path="/options" element={<Options />} />{" "}
         <Route path="/addCounsel" element={<AddCounsel />} />{" "}
         <Route path="/citizenAdd" element={<CitizenAdd />} />{" "}
         <Route path="/drugs" element={<Drugs />} />{" "}
