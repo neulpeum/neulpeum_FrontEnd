@@ -120,7 +120,7 @@ const CitizensDetails = () => {
            ${mediaQuery3840} { html { font-size: 38px; } }
            `}
       </style>
-      <HeaderComponent nav={navigate} isLogoutVisible={true} />
+      <HeaderComponent nav={navigate} isLogoutVisible={true}  acitveTab={"citizens"} />
       <div className="components-wrapper">
         <div
           className="citizensInformation"
