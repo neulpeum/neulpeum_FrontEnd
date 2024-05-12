@@ -15,6 +15,10 @@ const LoginButtonContainer = styled.button`
   margin-top: 46px;
 `;
 
+const LoginLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const LoginButtonText = styled.span`
   color: #FFFFFF;
   font-size: 16px;
@@ -24,9 +28,9 @@ const LoginButtonText = styled.span`
 const LoginButton = (props) => {
   return (
     <LoginButtonContainer>
-      <Link className="default-link-styles">
+      <LoginLink className="default-link-styles">
         <LoginButtonText onClick={props.onLoginClick}>로그인</LoginButtonText>
-      </Link>
+      </LoginLink>
     </LoginButtonContainer>
   );
 };
