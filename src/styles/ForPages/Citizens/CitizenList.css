@@ -20,7 +20,6 @@
 .citizenTable th,
 .citizenTable td {
     text-align: center;
-    border: 1px solid black;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -39,8 +38,8 @@
     overflow-y: scroll;
     height: 47.2vh;
     max-height: 55vh;
-    background: rgba(184, 184, 184, 0.1);
-    box-shadow: -5px -5px 10px 0px rgba(211, 211, 211, 0.25) inset;
+    /* background: rgba(184, 184, 184, 0.1);
+    box-shadow: -5px -5px 10px 0px rgba(211, 211, 211, 0.25) inset; */
 }
 
 .citizenTable>tbody>tr {
@@ -53,6 +52,8 @@
 .citizenTable > tbody > tr > td {
     /* border: 0.1px solid black; */
     font-size: 1.3vw;
+    background: rgba(184, 184, 184, 0.1);
+    box-shadow: -5px -5px 10px 0px rgba(211, 211, 211, 0.25) inset;
 }
 .citizenTable tr:not(:last-child) {
     border-bottom: 1px solid #bab4b4;
@@ -128,3 +129,133 @@
         max-height: 70vh;
     }
 }
+
+/* 
+
+.citizenTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.citizenTable>thead>tr {
+    display: table;
+    width: 100%;
+    height: 6vh;
+    border-radius: 0.625rem;
+}
+
+.citizenTable thead {
+    border-radius: 0.625rem;
+}
+
+.citizenTable th,
+.citizenTable td {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.citizenTable>thead>tr>th {
+    background-color: #aed391;
+    color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.citizenTable>tbody {
+    display: block;
+    overflow-y: scroll;
+    max-height: 55vh;
+    background: rgba(184, 184, 184, 0.1);
+    box-shadow: -5px -5px 10px 0px rgba(211, 211, 211, 0.25) inset;
+}
+
+.citizenTable>tbody>tr {
+    display: table;
+    width: 100%;
+}
+
+.citizenTable tr:not(:last-child) {
+    border-bottom: 1px solid #bab4b4;
+}
+
+.citizenTable>tbody>tr>td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.citizenTable>thead>tr>th:nth-child(1),
+.citizenTable>tbody>tr>td:nth-child(1) {
+    width: 10%;
+}
+
+.citizenTable>thead>tr>th:nth-child(2),
+.citizenTable>tbody>tr>td:nth-child(2) {
+    width: 20%;
+}
+
+.citizenTable>thead>tr>th:nth-child(3),
+.citizenTable>tbody>tr>td:nth-child(3) {
+    width: 10%;
+}
+
+.citizenTable>tbody>tr>td:nth-child(4),
+.citizenTable>thead>tr>th:nth-child(4) {
+    width: 60%;
+}
+
+.citizenTable-cell button {
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: transparent;
+    color: #000;
+    position: relative;
+    margin: 0 auto;
+    display: block;
+}
+
+.DetailButtonContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    text-align: left;
+
+}
+
+.DetailButton {
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .citizenTable>thead>tr>th:nth-child(1),
+    .citizenTable>tbody>tr>td:nth-child(1) {
+        width: 20%;
+    }
+    .citizenTable>thead>tr>th:nth-child(2),
+    .citizenTable>tbody>tr>td:nth-child(2) {
+        width: 50%;
+    }
+    .citizenTable>thead>tr>th:nth-child(3),
+    .citizenTable>tbody>tr>td:nth-child(3) {
+        width: 30%;
+    }
+    .citizenTable>tbody>tr>td:nth-child(4),
+    .citizenTable>thead>tr>th:nth-child(4) {
+        display: none;
+    }
+    .citizenTable-wrapper {
+        width: 85%;
+        margin: 0 auto;
+    }
+    .citizenTable>tbody {
+        display: block;
+        overflow-y: scroll;
+        max-height: 70vh;
+    }
+} */
