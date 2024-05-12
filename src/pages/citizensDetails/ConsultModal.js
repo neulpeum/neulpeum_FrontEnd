@@ -148,10 +148,6 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-
-    navigate("/citizensDetails", {
-      state: { id: patientId },
-    });
     onClose();
   };
 
@@ -168,6 +164,15 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
   };
 
   const handleRemoveClick = async () => {
+    axios
+      .delete(`/api/patient/consultDelete?consultId=${consultId}`)
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+    navigate("/citizensDetails", {
+      state: { id: patientId },
+    });
     onClose();
   };
 
