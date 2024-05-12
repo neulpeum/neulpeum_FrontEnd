@@ -74,7 +74,7 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
         modalRef.current &&
         !modalRef.current.contains(event.target)
       ) {
-        onClose();
+        onClose(false);
       }
     };
 
@@ -148,7 +148,7 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-    onClose();
+    onClose(false);
   };
 
   const handleChange = (e) => {
@@ -173,7 +173,7 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
     navigate("/citizensDetails", {
       state: { id: patientId },
     });
-    onClose();
+    onClose(true);
   };
 
   return (
