@@ -11,7 +11,6 @@ import DrugList from "./DrugList";
 import FileUpload from "./FileUpload";
 import 'styles/ForPages/Drugs/Drugs.css';
 import { MyDate } from 'utils/MyDate';
-import { render } from "@testing-library/react";
 
 const UiPanelContainer = styled.div`
   display: flex;
@@ -136,53 +135,19 @@ const Drugs = () => {
     //나중에
     if (newData.length === 0 && modifyData.length === 0) {
       alert("등록할 약이 없습니다.");
-      return new Error;
+      return new Error();
     }
 
     return [newData, modifyData];
   };
 
-  const PostProcessing = (newData, modifyData) => {
+  const PostProcessing = async() => {
     alert("성공적으로 등록되었습니다.");
-
-    // newData 업데이트
-    if (newData.length !== 0) {
-      const newDataWithTimestamp = newData.map(item => ({
-        ...item,
-        expireDate: MyDate.convertDate(item.expireDate, 3),
-        drugEnrollTime: MyDate.convertDate(MyDate.createCurrentDate(), 3),
-        drugModifiedTime: null,
-      }));
-      setOriginalDrugs(prevState => {
-        const updatedDrugs = [...newDataWithTimestamp, ...prevState];
-        return updatedDrugs;
-    });
-    }
-
-    if (modifyData.length !== 0) {
-      const modifyDataWithTimestamp = modifyData.map(item => ({
-        ...item,
-        expireDate: MyDate.convertDate(item.expireDate, 3),
-        drugModifiedTime: MyDate.convertDate(MyDate.createCurrentDate(), 3),
-      }));
-      setOriginalDrugs(prevState => {
-        const updatedDrugs = prevState.map(item => {
-          const modifiedItem = modifyDataWithTimestamp.find(modifyItem => modifyItem.drugId === item.drugId);
-          console.log(modifiedItem);
-          return modifiedItem ? { ...item, ...modifiedItem } : item;
-        });
-        return updatedDrugs;
-      });
-    }
-    const k = JSON.parse(JSON.stringify(originalDrugs));
-    console.log(k, originalDrugs, renderingData);
-    setRenderingData(k);
-    console.log(renderingData);
-  }
-
-  // useEffect(() => {
-  //   setRenderingData(originalDrugs);
-  // }, [originalDrugs]);
+    await axios
+      .get("/api/drug")
+      .then((response) => handleGetDatafromServer(response.data))
+      .catch((error) => setError(error));
+  };
 
   const UpdateDrugs = async () => {
     if (!renderingData) return alert("업데이트될 약 데이터가 보이지 않습니다.");
@@ -190,7 +155,7 @@ const Drugs = () => {
       const [newData, modifyData] = ChangeDrugForm(renderingData);
       axios
       .put("/api/drug", [...newData, ...modifyData])
-      .then((response) => PostProcessing(newData, modifyData))
+      .then((response) => PostProcessing())
       .catch((error) => setError(error));
     } catch (error) {
       console.log(error);
