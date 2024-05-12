@@ -168,12 +168,16 @@ const Drugs = () => {
       setOriginalDrugs(prevState => {
         const updatedDrugs = prevState.map(item => {
           const modifiedItem = modifyDataWithTimestamp.find(modifyItem => modifyItem.drugId === item.drugId);
+          console.log(modifiedItem);
           return modifiedItem ? { ...item, ...modifiedItem } : item;
         });
         return updatedDrugs;
       });
     }
-    setRenderingData((prevState) => [...originalDrugs]);
+    const k = JSON.parse(JSON.stringify(originalDrugs));
+    console.log(k, originalDrugs, renderingData);
+    setRenderingData(k);
+    console.log(renderingData);
   }
 
   // useEffect(() => {
