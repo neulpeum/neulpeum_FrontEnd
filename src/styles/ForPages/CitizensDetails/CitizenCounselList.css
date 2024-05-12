@@ -85,8 +85,6 @@
     background: #fff;
     padding-top: 1.3rem;
     padding-bottom: 1.2rem;
-    padding-left: 8px;
-    padding-right: 8px;
     background-color: #aed391;
     color: #fff;
 }
@@ -102,6 +100,10 @@
 
 .counselTable tr:not(:last-child) {
     border-bottom: 1px solid #bab4b4;
+}
+
+.counselTable tr {
+    height: 3rem;
 }
 
 .conselTakingDrug-wrapper {
@@ -121,6 +123,14 @@
     padding-top: 0.3rem;
     background-color: white;
     cursor: pointer;
+}
+
+.write-img {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0.4rem;
+    background: linear-gradient( 270deg, #aed391 -1.77%, #a9d3a1 20.55%, #a5d2ab 35.26%, #a2d2b3 46.42%, #9dd2c1 65.69%, #99d1cc 94.6%, #95d1d9 99.67%);
+    border-radius: 50%;
 }
 
 @media (max-width: 768px) {

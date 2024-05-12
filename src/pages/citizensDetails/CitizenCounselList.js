@@ -62,7 +62,9 @@ export default function CitizenCounselList(props) {
   }, [navigate, patientId]);
 
   useEffect(() => {
-    getData();
+    if (isRemove) {
+      getData();
+    }
   }, [isRemove]);
 
   const search = (keyword, criteria) => {

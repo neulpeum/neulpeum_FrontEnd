@@ -10,7 +10,7 @@
     font-size: 24px;
     margin-top: 90px;
 }
-    
+
 .input-field {
     display: flex;
     flex-direction: column;
@@ -25,23 +25,24 @@
 .input-field input {
     height: 60px;
     width: 590px;
-    border: 1px solid black;
-    border-radius: 5px;
     padding-left: 17px;
     padding-right: 17px;
+    border-radius: 1.25rem;
+    border: 2px solid #c3c3c3;
+    box-shadow: 5px 5px 10px 0px rgba(125, 125, 125, 0.25) inset;
 }
 
 .button-wrapper {
     margin-top: 62px;
 }
 
-.button-wrapper > * {
+.button-wrapper>* {
     margin-left: 25px;
     margin-right: 25px;
 }
 
 .citizen-add-button {
-    background-color: #AED391;
+    background-color: #aed391;
     color: white;
     font-size: 20px;
     padding-right: 24px;
@@ -61,11 +62,11 @@
     margin-top: 56px;
     margin-bottom: 12px;
 }
-    
+
 .line {
     flex-grow: 1;
     height: 3px;
-    background-color: black;
+    background: linear-gradient( 270deg, #aed391 -1.77%, #a9d3a1 20.55%, #a5d2ab 35.26%, #a2d2b3 46.42%, #9dd2c1 65.69%, #99d1cc 94.6%, #95d1d9 99.67%);
     align-self: center;
     min-width: 0;
 }

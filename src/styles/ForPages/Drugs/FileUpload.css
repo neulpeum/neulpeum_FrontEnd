@@ -1,8 +1,10 @@
 .upload-container {
     width: 50%;
     height: 100%;
-    border: 1px solid black;
+    border-radius: 0.625rem;
+    border: 2px solid #aed391;
 }
+
 .contents {
     display: flex;
     flex-direction: column;
@@ -15,10 +17,12 @@
     padding: 3px;
     margin: 11px 14px;
 }
+
 .contents:hover {
     background-color: #efeef3;
     border-color: #606060;
 }
+
 .contents.active {
     background-color: #efeef3;
     border-color: #606060;
@@ -47,12 +51,14 @@
     /* margin: 12px; */
     margin: 0;
 }
+
 .upload-btns-container {
     display: flex;
     align-self: flex-end;
     height: 35.92%;
     gap: 7px;
 }
+
 .upload-container button {
     width: 7.01vw;
     /* height: 3.61vh; */
@@ -66,12 +72,14 @@
     cursor: pointer;
     display: flex;
     text-align: center;
-    align-items:center;
-    justify-content:center;
+    align-items: center;
+    justify-content: center;
 }
+
 .upload-container button.active {
     display: block;
 }
+
 .upload-container button.inactive {
     visibility: hidden;
 }

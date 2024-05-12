@@ -4,61 +4,79 @@
     margin: 5px auto;
     border-collapse: collapse;
     /* border-left: 1px solid black;
-    border-right:1px solid black;
-    border-bottom:1px solid black; */
+    border-right: 1px solid black;
+    border-bottom: 1px solid black; */
 }
 
 .drugTable th,
 .drugTable td {
-  text-align: center;
-  border: 1px solid black;
+    text-align: center;
 }
 
-.drugTable > thead > tr {
+.drugTable>thead>tr {
     display: table;
     width: 100%;
     height: 7.9vh;
 }
 
-.drugTable > thead > tr > th {
+.drugTable>thead>tr>th {
     font-weight: bold;
     /* font-size: 24px; */
     font-size: 1.6vw;
+    background-color: #aed391;
+    color: #fff;
 }
 
-.drugTable > tbody {
+.drugTable>thead>tr>th:nth-child(1) {
+    border-top-left-radius: 0.625rem;
+}
+
+.drugTable>thead>tr>th:nth-child(5) {
+    border-top-right-radius: 0.625rem;
+}
+
+.drugTable>tbody {
     display: block;
     overflow-y: scroll;
     height: 39.6vh;
+    background: rgba(184, 184, 184, 0.1);
+    box-shadow: -5px -5px 10px 0px rgba(211, 211, 211, 0.25) inset;
+    border-bottom-left-radius: 0.625rem;
+    border-bottom-right-radius: 0.625rem;
 }
 
-.drugTable > tbody > tr {
+.drugTable>tbody>tr {
     display: table;
     width: 100%;
     height: 20%;
 }
 
-.drugTable > tbody > tr > td {
+.drugTable tr:not(:last-child) {
+    border-bottom: 1px solid #bab4b4;
+}
+
+.drugTable>tbody>tr>td {
     font-size: 1.3vw;
 }
 
-.drugTable > tbody > tr.add {
+.drugTable>tbody>tr.add {
     background-color: rgba(217, 217, 217, 0.4);
 }
-.drugTable > tbody > tr.modify {
+
+.drugTable>tbody>tr.modify {
     background-color: rgba(149, 209, 217, 0.3);
 }
 
-.drugTable > thead > tr > th:nth-child(1),
-.drugTable > tbody > tr > td:nth-child(1),
-.drugTable > thead > tr > th:nth-child(2),
-.drugTable > tbody > tr > td:nth-child(2),
-.drugTable > thead > tr > th:nth-child(3),
-.drugTable > tbody > tr > td:nth-child(3),
-.drugTable > thead > tr > th:nth-child(4),
-.drugTable > tbody > tr > td:nth-child(4),
-.drugTable > thead > tr > th:nth-child(5),
-.drugTable > tbody > tr > td:nth-child(5) {
+.drugTable>thead>tr>th:nth-child(1),
+.drugTable>tbody>tr>td:nth-child(1),
+.drugTable>thead>tr>th:nth-child(2),
+.drugTable>tbody>tr>td:nth-child(2),
+.drugTable>thead>tr>th:nth-child(3),
+.drugTable>tbody>tr>td:nth-child(3),
+.drugTable>thead>tr>th:nth-child(4),
+.drugTable>tbody>tr>td:nth-child(4),
+.drugTable>thead>tr>th:nth-child(5),
+.drugTable>tbody>tr>td:nth-child(5) {
     width: 20%;
 }
 
@@ -74,11 +92,11 @@
     font-weight: bold;
     border-radius: 100%;
     color: white;
-    background-color: #AED391;
+    background-color: #aed391;
     border: none;
     cursor: pointer;
     display: flex;
-    align-items:center;
-    justify-content:center;
+    align-items: center;
+    justify-content: center;
     margin: 0 0.83vw;
 }

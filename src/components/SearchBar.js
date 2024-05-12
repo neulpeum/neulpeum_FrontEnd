@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import 'styles/ForComps/SearchBar.css'
+import "styles/ForComps/SearchBar.css";
 
 const SearchBarContainer = styled.div`
   ${(props) =>
@@ -20,7 +20,6 @@ const SearchBarContainer = styled.div`
     width: 100%;
     align-items: center;
     justify-content: center;
-    gap: 10px;
     margin-top: 36px;
     `}
 `;
@@ -33,15 +32,13 @@ const SearchInputContainer = styled.div`
       align-items: center;
       width: 100%;
       height: 42.75%;
-      border: 1px solid black;
-      padding: 8px;
       `
       : `
       width: 85%;
+      height: 4.125rem;
       display: flex;
       align-items: center;
-      gap: 5px;
-      border: 1px solid black;
+      gap: 20px;
       margin: 0;
     `}
 `;
@@ -51,16 +48,22 @@ const SearchInput = styled.input`
     props.$using === "drugs"
       ? `
       width: 100%;
-      border: 1px solid white;
+      height: 100%;
       font-size: 1.3vw;
+      border: 2px solid #aed391;
+      border-radius: 1.25rem;
+      padding-left: 12px;
     `
       : `
       width: 100%;
+      height: 100%
       border: 1px solid white;
       padding-top: 20px;
       padding-bottom: 20px;
       padding-left: 12px;
       font-size: 16px;
+      border: 2px solid #aed391;
+      border-radius: 1.25rem;
     `}
 `;
 
@@ -68,22 +71,41 @@ const SearchIcon = styled.img`
   ${(props) =>
     props.$using === "drugs"
       ? `
-      width: 6%;
-      height: 53.57%;
+      width: auto;
+      height: 100%;
       cursor: pointer;
-      margin-right:4px;
+      margin-left:4px;
+      background: linear-gradient( 270deg, #aed391 -1.77%, #a9d3a1 20.55%, #a5d2ab 35.26%, #a2d2b3 46.42%, #9dd2c1 65.69%, #99d1cc 94.6%, #95d1d9 99.67%);
+      border-radius: 50%;
+      padding: 9px;
     `
       : `
-      padding: 5px;
+      width: auto;
+      height: 100%;
+      padding: 12px;
       cursor: pointer;
-      margin-right:4px;
+      background: linear-gradient( 270deg, #aed391 -1.77%, #a9d3a1 20.55%, #a5d2ab 35.26%, #a2d2b3 46.42%, #9dd2c1 65.69%, #99d1cc 94.6%, #95d1d9 99.67%);
+      border-radius: 50%;
     `}
 `;
 
 const PlusIcon = styled.img`
-  border: 1px solid black;
-  padding: 8px;
+  width: 4.125rem;
+  height: 4.125rem;
+  padding: 10px;
   margin-left: 20px;
+  background: linear-gradient(
+    270deg,
+    #aed391 -1.77%,
+    #a9d3a1 20.55%,
+    #a5d2ab 35.26%,
+    #a2d2b3 46.42%,
+    #9dd2c1 65.69%,
+    #99d1cc 94.6%,
+    #95d1d9 99.67%
+  );
+  border-radius: 50%;
+
   @media (max-width: 768px) {
     display: none;
   }
@@ -93,7 +115,6 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
   const [keyword, setKeyword] = useState("");
   const [searchCriteria, setSearchCriteria] = useState("");
 
-  
   const handleCriteriaChange = (event) => {
     setSearchCriteria(event.target.value);
   };
@@ -137,17 +158,17 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
                 display: "flex",
                 alignItems: "center",
                 width: "25%",
-                height: '100%',
+                height: "100%",
                 gap: "8px",
                 marginLeft: "20px",
               }}
             >
-              <div className="gray-circle"/> 
+              <div className="gray-circle" />
               <span
                 style={{
                   fontSize: "1.3vw",
                   overflow: "hidden",
-                  whiteSpace: 'nowrap',
+                  whiteSpace: "nowrap",
                 }}
               >
                 추가된 행
@@ -158,17 +179,17 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
                 display: "flex",
                 alignItems: "center",
                 width: "25%",
-                height: '100%',
+                height: "100%",
                 gap: "8px",
                 marginLeft: "20px",
               }}
             >
-              <div className="blue-circle"/>
+              <div className="blue-circle" />
               <span
                 style={{
                   fontSize: "1.3vw",
                   overflow: "hidden",
-                  whiteSpace: 'nowrap',
+                  whiteSpace: "nowrap",
                 }}
               >
                 수정된 행
