@@ -1,6 +1,7 @@
 import React,{ useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import 'styles/ForPages/AccountSettings/AccountChangeForm.css';
 
 const AccountContent = styled.div` 
     width: 100%;
@@ -79,7 +80,10 @@ export default function AccountChangeForm({userType}) {
     }
 
     const handleSumbit = async () => {
+        if (!currentPassword) return(alert('현재 비밀번호를 입력해주십시오.'));
+        if (!newPassword) return(alert('새 비밀번호를 입력해주십시오.'));
         if (!passwordRegex.test(newPassword)) return(alert('비밀번호는 알파벳 숫자 조합 6자리 이상이어야 합니다.'));
+        if (newPassword !== confirmNewPassword) return(alert('새 비밀번호의 입력값과 확인값이 일치하지 않습니다.'));
     
         const body = {
             currentPassword : currentPassword,
@@ -116,7 +120,9 @@ export default function AccountChangeForm({userType}) {
                         <EyeIcon src={passwordsVisible[0] ? "/icons/ic_open_eye.svg" : "/icons/ic_closed_eye.svg"} alt="Toggle password visibility" />
                     </ToggleButton>
                 </div>
-                {(error) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg>}
+                <div className='warningMsg-box'>
+                    {(error) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg>}
+                </div>
             </div>
 
             <div style={{display: 'flex', flexDirection: 'column', width: '56.3%', marginTop: '20px'}}>
@@ -142,8 +148,10 @@ export default function AccountChangeForm({userType}) {
                         <EyeIcon src={passwordsVisible[2] ? "/icons/ic_open_eye.svg" : "/icons/ic_closed_eye.svg"} alt="Toggle password visibility" />
                     </ToggleButton>
                 </div>
-                {<GuideMsg>{specialStr} 알파벳 숫자 조합 6자리 이상</GuideMsg>}
-                {(newPassword !== confirmNewPassword) && <WarningMsg >{specialStr} 일치하지 않습니다.</WarningMsg>}
+                <div className='warningMsg-box'>
+                    {<GuideMsg>{specialStr} 알파벳 숫자 조합 6자리 이상</GuideMsg>}
+                    {(newPassword !== confirmNewPassword) && <WarningMsg >{specialStr} 일치하지 않습니다.</WarningMsg>}
+                </div>
             </div>
             
             <AccountButton onClick={handleSumbit}>비밀번호 변경</AccountButton>

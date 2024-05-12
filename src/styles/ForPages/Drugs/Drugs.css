@@ -29,3 +29,10 @@
     justify-self: flex-end;
     gap: 10px;
 }
+
+.tag {
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+    text-align: center;
+    font-size: 1.3vw;
+}

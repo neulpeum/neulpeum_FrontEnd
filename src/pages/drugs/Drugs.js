@@ -168,16 +168,21 @@ const Drugs = () => {
       setOriginalDrugs(prevState => {
         const updatedDrugs = prevState.map(item => {
           const modifiedItem = modifyDataWithTimestamp.find(modifyItem => modifyItem.drugId === item.drugId);
+          console.log(modifiedItem);
           return modifiedItem ? { ...item, ...modifiedItem } : item;
         });
         return updatedDrugs;
       });
     }
+    const k = JSON.parse(JSON.stringify(originalDrugs));
+    console.log(k, originalDrugs, renderingData);
+    setRenderingData(k);
+    console.log(renderingData);
   }
 
-  useEffect(() => {
-    setRenderingData(originalDrugs);
-  }, [originalDrugs]);
+  // useEffect(() => {
+  //   setRenderingData(originalDrugs);
+  // }, [originalDrugs]);
 
   const UpdateDrugs = async () => {
     if (!renderingData) return alert("업데이트될 약 데이터가 보이지 않습니다.");
@@ -261,12 +266,17 @@ const Drugs = () => {
     navigate(-1);
   }
 
+  const key = (criKeyword[1] === 'drugName') ? '약 이름' : 
+        (criKeyword[1] === 'expireDate') ? '유통기한' :
+        (criKeyword[1] === 'drugEnrollTime') ? '등록일자' :
+        (criKeyword[1] === 'drugModifiedTime') ? '마지막 사용 일자' : '전체';
+
   const drugView =
   <> {(criKeyword[0] === '')
     ? <DrugList columns={columns.slice(1, 6)} data={renderingData} onQuantityChange={handleQuantityChange}/> 
       : (searchResults.length > 0) 
       ? <>
-        <p>{criKeyword[0]}을 {criKeyword[1]} 기준으로 검색한 내용입니다.</p>
+      <p className="tag"><span style={{fontWeight: 'bold'}}>{criKeyword[0]}</span>을 <span style={{color: '#3F2FF2'}}>{key}</span> 기준으로 검색한 내용입니다.</p>
         <DrugList columns={columns.slice(1, 6)} data={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} onQuantityChange={handleQuantityChange}/> 
         </>
         : 
