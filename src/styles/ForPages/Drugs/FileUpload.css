@@ -7,13 +7,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 78.62%;
-    width: 94.03%;
+    height: 78%;
+    width: 94%;
     background-color: white;
     border: 3px dashed #eee;
     transition: background-color 0.5s ease;
     padding: 3px;
-    margin: 11px 14px;
+    margin: 11px 2.4%;
 }
 .contents:hover {
     background-color: #efeef3;
@@ -44,7 +44,6 @@
     align-self: center;
     text-align: center;
     color: rgba(0, 0, 0, 0.5);
-    /* margin: 12px; */
     margin: 0;
 }
 .upload-btns-container {
@@ -55,7 +54,6 @@
 }
 .upload-container button {
     width: 7.01vw;
-    /* height: 3.61vh; */
     height: 100%;
     font-size: 1.3vw;
     color: white;
