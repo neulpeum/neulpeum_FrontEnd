@@ -78,7 +78,7 @@ const Drugs = () => {
             isAdd: true,
           };
         });
-        setRenderingData(FormattedDrugs, 3);
+        setRenderingData((prevData) => [...FormattedDrugs, ...prevData ]);
       } catch (error) {
         alert("파일을 읽던 중 에러가 발생했습니다.", error);
       }
@@ -253,7 +253,7 @@ const Drugs = () => {
     <>
       <HeaderComponent nav={navigate} isLogoutVisible={true}  acitveTab={"drugs"}/>
       <UiPanelContainer>
-        <FileUpload Uploading={ReadJsonDrugs} />
+        <FileUpload Uploading={ReadJsonDrugs}/>
         <SearchBar search={search} currentPage={"Drugs"} />
       </UiPanelContainer>
       {drugView}
