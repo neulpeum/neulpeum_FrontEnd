@@ -1,38 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
-import styled from 'styled-components';
 import HeaderComponent from "components/Header";
 import AccountChangeForm from './AccountChangeForm';
+import 'styles/ForPages/AccountSettings/AccountSettings.css';
 
-const AccountContainer = styled.div`
-    width: 70%;
-    height: fit-content;
-    margin: 50px auto;
-`;
-
-const SwitchButtonContainer = styled.div`
-    width: 100%;
-    height: fit-content;
-    display: flex;
-`;
-
-const TabButton = styled.button`
-    flex: 1;
-    border: 0.5px solid black;
-    padding: 1.38rem 0;
-    border-radius: 2rem 2rem 0 0;
-    color: black;
-    font-weight: bold;
-    font-size: 30px;
-    cursor: pointer;
-`;
-const PickIcon = styled.img`
-    vertical-align: top;
-    margin-right: 15px;
-    width: 32px;
-    height: 32px;
-`
 const AccountSetting = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [error, setError] = useState(false);
@@ -62,17 +34,17 @@ const AccountSetting = () => {
     return (
         <>
             <HeaderComponent nav = {navigate} isLogoutVisible = {true} acitveTab={"account"}/>
-            <AccountContainer>
-                <SwitchButtonContainer>
+            <div className="account-wrapper">
+                <div className="account-switchBtns-container">
                     {TabButtons.map((tab, index) => (
-                        <TabButton key={index} onClick={() => handleTabClick(index)} style={(activeTab === index) ? { backgroundColor: '#aed391' } : { backgroundColor: '#FFF' }}>
-                            {(activeTab === index) && <PickIcon src="/icons/ic_selected.svg"/>}
+                        <button key={index} onClick={() => handleTabClick(index)} style={(activeTab === index) ? { backgroundColor: '#aed391', borderColor: '#aed391'} : { backgroundColor: '#D9D9D9'}}>
+                            {(activeTab === index) && <img className="pickIcon" src="/icons/ic_selected.svg" alt="pickIcon"/>}
                             {tab.name}
-                        </TabButton>
+                        </button>
                     ))}
-                </SwitchButtonContainer>
+                </div>
                 {TabButtons[activeTab].content}
-            </AccountContainer>
+            </div>
         </>
     );
 };

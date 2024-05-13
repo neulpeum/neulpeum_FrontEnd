@@ -1,3 +1,81 @@
-.warningMsg-box {
-    margin-top: 6px;
+.account-content {
+    width: 100%;
+    height: fit-content;
+    border-top: 0.5vh solid #AED391;
+    background: rgba(184, 184, 184, 0.1);
+    box-shadow: -5px -5px 10px 0px rgba(211, 211, 211, 0.25) inset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0 0 0.625rem 0.625rem;
+    padding: 10.5vh 0 5.6vh 0;
+}
+
+.account-content span {
+    font-size: 2vw;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-bottom: 3.5vh;
+}
+
+.account-inputBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 58.5%;
+    height: 12.3%;
+    border: 1px solid black;
+    background-color: white;
+    /* border-radius: 0.625rem 0.625rem 0 0; */
+    border-radius: 0.625rem;
+}
+
+.account-content>div:nth-child(4) {
+    border-bottom: none;
+    border-bottom-left-radius: none;
+    border-bottom-right-radius: none;
+}
+
+.account-content > div > input {
+    height: 100%;
+    width: 92%;
+    padding: 2.4vh 0 2.4vh 2.7vw;
+    text-align: left;
+    font-size: 1.3vw;
+    cursor: pointer;
+    border: none;
+    /* border-radius: 0.625rem 0.625rem 0 0; */
+    border-radius: 0.625rem;
+}
+
+.account-inputBox > button {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    padding-right: 1.5%;
+}
+.account-inputBox > button > img {
+    width: 2.9vw;
+    height: 4.1vh;
+}
+
+.warningMsg-box{
+    width: 58.5%;
+    text-align: left;
+    margin-top: 0.5vh;
+    margin-bottom: 3.0vh;
+}
+
+.confirm-button {
+    width: 13vw;
+    height: 5.5vh;
+    text-align: center;
+    background-color: #aed391;
+    border: none;
+    color: white;
+    font-size: 1.3vw;
+    cursor: pointer;
+    border-radius: 5%;
+    white-space: nowrap;
+    text-overflow: clip;
 }
