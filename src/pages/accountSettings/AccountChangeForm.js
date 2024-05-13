@@ -3,33 +3,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import 'styles/ForPages/AccountSettings/AccountChangeForm.css';
 
-const AccountContent = styled.div` 
-    width: 100%;
-    height: fit-content;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 2em 0;
-`;
-const AccountSpan = styled.span`
-    font-size: 30px;
-    font-weight: bold;
-    white-space: nowrap;
-`;
-const AccountInput= styled.input`
-    height: fit-content;
-    width: 100%;
-    text-align: left;
-    padding-left: 16px;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    line-height: 1.5em;
-    font-size: 20px;
-    cursor: pointer;
-    border: none;
-`;
 const AccountButton = styled.button`
     background-color: #aed391;
     border: none;
@@ -42,21 +15,12 @@ const AccountButton = styled.button`
 `;
 const GuideMsg = styled.div`
     color: blue;
-    font-size: 18px;
+    font-size: 1.25vw;
 `
 const WarningMsg = styled.div`
     color: red;
-    font-size: 18px;
+    font-size: 1.25vw;
 `
-const ToggleButton = styled.button`
-    background: none;
-    border: none;
-    cursor: pointer;
-`;
-const EyeIcon = styled.img`
-    width: 35px;
-    height: 35px;
-`;
 export default function AccountChangeForm({userType}) {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -106,55 +70,52 @@ export default function AccountChangeForm({userType}) {
     }
 
     return (
-        <AccountContent>
-            <AccountSpan>{(userType === 'admin') ? '관리자 비밀번호 변경하기' : '대학생 비밀번호 변경하기'}</AccountSpan>
-            <div style={{ width: '56.3%' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid black'}}>
-                    <AccountInput 
-                    type={passwordsVisible[0] ? 'text' : 'password'}
-                    id='current_password'
-                    value={currentPassword} 
-                    placeholder='현재 비밀번호 입력'
-                    onChange={(e) => setCurrentPassword(e.target.value)}/>
-                    <ToggleButton onClick={() => togglePasswordVisibility(0)}>
-                        <EyeIcon src={passwordsVisible[0] ? "/icons/ic_open_eye.svg" : "/icons/ic_closed_eye.svg"} alt="Toggle password visibility" />
-                    </ToggleButton>
-                </div>
-                <div className='warningMsg-box'>
-                    {(error) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg>}
-                </div>
+        <div className='account-content'>
+            <span>{(userType === 'admin') ? '관리자 비밀번호 변경하기' : '대학생 비밀번호 변경하기'}</span>
+            <div className='account-inputBox'>
+                <input
+                type={passwordsVisible[0] ? 'text' : 'password'}
+                id='current_password'
+                value={currentPassword} 
+                placeholder='현재 비밀번호 입력'
+                onChange={(e) => setCurrentPassword(e.target.value)}/>
+                <button onClick={() => togglePasswordVisibility(0)}>
+                    <img src={passwordsVisible[0] ? "/icons/ic_open_eye.svg" : "/icons/ic_closed_eye.svg"} alt="Toggle password visibility" />
+                </button>
+                
+            </div>
+            <div className='warningMsg-box'>
+                {(error) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg>}
             </div>
 
-            <div style={{display: 'flex', flexDirection: 'column', width: '56.3%', marginTop: '20px'}}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid black', borderBottom: 'none' }} >
-                    <AccountInput 
-                        type={passwordsVisible[1] ? 'text' : 'password'}
-                        id='new_password'
-                        value={newPassword} 
-                        placeholder='새 비밀번호 입력'
-                        onChange={(e) => setNewPassword(e.target.value)}/>
-                    <ToggleButton onClick={() => togglePasswordVisibility(1)}>
-                        <EyeIcon src={passwordsVisible[1] ? "/icons/ic_open_eye.svg" : "/icons/ic_closed_eye.svg"} alt="Toggle password visibility" />
-                    </ToggleButton>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '1px solid black' }}>
-                    <AccountInput 
-                        type={passwordsVisible[2] ? 'text' : 'password'}
-                        id='confirm_new_password'
-                        value={confirmNewPassword} 
-                        placeholder='새 비밀번호 확인'
-                        onChange={(e) => setConfirmNewPassword(e.target.value)}/>
-                    <ToggleButton onClick={() => togglePasswordVisibility(2)}>
-                        <EyeIcon src={passwordsVisible[2] ? "/icons/ic_open_eye.svg" : "/icons/ic_closed_eye.svg"} alt="Toggle password visibility" />
-                    </ToggleButton>
-                </div>
-                <div className='warningMsg-box'>
-                    {<GuideMsg>{specialStr} 알파벳 숫자 조합 6자리 이상</GuideMsg>}
-                    {(newPassword !== confirmNewPassword) && <WarningMsg >{specialStr} 일치하지 않습니다.</WarningMsg>}
-                </div>
+            <div className='account-inputBox'>
+                <input
+                    type={passwordsVisible[1] ? 'text' : 'password'}
+                    id='new_password'
+                    value={newPassword} 
+                    placeholder='새 비밀번호 입력'
+                    onChange={(e) => setNewPassword(e.target.value)}/>
+                <button onClick={() => togglePasswordVisibility(1)}>
+                    <img src={passwordsVisible[1] ? "/icons/ic_open_eye.svg" : "/icons/ic_closed_eye.svg"} alt="Toggle password visibility" />
+                </button>
             </div>
-            
+            <div className='account-inputBox'>
+                <input
+                    type={passwordsVisible[2] ? 'text' : 'password'}
+                    id='confirm_new_password'
+                    value={confirmNewPassword} 
+                    placeholder='새 비밀번호 확인'
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}/>
+                <button onClick={() => togglePasswordVisibility(2)}>
+                    <img src={passwordsVisible[2] ? "/icons/ic_open_eye.svg" : "/icons/ic_closed_eye.svg"} alt="Toggle password visibility" />
+                </button>
+            </div>
+            <div className='warningMsg-box'>
+                {<GuideMsg>{specialStr} 알파벳 숫자 조합 6자리 이상</GuideMsg>}
+                {(newPassword !== confirmNewPassword) && <WarningMsg >{specialStr} 일치하지 않습니다.</WarningMsg>}
+            </div>
+        
             <AccountButton onClick={handleSumbit}>비밀번호 변경</AccountButton>
-        </AccountContent>
+        </div>
     )
 }

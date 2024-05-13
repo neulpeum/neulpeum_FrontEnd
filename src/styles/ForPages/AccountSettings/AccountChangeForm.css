@@ -1,3 +1,81 @@
-.warningMsg-box {
-    margin-top: 6px;
+.account-content {
+    width: 100%;
+    height: fit-content;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10.5vh 0 5.6vh 0;
 }
+
+.account-content span {
+    font-size: 2vw;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-bottom: 3.5vh;
+}
+
+.account-inputBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 58.5%;
+    height: 12.3%;
+    border: 1px solid black;
+}
+
+.account-content>div:nth-child(4) {
+    border-bottom: none;
+}
+
+.account-content > div > input {
+    height: 100%;
+    width: 92%;
+    text-align: left;
+    font-size: 1.3vw;
+    cursor: pointer;
+    border: none;
+}
+
+.account-inputBox > button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.account-inputBox > button > img {
+    width: 2.9vw;
+    height: 4.1vh;
+    padding-right: 1.5%;
+}
+
+
+
+
+
+
+
+/* const AccountInput= styled.input`
+    height: fit-content;
+    width: 100%;
+    text-align: left;
+    padding-left: 16px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    line-height: 1.5em;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+`; */
+
+.warningMsg-box{
+    width: 58.5%;
+    text-align: left;
+    margin-top: 1.75vh;
+    margin-bottom: 1.75vh;
+    color: red;
+    font-size: 1.25vw;
+}
+
+/* .warningMsg-box {
+    display: hidden;
+} */

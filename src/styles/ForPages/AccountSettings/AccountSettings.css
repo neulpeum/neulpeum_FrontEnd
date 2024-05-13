@@ -1,32 +1,33 @@
-/* .account-container {
-    width: 70%;
-    height: fit-content;
-    margin: 50px auto;
+.account-wrapper {
+    width: 78vw;
+    height: 63vh;
+    margin: 7vh auto 13vh auto;
 }
 
-.switch-btns-container {
-    width: 70%;
-    height: fit-content;
-    margin: 50px auto;
-}
 
-.switch-btns-container button {
+/* const SwitchButtonContainer = styled.div`
+    width: 100%;
+    height: fit-content;
+    display: flex;
+`;
+
+const TabButton = styled.button`
     flex: 1;
     border: 0.5px solid black;
     padding: 1.38rem 0;
-    border-radius: 2rem 2rem 0 0;
+    border-radius: 0.625rem 0.625rem 0 0;
     color: black;
     font-weight: bold;
     font-size: 30px;
     cursor: pointer;
-} 
-.pickIcon {
+`;
+const PickIcon = styled.img`
     vertical-align: top;
     margin-right: 15px;
     width: 32px;
     height: 32px;
-}
-*/
+`*/
+
 
 
 

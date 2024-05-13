@@ -4,12 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import HeaderComponent from "components/Header";
 import AccountChangeForm from './AccountChangeForm';
-
-const AccountContainer = styled.div`
-    width: 70%;
-    height: fit-content;
-    margin: 50px auto;
-`;
+import 'styles/ForPages/AccountSettings/AccountSettings.css';
 
 const SwitchButtonContainer = styled.div`
     width: 100%;
@@ -21,17 +16,17 @@ const TabButton = styled.button`
     flex: 1;
     border: 0.5px solid black;
     padding: 1.38rem 0;
-    border-radius: 2rem 2rem 0 0;
+    border-radius: 0.625rem 0.625rem 0 0;
     color: black;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 2.08vw;
     cursor: pointer;
 `;
 const PickIcon = styled.img`
     vertical-align: top;
-    margin-right: 15px;
-    width: 32px;
-    height: 32px;
+    // margin-right: 15px;
+    width: 2.22vw;
+    height: 3.125vh;
 `
 const AccountSetting = () => {
     const [activeTab, setActiveTab] = useState(0);
@@ -62,7 +57,7 @@ const AccountSetting = () => {
     return (
         <>
             <HeaderComponent nav = {navigate} isLogoutVisible = {true} acitveTab={"account"}/>
-            <AccountContainer>
+            <div className="account-wrapper">
                 <SwitchButtonContainer>
                     {TabButtons.map((tab, index) => (
                         <TabButton key={index} onClick={() => handleTabClick(index)} style={(activeTab === index) ? { backgroundColor: '#aed391' } : { backgroundColor: '#FFF' }}>
@@ -72,7 +67,7 @@ const AccountSetting = () => {
                     ))}
                 </SwitchButtonContainer>
                 {TabButtons[activeTab].content}
-            </AccountContainer>
+            </div>
         </>
     );
 };
