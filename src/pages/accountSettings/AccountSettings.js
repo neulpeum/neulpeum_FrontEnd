@@ -1,33 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
-import styled from 'styled-components';
 import HeaderComponent from "components/Header";
 import AccountChangeForm from './AccountChangeForm';
 import 'styles/ForPages/AccountSettings/AccountSettings.css';
 
-const SwitchButtonContainer = styled.div`
-    width: 100%;
-    height: fit-content;
-    display: flex;
-`;
-
-const TabButton = styled.button`
-    flex: 1;
-    border: 0.5px solid black;
-    padding: 1.38rem 0;
-    border-radius: 0.625rem 0.625rem 0 0;
-    color: black;
-    font-weight: bold;
-    font-size: 2.08vw;
-    cursor: pointer;
-`;
-const PickIcon = styled.img`
-    vertical-align: top;
-    // margin-right: 15px;
-    width: 2.22vw;
-    height: 3.125vh;
-`
 const AccountSetting = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [error, setError] = useState(false);
@@ -58,14 +35,14 @@ const AccountSetting = () => {
         <>
             <HeaderComponent nav = {navigate} isLogoutVisible = {true} acitveTab={"account"}/>
             <div className="account-wrapper">
-                <SwitchButtonContainer>
+                <div className="account-switchBtns-container">
                     {TabButtons.map((tab, index) => (
-                        <TabButton key={index} onClick={() => handleTabClick(index)} style={(activeTab === index) ? { backgroundColor: '#aed391' } : { backgroundColor: '#FFF' }}>
-                            {(activeTab === index) && <PickIcon src="/icons/ic_selected.svg"/>}
+                        <button key={index} onClick={() => handleTabClick(index)} style={(activeTab === index) ? { backgroundColor: '#aed391', borderColor: '#aed391'} : { backgroundColor: '#D9D9D9'}}>
+                            {(activeTab === index) && <img className="pickIcon" src="/icons/ic_selected.svg" alt="pickIcon"/>}
                             {tab.name}
-                        </TabButton>
+                        </button>
                     ))}
-                </SwitchButtonContainer>
+                </div>
                 {TabButtons[activeTab].content}
             </div>
         </>

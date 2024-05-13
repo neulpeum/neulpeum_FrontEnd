@@ -1,50 +1,35 @@
 .account-wrapper {
     width: 78vw;
     height: 63vh;
-    margin: 7vh auto 13vh auto;
+    margin: 7vh auto 0 auto;
 }
 
-
-/* const SwitchButtonContainer = styled.div`
+.account-switchBtns-container {
     width: 100%;
     height: fit-content;
+    gap: 7px;
     display: flex;
-`;
+}
 
-const TabButton = styled.button`
+.account-switchBtns-container button {
     flex: 1;
-    border: 0.5px solid black;
     padding: 1.38rem 0;
+    align-items: center;
+    justify-content: center;
+    border-top: 3px solid #BAB4B4;
+    border-left: 3px solid #BAB4B4;
+    border-right: 3px solid #BAB4B4;
+    border-bottom: none;
     border-radius: 0.625rem 0.625rem 0 0;
-    color: black;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 2vw;
     cursor: pointer;
-`;
-const PickIcon = styled.img`
-    vertical-align: top;
-    margin-right: 15px;
-    width: 32px;
-    height: 32px;
-`*/
+}
 
-
-
-
-/*
-const TabButton = styled.button`
-    flex: 1;
-    border: 0.5px solid black;
-    padding: 1.38rem 0;
-    border-radius: 2rem 2rem 0 0;
-    color: black;
-    font-weight: bold;
-    font-size: 30px;
-    cursor: pointer;
-`;
-const PickIcon = styled.img`
-    vertical-align: top;
-    margin-right: 15px;
-    width: 32px;
-    height: 32px;
-` */
+.pickIcon {
+    transform: translate(0, -10%);
+    vertical-align: middle;
+    margin-right: 5px;
+    width: 1.6vw;
+    height: 2.3vh;
+}

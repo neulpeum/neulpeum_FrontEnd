@@ -3,16 +3,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import 'styles/ForPages/AccountSettings/AccountChangeForm.css';
 
-const AccountButton = styled.button`
-    background-color: #aed391;
-    border: none;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 1rem 2.8rem;
-    border-radius: 0.5rem;
-`;
 const GuideMsg = styled.div`
     color: blue;
     font-size: 1.25vw;
@@ -115,7 +105,7 @@ export default function AccountChangeForm({userType}) {
                 {(newPassword !== confirmNewPassword) && <WarningMsg >{specialStr} 일치하지 않습니다.</WarningMsg>}
             </div>
         
-            <AccountButton onClick={handleSumbit}>비밀번호 변경</AccountButton>
+            <button className='confirm-button' onClick={handleSumbit}>비밀번호 변경</button>
         </div>
     )
 }
