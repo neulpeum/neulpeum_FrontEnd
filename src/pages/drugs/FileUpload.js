@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as XLSX from 'xlsx';
 import "styles/ForPages/Drugs/FileUpload.css";
+import 'utils/MyDate';
+import { MyDate } from 'utils/MyDate';
 
 // 여기 할거 남아있음. 날짜가 이상한 형식일 경우, 이를테면 33일이라던가, 오늘이 2024년인데 유통기한으로 2023년 이 온다거나
 // 일때 업로드 거부할 수 잇도록!
@@ -45,17 +47,32 @@ const FileUpload = ({ Uploading} ) => {
   };
 
   const extractSheetData = (workbook) => {
-    const sheetName = workbook.SheetNames[0]; //첫번째 시트 페이지
+    const sheetName = workbook.SheetNames[0];
     const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1});
 
     const tableData = sheetData.slice(0).filter(row => {
       const isEmptyRow = row.every(cell => cell === null || cell === undefined || cell === '');
       const isPartiallyEmptyRow = row.some(cell => cell === null || cell === undefined || cell === '');
-      if (isPartiallyEmptyRow && !isEmptyRow) throw new Error('제출하신 파일에 비어있는 셀이 감지됩니다.');
-      return !isEmptyRow;
-    });
 
-    setConvertedFile(tableData);
+      if (isEmptyRow || (row === sheetData[0])) {
+        return false;
+      }
+      else if (isPartiallyEmptyRow) { 
+        alert('파일 내부에 값이 입력되지 않는 셀이 감지됩니다..')
+        return false;
+      }
+      else if  ((typeof row[1] !== 'number' || typeof row[2] !== 'number' || typeof row[3] !== 'number')) {
+        alert('파일 내부에 올바르지 못한 데이터 형식이 감지되었습니다.');
+        return false;
+      }
+      else {
+        const expireDate = new Date(MyDate.ConvertedExceltoJsonDate(row[1]));
+        const currentDate = new Date();
+        if (expireDate <= currentDate) { alert('유통기한 지났거나 오늘까지인 약이 감지되었습니다. 이 약품들은 목록에서 제외됩니다.')}
+        return (expireDate > currentDate);
+      }
+    });
+    return tableData;
   };
 
   useEffect(() => {
@@ -74,7 +91,8 @@ const FileUpload = ({ Uploading} ) => {
         if (allowedExtensions.includes('.' + fileExtension.toLowerCase())) {
           try {
             const workbook = await readExcelFile(file);
-            extractSheetData(workbook);
+            const tableData = extractSheetData(workbook);
+            setConvertedFile(tableData);
             setSelectedFile(file);
             fileInput.value = null;
           } catch (error) {
@@ -131,7 +149,9 @@ const FileUpload = ({ Uploading} ) => {
     };
   }, []);
 
+  console.log(selectedFile, convertedFile);
   return (
+
     <div className="upload-container">
       <label className={!isActive ? 'contents' : 'contents active'}  htmlFor="input" ref={uploadBoxRef} >
         <div className='upload-icon-container'>
