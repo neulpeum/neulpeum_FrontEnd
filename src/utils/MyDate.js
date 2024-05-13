@@ -1,5 +1,5 @@
 export const MyDate = {
-    convertDate: (dateString, targetFormNumber) => {
+    ConvertDate: (dateString, targetFormNumber) => {
         const dateRegexs = [
             /^(\d{4})-(\d{2})-(\d{2})$/,                     // YYYY-MM-DD
             /^(\d{4})\.(\d{2})\.(\d{2}) (\d{2}):(\d{2})$/,   // YYYY.MM.DD HH:MM
@@ -47,7 +47,7 @@ export const MyDate = {
 
         return formattedDate;
     },
-    createCurrentDate: () => {
+    CreateCurrentDate: () => {
         const currentDate = new Date();
 
         const year = currentDate.getFullYear();
@@ -57,5 +57,13 @@ export const MyDate = {
         const minutes = String(currentDate.getMinutes()).padStart(2, '0');
 
         return `${year}.${month}.${day} ${hours}:${minutes}`;
-    }
+    },
+    // 엑셀 형식 Date -> json 형식 Date : 변환
+    ConvertedExceltoJsonDate: (excelDate) => {
+        const baseDate = new Date(1899, 11, 31);
+        const milliseconds = excelDate * 24 * 60 * 60 * 1000;
+        const jsDate = new Date(baseDate.getTime() + milliseconds);
+        const formattedDate = jsDate.toISOString().split("T")[0];
+        return formattedDate;
+    },
 };

@@ -42,9 +42,9 @@ const Drugs = () => {
     const FormattedData = data.map((array) => {
       return {
         ...array,
-        expireDate: MyDate.convertDate(array.expireDate, 3),
-        drugEnrollTime: MyDate.convertDate(array.drugEnrollTime, 3),
-        drugModifiedTime: MyDate.convertDate(array.drugModifiedTime, 3), 
+        expireDate: MyDate.ConvertDate(array.expireDate, 3),
+        drugEnrollTime: MyDate.ConvertDate(array.drugEnrollTime, 3),
+        drugModifiedTime: MyDate.ConvertDate(array.drugModifiedTime, 3), 
       };
     });
     const deepCopyArray = JSON.parse(JSON.stringify(FormattedData));
@@ -65,15 +65,15 @@ const Drugs = () => {
   const ReadJsonDrugs = (jsonDrugs) => {
     if (jsonDrugs.length !== 0) {
       try {
-        const FormattedDrugs = jsonDrugs.slice(1).map((row, index) => {
+        const FormattedDrugs = jsonDrugs.slice(0).map((row, index) => {
           const [drugName, expireDate, usableAmount, usable] = row;
 
           return {
             drugId: originalDrugs.length + index + 1,
             drugName: drugName,
-            expireDate: MyDate.convertDate(ConvertedDate(expireDate), 3),
+            expireDate: MyDate.ConvertDate(MyDate.ConvertedExceltoJsonDate(expireDate), 3),
             usableAmount: (usableAmount-usable),
-            drugEnrollTime: MyDate.convertDate(MyDate.createCurrentDate(), 3),
+            drugEnrollTime: MyDate.ConvertDate(MyDate.CreateCurrentDate(), 3),
             drugModifiedTime: null,
             isAdd: true,
           };
@@ -85,14 +85,14 @@ const Drugs = () => {
     }
   };
 
-  // 엑셀 형식 Date -> json 형식 Date : 변환
-  function ConvertedDate(excelDate) {
-    const baseDate = new Date(1899, 11, 31);
-    const milliseconds = excelDate * 24 * 60 * 60 * 1000;
-    const jsDate = new Date(baseDate.getTime() + milliseconds);
-    const formattedDate = jsDate.toISOString().split("T")[0];
-    return formattedDate;
-  }
+  // // 엑셀 형식 Date -> json 형식 Date : 변환
+  // function ConvertedDate(excelDate) {
+  //   const baseDate = new Date(1899, 11, 31);
+  //   const milliseconds = excelDate * 24 * 60 * 60 * 1000;
+  //   const jsDate = new Date(baseDate.getTime() + milliseconds);
+  //   const formattedDate = jsDate.toISOString().split("T")[0];
+  //   return formattedDate;
+  // }
 
   const handleQuantityChange = (index, change) => {
       setRenderingData((prevData) => {
@@ -134,7 +134,7 @@ const Drugs = () => {
 
     //나중에
     if (newData.length === 0 && modifyData.length === 0) {
-      alert("등록할 약이 없습니다.");
+      alert("새롭거나 수정된 약이 없습니다.");
       return new Error();
     }
 
