@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as FileSaver from "file-saver";
@@ -11,15 +10,6 @@ import DrugList from "./DrugList";
 import FileUpload from "./FileUpload";
 import 'styles/ForPages/Drugs/Drugs.css';
 import { MyDate } from 'utils/MyDate';
-
-const UiPanelContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 10.74vh auto 0 auto;
-  width: 77.77vw;
-  height: 12.79vh;
-  gap: 1.38vw;
-`;
 
 const Drugs = () => {
   const [originalDrugs, setOriginalDrugs] = useState([]);
@@ -84,15 +74,6 @@ const Drugs = () => {
       }
     }
   };
-
-  // // 엑셀 형식 Date -> json 형식 Date : 변환
-  // function ConvertedDate(excelDate) {
-  //   const baseDate = new Date(1899, 11, 31);
-  //   const milliseconds = excelDate * 24 * 60 * 60 * 1000;
-  //   const jsDate = new Date(baseDate.getTime() + milliseconds);
-  //   const formattedDate = jsDate.toISOString().split("T")[0];
-  //   return formattedDate;
-  // }
 
   const handleQuantityChange = (index, change) => {
       setRenderingData((prevData) => {
@@ -252,10 +233,10 @@ const Drugs = () => {
   return (
     <>
       <HeaderComponent nav={navigate} isLogoutVisible={true}  acitveTab={"drugs"}/>
-      <UiPanelContainer>
+      <div className="ui-panel-container">
         <FileUpload Uploading={ReadJsonDrugs}/>
         <SearchBar search={search} currentPage={"Drugs"} />
-      </UiPanelContainer>
+      </div>
       {drugView}
       <div className="drugButtons-container">
         <div className="left-btn">
