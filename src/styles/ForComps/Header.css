@@ -109,8 +109,9 @@
 }
 
 .subMenu-container a {
-    color: #5E5E5E; /* 기본 텍스트 색상 */
-    font-size: 24px; /* 텍스트 크기 */
+    position: relative;
+    color: #5E5E5E;
+    font-size: 24px;
     font-weight: 700;
     text-decoration: none;
     white-space: nowrap;
@@ -120,39 +121,30 @@
     position: absolute;
     content: "";
     display: block;
-    width: 202px;
+    width: 100%;
     color: #95D1D9;
-    bottom: 0;
 }
 
 .subMenu-container .drugActive:after {
     position: absolute;
     content: '';
     display: block;
-    width: 202px;
     color: #95D1D9;
     border-bottom: 5px solid currentColor;
-    bottom: 0;
-    transform: translateX(-20%);
 }
 
 .subMenu-container .citizenActive:after {
     position: absolute;
     content: '';
     display: block;
-    width: 202px;
     color: #95D1D9;
     border-bottom: 5px solid currentColor;
-    bottom: 0;
-    transform: translateX(-25.5%);
 }
 
 .subMenu-container .accountActive:after {
     position: absolute;
     content: '';
     display: block;
-    width: 202px;
     color: #95D1D9;
     border-bottom: 5px solid currentColor;
-    bottom: 0;
 }
