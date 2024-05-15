@@ -132,48 +132,6 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               <option value="drugEnrollTime">등록일자</option>
               <option value="drugModifiedTime">마지막 사용 일자</option>
             </select>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                width: "25%",
-                height: "100%",
-                gap: "8px",
-                marginLeft: "20px",
-              }}
-            >
-              <div className="gray-circle" />
-              <span
-                style={{
-                  fontSize: "1.3vw",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                추가된 행
-              </span>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                width: "25%",
-                height: "100%",
-                gap: "8px",
-                marginLeft: "20px",
-              }}
-            >
-              <div className="blue-circle" />
-              <span
-                style={{
-                  fontSize: "1.3vw",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                수정된 행
-              </span>
-            </div>
           </div>
           <SearchInputContainer $using="drugs">
             <SearchInput
