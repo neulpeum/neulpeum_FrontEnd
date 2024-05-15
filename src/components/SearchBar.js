@@ -22,7 +22,7 @@ const SearchBarContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin: 11.5vh auto 0 auto;
+    margin: 6.5vh auto 0 auto;
     `}
 `;
 
