@@ -1,7 +1,7 @@
 .ui-panel-container {
     display: flex;
     flex-direction: row;
-    margin: 6.35vh auto 0 auto;
+    margin: 4vh auto 0 auto;
     width: 77.77vw;
     height: 12.79vh;
     gap: 1.38vw;
