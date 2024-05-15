@@ -64,6 +64,7 @@ export default function CitizenCounselList(props) {
   useEffect(() => {
     if (isRemove) {
       getData();
+      setIsRemove(false);
     }
   }, [isRemove]);
 

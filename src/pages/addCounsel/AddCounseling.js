@@ -318,6 +318,14 @@ export default function AddCounseling(props) {
                             handleMultipleActions(event, drugIndex)
                           }
                         >
+                          <img
+                            src="/icons/ic_check.svg"
+                            style={
+                              activeIndex.includes(drugIndex)
+                                ? { display: "inline", marginRight: "0.12rem" }
+                                : { display: "none" }
+                            }
+                          ></img>
                           {drug.drugName}
                         </p>
                       )
