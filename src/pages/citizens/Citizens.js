@@ -17,6 +17,18 @@ const Citizens = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [finalKeyword, setFinalKeyword] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchCitizens = async () => {
@@ -65,13 +77,10 @@ const Citizens = () => {
   };
 
   const columns = [
-    // { Header: '번호', accessor: 'patientId' },
     { Header: '이름', accessor: 'patientName' },
     { Header: '주소', accessor: 'address' },
     { Header: '병력', accessor: 'disease' },
-    // { Header: '복용중인 약', accessor: 'takingDrug' },
     { Header: '특이사항', accessor: 'specialReport' },
-    // { Header: '', accessor: 'action', Cell: () => '조회' },
   ];
 
   
@@ -97,6 +106,8 @@ const Citizens = () => {
       <Link className='goto-back' to="/">
         <img src='/icons/ic_back.png' alt=''/>
       </Link>
+     
+      {isMobile && <p style={{fontSize: '14px', color: 'black', textAlign: 'center', marginTop: '37px'}}>늘픔에 기록된 주민 목록입니다.</p>}
       <SearchBar sort={sortData} search={search} currentPage={"Citizens"} isReversed={isReversed} onCitizenAddClick={navigateToCitizenAdd}/>
       {mainView}
     </div>

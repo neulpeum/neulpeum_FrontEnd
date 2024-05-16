@@ -17,12 +17,12 @@ const SearchBarContainer = styled.div`
       : `
     display: flex;
     flex-direction: row;
-    width: 77.8vw;
+    width: ${window.innerWidth <= 768 ? '90%' : '77.8vw'};
     height: 5.47vh;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin: 6.5vh auto 0 auto;
+    margin: ${window.innerWidth <= 768 ? '22px' : '6.5vh'} auto 0 auto;
     `}
 `;
 
@@ -51,7 +51,7 @@ const SearchInput = styled.input`
       ? `
       width: 100%;
       height: 100%;
-      font-size: 1.3vw;
+      font-size: clamp(1rem, 1.5vw, 18px);
       border: 2px solid #aed391;
       border-radius: 1.25rem;
       padding-left: 12px;
@@ -63,7 +63,7 @@ const SearchInput = styled.input`
       padding-left: 12px;
       border: 2px solid #aed391;
       border-radius: 1.25rem;
-      font-size: 1.2vw;
+      font-size: clamp(1rem, 1.5vw, 18px);
     `}
 `;
 
