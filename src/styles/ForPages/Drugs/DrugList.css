@@ -55,10 +55,6 @@
     font-size: 1.3vw;
 }
 
-.drugTable>tbody>tr.add {
-    background-color: rgba(217, 217, 217, 0.4);
-}
-
 .drugTable>tbody>tr.modify {
     background-color: rgba(149, 209, 217, 0.3);
 }

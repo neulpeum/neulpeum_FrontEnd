@@ -65,7 +65,6 @@ const Drugs = () => {
             usableAmount: (usableAmount-usable),
             drugEnrollTime: MyDate.ConvertDate(MyDate.CreateCurrentDate(), 3),
             drugModifiedTime: null,
-            isAdd: true,
           };
         });
         setRenderingData((prevData) => [...FormattedDrugs, ...prevData ]);
