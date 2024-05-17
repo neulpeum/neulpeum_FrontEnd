@@ -97,8 +97,8 @@ const Drugs = () => {
       originalItem.drugName === renderingItem.drugName &&
       originalItem.expireDate === renderingItem.expireDate);
 
-      const expireDate = MyDate.convertDate(renderingItem.expireDate, 0);
-      const drugModifiedTime = MyDate.convertDate(MyDate.createCurrentDate(), 0);
+      const expireDate = MyDate.ConvertDate(renderingItem.expireDate, 0);
+      const drugModifiedTime = MyDate.ConvertDate(MyDate.CreateCurrentDate(), 0);
 
       if (existingIndex === -1) {
         const k = {...renderingItem};
@@ -112,7 +112,6 @@ const Drugs = () => {
       }
     });
 
-    //나중에
     if (newData.length === 0 && modifyData.length === 0) {
       alert("새롭거나 수정된 약이 없습니다.");
       return new Error();
@@ -221,7 +220,7 @@ const Drugs = () => {
     ? <DrugList columns={columns.slice(1, 6)} data={renderingData} onQuantityChange={handleQuantityChange}/> 
       : (searchResults.length > 0) 
       ? <>
-      <p className="tag"><span style={{fontWeight: 'bold'}}>{criKeyword[0]}</span>을 <span style={{color: '#3F2FF2'}}>{key}</span> 기준으로 검색한 내용입니다.</p>
+      <p className="tag"><span>{criKeyword[0]}</span>을 <span>{key}</span> 기준으로 검색한 내용입니다.</p>
         <DrugList columns={columns.slice(1, 6)} data={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} onQuantityChange={handleQuantityChange}/> 
         </>
         : 
