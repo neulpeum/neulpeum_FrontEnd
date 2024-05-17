@@ -65,7 +65,6 @@ const Drugs = () => {
             usableAmount: (usableAmount-usable),
             drugEnrollTime: MyDate.ConvertDate(MyDate.CreateCurrentDate(), 3),
             drugModifiedTime: null,
-            isAdd: true,
           };
         });
         setRenderingData((prevData) => [...FormattedDrugs, ...prevData ]);
@@ -171,7 +170,7 @@ const Drugs = () => {
 
   function generateExcel() {
     const type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const name = `늘픔_${MyDate.convertDate(MyDate.createCurrentDate(), 4)}`;
+    const name = `늘픔_${MyDate.ConvertDate(MyDate.CreateCurrentDate(), 4)}`;
 
     const headerStyle = {
       font: { bold: true, sz: '24' },

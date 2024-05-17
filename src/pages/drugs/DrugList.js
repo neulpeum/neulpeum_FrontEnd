@@ -41,12 +41,12 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
         {rows.map((row) => {
           prepareRow(row);
           
-        let rowClassName = '';
-        if (row.original && row.original.isAdd) {
-          rowClassName += "add";  
-        }  else if (row.original && row.original.isModified) {
-          rowClassName += "modify";
-        }
+        // let rowClassName = '';
+        // if (row.original && row.original.isModified) {
+        //   rowClassName += "modify";
+        // }
+        const rowClassName = (row.original && row.original.isModified) ? 'modify' : '';
+
         return (
           <tr {...row.getRowProps()} className={rowClassName}>
             {row.cells.map(cell => {

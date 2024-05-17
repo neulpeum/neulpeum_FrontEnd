@@ -1,26 +1,12 @@
-.gray-circle {
-  width: 2.3vw;
-  height: 2.3vw;
-  border-radius: 50%;
-  background-color: rgba(217, 217, 217, 0.4);
-}
-
-.blue-circle {
-  width: 2.3vw;
-  height: 2.3vw;
-  border-radius: 50%;
-  background-color: rgba(149, 209, 217, 0.3);
-}
-
 .criteriaStyle {
-  width: 33.2%;
-  height: 100%;
-  text-align: left;
-  padding-left: 1%;
-  font-size: 1.3vw;
-  outline: none;
-  border-radius: 1.25rem;
-  border: 2px solid #aed391;
+    width: 33.7%;
+    height: 100%;
+    text-align: left;
+    font-size: 1.3vw;
+    padding-left: 5%;
+    outline: none;
+    border-radius: 1.25rem;
+    border: 2px solid #aed391;
 }
 
 .icon-wrapper {

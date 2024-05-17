@@ -6,12 +6,10 @@ const SearchBarContainer = styled.div`
   ${(props) =>
     props.$using === "drugs"
       ? `
-    width: 50%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
     gap: 14.5%;
     `
       : `
@@ -54,7 +52,7 @@ const SearchInput = styled.input`
       font-size: clamp(1rem, 1.5vw, 18px);
       border: 2px solid #aed391;
       border-radius: 1.25rem;
-      padding-left: 12px;
+      padding-left: 5%;
     `
       : `
       width: 100%;
@@ -112,20 +110,7 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
     Drugs: {
       content: (
         <SearchBarContainer $using="drugs">
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              height: "42.75%",
-              width: "100%",
-            }}
-          >
-            <select
-              value={searchCriteria}
-              onChange={handleCriteriaChange}
-              className="criteriaStyle"
-            >
+            <select className="criteriaStyle" value={searchCriteria} onChange={handleCriteriaChange}>
               <option value="">전체</option>
               <option value="drugName">약 이름</option>
               <option value="expireDate">유통기한</option>

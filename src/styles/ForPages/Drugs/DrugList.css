@@ -1,12 +1,8 @@
 .drugTable {
     width: 77.8vw;
     height: 47.5vh;
-    margin: 4.2vh auto;
+    margin: 4.2vh auto 0 auto;
     border-collapse: collapse;
-    /* table-layout: fixed; */
-    /* border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black; */
 }
 
 .drugTable th,
@@ -57,10 +53,6 @@
 
 .drugTable>tbody>tr>td {
     font-size: 1.3vw;
-}
-
-.drugTable>tbody>tr.add {
-    background-color: rgba(217, 217, 217, 0.4);
 }
 
 .drugTable>tbody>tr.modify {
