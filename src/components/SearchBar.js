@@ -15,12 +15,12 @@ const SearchBarContainer = styled.div`
       : `
     display: flex;
     flex-direction: row;
-    width: 77.8vw;
+    width: ${window.innerWidth <= 768 ? '90%' : '77.8vw'};
     height: 5.47vh;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin: 11.5vh auto 0 auto;
+    margin: ${window.innerWidth <= 768 ? '22px' : '6.5vh'} auto 0 auto;
     `}
 `;
 
@@ -35,7 +35,7 @@ const SearchInputContainer = styled.div`
       `
       : `
       width: 85%;
-      height: 4.125rem;
+      height: 100%;
       display: flex;
       align-items: center;
       gap: 20px;
@@ -49,7 +49,7 @@ const SearchInput = styled.input`
       ? `
       width: 100%;
       height: 100%;
-      font-size: 1.3vw;
+      font-size: clamp(1rem, 1.5vw, 18px);
       border: 2px solid #aed391;
       border-radius: 1.25rem;
       padding-left: 5%;
@@ -61,7 +61,7 @@ const SearchInput = styled.input`
       padding-left: 12px;
       border: 2px solid #aed391;
       border-radius: 1.25rem;
-      font-size: 1.2vw;
+      font-size: clamp(1rem, 1.5vw, 18px);
     `}
 `;
 
@@ -69,39 +69,19 @@ const SearchIcon = styled.img`
   ${(props) =>
     props.$using === "drugs"
       ? `
-      width: auto;
-      height: 100%;
-      cursor: pointer;
-      margin-left:4px;
-      background: linear-gradient( 270deg, #aed391 -1.77%, #a9d3a1 20.55%, #a5d2ab 35.26%, #a2d2b3 46.42%, #9dd2c1 65.69%, #99d1cc 94.6%, #95d1d9 99.67%);
-      border-radius: 50%;
-      padding: 9px;
+      width: 60%;
+      height: 60%;
     `
       : `
-      width: auto;
-      height: 100%;
-      padding: 12px;
-      cursor: pointer;
-      background: linear-gradient( 270deg, #aed391 -1.77%, #a9d3a1 20.55%, #a5d2ab 35.26%, #a2d2b3 46.42%, #9dd2c1 65.69%, #99d1cc 94.6%, #95d1d9 99.67%);
-      border-radius: 50%;
+      width: 60%;
+      height: 60%;
+
     `}
 `;
 
 const PlusIcon = styled.img`
-  width: 4.125rem;
-  height: 4.125rem;
-  padding: 10px;
-  margin-left: 20px;
-  background: linear-gradient(
-    270deg,
-    #aed391 -1.77%,
-    #a9d3a1 20.55%,
-    #a5d2ab 35.26%,
-    #a2d2b3 46.42%,
-    #9dd2c1 65.69%,
-    #99d1cc 94.6%,
-    #95d1d9 99.67%
-  );
+  width: 60%;
+  height: 60%;
   border-radius: 50%;
   @media (max-width: 768px) {
     display: none;
@@ -137,6 +117,7 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               <option value="drugEnrollTime">등록일자</option>
               <option value="drugModifiedTime">마지막 사용 일자</option>
             </select>
+          </div>
           <SearchInputContainer $using="drugs">
             <SearchInput
               id="drugs_search_value"
@@ -148,12 +129,14 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               $using="drugs"
               name="searchInput"
             />
-            <SearchIcon
-              onClick={() => search(keyword, searchCriteria)}
-              $using="drugs"
-              src="/icons/ic_counSearch.svg"
-              alt="검색"
-            />
+            <div className="icon-wrapper" style={{ marginLeft: "4px" }}>
+              <SearchIcon
+                onClick={() => search(keyword, searchCriteria)}
+                $using="drugs"
+                src="/icons/ic_counSearch.svg"
+                alt="검색"
+              />
+            </div>
           </SearchInputContainer>
         </SearchBarContainer>
       ),
@@ -169,18 +152,21 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               placeholder="검색할 주민의 이름을 입력하세요."
               onKeyDown={(e) => activeEnter(e, "citizens")}
             />
-            <SearchIcon
-              onClick={() => search(keyword)}
-              src="/icons/ic_counSearch.svg"
-              alt="검색"
-            />
+            <div className="icon-wrapper">
+              <SearchIcon
+                onClick={() => search(keyword)}
+                src="/icons/ic_counSearch.svg"
+                alt="검색"
+              />
+            </div>
           </SearchInputContainer>
-
-          <PlusIcon
-            src="/icons/ic_plus.svg"
-            alt="주민 추가"
-            onClick={onCitizenAddClick}
-          />
+          <div className="icon-wrapper" id="plusIcon-wrapper">
+            <PlusIcon
+              src="/icons/ic_plus.svg"
+              alt="주민 추가"
+              onClick={onCitizenAddClick}
+            />
+          </div>
         </SearchBarContainer>
       ),
     },

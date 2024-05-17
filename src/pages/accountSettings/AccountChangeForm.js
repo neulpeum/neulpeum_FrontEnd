@@ -5,11 +5,11 @@ import 'styles/ForPages/AccountSettings/AccountChangeForm.css';
 
 const GuideMsg = styled.div`
     color: blue;
-    font-size: 1.25vw;
+    font-size: clamp(1vw, 12px, 12px);
 `
 const WarningMsg = styled.div`
     color: red;
-    font-size: 1.25vw;
+    font-size: clamp(1vw, 12px, 12px);
 `
 export default function AccountChangeForm({userType}) {
     const [currentPassword, setCurrentPassword] = useState('');
@@ -78,7 +78,7 @@ export default function AccountChangeForm({userType}) {
                 {(error) && <WarningMsg>{specialStr} 비밀번호를 잘못 입력하셨습니다.</WarningMsg>}
             </div>
 
-            <div className='account-inputBox'>
+            <div className='account-inputBox-bottomRound'>
                 <input
                     type={passwordsVisible[1] ? 'text' : 'password'}
                     id='new_password'
@@ -89,7 +89,7 @@ export default function AccountChangeForm({userType}) {
                     <img src={passwordsVisible[1] ? "/icons/ic_open_eye.svg" : "/icons/ic_closed_eye.svg"} alt="Toggle password visibility" />
                 </button>
             </div>
-            <div className='account-inputBox'>
+            <div className='account-inputBox-topRound'>
                 <input
                     type={passwordsVisible[2] ? 'text' : 'password'}
                     id='confirm_new_password'

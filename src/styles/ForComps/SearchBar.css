@@ -8,3 +8,30 @@
     border-radius: 1.25rem;
     border: 2px solid #aed391;
 }
+
+.icon-wrapper {
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: linear-gradient(
+    270deg,
+    #aed391 -1.77%,
+    #a9d3a1 20.55%,
+    #a5d2ab 35.26%,
+    #a2d2b3 46.42%,
+    #9dd2c1 65.69%,
+    #99d1cc 94.6%,
+    #95d1d9 99.67%
+  );
+  border-radius: 50%;
+}
+
+#plusIcon-wrapper {
+  margin-left: 20px;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}

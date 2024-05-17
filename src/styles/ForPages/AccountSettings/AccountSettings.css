@@ -22,7 +22,7 @@
     border-bottom: none;
     border-radius: 0.625rem 0.625rem 0 0;
     font-weight: bold;
-    font-size: 2vw;
+    font-size: clamp(1rem, 2vw, 20px);
     cursor: pointer;
 }
 

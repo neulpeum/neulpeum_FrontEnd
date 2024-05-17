@@ -1,272 +1,272 @@
 .addCounseling-wrapper {
-    margin: 0 auto;
-    width: 19.25rem;
-    display: flex;
-    flex-direction: column;
-    margin-top: 4.87rem;
-    margin-bottom: 2rem;
+  margin: 0 auto;
+  width: 19.25rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 4.87rem;
+  margin-bottom: 2rem;
 }
 
 .counselTitle-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .counselName,
 .counselTitle {
-    display: inline-block;
-    margin: 0;
-    font-weight: bold;
+  display: inline-block;
+  margin: 0;
+  font-weight: bold;
 }
 
 .counselName {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 .counselTitle {
-    margin-top: 0.44rem;
-    font-size: 1.5rem;
+  margin-top: 0.44rem;
+  font-size: 1.5rem;
 }
 
 .counsel-wrapper {
-    height: 93%;
-    display: flex;
-    margin-top: 2.81rem;
-    margin-bottom: 2.63rem;
-    flex-direction: column;
+  height: 93%;
+  display: flex;
+  margin-top: 2.81rem;
+  margin-bottom: 2.63rem;
+  flex-direction: column;
 }
 
 .counsel-category-wrapper {
-    width: 16rem;
-    margin: 0 auto;
-    margin-bottom: 0.38rem;
-    font-weight: bold;
+  width: 16rem;
+  margin: 0 auto;
+  margin-bottom: 0.38rem;
+  font-weight: bold;
 }
 
 .counsel-category-wrapper p {
-    display: inline-block;
-    font-size: 0.9375rem;
-    margin: 0;
+  display: inline-block;
+  font-size: 0.9375rem;
+  margin: 0;
 }
 
 .wrong-include-content-wrapper {
-    width: 16rem;
-    margin: 0 auto;
-    margin-bottom: 0.87rem;
+  width: 16rem;
+  margin: 0 auto;
+  margin-bottom: 0.87rem;
 }
 
 .counselPro-content-wrapper {
-    width: 16rem;
-    margin: 0 auto;
-    border-bottom: 1px solid #000;
-    display: flex;
-    justify-content: space-between;
-    color: #878485;
+  width: 16rem;
+  margin: 0 auto;
+  border-bottom: 1px solid #000;
+  display: flex;
+  justify-content: space-between;
+  color: #878485;
 }
 
 .counselPro-content-wrapper input {
-    border: 0;
+  border: 0;
 }
 
 .counsel-content-wrapper {
-    width: 16rem;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    color: #878485;
+  width: 16rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  color: #878485;
 }
 
 .counselOtc-content-wrapper {
-    width: 16rem;
-    min-height: 6rem;
-    margin: 0 auto;
-    margin-bottom: 0.62rem;
+  width: 16rem;
+  min-height: 6rem;
+  margin: 0 auto;
+  margin-bottom: 0.62rem;
 }
 
 .counselDate-content-wrapper p,
 .counsel-content-wrapper p,
 .counselPro-content-wrapper input,
 .counsel-content-wrapper textarea {
-    width: 16rem;
-    display: inline-block;
-    color: #565656;
-    margin: 0;
-    padding: 0.19rem;
-    outline: 0;
-    font-size: 0.9375rem;
-    font-family: "Gmarket Sans";
+  width: 16rem;
+  display: inline-block;
+  color: #565656;
+  margin: 0;
+  padding: 0.19rem;
+  outline: 0;
+  font-size: 0.9375rem;
+  font-family: "Gmarket Sans";
 }
 
 .drugOption-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 0.63rem;
-    gap: 0 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0.63rem;
+  gap: 0 1rem;
 }
 
 .drugOption-wrapper p {
-    display: inline-block;
-    padding: 0 0.4rem;
-    min-width: 4.5625rem;
-    height: 1.5625rem;
-    font-size: 0.874rem;
-    border-radius: 1.25rem;
-    text-align: center;
-    line-height: 1.8rem;
-    margin: 0;
-    margin-bottom: 0.44rem;
-    cursor: pointer;
+  display: inline-block;
+  padding: 0 0.4rem;
+  min-width: 4.5625rem;
+  height: 1.5625rem;
+  font-size: 0.874rem;
+  text-align: center;
+  line-height: 1.8rem;
+  margin: 0;
+  margin-bottom: 0.44rem;
+  cursor: pointer;
+  border-radius: 1.25rem;
 }
 
 .drugOption-active {
-    background-color: rgba(149, 209, 217, 0.33);
-    color: #95d1d9;
+  background: #95d1d9;
+  border: 1px solid #95d1d9;
+  color: #fff;
 }
 
 .drugOption {
-    background-color: #d9d9d9;
-    color: #595959;
+  border: 1px solid #000;
+  color: #5e5e5e;
 }
 
 .counsel-content-wrapper textarea {
-    resize: none;
-    border-radius: 0.3125rem;
-    border: 1px solid #000;
-    padding: 1rem;
+  resize: none;
+  border-radius: 0.3125rem;
+  border: 1px solid #000;
+  padding: 1rem;
 }
 
 .counselTextarea::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .counsel-btn-wrapper {
-    width: 18rem;
-    margin: 0 auto;
-    margin-bottom: 0.56rem;
-    height: 7%;
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.69rem;
+  width: 18rem;
+  margin: 0 auto;
+  margin-bottom: 0.56rem;
+  height: 7%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.69rem;
 }
 
 .counsel-btn-wrapper button {
-    width: 4.25rem;
-    height: 1.8125rem;
-    border-radius: 3.125rem;
-    border: none;
-    background-color: #aed391;
-    color: #000;
-    cursor: pointer;
+  width: 4.25rem;
+  height: 1.8125rem;
+  border-radius: 3.125rem;
+  border: none;
+  background-color: #aed391;
+  color: #000;
+  cursor: pointer;
 }
 
 .selectDrugs-wrapper {
-    margin-top: 0.81rem;
+  margin-top: 0.81rem;
 }
 
 .selectDrugs-content {
-    display: flex;
-    align-items: center;
-    margin-top: 0.44rem;
+  display: flex;
+  align-items: center;
+  margin-top: 0.44rem;
 }
 
 .selectDrugsName {
-    width: 4.5626rem;
-    height: 1.5625rem;
-    border-radius: 0.625rem;
-    background-color: rgba(149, 209, 217, 0.33);
-    color: #95d1d9;
-    text-align: center;
-    line-height: 1.8rem;
-    font-size: 0.875rem;
-    margin: 0;
-    margin-right: 0.69rem;
+  width: 4.5626rem;
+  height: 1.5625rem;
+  border-radius: 0.625rem;
+  background: #95d1d9;
+  color: #fff;
+  text-align: center;
+  line-height: 1.8rem;
+  font-size: 0.875rem;
+  margin: 0;
+  margin-right: 0.69rem;
 }
 
 .selectDrugs-content p {
-    display: inline-block;
+  display: inline-block;
 }
 
 .selectDrugs-content input {
-    width: 2.3125rem;
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #000;
-    text-align: center;
+  width: 2.3125rem;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #000;
+  text-align: center;
 }
 
 .selectDrugsAmount {
-    color: #878485;
-    font-size: 0.75rem;
-    margin: 0;
+  color: #878485;
+  font-size: 0.75rem;
+  margin: 0;
 }
 
 .selectDrugs-content button {
-    width: 0.8125rem;
-    height: 0.8125rem;
-    border: none;
-    background-color: white;
-    color: #aaa;
-    cursor: pointer;
-    margin-left: auto;
-    padding: 0;
+  width: 0.8125rem;
+  height: 0.8125rem;
+  border: none;
+  background-color: white;
+  color: #aaa;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0;
 }
 
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
-
 
 /* Modal.css */
 
 .addCounsel-modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 20.5625rem;
-    width: 80%;
-    height: 7.4374rem;
-    border-radius: 0.3125rem;
-    background-color: #e8e8e8;
-    outline: none;
-    border: 1px solid #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 20.5625rem;
+  width: 80%;
+  height: 7.4374rem;
+  border-radius: 0.3125rem;
+  background-color: #e8e8e8;
+  outline: none;
+  border: 1px solid #000;
 }
 
 .addModal-gr {
-    height: 1.4375rem;
-    border-radius: 0.3125rem 0.3125rem 0rem 0rem;
-    border-bottom: 1px solid #000;
-    background-color: #aed392;
+  height: 1.4375rem;
+  border-radius: 0.3125rem 0.3125rem 0rem 0rem;
+  border-bottom: 1px solid #000;
+  background-color: #aed392;
 }
 
 .addModal-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .addModal-content-wrapper p {
-    text-align: center;
+  text-align: center;
 }
 
 .addModal-btn-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .addModal-btn-wrapper button {
-    width: 2.75rem;
-    height: 1.25rem;
-    border-radius: 0.3125rem;
-    border: 0.7px solid #000;
-    background-color: #d9d9d9;
-    cursor: pointer;
+  width: 2.75rem;
+  height: 1.25rem;
+  border-radius: 0.3125rem;
+  border: 0.7px solid #000;
+  background-color: #d9d9d9;
+  cursor: pointer;
 }

@@ -1,13 +1,27 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import 'styles/ForComps/Header.css';
 
-const createHeader = ({nav, isLogoutVisible, acitveTab}) => {
-  const isMobile = window.innerWidth <= 768
+
+const CreateHeader = ({nav, isLogoutVisible, acitveTab}) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  
   const dest = "/citizens"; 
-  // 데스크탑버전시 시민페이지로 모바일 버전시 옵션으로 돌아가는데 이번에 옵션페이지가 없어진다면 그다음에 어디로 연결할지 토론
   const visible = isLogoutVisible;
 
   const navigate = nav;
@@ -63,4 +77,4 @@ const createHeader = ({nav, isLogoutVisible, acitveTab}) => {
   )
 }
 
-export default createHeader;
+export default CreateHeader;
