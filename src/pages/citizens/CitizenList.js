@@ -29,7 +29,7 @@ function Item({ type, text }) {
         background: 'linear-gradient(to bottom, #ffffff, #d4d4d4 90%)',
       }}>
         <img src={icon} alt="item" style={{ marginRight: '3px'}} />
-        <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{text}</div> {/* Set whiteSpace to nowrap and overflow to hidden */}
+        <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontSize: '14px' }}>{text}</div>
       </div>
     </div>
   );
@@ -58,7 +58,11 @@ function CitizenItem({ profile, name, address, diseases, onClickDetail }) {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ fontSize: '20px', fontWeight: 'bold' }}>{name}</div>
           <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'space-between', marginTop: '10px'}}>
-            <Item type={"location"} text={address} />
+            <Item
+              type={"location"}
+              text={ address.length > 10 ? `${address.slice(0, 9)}...` : address }
+            />
+            {diseases.length > 0 && <Item type={"disease"} text={diseases[0]} />}
           </div>
         </div>
         <div style={{
@@ -109,6 +113,7 @@ const CitizenList = ({ columns, data, onClickDetail }) => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+  console.log(rows);
 
   return (
     <div className="citizenTable-wrapper">
