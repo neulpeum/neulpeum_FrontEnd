@@ -117,7 +117,6 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               <option value="drugEnrollTime">등록일자</option>
               <option value="drugModifiedTime">마지막 사용 일자</option>
             </select>
-          </div>
           <SearchInputContainer $using="drugs">
             <SearchInput
               id="drugs_search_value"
