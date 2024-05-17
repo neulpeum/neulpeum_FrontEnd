@@ -6,12 +6,10 @@ const SearchBarContainer = styled.div`
   ${(props) =>
     props.$using === "drugs"
       ? `
-    width: 50%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
     gap: 14.5%;
     `
       : `
@@ -54,14 +52,12 @@ const SearchInput = styled.input`
       font-size: 1.3vw;
       border: 2px solid #aed391;
       border-radius: 1.25rem;
-      padding-left: 12px;
+      padding-left: 5%;
     `
       : `
       width: 100%;
       height: 100%;
       border: 1px solid white;
-      // padding-top: 20px;
-      // padding-bottom: 20px;
       padding-left: 12px;
       border: 2px solid #aed391;
       border-radius: 1.25rem;
@@ -134,69 +130,13 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
     Drugs: {
       content: (
         <SearchBarContainer $using="drugs">
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              height: "42.75%",
-              width: "100%",
-            }}
-          >
-            <select
-              value={searchCriteria}
-              onChange={handleCriteriaChange}
-              className="criteriaStyle"
-            >
+            <select className="criteriaStyle" value={searchCriteria} onChange={handleCriteriaChange}>
               <option value="">전체</option>
               <option value="drugName">약 이름</option>
               <option value="expireDate">유통기한</option>
               <option value="drugEnrollTime">등록일자</option>
               <option value="drugModifiedTime">마지막 사용 일자</option>
             </select>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                width: "25%",
-                height: "100%",
-                gap: "8px",
-                marginLeft: "20px",
-              }}
-            >
-              <div className="gray-circle" />
-              <span
-                style={{
-                  fontSize: "1.3vw",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                추가된 행
-              </span>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                width: "25%",
-                height: "100%",
-                gap: "8px",
-                marginLeft: "20px",
-              }}
-            >
-              <div className="blue-circle" />
-              <span
-                style={{
-                  fontSize: "1.3vw",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                수정된 행
-              </span>
-            </div>
-          </div>
           <SearchInputContainer $using="drugs">
             <SearchInput
               id="drugs_search_value"

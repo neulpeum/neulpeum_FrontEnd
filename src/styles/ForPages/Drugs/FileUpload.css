@@ -1,21 +1,22 @@
 .upload-container {
-    width: 50%;
+    width: 100%;
     height: 100%;
     border-radius: 0.625rem;
     border: 2px solid #aed391;
+    padding: 1% 2.4%;
 }
 
 .contents {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 78%;
-    width: 94%;
+    height: 100%;
+    width: 100%;
     background-color: white;
     border: 3px dashed #eee;
     transition: background-color 0.5s ease;
-    padding: 3px;
-    margin: 11px 2.4%;
+    margin: auto;
+    padding: 1%;
 }
 
 .contents:hover {
@@ -29,17 +30,21 @@
 }
 
 .upload-icon-container {
-    width: 100%;
+    width: fit-content;
     height: 22.9%;
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
 }
 
-.upload-container img {
-    width: 1.38vw;
-    height: 2.92vh;
-    vertical-align: bottom;
+.upload-icon-container img {
+    width: 1.3vw;
+    height: 1.3vw;
+    margin-right: 3%;
 }
 
 .upload-container span {
+    white-space: nowrap;
     font-size: 1.3vw;
 }
 

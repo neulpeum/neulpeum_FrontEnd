@@ -48,30 +48,31 @@ const FileUpload = ({ Uploading} ) => {
 
   const extractSheetData = (workbook) => {
     const sheetName = workbook.SheetNames[0];
-    const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1});
-
-    const tableData = sheetData.slice(0).filter(row => {
+    const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
+  
+    const tableData = sheetData.slice(1).filter(row => {
       const isEmptyRow = row.every(cell => cell === null || cell === undefined || cell === '');
       const isPartiallyEmptyRow = row.some(cell => cell === null || cell === undefined || cell === '');
-
-      if (isEmptyRow || (row === sheetData[0])) {
+  
+      if (isEmptyRow) {
         return false;
       }
-      else if (isPartiallyEmptyRow) { 
-        alert('파일 내부에 값이 입력되지 않는 셀이 감지됩니다..')
+      if (isPartiallyEmptyRow) {
+        throw new Error('파일 내부에 값이 입력되지 않는 셀이 감지됩니다.');
+      }
+      if (typeof row[1] !== 'number' || typeof row[2] !== 'number' || typeof row[3] !== 'number') {
+        throw new Error('파일 내부에 올바르지 못한 데이터 형식이 감지되었습니다.');
+      }
+  
+      const expireDate = new Date(MyDate.ConvertedExceltoJsonDate(row[1]));
+      const currentDate = new Date();
+      if (expireDate <= currentDate) {
+        alert('유통기한 지났거나 오늘까지인 약이 감지되었습니다. 이 약품들은 목록에서 제외됩니다.');
         return false;
       }
-      else if  ((typeof row[1] !== 'number' || typeof row[2] !== 'number' || typeof row[3] !== 'number')) {
-        alert('파일 내부에 올바르지 못한 데이터 형식이 감지되었습니다.');
-        return false;
-      }
-      else {
-        const expireDate = new Date(MyDate.ConvertedExceltoJsonDate(row[1]));
-        const currentDate = new Date();
-        if (expireDate <= currentDate) { alert('유통기한 지났거나 오늘까지인 약이 감지되었습니다. 이 약품들은 목록에서 제외됩니다.')}
-        return (expireDate > currentDate);
-      }
+      return true;
     });
+  
     return tableData;
   };
 
@@ -81,29 +82,23 @@ const FileUpload = ({ Uploading} ) => {
     const fileIcon = fileIconRef.current;
     
     const handleFiles = async (files) => {
-      if (files.length > 1) return alert("2개 이상의 파일 업로드는 불가합니다.");
-  
+      if (files && files.length > 1) return alert("2개 이상의 파일 업로드는 불가합니다.");
+
       const file = files[0];
-      if (file) {
-        const fileExtension = file.name.split('.').pop();
-        const allowedExtensions = ['.xlsx', '.xls', '.csv'];
-  
-        if (allowedExtensions.includes('.' + fileExtension.toLowerCase())) {
-          try {
-            const workbook = await readExcelFile(file);
-            const tableData = extractSheetData(workbook);
-            setConvertedFile(tableData);
-            setSelectedFile(file);
-            fileInput.value = null;
-          } catch (error) {
-            alert(error);
-          }
-        } 
-        else {
-          alert('.xlsx, .xls, .csv 확장자를 가진 파일만 업로드가 허용합니다!');
+      const fileExtension = file.name.split('.').pop();
+      const allowedExtensions = ['.xlsx', '.xls', '.csv'];
+      if (!allowedExtensions.includes('.' + fileExtension.toLowerCase())) return alert('.xlsx, .xls, .csv 확장자를 가진 파일만 업로드가 허용합니다!');
+
+      fileInput.value = null;
+        try {
+          const workbook = await readExcelFile(file);
+          const tableData = extractSheetData(workbook);
+          setConvertedFile(tableData);
+          setSelectedFile(file);
+        } catch (error) { 
+          alert(error.message);
+          CancelUploading();
         }
-      }
-      else return(alert('파일이 등록되지 않았습니다.'));
     };
     
     const changeHandler = (event) => {
@@ -139,7 +134,7 @@ const FileUpload = ({ Uploading} ) => {
     uploadBox.addEventListener("dragleave", dragEndHandler);
     fileInput.addEventListener("change", changeHandler);
     fileIcon.addEventListener("click", iconClickHandler);
-    
+
     return () => {
       uploadBox.removeEventListener("drop", dropHandler);
       uploadBox.removeEventListener("dragover", dragStartHandler);
@@ -148,10 +143,8 @@ const FileUpload = ({ Uploading} ) => {
       fileIcon.removeEventListener("click", iconClickHandler);
     };
   }, []);
-
-  console.log(selectedFile, convertedFile);
+  
   return (
-
     <div className="upload-container">
       <label className={!isActive ? 'contents' : 'contents active'}  htmlFor="input" ref={uploadBoxRef} >
         <div className='upload-icon-container'>
