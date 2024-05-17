@@ -2,8 +2,8 @@
     width: 33.7%;
     height: 100%;
     text-align: left;
-    font-size: 1.3vw;
-    padding-left: 5%;
+    font-size: clamp(1rem, 1.5vw, 18px);
+    padding-left: 3%;
     outline: none;
     border-radius: 1.25rem;
     border: 2px solid #aed391;

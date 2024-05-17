@@ -31,7 +31,7 @@ const SearchInputContainer = styled.div`
       display: flex;
       align-items: center;
       width: 100%;
-      height: 42.75%;
+      height: 100%;
       `
       : `
       width: 85%;
@@ -117,7 +117,6 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               <option value="drugEnrollTime">등록일자</option>
               <option value="drugModifiedTime">마지막 사용 일자</option>
             </select>
-          </div>
           <SearchInputContainer $using="drugs">
             <SearchInput
               id="drugs_search_value"

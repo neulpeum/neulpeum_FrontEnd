@@ -65,16 +65,22 @@
 .citizenTable>thead>tr>th:nth-child(1),
 .citizenTable>tbody>tr>td:nth-child(1) {
     width: 10%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .citizenTable>thead>tr>th:nth-child(2),
 .citizenTable>tbody>tr>td:nth-child(2) {
     width: 21%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .citizenTable>thead>tr>th:nth-child(3),
 .citizenTable>tbody>tr>td:nth-child(3) {
     width: 12.5%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .citizenTable>tbody>tr>td:nth-child(4),
