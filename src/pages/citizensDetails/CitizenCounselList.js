@@ -17,12 +17,18 @@ export default function CitizenCounselList(props) {
   const tableRef = useRef(null);
   const [filterData, setFilterData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [isRemove, setIsRemove] = useState(false);
+  const [isReload, setIsReload] = useState(false);
   const location = useLocation();
   const patientId = location.state.id;
   const navigate = useNavigate();
 
   useEffect(() => {
+    const reloadFlag = localStorage.getItem("isReload");
+    if (reloadFlag === "true") {
+      setIsReload(true);
+      localStorage.setItem("isReload", "false");
+    }
+
     const getData = async () => {
       try {
         onLoadingUpdate(true);
@@ -38,8 +44,9 @@ export default function CitizenCounselList(props) {
           return;
         }
         console.error("Error fetching data:", error);
+      } finally {
+        onLoadingUpdate(false);
       }
-      onLoadingUpdate(false);
     };
     const getName = async () => {
       try {
@@ -61,12 +68,11 @@ export default function CitizenCounselList(props) {
   }, [navigate, patientId]);
 
   useEffect(() => {
-    if (isRemove) {
-      setIsRemove(false);
+    if (isReload) {
+      setIsReload(false);
       window.location.reload();
-      console.log("삭제");
     }
-  }, [isRemove]);
+  }, [isReload]);
 
   const search = (keyword, criteria) => {
     const results = [];
@@ -166,7 +172,7 @@ export default function CitizenCounselList(props) {
 
   const closeModal = (boolean) => {
     if (boolean) {
-      setIsRemove(boolean);
+      setIsReload(boolean);
     }
     setIsOpen(false);
     document.body.style = "overflow: auto";
