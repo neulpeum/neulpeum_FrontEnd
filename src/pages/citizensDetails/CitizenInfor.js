@@ -381,7 +381,6 @@ export default function CitizenInfor(props) {
             </span>
           </div>
         </div>
-
         {isEditing ? (
           <div className="btn-wrapper">
             <button onClick={handleSaveClick} disabled={!isFieldsModified}>
