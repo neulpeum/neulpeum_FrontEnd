@@ -52,7 +52,7 @@ const Main = () => {
   return (
     <div className="main-container">
       <div className="main-logo-container">
-          <img src="/icons/ic_logo.svg" alt="logo" className="logo" />
+          <img src="/icons/ic_logo.svg" alt="logo" />
         </div>
       <div className='main-content'>
         <p>늘픔 약 재고 관리 서비스에 오신 것을 환영합니다</p>
