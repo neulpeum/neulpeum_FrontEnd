@@ -47,7 +47,7 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
         if (removeRef.current) {
           closeRemoveModal();
         } else {
-          onClose();
+          onClose(false);
         }
       }
     };
@@ -106,6 +106,10 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
     }
   }, [consultData]);
 
+  const closeModal = () => {
+    onClose(false);
+  };
+
   const handleEditClick = () => {
     setIsEditing(true);
     setOriginalFields(fields);
@@ -126,7 +130,7 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
     if (isEditing) {
       setIsFieldsModified(fields !== originalFields);
     }
-  }, [fields]);
+  }, [fields, isEditing, originalFields]);
 
   const handleCancelClick = () => {
     setIsEditing(false);
@@ -170,9 +174,6 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-    navigate("/citizensDetails", {
-      state: { id: patientId },
-    });
     onClose(true);
   };
 
@@ -214,7 +215,7 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
                     src="/icons/ic_closeBtn.svg"
                     className="close-icon"
                     alt="X"
-                    onClick={onClose}
+                    onClick={closeModal}
                   />
                 </div>
               </div>

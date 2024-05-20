@@ -34,8 +34,9 @@ export default function AddCounseling(props) {
       } catch (error) {
         setError(error);
         console.error("Error fetching data:", error);
+      } finally {
+        onLoadingUpdate(false);
       }
-      onLoadingUpdate(false);
     };
     getData();
     const firstInput = inputRefs.current[0];
@@ -105,6 +106,7 @@ export default function AddCounseling(props) {
       });
 
     document.body.style = "overflow: auto";
+    localStorage.setItem("isReload", "true");
     navigate("/citizensDetails", {
       state: { id: patientId },
     });
@@ -325,6 +327,7 @@ export default function AddCounseling(props) {
                                 ? { display: "inline", marginRight: "0.12rem" }
                                 : { display: "none" }
                             }
+                            alt=""
                           ></img>
                           {drug.drugName}
                         </p>
