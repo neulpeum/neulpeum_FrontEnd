@@ -22,26 +22,25 @@ export default function CitizenCounselList(props) {
   const patientId = location.state.id;
   const navigate = useNavigate();
 
-  const getData = async () => {
-    try {
-      onLoadingUpdate(true);
-      const response = await axios.get(
-        `/api/patient/consult?patientId=${patientId}`
-      );
-      setData(response.data);
-      setFilterData(response.data);
-    } catch (error) {
-      if (error.response.status === 401 || error.response.status === 403) {
-        alert("접근 권한이 없습니다");
-        navigate(-1);
-        return;
-      }
-      console.error("Error fetching data:", error);
-    }
-    onLoadingUpdate(false);
-  };
-
   useEffect(() => {
+    const getData = async () => {
+      try {
+        onLoadingUpdate(true);
+        const response = await axios.get(
+          `/api/patient/consult?patientId=${patientId}`
+        );
+        setData(response.data);
+        setFilterData(response.data);
+      } catch (error) {
+        if (error.response.status === 401 || error.response.status === 403) {
+          alert("접근 권한이 없습니다");
+          navigate(-1);
+          return;
+        }
+        console.error("Error fetching data:", error);
+      }
+      onLoadingUpdate(false);
+    };
     const getName = async () => {
       try {
         const response = await axios.get(
@@ -63,8 +62,9 @@ export default function CitizenCounselList(props) {
 
   useEffect(() => {
     if (isRemove) {
-      getData();
       setIsRemove(false);
+      window.location.reload();
+      console.log("삭제");
     }
   }, [isRemove]);
 
@@ -312,11 +312,9 @@ export default function CitizenCounselList(props) {
               patientName: `${name}`,
             }}
           >
-            <img
-              src="/icons/ic_counselWrite.svg"
-              alt="추가"
-              className="write-img"
-            />
+            <div className="write-img">
+              <img src="/icons/ic_counselWrite.svg" alt="추가" />
+            </div>
           </Link>
         </div>
         {noResultView}
