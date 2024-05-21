@@ -169,7 +169,6 @@ const Drugs = () => {
         .then((response) => PostProcessing())
         .catch((error) => setError(error));
     } catch (error) {
-      console.log(error);
       return;
     }
   };
