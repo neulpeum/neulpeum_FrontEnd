@@ -16,6 +16,7 @@ const Drugs = () => {
   const [renderingData, setRenderingData] = useState([]);
   const [criKeyword, setCriKeyword] = useState(['', '']);
   const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -43,14 +44,28 @@ const Drugs = () => {
   }
 
   useEffect(() => {
+    // const getDatafromServer = async () => {
+    //   setLoading(true); // 로딩 상태 시작
+    //   await axios.get("/api/drug")
+    //     .then((response) => {
+    //       handleGetDatafromServer(response.data);
+    //       setTimeout(() => 500);
+    //     })
+    //     .catch((error) => setError(error))
+    //     .finally(setLoading(false));
+    // };
     const getDatafromServer = async () => {
-      await axios
-        .get("/api/drug")
-        .then((response) => handleGetDatafromServer(response.data))
-        .catch((error) => setError(error));
+      setLoading(true); // 로딩 상태 시작
+      await axios.get("/api/drug")
+        .then((response) => {
+          handleGetDatafromServer(response.data);
+          setTimeout(() => {setLoading(false);}, 500);
+        })
+        .catch((error) => {setLoading(false); setError(error)})
+        // .finally(setLoading(false));
     };
     getDatafromServer();
-  }, []);
+  }, [setLoading]);
 
   const ReadJsonDrugs = (jsonDrugs) => {
     if (jsonDrugs.length !== 0) {
@@ -202,6 +217,12 @@ const Drugs = () => {
     FileSaver.saveAs(excelFile, name);
   }
 
+  // console.log(loading);
+  // if (loading) return 
+  // <div className="loading-wrapper">
+  //   <img src="/icons/ic_spinner2.gif" alt="" />
+  // </div>;
+
   if (error) {
     console.log(error)
     if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
@@ -227,8 +248,9 @@ const Drugs = () => {
         <NoResultView name={criKeyword[0]} explain={"과 일치하는 내용이 없습니다."}/>
     }
   </>
-
+  console.log(loading);
   return (
+    (!loading) ?
     <>
       <HeaderComponent nav={navigate} isLogoutVisible={true}  acitveTab={"drugs"}/>
       <div className="ui-panel-container">
@@ -244,8 +266,11 @@ const Drugs = () => {
           <button onClick={handleInitialized}>변경사항 초기화</button>
           <button onClick={UpdateDrugs}>변경사항 저장</button>
         </div>
+      </div>
+    </> :
+    <div className="loading-wrapper">
+      <img src="/icons/ic_spinner2.gif" alt="" />
     </div>
-    </>
   );
 };
 

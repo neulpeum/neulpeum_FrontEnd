@@ -18,6 +18,18 @@ body {
     display: none;
 }
 
+.loading-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-wrapper img {
+    width: 12rem;
+    height: 12rem;
+}
+
 @media (max-width: 768px) {
     .goto-back {
         display: block;

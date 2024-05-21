@@ -7,11 +7,19 @@ import 'styles/ForPages/AccountSettings/AccountSettings.css';
 
 const AccountSetting = () => {
     const [activeTab, setActiveTab] = useState(0);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-          axios.get("/api/drug").then((response) => {}).catch((error) => setError(error));
+        setLoading(true); // 로딩 상태 시작
+          axios
+          .get("/api/drug")
+          .then((response) => {setTimeout(() => {setLoading(false);}, 500);})
+          .catch((error) => {
+            setError(error);
+            setLoading(false);
+        });
     }, []);
 
     const TabButtons = [
@@ -23,6 +31,9 @@ const AccountSetting = () => {
         setActiveTab(tabIndex);
     };
 
+    if (loading) return <div className="loading-wrapper">
+    <img src="/icons/ic_spinner2.gif" alt="" />
+  </div>;
     if (error) {
         if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
           alert("접근 권한이 없습니다");
