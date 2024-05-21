@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import axios from "axios";
 import HeaderComponent from "components/Header";
 import 'styles/ForPages/CitizenAdd/CitizenAdd.css';
-
 
 export default function CitizenAdd() {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [medicalHistory, setMedicalHistory] = useState("");
   const [notes, setNotes] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -20,11 +20,12 @@ export default function CitizenAdd() {
 
   const handleSubmit = () => {
     const addCitizen = async () => {
-      if (name === "" || address === "" || medicalHistory ==="" || notes === "") {
+      if (name === "" || address === "" || medicalHistory === "" || notes === "") {
         return alert('모든 항목을 입력해주세요');
       }
       try {
         setError(null);
+        setIsSubmitting(true);
         const data = {
           patientName: name,
           address: address,
@@ -36,12 +37,14 @@ export default function CitizenAdd() {
         alert('주민이 추가되었습니다');
         navigateToCitizens();
       } catch (e) {
-        if (e.response.status === 401 || e.response.status === 403) {
+        if (e.response && (e.response.status === 401 || e.response.status === 403)) {
           alert("접근 권한이 없습니다");
           navigate(-1);
           return;
         }
         setError(e);
+      } finally {
+        setTimeout(() => setIsSubmitting(false), 5000);
       }
     };
     addCitizen();
@@ -81,7 +84,13 @@ export default function CitizenAdd() {
                 </div>
             </div>
             <div className='button-wrapper'>
-                <button className="citizen-add-button" onClick={handleSubmit}>추가</button>
+                <button 
+                  className="citizen-add-button" 
+                  onClick={handleSubmit} 
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? '추가 중...' : '추가'}
+                </button>
                 <button className="citizen-add-button" onClick={handleCancel}>취소</button>
             </div>
         </div>

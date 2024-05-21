@@ -45,7 +45,11 @@ const Citizens = () => {
         });
 
         setOriginalCitizens(res.data);
-        setCitizens(res.data);
+        setCitizens(res.data.filter(
+          (item) => isMobile 
+            ? selectedVillages.some((village) => item.address.includes(village))
+            : true
+        ));
         setLoading(false);
       } catch (e) {
         setError(e);
@@ -53,7 +57,7 @@ const Citizens = () => {
       }
     };
     fetchCitizens();
-  }, []);
+  }, [isMobile, selectedVillages]);
 
   useEffect(() => {
     filterCitizens();
@@ -63,8 +67,9 @@ const Citizens = () => {
     setCitizens(
       originalCitizens.filter(
         (item) =>
-          (selectedVillages.length === 0 ||
-            selectedVillages.some((village) => item.address.includes(village))) &&
+          (isMobile 
+            ? (selectedVillages.length === 0 || selectedVillages.some((village) => item.address.includes(village))) 
+            : true) &&
           item.patientName.includes(finalKeyword)
       )
     );
@@ -162,25 +167,27 @@ const Citizens = () => {
         isReversed={isReversed}
         onCitizenAddClick={navigateToCitizenAdd}
       />
-      <div className="filter-buttons">
-        {["윗마을1", "윗마을2", "아랫마을1", "아랫마을2"].map((village) => (
-          <button
-            key={village}
-            className={`filter-button ${
-              selectedVillages.includes(village) ? "active" : ""
-            }`}
-            onClick={() => toggleVillageFilter(village)}
-          >
-            {selectedVillages.includes(village) && (
+      {isMobile && (
+        <div className="filter-buttons">
+          {["윗마을1", "윗마을2", "아랫마을1", "아랫마을2"].map((village) => (
+            <button
+              key={village}
+              className={`filter-button ${
+                selectedVillages.includes(village) ? "active" : ""
+              }`}
+              onClick={() => toggleVillageFilter(village)}
+            >
+              {selectedVillages.includes(village) && (
               <img 
                 src={HouseIcon} 
                 alt="" 
               />
             )}
-            {village}
-          </button>
-        ))}
-      </div>
+              {village}
+            </button>
+          ))}
+        </div>
+      )}
       {mainView}
     </div>
   );
