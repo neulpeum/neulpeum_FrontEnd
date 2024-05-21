@@ -119,7 +119,6 @@ const CitizenList = ({ columns, data, onClickDetail }) => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  console.log(rows);
 
   return (
     <div className="citizenTable-wrapper">

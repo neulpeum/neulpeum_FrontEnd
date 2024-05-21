@@ -253,14 +253,7 @@ const Drugs = () => {
     FileSaver.saveAs(excelFile, name);
   }
 
-  // console.log(loading);
-  // if (loading) return
-  // <div className="loading-wrapper">
-  //   <img src="/icons/ic_spinner2.gif" alt="" />
-  // </div>;
-
   if (error) {
-    console.log(error);
     if (
       error.response.status === 401 ||
       error.response.status === 403 ||
@@ -313,7 +306,7 @@ const Drugs = () => {
       )}
     </>
   );
-  console.log(loading);
+
   return !loading ? (
     <>
       <HeaderComponent
