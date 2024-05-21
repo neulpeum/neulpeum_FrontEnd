@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as FileSaver from "file-saver";
-import * as XLSX from 'xlsx-js-style';
+import * as XLSX from "xlsx-js-style";
 import HeaderComponent from "components/Header";
 import SearchBar from "components/SearchBar";
 import NoResultView from "components/NoResult";
 import DrugList from "./DrugList";
 import FileUpload from "./FileUpload";
-import 'styles/ForPages/Drugs/Drugs.css';
-import { MyDate } from 'utils/MyDate';
+import "styles/ForPages/Drugs/Drugs.css";
+import { MyDate } from "utils/MyDate";
 
 const Drugs = () => {
   const [originalDrugs, setOriginalDrugs] = useState([]);
   const [renderingData, setRenderingData] = useState([]);
-  const [criKeyword, setCriKeyword] = useState(['', '']);
+  const [criKeyword, setCriKeyword] = useState(["", ""]);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -35,13 +35,13 @@ const Drugs = () => {
         ...array,
         expireDate: MyDate.ConvertDate(array.expireDate, 3),
         drugEnrollTime: MyDate.ConvertDate(array.drugEnrollTime, 3),
-        drugModifiedTime: MyDate.ConvertDate(array.drugModifiedTime, 3), 
+        drugModifiedTime: MyDate.ConvertDate(array.drugModifiedTime, 3),
       };
     });
     const deepCopyArray = JSON.parse(JSON.stringify(FormattedData));
     setRenderingData(FormattedData);
     setOriginalDrugs(deepCopyArray);
-  }
+  };
 
   useEffect(() => {
     // const getDatafromServer = async () => {
@@ -56,13 +56,19 @@ const Drugs = () => {
     // };
     const getDatafromServer = async () => {
       setLoading(true); // 로딩 상태 시작
-      await axios.get("/api/drug")
+      await axios
+        .get("/api/drug")
         .then((response) => {
           handleGetDatafromServer(response.data);
-          setTimeout(() => {setLoading(false);}, 500);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
         })
-        .catch((error) => {setLoading(false); setError(error)})
-        // .finally(setLoading(false));
+        .catch((error) => {
+          setLoading(false);
+          setError(error);
+        });
+      // .finally(setLoading(false));
     };
     getDatafromServer();
   }, [setLoading]);
@@ -76,13 +82,16 @@ const Drugs = () => {
           return {
             drugId: originalDrugs.length + index + 1,
             drugName: drugName,
-            expireDate: MyDate.ConvertDate(MyDate.ConvertedExceltoJsonDate(expireDate), 3),
-            usableAmount: (usableAmount-usable),
+            expireDate: MyDate.ConvertDate(
+              MyDate.ConvertedExceltoJsonDate(expireDate),
+              3
+            ),
+            usableAmount: usableAmount - usable,
             drugEnrollTime: MyDate.ConvertDate(MyDate.CreateCurrentDate(), 3),
             drugModifiedTime: null,
           };
         });
-        setRenderingData((prevData) => [...FormattedDrugs, ...prevData ]);
+        setRenderingData((prevData) => [...FormattedDrugs, ...prevData]);
       } catch (error) {
         alert("파일을 읽던 중 에러가 발생했습니다.", error);
       }
@@ -90,12 +99,12 @@ const Drugs = () => {
   };
 
   const handleQuantityChange = (index, change) => {
-      setRenderingData((prevData) => {
-        const newData = [...prevData];
-        newData[index].usableAmount += change;
-        newData[index].isModified = true;
-        return newData;
-      });
+    setRenderingData((prevData) => {
+      const newData = [...prevData];
+      newData[index].usableAmount += change;
+      newData[index].isModified = true;
+      return newData;
+    });
   };
 
   const ChangeDrugForm = (data) => {
@@ -107,20 +116,28 @@ const Drugs = () => {
     const modifyData = [];
 
     data.forEach((renderingItem) => {
-      const existingIndex = originalDrugs.findIndex((originalItem) => 
-      originalItem.drugId === renderingItem.drugId && 
-      originalItem.drugName === renderingItem.drugName &&
-      originalItem.expireDate === renderingItem.expireDate);
+      const existingIndex = originalDrugs.findIndex(
+        (originalItem) =>
+          originalItem.drugId === renderingItem.drugId &&
+          originalItem.drugName === renderingItem.drugName &&
+          originalItem.expireDate === renderingItem.expireDate
+      );
 
       const expireDate = MyDate.ConvertDate(renderingItem.expireDate, 0);
-      const drugModifiedTime = MyDate.ConvertDate(MyDate.CreateCurrentDate(), 0);
+      const drugModifiedTime = MyDate.ConvertDate(
+        MyDate.CreateCurrentDate(),
+        0
+      );
 
       if (existingIndex === -1) {
-        const k = {...renderingItem};
+        const k = { ...renderingItem };
         k.expireDate = expireDate;
         newData.push(k);
       } else if (renderingItem.isModified) {
-        const modifiedDrug = { ...originalDrugs[existingIndex], ...renderingItem };
+        const modifiedDrug = {
+          ...originalDrugs[existingIndex],
+          ...renderingItem,
+        };
         modifiedDrug.expireDate = expireDate;
         modifiedDrug.drugModifiedTime = drugModifiedTime;
         modifyData.push(modifiedDrug);
@@ -135,7 +152,7 @@ const Drugs = () => {
     return [newData, modifyData];
   };
 
-  const PostProcessing = async() => {
+  const PostProcessing = async () => {
     alert("성공적으로 등록되었습니다.");
     await axios
       .get("/api/drug")
@@ -148,9 +165,9 @@ const Drugs = () => {
     try {
       const [newData, modifyData] = ChangeDrugForm(renderingData);
       axios
-      .put("/api/drug", [...newData, ...modifyData])
-      .then((response) => PostProcessing())
-      .catch((error) => setError(error));
+        .put("/api/drug", [...newData, ...modifyData])
+        .then((response) => PostProcessing())
+        .catch((error) => setError(error));
     } catch (error) {
       console.log(error);
       return;
@@ -161,100 +178,151 @@ const Drugs = () => {
     if (!originalDrugs) return;
     const deepCopyArray = JSON.parse(JSON.stringify(originalDrugs));
     setRenderingData([...deepCopyArray]);
-  }
+  };
 
   function search(keyword, criteria) {
     const result = [];
-    setCriKeyword([keyword.split(' ').join(''), criteria]);
+    setCriKeyword([keyword.split(" ").join(""), criteria]);
 
     renderingData.forEach((item) => {
       if (criteria) {
-        if (item[criteria].split(' ').join('').includes(keyword))
+        if (item[criteria].split(" ").join("").includes(keyword))
           result.push(item.drugId);
       } else {
-        if (item["expireDate"].split(' ').join('').includes(keyword) 
-        || item["drugEnrollTime"].split(' ').join('').includes(keyword) 
-        || (item["drugModifiedTime"] && item["drugModifiedTime"].split(' ').join('').includes(keyword)) 
-        || item["drugName"].split(' ').join('').includes(keyword))
+        if (
+          item["expireDate"].split(" ").join("").includes(keyword) ||
+          item["drugEnrollTime"].split(" ").join("").includes(keyword) ||
+          (item["drugModifiedTime"] &&
+            item["drugModifiedTime"].split(" ").join("").includes(keyword)) ||
+          item["drugName"].split(" ").join("").includes(keyword)
+        )
           result.push(item.drugId);
-        }
-      });
+      }
+    });
     setSearchResults(result);
   }
 
   function generateExcel() {
-    const type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const type =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
     const name = `늘픔_${MyDate.ConvertDate(MyDate.CreateCurrentDate(), 4)}`;
 
     const headerStyle = {
-      font: { bold: true, sz: '24' },
-      border: { top: {style: "thin"}, bottom: {style: "thin"}, left: {style: "thin"}, right: {style: "thin"} },
+      font: { bold: true, sz: "24" },
+      border: {
+        top: { style: "thin" },
+        bottom: { style: "thin" },
+        left: { style: "thin" },
+        right: { style: "thin" },
+      },
       alignment: { horizontal: "center", vertical: "center" },
     };
     const rowStyle = {
-      font: { bold: true, sz: '18' },
-      border: { top: {style: "thin"}, bottom: {style: "thin"}, left: {style: "thin"}, right: {style: "thin"} },
+      font: { bold: true, sz: "18" },
+      border: {
+        top: { style: "thin" },
+        bottom: { style: "thin" },
+        left: { style: "thin" },
+        right: { style: "thin" },
+      },
       alignment: { horizontal: "center", vertical: "center" },
     };
 
     const headerData = [
-      { v: '약 이름', s: headerStyle },
-      { v: '유통기한', s: headerStyle },
-      { v: '현재 수량', s: headerStyle },
-      { v: '사용량', s: headerStyle },
+      { v: "약 이름", s: headerStyle },
+      { v: "유통기한", s: headerStyle },
+      { v: "현재 수량", s: headerStyle },
+      { v: "사용량", s: headerStyle },
     ];
 
-    const rowData = Array(50).fill([ { v: '', s: rowStyle }, { v: '', s: rowStyle }, { v: '', s: rowStyle }, { v: '', s: rowStyle } ]);
+    const rowData = Array(50).fill([
+      { v: "", s: rowStyle },
+      { v: "", s: rowStyle },
+      { v: "", s: rowStyle },
+      { v: "", s: rowStyle },
+    ]);
     const ws = XLSX.utils.aoa_to_sheet([headerData].concat(rowData));
 
-    ws['!cols'] = Array(100).fill({ wpx: 200 });
-    ws['!rows'] = Array(100).fill({ hpx: 50 });
+    ws["!cols"] = Array(100).fill({ wpx: 200 });
+    ws["!rows"] = Array(100).fill({ hpx: 50 });
 
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    const excelButter = XLSX.write(wb, {bookType: 'xlsx', type: 'array'});
+    const excelButter = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const excelFile = new Blob([excelButter], { type: type });
     FileSaver.saveAs(excelFile, name);
   }
 
   // console.log(loading);
-  // if (loading) return 
+  // if (loading) return
   // <div className="loading-wrapper">
   //   <img src="/icons/ic_spinner2.gif" alt="" />
   // </div>;
 
   if (error) {
-    console.log(error)
-    if (error.response.status === 401 || error.response.status === 403 || error.response.status === 400) {
+    console.log(error);
+    if (
+      error.response.status === 401 ||
+      error.response.status === 403 ||
+      error.response.status === 400
+    ) {
       alert("접근 권한이 없습니다");
     }
     navigate(-1);
   }
 
-  const key = (criKeyword[1] === 'drugName') ? '약 이름' : 
-        (criKeyword[1] === 'expireDate') ? '유통기한' :
-        (criKeyword[1] === 'drugEnrollTime') ? '등록일자' :
-        (criKeyword[1] === 'drugModifiedTime') ? '마지막 사용 일자' : '전체';
+  const key =
+    criKeyword[1] === "drugName"
+      ? "약 이름"
+      : criKeyword[1] === "expireDate"
+      ? "유통기한"
+      : criKeyword[1] === "drugEnrollTime"
+      ? "등록일자"
+      : criKeyword[1] === "drugModifiedTime"
+      ? "마지막 사용 일자"
+      : "전체";
 
-  const drugView =
-  <> {(criKeyword[0] === '')
-    ? <DrugList columns={columns.slice(1, 6)} data={renderingData} onQuantityChange={handleQuantityChange}/> 
-      : (searchResults.length > 0) 
-      ? <>
-      <p className="tag"><span>{criKeyword[0]}</span>을 <span>{key}</span> 기준으로 검색한 내용입니다.</p>
-        <DrugList columns={columns.slice(1, 6)} data={renderingData.filter((item) => {return searchResults.includes(item.drugId)})} onQuantityChange={handleQuantityChange}/> 
-        </>
-        : 
-        <NoResultView name={criKeyword[0]} explain={"과 일치하는 내용이 없습니다."}/>
-    }
-  </>
-  console.log(loading);
-  return (
-    (!loading) ?
+  const drugView = (
     <>
-      <HeaderComponent nav={navigate} isLogoutVisible={true}  acitveTab={"drugs"}/>
+      {" "}
+      {criKeyword[0] === "" ? (
+        <DrugList
+          columns={columns.slice(1, 6)}
+          data={renderingData}
+          onQuantityChange={handleQuantityChange}
+        />
+      ) : searchResults.length > 0 ? (
+        <>
+          <p className="tag">
+            <span>{criKeyword[0]}</span>을 <span>{key}</span> 기준으로 검색한
+            내용입니다.
+          </p>
+          <DrugList
+            columns={columns.slice(1, 6)}
+            data={renderingData.filter((item) => {
+              return searchResults.includes(item.drugId);
+            })}
+            onQuantityChange={handleQuantityChange}
+          />
+        </>
+      ) : (
+        <NoResultView
+          name={criKeyword[0]}
+          explain={"과 일치하는 내용이 없습니다."}
+        />
+      )}
+    </>
+  );
+  console.log(loading);
+  return !loading ? (
+    <>
+      <HeaderComponent
+        nav={navigate}
+        isLogoutVisible={true}
+        acitveTab={"drugs"}
+      />
       <div className="ui-panel-container">
-        <FileUpload Uploading={ReadJsonDrugs}/>
+        <FileUpload Uploading={ReadJsonDrugs} />
         <SearchBar search={search} currentPage={"Drugs"} />
       </div>
       {drugView}
@@ -267,9 +335,10 @@ const Drugs = () => {
           <button onClick={UpdateDrugs}>변경사항 저장</button>
         </div>
       </div>
-    </> :
+    </>
+  ) : (
     <div className="loading-wrapper">
-      <img src="/icons/ic_spinner2.gif" alt="" />
+      <img src="/icons/ic_spinner.gif" alt="" />
     </div>
   );
 };

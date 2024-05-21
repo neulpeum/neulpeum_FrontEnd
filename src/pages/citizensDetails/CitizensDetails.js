@@ -34,17 +34,18 @@ const CitizensDetails = () => {
   }, [loadingInfor, loadingCounselList]);
 
   useEffect(() => {
+    const citizensDetailContainer = document.querySelector(
+      ".citizensDetail-container"
+    );
     const citizensInformation = document.querySelector(".citizensInformation");
-    const counselList = document.querySelector(".counselList");
     if (loading) {
-      citizensInformation.style.setProperty("display", "none");
-      counselList.style.setProperty("display", "none");
+      citizensDetailContainer.style.setProperty("display", "none");
     } else {
       if (!isLargeScreen) {
-        counselList.style.setProperty("display", "block");
+        citizensDetailContainer.style.setProperty("display", "block");
       } else {
+        citizensDetailContainer.style.setProperty("display", "block");
         citizensInformation.style.setProperty("display", "block");
-        counselList.style.setProperty("display", "block");
       }
     }
   }, [loading]);
@@ -84,52 +85,56 @@ const CitizensDetails = () => {
 
   return (
     <div>
-      <HeaderComponent
-        nav={navigate}
-        isLogoutVisible={true}
-        acitveTab={"citizens"}
-      />
-      <div className="components-wrapper">
-        <div
-          className="citizensInformation"
-          style={{
-            display: isButtonClicked ? "block" : "none",
-          }}
-        >
-          <button
-            className="goto-counsel"
-            onClick={() => setButtonClicked(!isButtonClicked)}
-          >
-            <img src="/icons/ic_back.png" alt="" />
-            <span> 상담리스트 </span>
-          </button>
-          <CitizenInfor onLoadingUpdate={handleInforLoadingUpdate} />
+      {loading && (
+        <div className="loading-wrapper">
+          <img src="/icons/ic_spinner.gif" alt="" />
         </div>
-        {loading && (
-          <div className="loading-wrapper">
-            <img src="/icons/ic_spinner2.gif" alt="" />
-          </div>
-        )}
-        <div
-          className="counselList"
-          style={{
-            display: isButtonClicked ? "none" : "block",
-          }}
-        >
-          <Link to="/citizens">
-            <img className="goto-back" src="/icons/ic_back.png" alt="" />
-          </Link>
-          <div className="citiznesCounselList">
-            <CitizenCounselList
-              onLoadingUpdate={handleCounselListLoadingUpdate}
-            />
-          </div>
-          <button
-            className="goto-citizensInformation"
-            onClick={() => setButtonClicked(!isButtonClicked)}
+      )}
+      <div className="citizensDetail-container">
+        <HeaderComponent
+          nav={navigate}
+          isLogoutVisible={true}
+          acitveTab={"citizens"}
+        />
+        <div className="components-wrapper">
+          <div
+            className="citizensInformation"
+            style={{
+              display: isButtonClicked ? "block" : "none",
+            }}
           >
-            <span> 상세정보 </span> <img src="/icons/ic_rightBtn.svg" alt="" />
-          </button>
+            <button
+              className="goto-counsel"
+              onClick={() => setButtonClicked(!isButtonClicked)}
+            >
+              <img src="/icons/ic_back.png" alt="" />
+              <span> 상담리스트 </span>
+            </button>
+            <CitizenInfor onLoadingUpdate={handleInforLoadingUpdate} />
+          </div>
+
+          <div
+            className="counselList"
+            style={{
+              display: isButtonClicked ? "none" : "block",
+            }}
+          >
+            <Link to="/citizens">
+              <img className="goto-back" src="/icons/ic_back.png" alt="" />
+            </Link>
+            <div className="citiznesCounselList">
+              <CitizenCounselList
+                onLoadingUpdate={handleCounselListLoadingUpdate}
+              />
+            </div>
+            <button
+              className="goto-citizensInformation"
+              onClick={() => setButtonClicked(!isButtonClicked)}
+            >
+              <span> 상세정보 </span>{" "}
+              <img src="/icons/ic_rightBtn.svg" alt="" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@
     display: none;
     cursor: pointer;
     padding: 0;
-    margin-right: 2rem;
+    margin-left: 1rem;
 }
 
 .goto-counsel img {
@@ -93,6 +93,6 @@
         display: block;
     }
     .components-wrapper {
-        margin-top: 2.9rem;
+        margin-top: 2rem;
     }
 }

@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import SearchBar from 'components/SearchBar';
-import HeaderComponent from "components/Header"
-import CitizenList from './CitizenList';
-import NoResultView from 'components/NoResult';
-import 'styles/ForPages/Citizens/Citizens.css';
-
+import SearchBar from "components/SearchBar";
+import HeaderComponent from "components/Header";
+import CitizenList from "./CitizenList";
+import NoResultView from "components/NoResult";
+import "styles/ForPages/Citizens/Citizens.css";
 
 const Citizens = () => {
   const [isReversed, setReverse] = useState(false);
@@ -24,9 +23,9 @@ const Citizens = () => {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -41,8 +40,9 @@ const Citizens = () => {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Credentials": "*",
-            }
-          },{withCredentials: true}
+            },
+          },
+          { withCredentials: true }
         );
 
         setOriginalCitizens(res.data);
@@ -59,13 +59,15 @@ const Citizens = () => {
   }, []);
 
   function sortData() {
-    setCitizens(prevData => [...prevData].reverse());
+    setCitizens((prevData) => [...prevData].reverse());
     setReverse(!isReversed);
-  };
+  }
 
   function search(keyword) {
     setFinalKeyword(keyword);
-    setCitizens(() => [...originalCitizens].filter((item) => item.patientName.includes(keyword)));
+    setCitizens(() =>
+      [...originalCitizens].filter((item) => item.patientName.includes(keyword))
+    );
   }
 
   const navigateToCitizenAdd = () => {
@@ -77,16 +79,18 @@ const Citizens = () => {
   };
 
   const columns = [
-    { Header: '이름', accessor: 'patientName' },
-    { Header: '주소', accessor: 'address' },
-    { Header: '병력', accessor: 'disease' },
-    { Header: '특이사항', accessor: 'specialReport' },
+    { Header: "이름", accessor: "patientName" },
+    { Header: "주소", accessor: "address" },
+    { Header: "병력", accessor: "disease" },
+    { Header: "특이사항", accessor: "specialReport" },
   ];
 
-  
-  if (loading) return <div className="loading-wrapper">
-    <img src="/icons/ic_spinner2.gif" alt="" />
-  </div>;
+  if (loading)
+    return (
+      <div className="loading-wrapper">
+        <img src="/icons/ic_spinner.gif" alt="" />
+      </div>
+    );
   if (error) {
     if (error.response.status === 401 || error.response.status === 403) {
       alert("접근 권한이 없습니다");
@@ -94,21 +98,51 @@ const Citizens = () => {
     }
     return;
   }
-  
 
-  const mainView = citizens.length === 0 ?
-   <NoResultView name={finalKeyword} explain={"는 존재하지 않는 주민입니다."} /> :
-   <CitizenList columns={columns} data={citizens} onClickDetail={navigateToCitizenDetail}/>
+  const mainView =
+    citizens.length === 0 ? (
+      <NoResultView
+        name={finalKeyword}
+        explain={"는 존재하지 않는 주민입니다."}
+      />
+    ) : (
+      <CitizenList
+        columns={columns}
+        data={citizens}
+        onClickDetail={navigateToCitizenDetail}
+      />
+    );
 
   return (
     <div>
-      <HeaderComponent nav={navigate} isLogoutVisible={true}  acitveTab={"citizens"}/>
-      <Link className='goto-back' to="/">
-        <img src='/icons/ic_back.png' alt=''/>
+      <HeaderComponent
+        nav={navigate}
+        isLogoutVisible={true}
+        acitveTab={"citizens"}
+      />
+      <Link className="goto-back" to="/">
+        <img src="/icons/ic_back.png" alt="" />
       </Link>
-     
-      {isMobile && <p style={{fontSize: '14px', color: 'black', textAlign: 'center', marginTop: '37px'}}>늘픔에 기록된 주민 목록입니다.</p>}
-      <SearchBar sort={sortData} search={search} currentPage={"Citizens"} isReversed={isReversed} onCitizenAddClick={navigateToCitizenAdd}/>
+
+      {isMobile && (
+        <p
+          style={{
+            fontSize: "14px",
+            color: "black",
+            textAlign: "center",
+            marginTop: "37px",
+          }}
+        >
+          늘픔에 기록된 주민 목록입니다.
+        </p>
+      )}
+      <SearchBar
+        sort={sortData}
+        search={search}
+        currentPage={"Citizens"}
+        isReversed={isReversed}
+        onCitizenAddClick={navigateToCitizenAdd}
+      />
       {mainView}
     </div>
   );
