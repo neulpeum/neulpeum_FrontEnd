@@ -16,7 +16,7 @@ const Citizens = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [finalKeyword, setFinalKeyword] = useState("");
-  const [selectedVillages, setSelectedVillages] = useState([]);
+  const [selectedVillages, setSelectedVillages] = useState(["윗마을1", "윗마을2", "아랫마을1", "아랫마을2"]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const navigate = useNavigate();
@@ -171,7 +171,12 @@ const Citizens = () => {
             }`}
             onClick={() => toggleVillageFilter(village)}
           >
-            <img src={HouseIcon} alt="" />
+            {selectedVillages.includes(village) && (
+              <img 
+                src={HouseIcon} 
+                alt="" 
+              />
+            )}
             {village}
           </button>
         ))}
