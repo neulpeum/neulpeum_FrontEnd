@@ -1,7 +1,7 @@
 .citizenAdd-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center top;
+    justify-content: center;
     align-items: center;
     margin-bottom: 40px;
 }
@@ -36,7 +36,7 @@
     margin-top: 62px;
 }
 
-.button-wrapper>* {
+.button-wrapper > * {
     margin-left: 25px;
     margin-right: 25px;
 }
@@ -66,11 +66,68 @@
 .line {
     flex-grow: 1;
     height: 3px;
-    background: linear-gradient( 270deg, #aed391 -1.77%, #a9d3a1 20.55%, #a5d2ab 35.26%, #a2d2b3 46.42%, #9dd2c1 65.69%, #99d1cc 94.6%, #95d1d9 99.67%);
+    background: linear-gradient(
+        270deg,
+        #aed391 -1.77%,
+        #a9d3a1 20.55%,
+        #a5d2ab 35.26%,
+        #a2d2b3 46.42%,
+        #9dd2c1 65.69%,
+        #99d1cc 94.6%,
+        #95d1d9 99.67%
+    );
     align-self: center;
     min-width: 0;
 }
 
 .line-text span {
     font-size: 24px;
+}
+
+@media (max-width: 768px) {
+    .input-field input {
+        width: 70vw;
+    }
+
+    .input-field label {
+        font-size: 16px;
+    }
+
+    .input-field {
+        margin-top: 15px;
+    }
+
+    .button-wrapper {
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 40px;
+    }
+
+    .citizen-add-button {
+        font-size: 18px;
+        padding: 12px 18px;
+        width: 80%;
+    }
+
+    .line-text {
+        width: 80%;
+        margin-top: 30px;
+        margin-bottom: 8px;
+    }
+
+    .line-text span {
+        font-size: 20px;
+    }
+
+    .citizenAdd-wrapper {
+        margin-top: 20px;
+    }
+
+    .citizen-add-button {
+        width: 80px;
+        font-size: 16px;
+    }
 }
