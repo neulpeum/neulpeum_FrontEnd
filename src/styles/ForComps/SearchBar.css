@@ -27,11 +27,14 @@
     #95d1d9 99.67%
   );
   border-radius: 50%;
+  @media (max-width: 768px) {
+    margin-left: 0px;
+  }
 }
 
 #plusIcon-wrapper {
   margin-left: 20px;
   @media (max-width: 768px) {
-    display: none;
+    margin-left: 4px;
   }
 }

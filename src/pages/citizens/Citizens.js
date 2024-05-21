@@ -7,6 +7,7 @@ import HeaderComponent from "components/Header";
 import CitizenList from "./CitizenList";
 import NoResultView from "components/NoResult";
 import "styles/ForPages/Citizens/Citizens.css";
+import HouseIcon from "Images/ic_house.svg"
 
 const Citizens = () => {
   const [isReversed, setReverse] = useState(false);
@@ -14,9 +15,11 @@ const Citizens = () => {
   const [citizens, setCitizens] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
   const [finalKeyword, setFinalKeyword] = useState("");
+  const [selectedVillages, setSelectedVillages] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,24 +35,18 @@ const Citizens = () => {
   useEffect(() => {
     const fetchCitizens = async () => {
       try {
-        setLoading(true); // 로딩 상태 시작
-        const res = await axios.get(
-          "/api/patient",
-          {
-            withCredentials: true,
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Credentials": "*",
-            },
+        setLoading(true);
+        const res = await axios.get("/api/patient", {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": "*",
           },
-          { withCredentials: true }
-        );
+        });
 
         setOriginalCitizens(res.data);
         setCitizens(res.data);
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
+        setLoading(false);
       } catch (e) {
         setError(e);
         setLoading(false);
@@ -58,20 +55,40 @@ const Citizens = () => {
     fetchCitizens();
   }, []);
 
-  function sortData() {
+  useEffect(() => {
+    filterCitizens();
+  }, [selectedVillages, finalKeyword]);
+
+  const filterCitizens = () => {
+    setCitizens(
+      originalCitizens.filter(
+        (item) =>
+          (selectedVillages.length === 0 ||
+            selectedVillages.some((village) => item.address.includes(village))) &&
+          item.patientName.includes(finalKeyword)
+      )
+    );
+  };
+
+  const toggleVillageFilter = (village) => {
+    setSelectedVillages((prev) =>
+      prev.includes(village)
+        ? prev.filter((v) => v !== village)
+        : [...prev, village]
+    );
+  };
+
+  const sortData = () => {
     setCitizens((prevData) => [...prevData].reverse());
     setReverse(!isReversed);
-  }
+  };
 
-  function search(keyword) {
+  const search = (keyword) => {
     setFinalKeyword(keyword);
-    setCitizens(() =>
-      [...originalCitizens].filter((item) => item.patientName.includes(keyword))
-    );
-  }
+  };
 
   const navigateToCitizenAdd = () => {
-    navigate("/citizenAdd", {});
+    navigate("/citizenAdd");
   };
 
   const navigateToCitizenDetail = (citizenId) => {
@@ -85,12 +102,14 @@ const Citizens = () => {
     { Header: "특이사항", accessor: "specialReport" },
   ];
 
-  if (loading)
+  if (loading) {
     return (
       <div className="loading-wrapper">
         <img src="/icons/ic_spinner.gif" alt="" />
       </div>
     );
+  }
+
   if (error) {
     if (error.response.status === 401 || error.response.status === 403) {
       alert("접근 권한이 없습니다");
@@ -103,7 +122,7 @@ const Citizens = () => {
     citizens.length === 0 ? (
       <NoResultView
         name={finalKeyword}
-        explain={"는 존재하지 않는 주민입니다."}
+        explain={finalKeyword.trim().length === 0 ? "해당 마을에 존재하지 않는 주민입니다." : "는 존재하지 않는 주민입니다."}
       />
     ) : (
       <CitizenList
@@ -143,6 +162,20 @@ const Citizens = () => {
         isReversed={isReversed}
         onCitizenAddClick={navigateToCitizenAdd}
       />
+      <div className="filter-buttons">
+        {["윗마을1", "윗마을2", "아랫마을1", "아랫마을2"].map((village) => (
+          <button
+            key={village}
+            className={`filter-button ${
+              selectedVillages.includes(village) ? "active" : ""
+            }`}
+            onClick={() => toggleVillageFilter(village)}
+          >
+            <img src={HouseIcon} alt="" />
+            {village}
+          </button>
+        ))}
+      </div>
       {mainView}
     </div>
   );

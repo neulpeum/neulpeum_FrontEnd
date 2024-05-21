@@ -9,3 +9,34 @@
     width: 12rem;
     height: 12rem;
 }
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    display: none;
+    @media(max-width: 768px) {
+        display: flex;
+    }
+}
+  
+.filter-button {
+    background-color: #95d1d9;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    padding: 6px 10px;
+    margin: 0 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 3vw;
+}
+  
+.filter-button.active {
+    background-color: #68a6b1;
+}
+  
+.filter-button img {
+    margin-right: 4px;
+}

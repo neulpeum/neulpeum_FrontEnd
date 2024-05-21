@@ -15,7 +15,7 @@ const SearchBarContainer = styled.div`
       : `
     display: flex;
     flex-direction: row;
-    width: ${window.innerWidth <= 768 ? '90%' : '77.8vw'};
+    width: ${window.innerWidth <= 768 ? '80%' : '77.8vw'};
     height: 5.47vh;
     align-items: center;
     justify-content: center;
@@ -61,7 +61,7 @@ const SearchInput = styled.input`
       padding-left: 12px;
       border: 2px solid #aed391;
       border-radius: 1.25rem;
-      font-size: clamp(1rem, 1.5vw, 18px);
+      font-size: clamp(0.85rem, 1.5vw, 18px);
     `}
 `;
 
@@ -83,9 +83,6 @@ const PlusIcon = styled.img`
   width: 60%;
   height: 60%;
   border-radius: 50%;
-  @media (max-width: 768px) {
-    display: none;
-  }
 `;
 
 const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
@@ -128,7 +125,7 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
               $using="drugs"
               name="searchInput"
             />
-            <div className="icon-wrapper" style={{ marginLeft: "4px" }}>
+            <div className="icon-wrapper">
               <SearchIcon
                 onClick={() => search(keyword, searchCriteria)}
                 $using="drugs"

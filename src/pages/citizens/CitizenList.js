@@ -41,14 +41,14 @@ function CitizenItem({ profile, name, address, diseases, onClickDetail }) {
       display: 'flex',
       justifyContent: 'space-evenly',
       marginTop: '20px',
-      marginLeft: '60px',
-      marginRight: '60px',
+      marginLeft: '40px',
+      marginRight: '40px',
       borderRadius: '10px',
       backgroundColor: '#B0D584',
       paddingLeft: '10px',
       paddingRight: '10px',
-      paddingTop: '5px',
-      paddingBottom: '5px',
+      paddingTop: '8px',
+      paddingBottom: '8px',
     }}>
       <div style={{ 
         position: 'relative',
@@ -57,16 +57,16 @@ function CitizenItem({ profile, name, address, diseases, onClickDetail }) {
         display: 'flex', 
         alignItems: 'center',
       }}>
-        <img src={profile} alt="Profile" style={{ width: '70px', height: '70px', marginRight: '1rem', marginLeft: '0.2rem', marginTop: '0.5rem'}} />
+        <img src={profile} alt="Profile" style={{ width: '60px', height: '60px', marginRight: '0.2rem', marginLeft: '0.2rem', marginTop: '0.5rem'}} />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ fontSize: '18px', fontWeight: 'bold' }}>{name}</div>
-          <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'space-between', marginTop: '10px'}}>
+          <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'space-between', marginTop: '6px'}}>
             <Item
               type={"location"}
-              text={ address.length > 10 ? `${address.slice(0, 9)}...` : address }
+              text={ address.length > 25 ? `${address.slice(0, 9)}...` : address }
             />
           </div>
-          <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'space-between', marginTop: '10px'}}>
+          <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'space-between', marginTop: '6px'}}>
             {diseases.length > 0 && <Item type={"disease"} text={diseases[0]} />}
             {diseases.length > 1 && <Item type={"disease"} text={diseases[1]} />}
           </div>
@@ -83,7 +83,7 @@ function CitizenItem({ profile, name, address, diseases, onClickDetail }) {
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#fff',
-          background: 'radial-gradient(circle at center, #fff 42%, #888 100%)',
+          background: 'radial-gradient(circle at center, #fff 55%, #888 100%)',
         }}
         onClick={onClickDetail}>
           <div>상세정보</div>
