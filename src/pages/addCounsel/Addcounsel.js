@@ -8,29 +8,41 @@ export default function AddCounsel() {
   const navigate = useNavigate();
 
   const handleLoadingUpdate = (childLoading) => {
-    setLoading(childLoading);
+    if (childLoading) {
+      setLoading(childLoading);
+    } else {
+      const timer = setTimeout(() => {
+        setLoading(childLoading);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
   };
 
   useEffect(() => {
-    const addCounseling = document.querySelector(".addCounseling");
-
+    const addCounselContainer = document.querySelector(".addCounsel-container");
     if (loading) {
-      addCounseling.style.setProperty("display", "none");
+      addCounselContainer.style.setProperty("display", "none");
     } else {
-      addCounseling.style.setProperty("display", "block");
+      addCounselContainer.style.setProperty("display", "block");
     }
   }, [loading]);
 
   return (
     <div>
-      <HeaderComponent nav={navigate} isLogoutVisible={false}  acitveTab={"citizens"}/>
       {loading && (
         <div className="loading-wrapper">
-          <img src="/icons/ic_spinner2.gif" alt="" />
+          <img src="/icons/ic_spinner.gif" alt="" />
         </div>
       )}
-      <div className="addCounseling">
-        <AddCounseling onLoadingUpdate={handleLoadingUpdate} />
+      <div className="addCounsel-container">
+        <HeaderComponent
+          nav={navigate}
+          isLogoutVisible={false}
+          acitveTab={"citizens"}
+        />
+        <div className="addCounseling">
+          <AddCounseling onLoadingUpdate={handleLoadingUpdate} />
+        </div>
       </div>
     </div>
   );

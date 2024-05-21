@@ -84,33 +84,30 @@ export default function AddCounseling(props) {
       consultContent: data[1],
     };
 
-    axios
-      .post("/api/patient/consult", consultData)
-      .then((response) => {
-        const takingDrugData = selectDrugs.map((item) => {
-          return {
-            consultId: response.data,
-            drugName: item.drugName,
-            usedAmount: item.usedAmount,
-          };
-        });
-        axios
-          .patch("/api/patient/drug", takingDrugData)
-          .then(() => {})
-          .catch((error) => {
-            console.error("Error fetching data:", error);
-          });
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
+    try {
+      const response = await axios.post("/api/patient/consult", consultData);
+      const takingDrugData = selectDrugs.map((item) => {
+        return {
+          consultId: response.data,
+          drugName: item.drugName,
+          usedAmount: item.usedAmount,
+        };
       });
-
+      await axios.patch("/api/patient/drug", takingDrugData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
     document.body.style = "overflow: auto";
-    localStorage.setItem("isReload", "true");
-    navigate("/citizensDetails", {
-      state: { id: patientId },
-    });
   };
+
+  function handleSaveClickFunc() {
+    handleSaveClick().then(() => {
+      localStorage.setItem("isReload", "true");
+      navigate("/citizensDetails", {
+        state: { id: patientId },
+      });
+    });
+  }
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -389,7 +386,7 @@ export default function AddCounseling(props) {
                 <div className="addModal-content-wrapper">
                   <p> 저장하시겠습니까? </p>
                   <div className="addModal-btn-wrapper">
-                    <button onClick={handleSaveClick}> 저장 </button>
+                    <button onClick={handleSaveClickFunc}> 저장 </button>
                     <button onClick={closeModal}> 취소 </button>
                   </div>
                 </div>
