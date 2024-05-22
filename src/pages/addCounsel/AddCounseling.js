@@ -54,7 +54,7 @@ export default function AddCounseling(props) {
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
 
-  const today = `${year}.${month}.${day} ${hours}:${minutes}`;
+  const today = `${year}-${month}-${day} ${hours}:${minutes}`;
 
   const handleChange = (index, e) => {
     const newFields = [...data];

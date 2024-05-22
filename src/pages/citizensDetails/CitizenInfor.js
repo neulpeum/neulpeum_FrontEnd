@@ -28,7 +28,7 @@ export default function CitizenInfor(props) {
           `/api/patientInfo?patientId=${patientId}`
         );
         const newData = response.data;
-
+        console.log(response.data);
         const replaceNullWithEmptyString = (value) =>
           value === null ? "" : value;
         setFields(Object.values(newData).map(replaceNullWithEmptyString));
