@@ -89,9 +89,9 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
     if (consultData.consultDate) {
       const datetimeParts = consultData.consultDate.split(" "); // 공백을 기준으로 날짜와 시간을 분리
       const dateString = datetimeParts[0]; // 날짜 부분
-      const timeString = datetimeParts[1]; // 시간 부분
+      const timeString = datetimeParts[1] || ""; // 시간 부분
 
-      const dateParts = dateString.split("."); // 날짜를 연도, 월, 일로 분리
+      const dateParts = dateString.split("-"); // 날짜를 연도, 월, 일로 분리
       const year = dateParts[0];
       const month = dateParts[1];
       const day = dateParts[2];
@@ -101,7 +101,9 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
       ];
 
       setFormattedDateTime(
-        `${year}.${month}.${day} (${dayOfWeek}) ${timeString}`
+        `${year}.${month}.${day} (${dayOfWeek})${
+          timeString ? ` ${timeString}` : ""
+        }`
       );
     }
   }, [consultData]);

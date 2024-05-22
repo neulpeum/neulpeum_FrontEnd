@@ -37,6 +37,7 @@ export default function CitizenCounselList(props) {
         );
         setData(response.data);
         setFilterData(response.data);
+        console.log(response.data);
       } catch (error) {
         if (error.response.status === 401 || error.response.status === 403) {
           alert("접근 권한이 없습니다");
@@ -230,19 +231,20 @@ export default function CitizenCounselList(props) {
                       {cell.column.id === "takingDrug" ? (
                         <div className="DetailButtonContainer">
                           <div className="conselTakingDrug-wrapper">
-                            {cell.row.values["takingDrug"]
-                              .split(", ")
-                              .map((item, index) => (
-                                <p
-                                  key={index}
-                                  style={{
-                                    margin: "0 0 0.1rem 0",
-                                    width: "fit-content",
-                                  }}
-                                >
-                                  {item}
-                                </p>
-                              ))}
+                            {cell.row.values["takingDrug"] &&
+                              cell.row.values["takingDrug"]
+                                .split(", ")
+                                .map((item, index) => (
+                                  <p
+                                    key={index}
+                                    style={{
+                                      margin: "0 0 0.1rem 0",
+                                      width: "fit-content",
+                                    }}
+                                  >
+                                    {item}
+                                  </p>
+                                ))}
                           </div>
                           <button
                             className="DetailButton"
