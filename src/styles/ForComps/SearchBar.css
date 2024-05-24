@@ -10,7 +10,7 @@
 }
 
 .citizen-criteriaStyle {
-  width: clamp(100px, 33.7%, 150px);
+  width: clamp(80px, 33.7%, 150px);
   height: 100%;
   text-align: left;
   font-size: clamp(1rem, 1.5vw, 18px);
@@ -40,11 +40,11 @@
   border-radius: 50%;
   @media (max-width: 768px) {
     margin-left: 0px;
+    height: 80%;
   }
 }
 
 #plusIcon-wrapper {
-  margin-left: 20px;
   @media (max-width: 768px) {
     margin-left: 4px;
   }
