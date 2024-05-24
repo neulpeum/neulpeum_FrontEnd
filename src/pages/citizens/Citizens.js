@@ -153,7 +153,7 @@ const Citizens = () => {
     );
 
   return (
-    <div>
+    <div style={{'overflow-x':'hidden'}}>
       <HeaderComponent
         nav={navigate}
         isLogoutVisible={true}

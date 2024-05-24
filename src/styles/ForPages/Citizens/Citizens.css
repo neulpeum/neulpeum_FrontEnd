@@ -13,9 +13,15 @@
 .filter-buttons {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
-    display: none;
+    margin-top: 20px; 
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 60px;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
+
 
 @media (max-width: 768px) {
     .filter-buttons {
