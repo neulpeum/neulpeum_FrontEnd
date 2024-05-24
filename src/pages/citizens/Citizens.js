@@ -10,10 +10,10 @@ import "styles/ForPages/Citizens/Citizens.css";
 import HouseIcon from "Images/ic_house.svg";
 
 const villageMappings = {
-  "윗마을1": ["위 1", "위 1,"],
-  "윗마을2": ["위 2", "위 1,2"],
-  "아랫마을1": ["아래 1", "아래 1,"],
-  "아랫마을2": ["아래 2", "아래 1,2"],
+  "위 1,2": ["위 1,2"],
+  "위 3,4": ["위 3,4"],
+  "아래 1,2": ["아래 1,2"],
+  "아래 3,4": ["아래 3,4"],
 };
 
 const Citizens = () => {
@@ -24,7 +24,7 @@ const Citizens = () => {
   const [error, setError] = useState(null);
   const [finalKeyword, setFinalKeyword] = useState("");
   const [searchCriteria, setSearchCriteria] = useState("전체");
-  const [selectedVillages, setSelectedVillages] = useState(["윗마을1", "윗마을2", "아랫마을1", "아랫마을2"]);
+  const [selectedVillages, setSelectedVillages] = useState(["위 1,2", "위 3,4", "아래 1,2", "아래 3,4"]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const navigate = useNavigate();
@@ -184,7 +184,7 @@ const Citizens = () => {
       />
       {isMobile && (
         <div className="filter-buttons">
-          {["윗마을1", "윗마을2", "아랫마을1", "아랫마을2"].map((village) => (
+          {["위 1,2", "위 3,4", "아래 1,2", "아래 3,4"].map((village) => (
             <button
               key={village}
               className={`filter-button ${
