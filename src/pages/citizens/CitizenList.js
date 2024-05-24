@@ -51,26 +51,30 @@ function CitizenItem({ profile, name, address, diseases, onClickDetail }) {
       paddingBottom: '8px',
     }}>
       <div style={{ 
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        display: 'flex', 
-        alignItems: 'center',
-      }}>
-        <img src={profile} alt="Profile" style={{ width: '60px', height: '60px', marginRight: '0.2rem', marginLeft: '0.2rem', marginTop: '0.5rem'}} />
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ fontSize: '18px', fontWeight: 'bold' }}>{name}</div>
-          <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'space-between', marginTop: '6px'}}>
-            <Item
-              type={"location"}
-              text={ address.length > 25 ? `${address.slice(0, 9)}...` : address }
-            />
-          </div>
-          <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'space-between', marginTop: '6px'}}>
-            {diseases.length > 0 && <Item type={"disease"} text={diseases[0]} />}
-            {diseases.length > 1 && <Item type={"disease"} text={diseases[1]} />}
-          </div>
+  position: 'relative',
+  width: '100%',
+  height: '100%',
+  display: 'flex', 
+  alignItems: 'center',
+}}>
+  <img src={profile} alt="Profile" style={{ width: '60px', height: '60px', marginRight: '0.2rem', marginLeft: '0.2rem', marginTop: '0.5rem'}} />
+  <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ fontSize: '18px', fontWeight: 'bold' }}>{name}</div>
+    <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'flex-start', marginTop: '6px'}}>
+      <Item
+        type={"location"}
+        text={ address.substring(0, 6) }
+      />
+      <Item
+        type={"location"}
+        text={ address.substring(6) }
+      />
         </div>
+        <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'flex-start', marginTop: '6px'}}>
+          {diseases.length > 0 && <Item type={"disease"} text={diseases[0]} />}
+          {diseases.length > 1 && <Item type={"disease"} text={diseases[1]} />}
+        </div>
+    </div>
         <div style={{
           position: 'absolute',
           right: '-40px',
