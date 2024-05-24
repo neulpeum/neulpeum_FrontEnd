@@ -7,7 +7,14 @@ import HeaderComponent from "components/Header";
 import CitizenList from "./CitizenList";
 import NoResultView from "components/NoResult";
 import "styles/ForPages/Citizens/Citizens.css";
-import HouseIcon from "Images/ic_house.svg"
+import HouseIcon from "Images/ic_house.svg";
+
+const villageMappings = {
+  "윗마을1": ["위 1", "위 1,"],
+  "윗마을2": ["위 2", "위 1,2"],
+  "아랫마을1": ["아래 1", "아래 1,"],
+  "아랫마을2": ["아래 2", "아래 1,2"],
+};
 
 const Citizens = () => {
   const [isReversed, setReverse] = useState(false);
@@ -16,6 +23,7 @@ const Citizens = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [finalKeyword, setFinalKeyword] = useState("");
+  const [searchCriteria, setSearchCriteria] = useState("전체");
   const [selectedVillages, setSelectedVillages] = useState(["윗마을1", "윗마을2", "아랫마을1", "아랫마을2"]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -47,7 +55,7 @@ const Citizens = () => {
         setOriginalCitizens(res.data);
         setCitizens(res.data.filter(
           (item) => isMobile 
-            ? selectedVillages.some((village) => item.address.includes(village))
+            ? selectedVillages.some((village) => villageMappings[village].some(mapping => item.address.includes(mapping)))
             : true
         ));
         setLoading(false);
@@ -61,17 +69,23 @@ const Citizens = () => {
 
   useEffect(() => {
     filterCitizens();
-  }, [selectedVillages, finalKeyword]);
+  }, [selectedVillages, finalKeyword, searchCriteria]);
 
   const filterCitizens = () => {
     setCitizens(
-      originalCitizens.filter(
-        (item) =>
+      originalCitizens.filter((item) => {
+        const matchesKeyword = searchCriteria === "전체"
+          ? item.patientName.includes(finalKeyword) || item.address.includes(finalKeyword)
+          : searchCriteria === "name"
+          ? item.patientName.includes(finalKeyword)
+          : item.address.includes(finalKeyword);
+
+        return (
           (isMobile 
-            ? (selectedVillages.length === 0 || selectedVillages.some((village) => item.address.includes(village))) 
-            : true) &&
-          item.patientName.includes(finalKeyword)
-      )
+            ? (selectedVillages.length === 0 || selectedVillages.some((village) => villageMappings[village].some(mapping => item.address.includes(mapping)))) 
+            : true) && matchesKeyword
+        );
+      })
     );
   };
 
@@ -88,7 +102,8 @@ const Citizens = () => {
     setReverse(!isReversed);
   };
 
-  const search = (keyword) => {
+  const search = (keyword, criteria = "전체") => {
+    setSearchCriteria(criteria);
     setFinalKeyword(keyword);
   };
 
@@ -132,7 +147,7 @@ const Citizens = () => {
     ) : (
       <CitizenList
         columns={columns}
-        data={citizens}
+        data={citizens.sort((a, b) => b.patientId - a.patientId)}
         onClickDetail={navigateToCitizenDetail}
       />
     );

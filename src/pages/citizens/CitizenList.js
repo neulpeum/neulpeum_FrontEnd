@@ -132,7 +132,7 @@ const CitizenList = ({ columns, data, onClickDetail }) => {
                 profile={ProfileImage}
                 name={row.original.patientName}
                 address={row.original.address}
-                diseases={row.original.disease.split(", ").slice(0, 2)} 
+                diseases={row.original.disease ? row.original.disease.split(", ").slice(0, 2) : []}
                 onClickDetail={() => onClickDetail(row.original.patientId)}
               />
             );

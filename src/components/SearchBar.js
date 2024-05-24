@@ -87,7 +87,7 @@ const PlusIcon = styled.img`
 
 const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
   const [keyword, setKeyword] = useState("");
-  const [searchCriteria, setSearchCriteria] = useState("");
+  const [searchCriteria, setSearchCriteria] = useState("전체");
 
   const handleCriteriaChange = (event) => {
     setSearchCriteria(event.target.value);
@@ -95,11 +95,7 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
 
   const activeEnter = (e, searchType) => {
     if (e.key === "Enter") {
-      if (searchType === "drugs") {
-        search(keyword, searchCriteria);
-      } else {
-        search(keyword);
-      }
+      search(keyword, searchCriteria);
     }
   };
 
@@ -107,13 +103,13 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
     Drugs: {
       content: (
         <SearchBarContainer $using="drugs">
-            <select className="criteriaStyle" value={searchCriteria} onChange={handleCriteriaChange}>
-              <option value="">전체</option>
-              <option value="drugName">약 이름</option>
-              <option value="expireDate">유통기한</option>
-              <option value="drugEnrollTime">등록일자</option>
-              <option value="drugModifiedTime">마지막 사용 일자</option>
-            </select>
+          <select className="criteriaStyle" value={searchCriteria} onChange={handleCriteriaChange}>
+            <option value="">전체</option>
+            <option value="drugName">약 이름</option>
+            <option value="expireDate">유통기한</option>
+            <option value="drugEnrollTime">등록일자</option>
+            <option value="drugModifiedTime">마지막 사용 일자</option>
+          </select>
           <SearchInputContainer $using="drugs">
             <SearchInput
               id="drugs_search_value"
@@ -140,17 +136,22 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
     Citizens: {
       content: (
         <SearchBarContainer>
+          <select className="citizen-criteriaStyle" value={searchCriteria} onChange={handleCriteriaChange}>
+            <option value="전체">전체</option>
+            <option value="name">이름</option>
+            <option value="address">주소</option>
+          </select>
           <SearchInputContainer>
             <SearchInput
               value={keyword}
               onChange={(event) => setKeyword(event.target.value)}
               type="text"
-              placeholder="검색할 주민의 이름을 입력하세요."
+              placeholder="검색할 내용을 입력하세요."
               onKeyDown={(e) => activeEnter(e, "citizens")}
             />
             <div className="icon-wrapper">
               <SearchIcon
-                onClick={() => search(keyword)}
+                onClick={() => search(keyword, searchCriteria)}
                 src="/icons/ic_counSearch.svg"
                 alt="검색"
               />

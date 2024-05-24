@@ -9,6 +9,17 @@
     border: 2px solid #aed391;
 }
 
+.citizen-criteriaStyle {
+  width: clamp(100px, 33.7%, 150px);
+  height: 100%;
+  text-align: left;
+  font-size: clamp(1rem, 1.5vw, 18px);
+  padding-left: 12px;
+  outline: none;
+  border-radius: 1.25rem;
+  border: 2px solid #aed391;
+}
+
 .icon-wrapper {
   height: 100%;
   aspect-ratio: 1 / 1;
