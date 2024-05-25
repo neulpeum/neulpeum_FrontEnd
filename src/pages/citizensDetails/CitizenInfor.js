@@ -19,6 +19,9 @@ export default function CitizenInfor(props) {
   const birthDateRegex =
     /^(?:\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[-]\d{1}|)$/;
   const phoneNumRegex = /^(?:\d{3}[-]\d{4}[-]\d{4}|)$/;
+  const homeNumRegex = /^(?:\d{2}[-]\d{3}[-]\d{4}|)$/;
+  const isPhoneNumberValid =
+    phoneNumRegex.test(fields[3]) || homeNumRegex.test(fields[3]);
 
   useEffect(() => {
     const getData = async () => {
@@ -28,7 +31,6 @@ export default function CitizenInfor(props) {
           `/api/patientInfo?patientId=${patientId}`
         );
         const newData = response.data;
-        console.log(response.data);
         const replaceNullWithEmptyString = (value) =>
           value === null ? "" : value;
         setFields(Object.values(newData).map(replaceNullWithEmptyString));
@@ -72,7 +74,7 @@ export default function CitizenInfor(props) {
     if (isEditing) {
       setIsFieldsModified(!areArrayEqual(originalFields, fields));
     }
-  }, [fields]);
+  }, [fields, isEditing, originalFields]);
 
   const handleCancelClick = () => {
     document.querySelector(".birthDateError").style.display = "none";
@@ -102,7 +104,7 @@ export default function CitizenInfor(props) {
       dateFlag = 0;
     }
 
-    if (!phoneNumRegex.test(fields[3])) {
+    if (!phoneNumRegex.test(fields[3]) && !homeNumRegex.test(fields[3])) {
       document.querySelector(".phoneNumError").style.display = "block";
       numFlag = 1;
     } else {
@@ -240,7 +242,11 @@ export default function CitizenInfor(props) {
               />
             ) : (
               <div>
-                {fields[2] ? <span>{fields[2]}******</span> : <span> </span>}
+                {fields[2] && birthDateRegex.test(fields[2]) ? (
+                  <span>{fields[2]}******</span>
+                ) : (
+                  <span></span>
+                )}
               </div>
             )}
             <p className="birthDateError" style={regexStyle}>
@@ -302,7 +308,7 @@ export default function CitizenInfor(props) {
               />
             ) : (
               <div>
-                <span>{fields[3]}</span>
+                {isPhoneNumberValid ? <span>{fields[3]}</span> : <span></span>}
               </div>
             )}
             <p className="phoneNumError" style={regexStyle}>
