@@ -295,7 +295,7 @@ export default function CitizenInfor(props) {
               <input
                 type="text"
                 value={fields[3]}
-                placeholder="000-0000-0000"
+                placeholder="000-0000-0000 / 00-000-0000"
                 onChange={(e) => handleChange(3, e)}
                 ref={(el) => (inputRefs.current[3] = el)}
                 onKeyDown={(e) => handleKeyDown(e, 3)}
