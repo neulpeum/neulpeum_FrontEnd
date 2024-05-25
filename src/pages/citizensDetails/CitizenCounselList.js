@@ -35,9 +35,9 @@ export default function CitizenCounselList(props) {
         const response = await axios.get(
           `/api/patient/consult?patientId=${patientId}`
         );
-        setData(response.data);
-        setFilterData(response.data);
-        console.log(response.data);
+        const reverseData = response.data.slice().reverse();
+        setData(reverseData);
+        setFilterData(reverseData);
       } catch (error) {
         if (error.response.status === 401 || error.response.status === 403) {
           alert("접근 권한이 없습니다");
