@@ -24,7 +24,10 @@ export const MyDate = {
                 minute = match[5]; 
             }
         }
-        
+        if (parseInt(month) < 1 || parseInt(month) > 12 || parseInt(day) < 1 || parseInt(day) > 31) return null;
+        const daysInMonth = (year, month) => { return new Date(year, month, 0).getDate(); }
+        if (parseInt(day) > daysInMonth(parseInt(year), parseInt(month))) return null;
+
         let formattedDate;
         switch (targetFormNumber) {
             case (0):
@@ -43,7 +46,6 @@ export const MyDate = {
                 formattedDate = `${year}년 ${month}월 ${day}일, ${hour}시 ${minute}분`
                 break;
             default:
-                formattedDate = null;
                 break;
         }
 
