@@ -1,26 +1,28 @@
 export const MyDate = {
     ConvertDate: (dateString, targetFormNumber) => {
         const dateRegexs = [
-            /^(\d{4})-(\d{2})-(\d{2})$/,                     // YYYY-MM-DD
-            /^(\d{4})\.(\d{2})\.(\d{2}) (\d{2}):(\d{2})$/,   // YYYY.MM.DD HH:MM
+            /^(\d{4})-(\d{2})-(\d{2})$/,                           // YYYY-MM-DD
+            /^(\d{4})\.(\d{2})\.(\d{2}) (\d{2}):(\d{2})$/,         // YYYY.MM.DD HH:MM
+            /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/,   // YYYY.MM.DD HH:MM:SS
             /^(\d{4})\.(\d{2})\.(\d{2})$/,                         // YYYY.MM.DD
             /^(\d{4})년 (\d{2})월 (\d{2})일$/,                       // YYYY년 MM월 DD일 
+            /^(\d{2}).(\d{2}).(\d{2})$/,                           // YY.MM.DD
         ];
-        let year, month, day, hour, minute;
+
         const matchedRegex = dateRegexs.find((regex) => regex.test(dateString));
         if (matchedRegex === undefined) return null;
 
+        let year, month, day, hour, minute;
         const match = matchedRegex.exec(dateString);
-        if (match.length === 6) {
-            year = match[1];
+        if (match) {
+            if (match[1].length === 2) year = `20${match[1]}`;
+            else year = match[1];
             month = match[2];
             day = match[3];
-            hour = match[4];
-            minute = match[5];
-        } else {
-            year = match[1];
-            month = match[2];
-            day = match[3];
+            if (match.length < 7) { 
+                hour = match[4]; 
+                minute = match[5]; 
+            }
         }
         
         let formattedDate;
@@ -60,10 +62,13 @@ export const MyDate = {
     },
     // 엑셀 형식 Date -> json 형식 Date : 변환
     ConvertedExceltoJsonDate: (excelDate) => {
-        const baseDate = new Date(1899, 11, 31);
-        const milliseconds = excelDate * 24 * 60 * 60 * 1000;
-        const jsDate = new Date(baseDate.getTime() + milliseconds);
-        const formattedDate = jsDate.toISOString().split("T")[0];
-        return formattedDate;
+        if (typeof excelDate === 'string') return MyDate.ConvertDate(excelDate, 0);
+        if (typeof excelDate === 'number') {
+            const baseDate = new Date(1899, 11, 31);
+            const milliseconds = excelDate * 24 * 60 * 60 * 1000;
+            const jsDate = new Date(baseDate.getTime() + milliseconds);
+            const formattedDate = jsDate.toISOString().split("T")[0];
+            return formattedDate;
+        }
     },
 };

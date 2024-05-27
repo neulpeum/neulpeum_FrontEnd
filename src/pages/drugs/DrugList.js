@@ -10,6 +10,9 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
         data,
         maxMultiSortColCount: 2,
         isMultiSortEvent: () => true,
+        initialState: {
+          sortBy: [{ id: 'drugModifiedTime', desc: true }]
+        }
       },
       useGlobalFilter,
       useSortBy

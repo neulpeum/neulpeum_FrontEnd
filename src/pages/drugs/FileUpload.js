@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as XLSX from 'xlsx';
 import "styles/ForPages/Drugs/FileUpload.css";
-import 'utils/MyDate';
 import { MyDate } from 'utils/MyDate';
 
 // 여기 할거 남아있음. 날짜가 이상한 형식일 경우, 이를테면 33일이라던가, 오늘이 2024년인데 유통기한으로 2023년 이 온다거나
@@ -49,29 +48,37 @@ const FileUpload = ({ Uploading} ) => {
   const extractSheetData = (workbook) => {
     const sheetName = workbook.SheetNames[0];
     const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
-  
-    const tableData = sheetData.slice(1).filter(row => {
-      const isEmptyRow = row.every(cell => cell === null || cell === undefined || cell === '');
-      const isPartiallyEmptyRow = row.some(cell => cell === null || cell === undefined || cell === '');
-  
-      if (isEmptyRow) {
-        return false;
-      }
+
+    const headers = ['약 이름', '유통기한', '현재 수량', '사용량'];
+    const headerIndex = sheetData.findIndex(row => 
+      JSON.stringify(Object.values(row).slice(0, headers.length)) === JSON.stringify(headers)
+    );
+    if (headerIndex === -1) throw new Error('파일 내에 올바른 헤더가 존재하지 않습니다.');
+
+    const tableData = sheetData.slice(headerIndex + 2).filter(row => {
+      const rowValues = Object.values(row);
+      const isEmptyRow = rowValues.every(cell => cell === '');
+      const isPartiallyEmptyRow = rowValues.some(cell => cell === '');
+
+      if (isEmptyRow) return false;
       if (isPartiallyEmptyRow) {
-        throw new Error('파일 내부에 값이 입력되지 않는 셀이 감지됩니다.');
+        if (row[3] === '') row[3] = 0;
+        else throw new Error('파일에 비어있는 칸이 존재합니다. 파일을 다시 검토해보세요');
       }
-      if (typeof row[1] !== 'number' || typeof row[2] !== 'number' || typeof row[3] !== 'number') {
-        throw new Error('파일 내부에 올바르지 못한 데이터 형식이 감지되었습니다.');
-      }
-  
+
+      if (typeof row[1] !== 'string' && typeof row[1] !== 'number') throw new Error('[유통기한] 행에 해석할 수 없는 값이 발견되었습니다.');
+      if (typeof row[2] !== 'number') throw new Error('[현재 수량]행에 숫자가 아닌 값이 발견되었습니다.');
+      if (typeof row[3] !== 'number') throw new Error('[사용량]행에 숫자가 아닌 값이 발견되었습니다.');
+
       const expireDate = new Date(MyDate.ConvertedExceltoJsonDate(row[1]));
       const currentDate = new Date();
-      if (expireDate <= currentDate) {
-        alert('유통기한 지났거나 오늘까지인 약이 감지되었습니다. 이 약품들은 목록에서 제외됩니다.');
-        return false;
-      }
+
+      if (expireDate <= currentDate) throw new Error('유통기한이 지났거나 오늘까지인 약이 감지되었습니다.');
+
+      row[0] = row[0].split(" ").join('');
+      
       return true;
-    });
+  });
   
     return tableData;
   };
