@@ -68,10 +68,10 @@ const FileUpload = ({ Uploading} ) => {
       if (typeof row[2] !== 'number') throw new Error('[현재 수량]행에 숫자가 아닌 값이 발견되었습니다.');
       if (typeof row[3] !== 'number') throw new Error('[사용량]행에 숫자가 아닌 값이 발견되었습니다.');
 
-      const expireDate = new Date(MyDate.ConvertedExceltoJsonDate(row[1]));
-      const currentDate = new Date();
+      const expireDate = MyDate.ConvertedExceltoJsonDate(row[1]);
 
-      if (expireDate <= currentDate) throw new Error('유통기한이 지났거나 오늘까지인 약이 감지되었습니다.');
+      if (expireDate === null) throw new Error('[유통기한]들 중 존재하지 않는 날짜가 존재합니다. ex) 9999.13.52');
+      if (new Date(expireDate) <= new Date()) throw new Error('유통기한이 지났거나 오늘까지인 약이 감지되었습니다.');
 
       row[0] = row[0].split(" ").join('');
       
