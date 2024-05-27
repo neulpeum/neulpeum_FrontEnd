@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import * as FileSaver from "file-saver";
+import { saveAs } from "file-saver";
 import * as XLSX from "xlsx-js-style";
 import HeaderComponent from "components/Header";
 import SearchBar from "components/SearchBar";
@@ -44,16 +44,6 @@ const Drugs = () => {
   };
 
   useEffect(() => {
-    // const getDatafromServer = async () => {
-    //   setLoading(true); // 로딩 상태 시작
-    //   await axios.get("/api/drug")
-    //     .then((response) => {
-    //       handleGetDatafromServer(response.data);
-    //       setTimeout(() => 500);
-    //     })
-    //     .catch((error) => setError(error))
-    //     .finally(setLoading(false));
-    // };
     const getDatafromServer = async () => {
       setLoading(true); // 로딩 상태 시작
       await axios
@@ -68,7 +58,6 @@ const Drugs = () => {
           setLoading(false);
           setError(error);
         });
-      // .finally(setLoading(false));
     };
     getDatafromServer();
   }, [setLoading]);
@@ -82,10 +71,7 @@ const Drugs = () => {
           return {
             drugId: originalDrugs.length + index + 1,
             drugName: drugName,
-            expireDate: MyDate.ConvertDate(
-              MyDate.ConvertedExceltoJsonDate(expireDate),
-              3
-            ),
+            expireDate: MyDate.ConvertDate( MyDate.ConvertedExceltoJsonDate(expireDate), 3),
             usableAmount: usableAmount - usable,
             drugEnrollTime: MyDate.ConvertDate(MyDate.CreateCurrentDate(), 3),
             drugModifiedTime: null,
@@ -184,17 +170,16 @@ const Drugs = () => {
     setCriKeyword([keyword.split(" ").join(""), criteria]);
 
     renderingData.forEach((item) => {
-      if (criteria) {
-        if (item[criteria].split(" ").join("").includes(keyword))
-          result.push(item.drugId);
-      } else {
+      if (criteria === "전체") {
         if (
           item["expireDate"].split(" ").join("").includes(keyword) ||
           item["drugEnrollTime"].split(" ").join("").includes(keyword) ||
-          (item["drugModifiedTime"] &&
-            item["drugModifiedTime"].split(" ").join("").includes(keyword)) ||
-          item["drugName"].split(" ").join("").includes(keyword)
-        )
+          (item["drugModifiedTime"] && item["drugModifiedTime"].split(" ").join("").includes(keyword)) ||
+          item["drugName"].split(" ").join("").includes(keyword))
+          result.push(item.drugId);
+      } 
+      else {
+        if (item[criteria].split(" ").join("").includes(keyword))
           result.push(item.drugId);
       }
     });
@@ -207,24 +192,44 @@ const Drugs = () => {
     const name = `늘픔_${MyDate.ConvertDate(MyDate.CreateCurrentDate(), 4)}`;
 
     const headerStyle = {
-      font: { bold: true, sz: "24" },
-      border: {
-        top: { style: "thin" },
-        bottom: { style: "thin" },
-        left: { style: "thin" },
-        right: { style: "thin" },
+      font: { 
+        bold: true, 
+        sz: "28", 
+        color: { rgb: "FFFFFF" },
       },
-      alignment: { horizontal: "center", vertical: "center" },
+      fill: { 
+        patternType: "solid", 
+        fgColor: { rgb: "AED391" },
+      },
+      border: {
+        top: { style: "thin", color: {rgb: "000000"}},
+        bottom: { style: "thin", color: {rgb: "000000"} },
+        left: {style: "thin", color: {rgb: "000000"}},
+      },
+      alignment: { 
+        horizontal: "center", 
+        vertical: "center" 
+      },
     };
     const rowStyle = {
-      font: { bold: true, sz: "18" },
-      border: {
-        top: { style: "thin" },
-        bottom: { style: "thin" },
-        left: { style: "thin" },
-        right: { style: "thin" },
+      font: { 
+        bold: false, 
+        sz: "18", 
+        color: {rgb : "000000" },
       },
-      alignment: { horizontal: "center", vertical: "center" },
+      fill: { 
+        patternType: "solid", 
+        fgColor: {rgb: "F0F0F0"},
+      },
+      border: {
+        top: { style: "thin", color: {rgb: "FFFFFF"} },
+        bottom: { style: "thin", color: {rgb: "FFFFFF"} },
+        left: {style: "thin", color: {rgb: "000000"}},
+      },
+      alignment: { 
+        horizontal: "center", 
+        vertical: "center" 
+      },
     };
 
     const headerData = [
@@ -240,16 +245,26 @@ const Drugs = () => {
       { v: "", s: rowStyle },
       { v: "", s: rowStyle },
     ]);
-    const ws = XLSX.utils.aoa_to_sheet([headerData].concat(rowData));
 
-    ws["!cols"] = Array(100).fill({ wpx: 200 });
+    const exampleData = [
+      { v: "예시) 아스피린", s: rowStyle },
+      { v: "예시) 24.12.31 혹은 2024.12.31", s: rowStyle },
+      { v: "예시) 100", s: rowStyle },
+      { v: "예시) 5, 빈칸일 시 자동으로 0입니다. ", s: rowStyle },
+    ];
+
+    rowData.unshift(exampleData);
+
+    const ws = XLSX.utils.aoa_to_sheet([headerData].concat(rowData));
+    
+    ws["!cols"] = Array(100).fill({ wpx: 300 });
     ws["!rows"] = Array(100).fill({ hpx: 50 });
 
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     const excelButter = XLSX.write(wb, { bookType: "xlsx", type: "array" });
     const excelFile = new Blob([excelButter], { type: type });
-    FileSaver.saveAs(excelFile, name);
+    saveAs(excelFile, name);
   }
 
   if (error) {
