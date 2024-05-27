@@ -191,8 +191,6 @@ const Drugs = () => {
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
     const name = `늘픔_${MyDate.ConvertDate(MyDate.CreateCurrentDate(), 4)}`;
 
-  //   font: { bold: true, sz: "28", color: "#FFFFFF" }, // 폰트 색상 변경
-  // fill: { type: "pattern", patternType: "solid", fgColor: "#aed391" }, // 배경색 설정
     const headerStyle = {
       font: { 
         bold: true, 
@@ -204,10 +202,9 @@ const Drugs = () => {
         fgColor: { rgb: "AED391" },
       },
       border: {
-        top: { style: "thin", color: {rgb: "FFFFFF"}},
-        bottom: { style: "thin", color: {rgb: "FFFFFF"} },
-        // left: { style: "thin", color: {rgb: "FFFFFF"} },
-        // right: { style: "thin", color: {rgb: "FFFFFF"} },
+        top: { style: "thin", color: {rgb: "000000"}},
+        bottom: { style: "thin", color: {rgb: "000000"} },
+        left: {style: "thin", color: {rgb: "000000"}},
       },
       alignment: { 
         horizontal: "center", 
@@ -222,13 +219,12 @@ const Drugs = () => {
       },
       fill: { 
         patternType: "solid", 
-        fgColor: {rgb: "DADADA"},
+        fgColor: {rgb: "F0F0F0"},
       },
       border: {
         top: { style: "thin", color: {rgb: "FFFFFF"} },
         bottom: { style: "thin", color: {rgb: "FFFFFF"} },
-        // left: { style: "thin", color: {rgb: "FFFFFF"} },
-        // right: { style: "thin", color: {rgb: "FFFFFF"} },
+        left: {style: "thin", color: {rgb: "000000"}},
       },
       alignment: { 
         horizontal: "center", 
@@ -261,7 +257,7 @@ const Drugs = () => {
 
     const ws = XLSX.utils.aoa_to_sheet([headerData].concat(rowData));
     
-    ws["!cols"] = Array(100).fill({ wpx: 250 });
+    ws["!cols"] = Array(100).fill({ wpx: 300 });
     ws["!rows"] = Array(100).fill({ hpx: 50 });
 
     const wb = XLSX.utils.book_new();

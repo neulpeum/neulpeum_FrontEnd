@@ -3,8 +3,6 @@ import * as XLSX from 'xlsx';
 import "styles/ForPages/Drugs/FileUpload.css";
 import { MyDate } from 'utils/MyDate';
 
-// 여기 할거 남아있음. 날짜가 이상한 형식일 경우, 이를테면 33일이라던가, 오늘이 2024년인데 유통기한으로 2023년 이 온다거나
-// 일때 업로드 거부할 수 잇도록!
 const FileUpload = ({ Uploading} ) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [convertedFile, setConvertedFile] = useState(null);
