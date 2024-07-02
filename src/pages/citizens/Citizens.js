@@ -25,7 +25,6 @@ const Citizens = () => {
   const [finalKeyword, setFinalKeyword] = useState("");
   const [searchCriteria, setSearchCriteria] = useState("전체");
   const [selectedVillages, setSelectedVillages] = useState(() => {
-    // Retrieve selected villages from localStorage or set default values
     const storedVillages = localStorage.getItem("selectedVillages");
     return storedVillages ? JSON.parse(storedVillages) : ["위 1,2", "위 3,4", "아래 1,2", "아래 3,4"];
   });
@@ -76,7 +75,6 @@ const Citizens = () => {
   }, [selectedVillages, finalKeyword, searchCriteria]);
 
   useEffect(() => {
-    // Save selected villages to localStorage whenever it changes
     localStorage.setItem("selectedVillages", JSON.stringify(selectedVillages));
   }, [selectedVillages]);
 
