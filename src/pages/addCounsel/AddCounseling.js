@@ -152,6 +152,16 @@ export default function AddCounseling(props) {
     document.body.style = "overflow: auto";
   };
 
+  const [isCanOpen, setIsCanOpen] = useState(false);
+
+  const openCanModal = () => {
+    document.body.style = "overflow: hidden";
+    setIsCanOpen(true);
+  };
+
+  function handleNoClick() {
+    setIsCanOpen(false);
+  }
   const showOtc = () => {
     if (isOpening) {
       setIsOpening(false);
@@ -392,15 +402,27 @@ export default function AddCounseling(props) {
                 </div>
               </div>
             </Modal>
-            <button
-              onClick={() =>
-                navigate("/citizensDetails", {
-                  state: { id: patientId },
-                })
-              }
-            >
-              취소
-            </button>
+            <button onClick={openCanModal}>취소</button>
+            <Modal className="addCounselCancel-modal" isOpen={isCanOpen}>
+              <div className="addModal-wrapper">
+                <div className="addModal-gr"> </div>
+                <div className="addModal-content-wrapper">
+                  <p> 취소하시겠습니까? </p>
+                  <div className="addModal-btn-wrapper">
+                    <button
+                      onClick={() =>
+                        navigate("/citizensDetails", {
+                          state: { id: patientId },
+                        })
+                      }
+                    >
+                      예
+                    </button>
+                    <button onClick={handleNoClick}> 아니오 </button>
+                  </div>
+                </div>
+              </div>
+            </Modal>
           </div>
         </div>
       </div>
