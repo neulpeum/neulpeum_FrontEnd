@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import axios from "axios";
 import ConsultModal from "./ConsultModal";
@@ -313,17 +313,6 @@ export default function CitizenCounselList(props) {
         </div>
         <div className="searchBar-wrapper">
           <Search onSubmit={search} />
-          <Link
-            to="/addcounsel"
-            state={{
-              patientId: `${patientId}`,
-              patientName: `${name}`,
-            }}
-          >
-            <div className="write-img">
-              <img src="/icons/ic_counselWrite.svg" alt="추가" />
-            </div>
-          </Link>
         </div>
         {noResultView}
       </div>
