@@ -45,7 +45,7 @@ const CreateHeader = ({nav, isLogoutVisible, acitveTab}) => {
 
   const mainView = 
     (isMobile) ? 
-      <div className="my-header-container">
+      <div className="header-container">
         <Link to={dest}>
           <img src="/icons/ic_logo.svg" alt="home-button" className="logo"/>
         </Link>
@@ -56,14 +56,14 @@ const CreateHeader = ({nav, isLogoutVisible, acitveTab}) => {
         )}
       </div>
     : 
-      <div className="my-header-container">
+      <div className="header-container">
         <Link className='home-button' to={dest}>
           <img src="/icons/ic_logo.svg" alt="home-button" className="logo"/>
         </Link>
         <div className='subMenu-container'>
-          <NavLink className={({isActive}) => acitveTab === "drugs" ? "drugActive" : ""} to='/drugs'>약 재고화면</NavLink>
-          <NavLink className={({isActive}) => acitveTab === "citizens" ? "citizenActive" : ""} to='/citizens'>주민 화면</NavLink>
-          <NavLink className={({isActive}) => acitveTab === "account" ? "accountActive" : ""} to='/accountSettings'>개인정보 수정 화면</NavLink>
+          <NavLink className={({isActive}) => acitveTab === "drugs" ? "Active" : ""} to='/drugs'>약 재고화면</NavLink>
+          <NavLink className={({isActive}) => acitveTab === "citizens" ? "Active" : ""} to='/citizens'>주민 화면</NavLink>
+          <NavLink className={({isActive}) => acitveTab === "account" ? "Active" : ""} to='/accountSettings'>개인정보 수정 화면</NavLink>
         </div>
         {visible && (
         <div onClick={logout} className='logout-container'>

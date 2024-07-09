@@ -11,11 +11,12 @@ body {
 }
 
 .goto-back {
-    position: absolute;
-    top: 16px;
-    left: 20px;
-    cursor: pointer;
     display: none;
+}
+
+.goto-back img {
+    width: 25px;
+    height: 23px;
 }
 
 .loading-wrapper {
@@ -32,6 +33,10 @@ body {
 
 @media (max-width: 768px) {
     .goto-back {
+        position: absolute;
+        top: 2.3vh;
+        left: 4vw;
+        cursor: pointer;
         display: block;
     }
 }
