@@ -12,10 +12,10 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 8.6vw;
-    height: 3vh;
-    margin-top: 22px;
-    margin-right: 2.5vw;
+    width: 120px;
+    height: 25px;
+    margin-top: 1.95vh;
+    margin-right: 2.45vw;
     cursor: pointer;
 }
 
