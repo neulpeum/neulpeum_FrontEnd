@@ -30,18 +30,19 @@
 }
 
 .subMenu-container {
-    position: relative;
     width: 86.8%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 6px;
     margin-right: 19vw;
-    gap: 11vw;
 }
 
 .subMenu-container a {
     position: relative;
+    width: 50%;
+    text-align: center;
     color: #5E5E5E;
     font-size: 24px;
     font-weight: 700;
@@ -49,21 +50,18 @@
     white-space: nowrap;
 }
 
-.subMenu-container a::after {
-    position: absolute;
-    content: "";
-    display: block;
-    width: 100%;
-    color: #95D1D9;
-}
-
 .subMenu-container .Active {
     color: #95D1D9;
 }
 
 .subMenu-container .Active::after {
-    margin-top: 43px;
+    position: absolute;
+    content: "";
+    display: block;
     border-bottom: 3px solid currentColor;
+    width: 100%;
+    margin: 0 auto;
+    bottom: -40px;
 }
 
 @media (max-width: 768px) {
