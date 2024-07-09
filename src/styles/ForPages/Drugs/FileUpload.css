@@ -38,18 +38,18 @@
 }
 
 .upload-icon-container img {
-    width: 1.3vw;
-    height: 1.3vw;
+    width: clamp(0.85rem, 1.5vw, 18px);;
+    height: clamp(0.85rem, 1.5vw, 18px);
     margin-right: 3%;
 }
 
 .upload-container span {
     white-space: nowrap;
-    font-size: 1.3vw;
+    font-size: clamp(0.85rem, 1.5vw, 18px);
 }
 
 .upload-container p {
-    font-size: 1.3vw;
+    font-size: clamp(0.85rem, 1.5vw, 18px);
     align-self: center;
     text-align: center;
     color: rgba(0, 0, 0, 0.5);
