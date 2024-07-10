@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import SearchBar from "components/SearchBar";
 import HeaderComponent from "components/Header";
@@ -166,10 +165,6 @@ const Citizens = () => {
         isLogoutVisible={true}
         acitveTab={"citizens"}
       />
-      <Link className="goto-back" to="/">
-        <img src="/icons/ic_back.png" alt="" />
-      </Link>
-
       {isMobile && (
         <p
           style={{
