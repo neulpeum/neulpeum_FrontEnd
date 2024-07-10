@@ -9,7 +9,7 @@
     border: 2px solid #aed391;
 }
 
-.citizen-criteriaStyle {
+/* .citizen-criteriaStyle {
   width: clamp(80px, 33.7%, 150px);
   height: 100%;
   text-align: left;
@@ -18,7 +18,7 @@
   outline: none;
   border-radius: 1.25rem;
   border: 2px solid #aed391;
-}
+} */
 
 .icon-wrapper {
   height: 100%;

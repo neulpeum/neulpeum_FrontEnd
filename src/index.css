@@ -3,6 +3,10 @@
     src: url("./fonts/GmarketSansTTFMedium.ttf") format("truetype");
 }
 
+input[type="text"], input::placeholder, button, select {
+    font-family: 'Gmarket Sans', sans-serif;
+}
+
 body {
     margin: 0;
     font-family: "Gmarket Sans";
