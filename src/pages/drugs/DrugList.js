@@ -53,9 +53,9 @@ const DrugList = ({ columns, data, onQuantityChange}) => {
                 else if (cell.column.id === 'usableAmount') {
                   return  <td {...cell.getCellProps()}>
                     <div className='usableAmount-cell'>
-                      <button onClick={() => onQuantityChange(row.index, +1)}>+</button>
-                      {cell.render('Cell')}
                       <button onClick={() => (cell.value > 0) ? onQuantityChange(row.index, -1) : {}}>-</button>
+                      {cell.render('Cell')}
+                      <button onClick={() => onQuantityChange(row.index, +1)}>+</button>
                     </div>
                   </td>
                 }
