@@ -30,7 +30,6 @@
 }
 .left-btn {
     display: flex;
-    justify-self: flex-start;
 }
 
 .right-btns {
@@ -43,7 +42,7 @@
     margin-top: 3vh;
     margin-bottom: 2vh;
     text-align: center;
-    font-size: 1.3vw;
+    font-size: clamp(1rem, 1.5vw, 18px);
 }
 .tag span:first-child{
     font-weight: bold;

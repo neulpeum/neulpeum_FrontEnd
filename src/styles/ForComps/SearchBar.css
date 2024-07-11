@@ -3,22 +3,11 @@
     height: 100%;
     text-align: left;
     font-size: clamp(1rem, 1.5vw, 18px);
-    padding-left: 3%;
+    padding-left: 1.875vw;
     outline: none;
     border-radius: 1.25rem;
     border: 2px solid #aed391;
 }
-
-/* .citizen-criteriaStyle {
-  width: clamp(80px, 33.7%, 150px);
-  height: 100%;
-  text-align: left;
-  font-size: clamp(1rem, 1.5vw, 18px);
-  padding-left: 12px;
-  outline: none;
-  border-radius: 1.25rem;
-  border: 2px solid #aed391;
-} */
 
 .icon-wrapper {
   height: 100%;
