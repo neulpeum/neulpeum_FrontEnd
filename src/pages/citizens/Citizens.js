@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SearchBar from "components/SearchBar";
@@ -77,7 +77,7 @@ const Citizens = () => {
     localStorage.setItem("selectedVillages", JSON.stringify(selectedVillages));
   }, [selectedVillages]);
 
-  const filterCitizens = () => {
+  const filterCitizens = useCallback(() => {
     setCitizens(
       originalCitizens.filter((item) => {
         const matchesKeyword = searchCriteria === "전체"
@@ -93,7 +93,7 @@ const Citizens = () => {
         );
       })
     );
-  };
+  }, [originalCitizens, selectedVillages, finalKeyword, searchCriteria, isMobile, villageMappings]);
 
   const toggleVillageFilter = (village) => {
     setSelectedVillages((prev) =>
@@ -159,7 +159,7 @@ const Citizens = () => {
     );
 
   return (
-    <div style={{'overflow-x':'hidden'}}>
+    <div style={{ overflowX :'hidden'}}>
       <HeaderComponent
         nav={navigate}
         isLogoutVisible={true}

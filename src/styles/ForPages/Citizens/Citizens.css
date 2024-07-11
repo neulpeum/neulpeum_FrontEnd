@@ -12,7 +12,7 @@
 
 .filter-buttons {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-top: 20px; 
     margin-bottom: 20px;
     margin-left: 20px;
@@ -48,7 +48,6 @@
 .filter-button.active {
     min-width: 85px;
     background-color: #95d1d9;
-    border: none;
     border: 1px solid #95d1d9;
     border-radius: 50px;
     color: white;

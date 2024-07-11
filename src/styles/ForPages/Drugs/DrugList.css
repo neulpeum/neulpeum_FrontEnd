@@ -18,7 +18,7 @@
 
 .drugTable>thead>tr>th {
     font-weight: bold;
-    font-size: 1.3vw;
+    font-size: clamp(1rem, 1.5vw, 18px);
     background-color: #aed391;
     color: #fff;
 }
@@ -52,7 +52,7 @@
 }
 
 .drugTable>tbody>tr>td {
-    font-size: 1.3vw;
+    font-size: clamp(1rem, 1.5vw, 18px);
 }
 
 .drugTable>tbody>tr.modify {
@@ -80,7 +80,7 @@
 .usableAmount-cell button {
     width: 1.73vw;
     height: 1.73vw;
-    font-size: 1.3vw;
+    font-size: clamp(1rem, 1.5vw, 18px);
     font-weight: bold;
     border-radius: 100%;
     color: white;

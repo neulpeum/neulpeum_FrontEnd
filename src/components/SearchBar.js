@@ -53,7 +53,7 @@ const SearchInput = styled.input`
       font-size: clamp(1rem, 1.5vw, 18px);
       border: 2px solid #aed391;
       border-radius: 1.25rem;
-      padding-left: 5%;
+      padding-left: 1.875vw;
     `
       : `
       width: 100%;
@@ -81,12 +81,11 @@ const SearchIcon = styled.img`
 `;
 
 const PlusIcon = styled.img`
-  width: 60%;
-  height: 60%;
-  border-radius: 50%;
+  width: 70%;
+  height: 70%;
 `;
 
-const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
+const SearchBar = ({ search, currentPage, onCitizenAddClick }) => {
   const [keyword, setKeyword] = useState("");
   const [searchCriteria, setSearchCriteria] = useState("전체");
 
@@ -137,11 +136,6 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
     Citizens: {
       content: (
         <SearchBarContainer>
-          <select className="citizen-criteriaStyle" value={searchCriteria} onChange={handleCriteriaChange}>
-            <option value="전체">전체</option>
-            <option value="name">이름</option>
-            <option value="address">주소</option>
-          </select>
           <SearchInputContainer>
             <SearchInput
               value={keyword}

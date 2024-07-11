@@ -30,6 +30,7 @@ const Drugs = () => {
   ];
 
   const handleGetDatafromServer = (data) => {
+    console.log(data);
     const FormattedData = data.map((array) => {
       return {
         ...array,
