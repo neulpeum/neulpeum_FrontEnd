@@ -85,7 +85,7 @@ const PlusIcon = styled.img`
   height: 70%;
 `;
 
-const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
+const SearchBar = ({ search, currentPage, onCitizenAddClick }) => {
   const [keyword, setKeyword] = useState("");
   const [searchCriteria, setSearchCriteria] = useState("전체");
 
@@ -136,11 +136,6 @@ const SearchBar = ({ search, currentPage, onCitizenAddClick, onSubmit }) => {
     Citizens: {
       content: (
         <SearchBarContainer>
-          {/* <select className="citizen-criteriaStyle" value={searchCriteria} onChange={handleCriteriaChange}>
-            <option value="전체">전체</option>
-            <option value="name">이름</option>
-            <option value="address">주소</option>
-          </select> */}
           <SearchInputContainer>
             <SearchInput
               value={keyword}
