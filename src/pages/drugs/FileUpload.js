@@ -55,18 +55,18 @@ const FileUpload = ({ Uploading} ) => {
 
     const tableData = sheetData.slice(headerIndex + 2).filter(row => {
       const rowValues = Object.values(row);
-      const isEmptyRow = rowValues.every(cell => cell === '');
-      const isPartiallyEmptyRow = rowValues.some(cell => cell === '');
+      const isEmptyRow = rowValues.every(cell => cell === undefined || cell === '');
 
-      if (isEmptyRow) return false;
-      if (isPartiallyEmptyRow) {
-        if (row[3] === '') row[3] = 0;
-        else throw new Error('파일에 비어있는 칸이 존재합니다. 파일을 다시 검토해보세요');
+      if (isEmptyRow || row.length === 0) return false;
+      if (row.length < 3) {
+        throw new Error('파일에 비어있는 칸이 존재합니다. 파일을 다시 검토해보세요');
       }
 
+      if (typeof row[0] !== 'string') throw new Error('[약 이름] 행에 해석할 수 없는 값이 발견되었습니다.');
       if (typeof row[1] !== 'string' && typeof row[1] !== 'number') throw new Error('[유통기한] 행에 해석할 수 없는 값이 발견되었습니다.');
-      if (typeof row[2] !== 'number') throw new Error('[현재 수량]행에 숫자가 아닌 값이 발견되었습니다.');
-      if (typeof row[3] !== 'number') throw new Error('[사용량]행에 숫자가 아닌 값이 발견되었습니다.');
+      if (typeof row[2] !== 'number') throw new Error('[현재 수량] 행에 숫자가 아닌 값이 발견되었습니다.');
+      if (row.length === 3) row[3] = 0
+      else { if (typeof row[3] !== 'number') throw new Error('[사용량] 행에 숫자가 아닌 값이 발견되었습니다.');}
 
       const expireDate = MyDate.ConvertedExceltoJsonDate(row[1]);
 
