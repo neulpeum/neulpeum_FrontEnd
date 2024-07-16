@@ -16,8 +16,9 @@ export default function CitizenInfor(props) {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
-  const birthDateRegex =
-    /^(?:\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[-]\d{1}|)$/;
+  // const birthDateRegex =
+  //   /^(?:\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[-]\d{1}|)$/;
+  const birthDateRegex = /^(?:\d{6}[-]\d{1}|)$/;
   const phoneNumRegex = /^(?:\d{3}[-]\d{4}[-]\d{4}|)$/;
   const homeNumRegex = /^(?:\d{2}[-]\d{3}[-]\d{4}|)$/;
   const isPhoneNumberValid =
