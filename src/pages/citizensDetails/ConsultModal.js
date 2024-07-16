@@ -9,7 +9,8 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
 
   const [isRemoveOpen, setIsRemoveOpen] = useState(false);
   const [consultData, setConsultData] = useState([]);
-  const [formattedDateTime, setFormattedDateTime] = useState("");
+  const [formattedDate, setFormattedDate] = useState("");
+  const [formattedTime, setFormattedTime] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [fields, setFields] = useState("");
   const [isFieldsModified, setIsFieldsModified] = useState(false);
@@ -89,9 +90,16 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
     if (consultData.consultDate) {
       const datetimeParts = consultData.consultDate.split(" "); // 공백을 기준으로 날짜와 시간을 분리
       const dateString = datetimeParts[0]; // 날짜 부분
-      const timeString = datetimeParts[1] || ""; // 시간 부분
+      let timeString = datetimeParts[1] || "";
+      if (timeString) {
+        const timeParts = timeString.split(":");
+        if (timeParts.length > 2) {
+          timeString = `${timeParts[0]}:${timeParts[1]}`; // 시와 분 부분만 합침
+        }
+      }
+      setFormattedTime(timeString); // 시간 부분
 
-      const dateParts = dateString.split("-"); // 날짜를 연도, 월, 일로 분리
+      const dateParts = dateString.split(/[-.]/); // 날짜를 연도, 월, 일로 분리
       const year = dateParts[0];
       const month = dateParts[1];
       const day = dateParts[2];
@@ -100,11 +108,7 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
         new Date(year, month - 1, day).getDay()
       ];
 
-      setFormattedDateTime(
-        `${year}.${month}.${day} (${dayOfWeek})${
-          timeString ? ` ${timeString}` : ""
-        }`
-      );
+      setFormattedDate(`${year}.${month}.${day} ${dayOfWeek}`);
     }
   }, [consultData]);
 
@@ -186,13 +190,31 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
           <div className="modal-wrapper">
             <div className="modal-content-wrapper">
               <div className="modal-title">
-                <div>
-                  <p>
-                    <span className="m-name">{consultData.providerName}</span>
-                    님이
-                    <span className="m-date"> {formattedDateTime}</span>에
-                    <br /> 상담한 내용입니다.
-                  </p>
+                <div className="modal-consult-infor">
+                  <div className="modal-title-category">
+                    <img
+                      src="/icons/ic_provider.svg"
+                      alt=""
+                      className="modal-title-img"
+                    />
+                    <p> 상담자 : {consultData.providerName}</p>
+                  </div>
+                  <div className="modal-title-category">
+                    <img
+                      src="/icons/ic_calender.svg"
+                      alt=""
+                      className="modal-title-img"
+                    />
+                    <p> 상담날짜 : {formattedDate}</p>
+                  </div>
+                  <div className="modal-title-category">
+                    <img
+                      src="/icons/ic_clock.svg"
+                      alt=""
+                      className="modal-title-img"
+                    />
+                    <p> 상담시간 : {formattedTime}</p>
+                  </div>
                 </div>
                 <div className="modal-img-wrapper">
                   <img
@@ -223,7 +245,7 @@ export default function ConsultModal({ onClose, consultId, patientId }) {
               </div>
               <div className="modal-content">
                 <div className="modal-otc">
-                  <p className="m-otc">제공otc: {consultData.takingDrug}</p>
+                  <p className="m-otc">제공 OTC: {consultData.takingDrug}</p>
                 </div>
                 <div className="modal-counsel">
                   {isEditing ? (

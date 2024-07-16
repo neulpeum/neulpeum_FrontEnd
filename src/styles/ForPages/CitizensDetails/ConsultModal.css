@@ -53,7 +53,19 @@
   display: inline-block;
   font-size: 2rem;
   margin: 0;
-  margin-top: 0.19rem;
+}
+
+.modal-consult-infor {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-title-img {
+  display: inline-block;
+  vertical-align: top;
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.5rem;
 }
 
 .modal-img-wrapper {
@@ -230,13 +242,21 @@
   }
   .modal-title p {
     display: inline-block;
-    font-size: 1.125rem;
+    font-size: 0.75rem;
     margin: 0;
     margin-top: 0.1rem;
   }
-  .modal-title img {
+  .modal-img-wrapper img {
     width: 1.25rem;
     height: 1.25rem;
+  }
+  .modal-title-category {
+    margin-bottom: 0.2rem;
+  }
+  .modal-title-img {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.2rem;
   }
   .trash-icon {
     margin-right: 0.4rem;

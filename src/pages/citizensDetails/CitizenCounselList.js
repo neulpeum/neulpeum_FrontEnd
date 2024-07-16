@@ -79,8 +79,8 @@ export default function CitizenCounselList(props) {
     const results = [];
     if (criteria) {
       data.forEach((item) => {
-        if (criteria === "consultDate") {
-          const datePart = item["consultDate"].split(" ")[0];
+        if (criteria === "consultedAt") {
+          const datePart = item["consultedAt"].split(" ")[0];
           if (datePart.includes(keyword)) {
             results.push(item);
           }
@@ -96,8 +96,8 @@ export default function CitizenCounselList(props) {
       }
     } else {
       data.forEach((item) => {
-        if (item["consultDate"].includes(keyword)) {
-          const datePart = item["consultDate"].split(" ")[0];
+        if (item["consultedAt"].includes(keyword)) {
+          const datePart = item["consultedAt"].split(" ")[0];
           if (datePart.includes(keyword)) {
             results.push(item);
           }
@@ -125,7 +125,7 @@ export default function CitizenCounselList(props) {
   const columns = useMemo(
     () => [
       {
-        accessor: "consultDate",
+        accessor: "consultedAt",
         Header: "방문날짜",
       },
       {
@@ -257,9 +257,9 @@ export default function CitizenCounselList(props) {
                             {">"}
                           </button>
                         </div>
-                      ) : cell.column.id === "consultDate" ? (
+                      ) : cell.column.id === "consultedAt" ? (
                         <div>
-                          {cell.row.values["consultDate"]
+                          {cell.row.values["consultedAt"]
                             .split(" ")
                             .map((value, index) => (
                               <p key={index} style={{ margin: "0" }}>

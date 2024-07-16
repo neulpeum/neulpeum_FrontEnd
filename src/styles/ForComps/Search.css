@@ -36,11 +36,11 @@
 
 .searchBar {
   padding-left: 1rem;
-  font-size: 1.3vw;
   background: #fff;
   border-radius: 1.25rem;
   border: 2px solid #aed391;
   width: 80%;
+  font-size: clamp(1rem, 1.5vw, 18px);
 }
 
 .searchBtn {

@@ -82,6 +82,7 @@ export default function AddCounseling(props) {
       providerName: data[0],
       takingDrug: `${drugNames}`,
       consultContent: data[1],
+      consultedAt: "2024-07-12 13:10",
     };
 
     try {
@@ -166,11 +167,11 @@ export default function AddCounseling(props) {
     if (isOpening) {
       setIsOpening(false);
       document.querySelector(".drugSelectBtn").innerHTML =
-        "제공 otc 선택하기 ∨";
+        "제공 OTC 선택하기 ∨";
     } else {
       setIsOpening(true);
       document.querySelector(".drugSelectBtn").innerHTML =
-        "제공 otc 선택하기 ∧";
+        "제공 OTC 선택하기 ∧";
     }
   };
 
@@ -308,7 +309,7 @@ export default function AddCounseling(props) {
                 style={dropwonStyle}
                 onClick={showOtc}
               >
-                제공 otc 선택하기 ∧
+                제공 OTC 선택하기 ∧
               </button>
               <div className="drugOption-wrapper">
                 {isOpening &&
