@@ -115,22 +115,27 @@
         width: 77.1vw;
         height: 51.9vh;
     }
+
     .citizenTable>thead>tr>th:nth-child(1),
     .citizenTable>tbody>tr>td:nth-child(1) {
         width: 20%;
     }
+
     .citizenTable>thead>tr>th:nth-child(2),
     .citizenTable>tbody>tr>td:nth-child(2) {
         width: 50%;
     }
+
     .citizenTable>thead>tr>th:nth-child(3),
     .citizenTable>tbody>tr>td:nth-child(3) {
         width: 30%;
     }
+
     .citizenTable>tbody>tr>td:nth-child(4),
     .citizenTable>thead>tr>th:nth-child(4) {
         display: none;
     }
+
     .citizenTable>tbody {
         display: block;
         overflow-y: scroll;

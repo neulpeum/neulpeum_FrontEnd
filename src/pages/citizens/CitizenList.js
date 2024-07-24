@@ -10,7 +10,7 @@ function Item({ type, text }) {
   const icon = type === 'location' ? LocationIcon : DiseaseIcon;
 
   return (
-    <div style={{ 
+    <div style={{
       display: 'inline-flex',
       alignItems: 'center',
       marginRight: '10px',
@@ -28,7 +28,7 @@ function Item({ type, text }) {
         alignItems: 'center',
         background: 'linear-gradient(to bottom, #ffffff, #d4d4d4 90%)',
       }}>
-        <img src={icon} alt="item" style={{ marginRight: '3px'}} />
+        <img src={icon} alt="item" style={{ marginRight: '3px' }} />
         <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontSize: '13px' }}>{text}</div>
       </div>
     </div>
@@ -44,37 +44,37 @@ function CitizenItem({ profile, name, address, diseases, onClickDetail }) {
       marginLeft: '40px',
       marginRight: '40px',
       borderRadius: '10px',
-      backgroundColor: '#B0D584',
+      backgroundColor: '#cee6b3',
       paddingLeft: '10px',
       paddingRight: '10px',
       paddingTop: '8px',
       paddingBottom: '8px',
     }}>
-      <div style={{ 
-  position: 'relative',
-  width: '100%',
-  height: '100%',
-  display: 'flex', 
-  alignItems: 'center',
-}}>
-  <img src={profile} alt="Profile" style={{ width: '60px', height: '60px', marginRight: '0.2rem', marginLeft: '0.2rem', marginTop: '0.5rem'}} />
-  <div style={{ display: 'flex', flexDirection: 'column' }}>
-    <div style={{ fontSize: '18px', fontWeight: 'bold' }}>{name}</div>
-    <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'flex-start', marginTop: '6px'}}>
-      <Item
-        type={"location"}
-        text={ address.substring(0, 6) }
-      />
-      <Item
-        type={"location"}
-        text={ address.substring(6) }
-      />
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+      }}>
+        <img src={profile} alt="Profile" style={{ width: '60px', height: '60px', marginRight: '0.2rem', marginLeft: '0.2rem', marginTop: '0.5rem' }} />
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ fontSize: '18px', fontWeight: 'bold' }}>{name}</div>
+          <div style={{ width: '100%', overflow: 'hidden', display: 'flex', justifyContent: 'flex-start', marginTop: '6px' }}>
+            <Item
+              type={"location"}
+              text={address.substring(0, 6)}
+            />
+            <Item
+              type={"location"}
+              text={address.substring(6)}
+            />
+          </div>
+          <div style={{ width: '100%', overflow: 'hidden', display: 'flex', justifyContent: 'flex-start', marginTop: '6px' }}>
+            {diseases.length > 0 && <Item type={"disease"} text={diseases[0]} />}
+            {diseases.length > 1 && <Item type={"disease"} text={diseases[1]} />}
+          </div>
         </div>
-        <div style={{ width:'100%', overflow:'hidden', display: 'flex', justifyContent: 'flex-start', marginTop: '6px'}}>
-          {diseases.length > 0 && <Item type={"disease"} text={diseases[0]} />}
-          {diseases.length > 1 && <Item type={"disease"} text={diseases[1]} />}
-        </div>
-    </div>
         <div style={{
           position: 'absolute',
           right: '-40px',
@@ -89,7 +89,7 @@ function CitizenItem({ profile, name, address, diseases, onClickDetail }) {
           backgroundColor: '#fff',
           background: 'radial-gradient(circle at center, #fff 55%, #888 100%)',
         }}
-        onClick={onClickDetail}>
+          onClick={onClickDetail}>
           <div>상세정보</div>
         </div>
       </div>
@@ -149,44 +149,44 @@ const CitizenList = ({ columns, data, onClickDetail }) => {
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                      {column.render("Header")}
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <span style={sortSytle}>▼</span> // 내림차순 화살표
-                        ) : (
-                          <span style={sortSytle}>▲</span> // 오름차순 화살표
-                        )
+                    {column.render("Header")}
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <span style={sortSytle}>▼</span> // 내림차순 화살표
                       ) : (
-                        <span>&nbsp;</span>
-                      )}
+                        <span style={sortSytle}>▲</span> // 오름차순 화살표
+                      )
+                    ) : (
+                      <span>&nbsp;</span>
+                    )}
                   </th>
                 ))}
               </tr>
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr
-                    {...row.getRowProps()}
-                    onClick={() => onClickDetail(row.original.patientId)}
-                  >
-                      {row.cells.map((cell) => (
-                        <td {...cell.getCellProps()}>
-                          {cell.column.id === "specialReport" ? (
-                            <div className="DetailButtonContainer">
-                              <a className="DetailContext"> {cell.row.values["specialReport"]} </a>
-                              <a className="DetailButton"> {">"} </a>
-                            </div>
-                          ) : (
-                            cell.render("Cell")
-                          )}
-                        </td>
-                      ))}
-                  </tr>
-                );
-              })}
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr
+                  {...row.getRowProps()}
+                  onClick={() => onClickDetail(row.original.patientId)}
+                >
+                  {row.cells.map((cell) => (
+                    <td {...cell.getCellProps()}>
+                      {cell.column.id === "specialReport" ? (
+                        <div className="DetailButtonContainer">
+                          <a className="DetailContext"> {cell.row.values["specialReport"]} </a>
+                          <a className="DetailButton"> {">"} </a>
+                        </div>
+                      ) : (
+                        cell.render("Cell")
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       )}
