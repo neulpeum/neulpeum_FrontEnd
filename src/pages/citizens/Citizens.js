@@ -5,8 +5,11 @@ import SearchBar from "components/SearchBar";
 import HeaderComponent from "components/Header";
 import CitizenList from "./CitizenList";
 import NoResultView from "components/NoResult";
+import Modal from 'react-modal';
 import "styles/ForPages/Citizens/Citizens.css";
 import HouseIcon from "Images/ic_house.svg";
+import MapIcon from "Images/ic_map.svg";
+import MapImage from "Images/img_map.jpeg";
 
 const villageMappings = {
   "위 1,2": ["위 1,2"],
@@ -28,6 +31,7 @@ const Citizens = () => {
     return storedVillages ? JSON.parse(storedVillages) : ["위 1,2", "위 3,4", "아래 1,2", "아래 3,4"];
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMapModalOpen, setMapModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -56,7 +60,7 @@ const Citizens = () => {
 
         setOriginalCitizens(res.data);
         setCitizens(res.data.filter(
-          (item) => isMobile 
+          (item) => isMobile
             ? selectedVillages.some((village) => villageMappings[village].some(mapping => item.address.includes(mapping)))
             : true
         ));
@@ -83,12 +87,12 @@ const Citizens = () => {
         const matchesKeyword = searchCriteria === "전체"
           ? item.patientName.includes(finalKeyword) || item.address.includes(finalKeyword)
           : searchCriteria === "name"
-          ? item.patientName.includes(finalKeyword)
-          : item.address.includes(finalKeyword);
+            ? item.patientName.includes(finalKeyword)
+            : item.address.includes(finalKeyword);
 
         return (
-          (isMobile 
-            ? (selectedVillages.length === 0 || selectedVillages.some((village) => villageMappings[village].some(mapping => item.address.includes(mapping)))) 
+          (isMobile
+            ? (selectedVillages.length === 0 || selectedVillages.some((village) => villageMappings[village].some(mapping => item.address.includes(mapping))))
             : true) && matchesKeyword
         );
       })
@@ -119,6 +123,14 @@ const Citizens = () => {
 
   const navigateToCitizenDetail = (citizenId) => {
     navigate("/citizensDetails", { state: { id: citizenId } });
+  };
+
+  const openMapModal = () => {
+    setMapModalOpen(true);
+  };
+
+  const closeMapModal = () => {
+    setMapModalOpen(false);
   };
 
   const columns = [
@@ -159,7 +171,7 @@ const Citizens = () => {
     );
 
   return (
-    <div style={{ overflowX :'hidden'}}>
+    <div style={{ overflowX: 'hidden' }}>
       <HeaderComponent
         nav={navigate}
         isLogoutVisible={true}
@@ -189,23 +201,42 @@ const Citizens = () => {
           {["위 1,2", "위 3,4", "아래 1,2", "아래 3,4"].map((village) => (
             <button
               key={village}
-              className={`filter-button ${
-                selectedVillages.includes(village) ? "active" : ""
-              }`}
+              className={`filter-button ${selectedVillages.includes(village) ? "active" : ""}`}
               onClick={() => toggleVillageFilter(village)}
             >
               {selectedVillages.includes(village) && (
-              <img 
-                src={HouseIcon} 
-                alt="" 
-              />
-            )}
+                <img
+                  src={HouseIcon}
+                  alt=""
+                />
+              )}
               {village}
             </button>
           ))}
+          <button
+            className="map-button"
+            alt=""
+            onClick={openMapModal}
+          >
+            <img
+              src={MapIcon}
+              alt=""
+            />
+            {`지도`}
+          </button>
         </div>
       )}
       {mainView}
+      <Modal
+        isOpen={isMapModalOpen}
+        onRequestClose={closeMapModal}
+        contentLabel="Map Modal"
+        className="map-modal"
+        overlayClassName="map-modal-overlay"
+      >
+        <button className="close-button" onClick={closeMapModal}>X</button>
+        <img src={MapImage} alt="Map" className="map-image" />
+      </Modal>
     </div>
   );
 };
