@@ -3,6 +3,10 @@ import Modal from "react-modal";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import "styles/ForPages/AddCounseling/AddCounseling.css";
+import drugImageData from "./drugImageData.json";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function AddCounseling(props) {
   const { onLoadingUpdate } = props;
@@ -10,8 +14,9 @@ export default function AddCounseling(props) {
 
   const [isOpening, setIsOpening] = useState(true);
   const [activeIndex, setActiveIndex] = useState([]);
-  const inputRefs = useRef([]);
   const [data, setData] = useState([""]);
+  const [today, setToday] = useState([""]);
+  const [time, setTime] = useState([""]);
   const [drugData, setDrugData] = useState([]);
   const [selectDrugs, setSelectDrugs] = useState([]);
   const navigate = useNavigate();
@@ -20,6 +25,9 @@ export default function AddCounseling(props) {
   const location = useLocation();
   const patientId = location.state.patientId;
   const patientName = location.state.patientName;
+
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
 
   useEffect(() => {
     const getData = async () => {
@@ -39,27 +47,29 @@ export default function AddCounseling(props) {
       }
     };
     getData();
-    const firstInput = inputRefs.current[0];
-    if (firstInput) {
-      const length = firstInput.value.length;
-      firstInput.setSelectionRange(length, length);
-      firstInput.focus();
-    }
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+
+    setToday(`${year}-${month}-${day}`);
+    setTime(`${hours}:${minutes}`);
   }, []);
-
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const day = date.getDate().toString().padStart(2, "0");
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-
-  const today = `${year}-${month}-${day} ${hours}:${minutes}`;
 
   const handleChange = (index, e) => {
     const newFields = [...data];
     newFields[index] = e.target.value;
     setData(newFields);
+  };
+
+  const handleChangeToday = (e) => {
+    setToday(e.target.value);
+  };
+
+  const handleChangeTime = (e) => {
+    setTime(e.target.value);
   };
 
   const autoResizeTextarea = () => {
@@ -77,12 +87,14 @@ export default function AddCounseling(props) {
       .map((drug) => `${drug.drugName} ${drug.usedAmount}개`)
       .join(", ");
 
+    const consultedAt = today + " " + time;
+
     const consultData = {
       patientId: `${patientId}`,
       providerName: data[0],
       takingDrug: `${drugNames}`,
       consultContent: data[1],
-      consultedAt: "2024-07-12 13:10",
+      consultedAt: consultedAt,
     };
 
     try {
@@ -113,6 +125,25 @@ export default function AddCounseling(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
+    let dateFlag = 0;
+    let timeFlag = 0;
+
+    if (!dateRegex.test(today)) {
+      document.querySelector(".wrongDate").style.display = "block";
+      dateFlag = 1;
+    } else {
+      document.querySelector(".wrongDate").style.display = "none";
+      dateFlag = 0;
+    }
+
+    if (!timeRegex.test(time)) {
+      document.querySelector(".wrongTime").style.display = "block";
+      timeFlag = 1;
+    } else {
+      document.querySelector(".wrongTime").style.display = "none";
+      timeFlag = 0;
+    }
+
     let providerIsValid = true;
     if (data[0] === "") {
       document.querySelector(".wrongProvider").style.display = "block";
@@ -240,16 +271,15 @@ export default function AddCounseling(props) {
     }
   }
 
-  const dropwonStyle = {
-    width: "9.4375rem",
+  const dropdownStyle = {
     height: "1.4375rem",
     border: "1px solid #000",
     outline: "none",
-    fontSize: "0.9375rem",
+    fontSize: "0.875rem",
     borderRadius: "0.625rem",
     backgroundColor: "white",
     cursor: "pointer",
-    padding: "0",
+    padding: "0.2rem 0.5rem",
     fontWeight: "bold",
   };
 
@@ -258,6 +288,14 @@ export default function AddCounseling(props) {
     fontSize: "0.625rem",
     margin: "0.31rem 0 0 0.56rem",
     display: "none",
+  };
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
 
   if (error) {
@@ -277,16 +315,60 @@ export default function AddCounseling(props) {
           </p>
         </div>
         <div className="counsel-wrapper">
-          <div className="counsel-category-wrapper">
-            <p> 상담일자 </p>
+          <div className="date-wrapper">
+            <div style={{ width: "7.5rem", margin: "0 0 0.87rem 0" }}>
+              <div
+                className="counsel-category-wrapper"
+                style={{ width: "7.5rem", margin: "0" }}
+              >
+                <img
+                  src="/icons/ic_calender.svg"
+                  alt=""
+                  className="category-img"
+                />
+                <p> 상담일자 </p>
+              </div>
+              <div className="date-content-wrapper" style={{ width: "7.5rem" }}>
+                <input
+                  type="text"
+                  value={today}
+                  placeholder="YYYY-MM-DD"
+                  onChange={(e) => handleChangeToday(e)}
+                  style={{ width: "7.5rem" }}
+                />
+              </div>
+              <p className="wrongDate" style={wrongInputStyle}>
+                ※ YYYY-MM-DD
+              </p>
+            </div>
+            <div style={{ width: "4.5rem", margin: "0 0 0.87rem 0" }}>
+              <div
+                className="counsel-category-wrapper"
+                style={{ width: "3.5rem", margin: "0" }}
+              >
+                <img
+                  src="/icons/ic_clock.svg"
+                  alt=""
+                  className="category-img"
+                />
+                <p> 시간 </p>
+              </div>
+              <div className="date-content-wrapper" style={{ width: "3.5rem" }}>
+                <input
+                  type="text"
+                  value={time}
+                  placeholder="00:00"
+                  onChange={(e) => handleChangeTime(e)}
+                  style={{ width: "3.5rem" }}
+                />
+              </div>
+              <p className="wrongTime" style={wrongInputStyle}>
+                ※ 00:00
+              </p>
+            </div>
           </div>
-          <div
-            className="counsel-content-wrapper"
-            style={{ marginBottom: "0.87rem" }}
-          >
-            <p> {today} </p>
-          </div>
           <div className="counsel-category-wrapper">
+            <img src="/icons/ic_provider.svg" alt="" className="category-img" />
             <p> 상담자 </p>
           </div>
           <div className="wrong-include-content-wrapper">
@@ -295,18 +377,35 @@ export default function AddCounseling(props) {
                 type="text"
                 value={data[0]}
                 onChange={(e) => handleChange(0, e)}
-                ref={(el) => (inputRefs.current[0] = el)}
               />
             </div>
             <p className="wrongProvider" style={wrongInputStyle}>
               ※ 상담자를 입력하세요.
             </p>
           </div>
+          <div className="counsel-category-wrapper">
+            <img src="/icons/ic_write.svg" alt="" className="category-img" />
+            <p> 상담내용 </p>
+          </div>
+          <div className="wrong-include-content-wrapper">
+            <div className="counsel-content-wrapper">
+              <textarea
+                className="counselTextarea"
+                value={data[1]}
+                onChange={(e) => handleChange(1, e)}
+                onKeyDown={autoResizeTextarea}
+                onKeyUp={autoResizeTextarea}
+              ></textarea>
+            </div>
+            <p className="wrongContent" style={wrongInputStyle}>
+              ※ 상담내용을 입력하세요.
+            </p>
+          </div>
           <div className="counselOtc-content-wrapper">
             <div className="drugDropdown-wrapper">
               <button
                 className="drugSelectBtn"
-                style={dropwonStyle}
+                style={dropdownStyle}
                 onClick={showOtc}
               >
                 제공 OTC 선택하기 ∧
@@ -342,12 +441,40 @@ export default function AddCounseling(props) {
                       )
                   )}
               </div>
+              {isOpening && selectDrugs.length > 0 && <p>선택한 OTC</p>}
+              <div className="drug-img-wrapper">
+                {isOpening && selectDrugs.length > 0 && (
+                  <Slider {...settings} className="slider">
+                    {isOpening &&
+                      selectDrugs.length > 0 &&
+                      selectDrugs.map(
+                        (drug, drugIndex) =>
+                          drug.totalUsableAmount > 0 && (
+                            <img
+                              key={drug.id}
+                              src={`/drugImage/${
+                                drugImageData[drug.drugName]
+                              }.jpg`}
+                              alt={`${drug.drugName}는 이미지가 없습니다.`}
+                            ></img>
+                          )
+                      )}
+                  </Slider>
+                )}
+              </div>
             </div>
             {selectDrugs.length > 0 ? (
               <div className="selectDrugs-wrapper">
                 {selectDrugs.map((drug, index) => (
                   <div className="selectDrugs-content" key={drug.id}>
-                    <p className="selectDrugsName">{drug.drugName}</p>
+                    <p className="selectDrugsName">
+                      <img
+                        src="/icons/ic_check.svg"
+                        style={{ display: "inline", marginRight: "0.12rem" }}
+                        alt=""
+                      ></img>
+                      {drug.drugName}
+                    </p>
                     <input
                       type="text"
                       onChange={(e) =>
@@ -368,23 +495,6 @@ export default function AddCounseling(props) {
             )}
             <p className="wrongInput" style={wrongInputStyle}>
               ※ 잘못된 입력입니다.
-            </p>
-          </div>
-          <div className="counsel-category-wrapper">
-            <p> 상담내용 </p>
-          </div>
-          <div className="wrong-include-content-wrapper">
-            <div className="counsel-content-wrapper">
-              <textarea
-                className="counselTextarea"
-                value={data[1]}
-                onChange={(e) => handleChange(1, e)}
-                onKeyDown={autoResizeTextarea}
-                onKeyUp={autoResizeTextarea}
-              ></textarea>
-            </div>
-            <p className="wrongContent" style={wrongInputStyle}>
-              ※ 상담내용을 입력하세요.
             </p>
           </div>
         </div>
