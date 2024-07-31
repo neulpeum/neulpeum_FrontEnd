@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "styles/ForPages/CitizensDetails/CitizenInfor.css";
+import HouseIcon from "Images/ic_house.svg";
 
 export default function CitizenInfor(props) {
   const { onLoadingUpdate } = props;
@@ -9,15 +10,17 @@ export default function CitizenInfor(props) {
   const patientId = location.state.id;
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const [fields, setFields] = useState([]);
+  const [address, setAddress] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [activeButton, setActiveButton] = useState(null);
+  const [originallActiveButton, setOriginalActiveButton] = useState(null);
   const [isFieldsModified, setIsFieldsModified] = useState(false);
   const [originalFields, setOriginalFields] = useState([...fields]);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const villages = ["위 1,2", "위 3,4", "아래 1,2", "아래 3,4"];
 
-  // const birthDateRegex =
-  //   /^(?:\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])[-]\d{1}|)$/;
   const birthDateRegex = /^(?:\d{6}[-]\d{1}|)$/;
   const phoneNumRegex = /^(?:\d{3}[-]\d{4}[-]\d{4}|)$/;
   const homeNumRegex = /^(?:\d{2}[-]\d{3}[-]\d{4}|)$/;
@@ -35,6 +38,20 @@ export default function CitizenInfor(props) {
         const replaceNullWithEmptyString = (value) =>
           value === null ? "" : value;
         setFields(Object.values(newData).map(replaceNullWithEmptyString));
+        // 주소 설정
+        const splitIndex = response.data.address.indexOf(
+          " ",
+          response.data.address.indexOf(" ") + 1
+        );
+        const main = response.data.address.substring(0, splitIndex);
+        const sub = response.data.address.substring(splitIndex + 1);
+        setActiveButton(main);
+        setAddress(sub);
+        setFields((prevData) => {
+          const updatedData = [...prevData];
+          updatedData[4] = sub;
+          return updatedData;
+        });
       } catch (error) {
         setError(error);
         console.error("Error fetching data:", error);
@@ -55,11 +72,14 @@ export default function CitizenInfor(props) {
 
   useEffect(() => {
     setIsEditing(false);
+    document.querySelector(".birthDateError").style.display = "none";
+    document.querySelector(".phoneNumError").style.display = "none";
   }, [isLargeScreen]);
 
   const handleEditClick = () => {
     setIsEditing(true);
     setOriginalFields([...fields]);
+    setOriginalActiveButton(activeButton);
   };
 
   useEffect(() => {
@@ -73,15 +93,19 @@ export default function CitizenInfor(props) {
 
   useEffect(() => {
     if (isEditing) {
-      setIsFieldsModified(!areArrayEqual(originalFields, fields));
+      setIsFieldsModified(
+        !areArrayEqual(originalFields, fields) ||
+          !areArrayEqual(activeButton, originallActiveButton)
+      );
     }
-  }, [fields, isEditing, originalFields]);
+  }, [fields, isEditing, originalFields, activeButton]);
 
   const handleCancelClick = () => {
     document.querySelector(".birthDateError").style.display = "none";
     document.querySelector(".phoneNumError").style.display = "none";
     setIsEditing(false);
     setFields([...originalFields]);
+    setActiveButton(originallActiveButton);
   };
 
   function areArrayEqual(arr1, arr2) {
@@ -93,9 +117,14 @@ export default function CitizenInfor(props) {
     return true;
   }
 
+  const handleButtonClick = (village) => {
+    setActiveButton(village);
+  };
+
   const handleSaveClick = async () => {
     let dateFlag = 0;
     let numFlag = 0;
+    let addressFlag = 0;
 
     if (!birthDateRegex.test(fields[2])) {
       document.querySelector(".birthDateError").style.display = "block";
@@ -113,7 +142,15 @@ export default function CitizenInfor(props) {
       numFlag = 0;
     }
 
-    if (dateFlag === 0 && numFlag === 0) {
+    if (!fields[4]) {
+      document.querySelector(".addressError").style.display = "block";
+      addressFlag = 1;
+    } else {
+      document.querySelector(".addressError").style.display = "none";
+      addressFlag = 0;
+    }
+
+    if (dateFlag === 0 && numFlag === 0 && addressFlag === 0) {
       if (!areArrayEqual(originalFields, fields)) {
         const date = new Date();
         const year = date.getFullYear();
@@ -127,15 +164,19 @@ export default function CitizenInfor(props) {
           return updatedFields;
         });
 
+        setAddress(fields[4]);
+        const addressData = activeButton + " " + address;
+
         const patientData = {
           patientId: fields[0],
           patientName: fields[1],
           birthDate: fields[2],
           phoneNum: fields[3],
-          address: fields[4],
+          address: addressData,
           disease: fields[5],
           specialReport: fields[6],
         };
+
         axios
           .put("/api/patientInfo", patientData)
           .then(() => {})
@@ -150,9 +191,10 @@ export default function CitizenInfor(props) {
 
   const regexStyle = {
     display: "none",
-    fontSize: "0.6875rem",
+    fontSize: "0.8vw",
     margin: "0",
     color: "#FF4949",
+    marginLeft: "1rem",
   };
 
   // Enter 키를 눌렀을 때 다음 입력란으로 포커스 이동
@@ -251,7 +293,12 @@ export default function CitizenInfor(props) {
               </div>
             )}
             <p className="birthDateError" style={regexStyle}>
-              ※ 주민번호 형식에 맞지 않습니다.
+              <img
+                src="/icons/ic_inforError.svg"
+                alt="No_Data"
+                className="infor-error-img"
+              />
+              주민번호 형식에 맞지 않습니다.
             </p>
           </div>
           <div className="category-wrapper">
@@ -264,24 +311,59 @@ export default function CitizenInfor(props) {
           </div>
           <div className="content-wrapper">
             {isEditing ? (
-              <input
-                type="text"
-                value={fields[4]}
-                onChange={(e) => handleChange(4, e)}
-                ref={(el) => (inputRefs.current[2] = el)}
-                onKeyDown={(e) => handleKeyDown(e, 2)}
-                onFocus={(e) =>
-                  e.target.setSelectionRange(
-                    e.target.value.length,
-                    e.target.value.length
-                  )
-                }
-              />
+              <>
+                <div className="address-buttons">
+                  {villages.map((village) => (
+                    <button
+                      key={village}
+                      className={
+                        activeButton === village
+                          ? "address-button-active"
+                          : "address-button"
+                      }
+                      onClick={() => handleButtonClick(village)}
+                    >
+                      <img
+                        style={
+                          activeButton === village ? {} : { display: "none" }
+                        }
+                        src={HouseIcon}
+                        alt=""
+                        className="address-btn-icon"
+                      />
+                      {village}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  type="text"
+                  value={fields[4]}
+                  onChange={(e) => handleChange(4, e)}
+                  ref={(el) => (inputRefs.current[2] = el)}
+                  onKeyDown={(e) => handleKeyDown(e, 2)}
+                  onFocus={(e) =>
+                    e.target.setSelectionRange(
+                      e.target.value.length,
+                      e.target.value.length
+                    )
+                  }
+                />
+              </>
             ) : (
               <div>
-                <span>{fields[4]}</span>
+                <span>
+                  {activeButton} {address}
+                </span>
               </div>
             )}
+            <p className="addressError" style={regexStyle}>
+              <img
+                src="/icons/ic_inforError.svg"
+                alt="No_Data"
+                className="infor-error-img"
+              />{" "}
+              필수정보입니다.
+            </p>
           </div>
           <div className="category-wrapper">
             <img
@@ -313,7 +395,12 @@ export default function CitizenInfor(props) {
               </div>
             )}
             <p className="phoneNumError" style={regexStyle}>
-              ※ 연락처 형식에 맞지 않습니다.
+              <img
+                src="/icons/ic_inforError.svg"
+                alt="No_Data"
+                className="infor-error-img"
+              />
+              연락처 형식에 맞지 않습니다.
             </p>
           </div>
           <div className="category-wrapper">

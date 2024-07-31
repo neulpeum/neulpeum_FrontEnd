@@ -1,135 +1,117 @@
 .searchBar-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  margin-bottom: 1.38rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 1.38rem;
 }
 
 .searchForm {
-  display: flex;
-  align-items: center;
-  width: 35vw;
+    display: flex;
+    align-items: center;
+    width: 35vw;
 }
 
 .coun-criteria {
-  width: 30%;
-  height: 6vh;
-  padding-left: 0.56rem;
-  padding-top: 0.2rem;
-  outline: none;
-  border: 2px solid #aed391;
-  background: #fff;
-  border-radius: 1.25rem;
-  font-size: 1.3vw;
-  cursor: pointer;
+    width: 30%;
+    height: 6vh;
+    padding-left: 0.56rem;
+    padding-top: 0.2rem;
+    outline: none;
+    border: 2px solid #aed391;
+    background: #fff;
+    border-radius: 1.25rem;
+    font-size: 1vw;
+    cursor: pointer;
 }
 
 .search-wrapper {
-  display: flex;
-  justify-content: space-between;
-  height: 6vh;
-  margin-left: 5%;
-  width: 70%;
-  gap: 5%;
+    display: flex;
+    justify-content: space-between;
+    height: 6vh;
+    margin-left: 5%;
+    width: 70%;
+    gap: 5%;
 }
 
 .searchBar {
-  padding-left: 1rem;
-  background: #fff;
-  border-radius: 1.25rem;
-  border: 2px solid #aed391;
-  width: 80%;
-  font-size: clamp(1rem, 1.5vw, 18px);
+    padding-left: 1rem;
+    background: #fff;
+    border-radius: 1.25rem;
+    border: 2px solid #aed391;
+    width: 80%;
+    font-size: 1vw;
 }
 
 .searchBtn {
-  background: linear-gradient(
-    270deg,
-    #aed391 -1.77%,
-    #a9d3a1 20.55%,
-    #a5d2ab 35.26%,
-    #a2d2b3 46.42%,
-    #9dd2c1 65.69%,
-    #99d1cc 94.6%,
-    #95d1d9 99.67%
-  );
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  aspect-ratio: 1 / 1;
+    background: linear-gradient( 270deg, #aed391 -1.77%, #a9d3a1 20.55%, #a5d2ab 35.26%, #a2d2b3 46.42%, #9dd2c1 65.69%, #99d1cc 94.6%, #95d1d9 99.67%);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    aspect-ratio: 1 / 1;
 }
 
 .search-img {
-  width: 65%;
-  height: 65%;
-  cursor: pointer;
+    width: 65%;
+    height: 65%;
+    cursor: pointer;
 }
 
 .write-img {
-  height: 100%;
-  aspect-ratio: 1 / 1;
-  background: linear-gradient(
-    270deg,
-    #aed391 -1.77%,
-    #a9d3a1 20.55%,
-    #a5d2ab 35.26%,
-    #a2d2b3 46.42%,
-    #9dd2c1 65.69%,
-    #99d1cc 94.6%,
-    #95d1d9 99.67%
-  );
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    background: linear-gradient( 270deg, #aed391 -1.77%, #a9d3a1 20.55%, #a5d2ab 35.26%, #a2d2b3 46.42%, #9dd2c1 65.69%, #99d1cc 94.6%, #95d1d9 99.67%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .write-img img {
-  width: 1.8rem;
-  height: 1.8rem;
+    width: 1.8rem;
+    height: 1.8rem;
 }
 
 @media (max-width: 768px) {
-  .searchBar-wrapper {
-    width: 90%;
-    margin-bottom: 1.38rem;
-  }
-  .searchForm {
-    width: auto;
-  }
-  .coun-criteria {
-    font-size: 1.25rem;
-  }
-  .search-wrapper {
-    height: 2.75rem;
-    margin-left: 1rem;
-    width: 90%;
-  }
-  .searchBar {
-    width: 90%;
-    margin-right: 0.5rem;
-    padding-left: 1rem;
-    flex-shrink: 1;
-    font-size: 1rem;
-  }
-  .write-img {
-    display: block;
-  }
-  .sear .searchBtn {
-    width: 2.75rem;
-  }
-  .search-img {
-    flex-shrink: 3;
-    width: 1.8rem;
-    height: 1.8rem;
-  }
-  .coun-criteria {
-    width: 7.8125rem;
-    height: 2.75rem;
-    font-size: 1rem;
-  }
+    .searchBar-wrapper {
+        width: 90%;
+        margin-bottom: 1.38rem;
+    }
+    .searchForm {
+        width: auto;
+    }
+    .coun-criteria {
+        font-size: 1.25rem;
+    }
+    .search-wrapper {
+        height: 2.75rem;
+        margin-left: 1rem;
+        width: 90%;
+    }
+    .searchBar {
+        width: 90%;
+        margin-right: 0.5rem;
+        padding-left: 1rem;
+        flex-shrink: 1;
+        font-size: 1rem;
+    }
+    .write-img {
+        display: block;
+    }
+    .sear .searchBtn {
+        width: 2.75rem;
+    }
+    .search-img {
+        flex-shrink: 3;
+        width: 1.8rem;
+        height: 1.8rem;
+    }
+    .coun-criteria {
+        width: 7.8125rem;
+        height: 2.75rem;
+        font-size: 1rem;
+    }
 }

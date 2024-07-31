@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('Images/img_main_background.jpg');
+    background-image: url("/Images/img_main_background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -19,23 +19,23 @@
     margin-bottom: 115px;
 }
 
-.main-content > p {
+.main-content>p {
     margin-top: 74px;
     font-size: 32px;
 }
 
-.main-logo-container > img {
+.main-logo-container>img {
     margin-top: 76px;
     width: 327px;
     height: 242px;
 }
 
 @media (max-width: 768px) {
-    .main-content > p {
+    .main-content>p {
         margin-top: 75px;
         font-size: 15px;
     }
-    .main-logo-container > img {
+    .main-logo-container>img {
         margin-top: 95px;
         width: 209px;
         height: 170px;
