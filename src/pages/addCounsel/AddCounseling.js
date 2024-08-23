@@ -4,9 +4,7 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import "styles/ForPages/AddCounseling/AddCounseling.css";
 import drugImageData from "./drugImageData.json";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import CustomSlider from "./CustomSlider";
 
 export default function AddCounseling(props) {
   const { onLoadingUpdate } = props;
@@ -125,23 +123,23 @@ export default function AddCounseling(props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
-    let dateFlag = 0;
-    let timeFlag = 0;
+    let dateFlag = false;
+    let timeFlag = false;
 
     if (!dateRegex.test(today)) {
       document.querySelector(".wrongDate").style.display = "block";
-      dateFlag = 1;
+      dateFlag = false;
     } else {
       document.querySelector(".wrongDate").style.display = "none";
-      dateFlag = 0;
+      dateFlag = true;
     }
 
     if (!timeRegex.test(time)) {
       document.querySelector(".wrongTime").style.display = "block";
-      timeFlag = 1;
+      timeFlag = false;
     } else {
       document.querySelector(".wrongTime").style.display = "none";
-      timeFlag = 0;
+      timeFlag = true;
     }
 
     let providerIsValid = true;
@@ -173,7 +171,13 @@ export default function AddCounseling(props) {
       document.querySelector(".wrongContent").style.display = "none";
     }
 
-    if (otcIsValid && providerIsValid && contentIsValid) {
+    if (
+      otcIsValid &&
+      providerIsValid &&
+      contentIsValid &&
+      dateFlag &&
+      timeFlag
+    ) {
       document.body.style = "overflow: hidden";
       setIsOpen(true);
     }
@@ -290,13 +294,13 @@ export default function AddCounseling(props) {
     display: "none",
   };
 
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+  // const settings = {
+  //   dots: true,
+  //   infinite: false,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  // };
 
   if (error) {
     if (error.response.status === 401 || error.response.status === 403) {
@@ -444,22 +448,27 @@ export default function AddCounseling(props) {
               {isOpening && selectDrugs.length > 0 && <p>선택한 OTC</p>}
               <div className="drug-img-wrapper">
                 {isOpening && selectDrugs.length > 0 && (
-                  <Slider {...settings} className="slider">
-                    {isOpening &&
-                      selectDrugs.length > 0 &&
-                      selectDrugs.map(
-                        (drug, drugIndex) =>
-                          drug.totalUsableAmount > 0 && (
-                            <img
-                              key={drug.id}
-                              src={`/drugImage/${
-                                drugImageData[drug.drugName]
-                              }.jpg`}
-                              alt={`${drug.drugName}는 이미지가 없습니다.`}
-                            ></img>
-                          )
-                      )}
-                  </Slider>
+                  <CustomSlider
+                    selectDrugs={selectDrugs}
+                    isOpening={isOpening}
+                    drugImageData={drugImageData}
+                  />
+                  // <Slider {...settings} className="slider">
+                  //   {isOpening &&
+                  //     selectDrugs.length > 0 &&
+                  //     selectDrugs.map(
+                  //       (drug, drugIndex) =>
+                  //         drug.totalUsableAmount > 0 && (
+                  //           <img
+                  //             key={drug.id}
+                  //             src={`/drugImage/${
+                  //               drugImageData[drug.drugName]
+                  //             }.jpg`}
+                  //             alt={`${drug.drugName}는 이미지가 없습니다.`}
+                  //           ></img>
+                  //         )
+                  //     )}
+                  // </Slider>
                 )}
               </div>
             </div>

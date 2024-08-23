@@ -5,7 +5,7 @@ import SearchBar from "components/SearchBar";
 import HeaderComponent from "components/Header";
 import CitizenList from "./CitizenList";
 import NoResultView from "components/NoResult";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import "styles/ForPages/Citizens/Citizens.css";
 import HouseIcon from "Images/ic_house.svg";
 import MapIcon from "Images/ic_map.svg";
@@ -28,7 +28,9 @@ const Citizens = () => {
   const [searchCriteria, setSearchCriteria] = useState("전체");
   const [selectedVillages, setSelectedVillages] = useState(() => {
     const storedVillages = localStorage.getItem("selectedVillages");
-    return storedVillages ? JSON.parse(storedVillages) : ["위 1,2", "위 3,4", "아래 1,2", "아래 3,4"];
+    return storedVillages
+      ? JSON.parse(storedVillages)
+      : ["위 1,2", "위 3,4", "아래 1,2", "아래 3,4"];
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isMapModalOpen, setMapModalOpen] = useState(false);
@@ -59,11 +61,17 @@ const Citizens = () => {
         });
 
         setOriginalCitizens(res.data);
-        setCitizens(res.data.filter(
-          (item) => isMobile
-            ? selectedVillages.some((village) => villageMappings[village].some(mapping => item.address.includes(mapping)))
-            : true
-        ));
+        setCitizens(
+          res.data.filter((item) =>
+            isMobile
+              ? selectedVillages.some((village) =>
+                  villageMappings[village].some((mapping) =>
+                    item.address.includes(mapping)
+                  )
+                )
+              : true
+          )
+        );
         setLoading(false);
       } catch (e) {
         setError(e);
@@ -84,20 +92,34 @@ const Citizens = () => {
   const filterCitizens = useCallback(() => {
     setCitizens(
       originalCitizens.filter((item) => {
-        const matchesKeyword = searchCriteria === "전체"
-          ? item.patientName.includes(finalKeyword) || item.address.includes(finalKeyword)
-          : searchCriteria === "name"
+        const matchesKeyword =
+          searchCriteria === "전체"
+            ? item.patientName.includes(finalKeyword) ||
+              item.address.includes(finalKeyword)
+            : searchCriteria === "name"
             ? item.patientName.includes(finalKeyword)
             : item.address.includes(finalKeyword);
 
         return (
           (isMobile
-            ? (selectedVillages.length === 0 || selectedVillages.some((village) => villageMappings[village].some(mapping => item.address.includes(mapping))))
+            ? selectedVillages.length === 0 ||
+              selectedVillages.some((village) =>
+                villageMappings[village].some((mapping) =>
+                  item.address.includes(mapping)
+                )
+              )
             : true) && matchesKeyword
         );
       })
     );
-  }, [originalCitizens, selectedVillages, finalKeyword, searchCriteria, isMobile, villageMappings]);
+  }, [
+    originalCitizens,
+    selectedVillages,
+    finalKeyword,
+    searchCriteria,
+    isMobile,
+    villageMappings,
+  ]);
 
   const toggleVillageFilter = (village) => {
     setSelectedVillages((prev) =>
@@ -160,7 +182,11 @@ const Citizens = () => {
     citizens.length === 0 ? (
       <NoResultView
         name={finalKeyword}
-        explain={finalKeyword.trim().length === 0 ? "해당 마을에 존재하지 않는 주민입니다." : "는 존재하지 않는 주민입니다."}
+        explain={
+          finalKeyword.trim().length === 0
+            ? "해당 마을에 존재하지 않는 주민입니다."
+            : "는 존재하지 않는 주민입니다."
+        }
       />
     ) : (
       <CitizenList
@@ -171,7 +197,7 @@ const Citizens = () => {
     );
 
   return (
-    <div style={{ overflowX: 'hidden' }}>
+    <div style={{ overflowX: "hidden" }}>
       <HeaderComponent
         nav={navigate}
         isLogoutVisible={true}
@@ -201,27 +227,19 @@ const Citizens = () => {
           {["위 1,2", "위 3,4", "아래 1,2", "아래 3,4"].map((village) => (
             <button
               key={village}
-              className={`filter-button ${selectedVillages.includes(village) ? "active" : ""}`}
+              className={`filter-button ${
+                selectedVillages.includes(village) ? "active" : ""
+              }`}
               onClick={() => toggleVillageFilter(village)}
             >
               {selectedVillages.includes(village) && (
-                <img
-                  src={HouseIcon}
-                  alt=""
-                />
+                <img src={HouseIcon} alt="" />
               )}
               {village}
             </button>
           ))}
-          <button
-            className="map-button"
-            alt=""
-            onClick={openMapModal}
-          >
-            <img
-              src={MapIcon}
-              alt=""
-            />
+          <button className="map-button" alt="" onClick={openMapModal}>
+            <img src={MapIcon} alt="" />
             {`지도`}
           </button>
         </div>
@@ -234,7 +252,9 @@ const Citizens = () => {
         className="map-modal"
         overlayClassName="map-modal-overlay"
       >
-        <button className="close-button" onClick={closeMapModal}>X</button>
+        <button className="close-button" onClick={closeMapModal}>
+          X
+        </button>
         <img src={MapImage} alt="Map" className="map-image" />
       </Modal>
     </div>

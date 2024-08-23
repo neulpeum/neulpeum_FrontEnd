@@ -37,7 +37,9 @@ const Main = () => {
       password: password,
     };
     axios
-      .post("/api/login", loginRequest, { withCredentials: true })
+      .post("/api/login", loginRequest, {
+        withCredentials: true,
+      })
       .then((res) => {
         navigate("/citizens");
       })
