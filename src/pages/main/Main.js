@@ -26,7 +26,6 @@ const Main = () => {
           },
           { withCredentials: true }
         );
-        // navigate("/citizens");
         navigateRef("/citizens");
       } catch (e) {}
     };
