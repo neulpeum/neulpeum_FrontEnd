@@ -1,4 +1,3 @@
-// import React, { useState, useEffect, useCallback } from "react";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -83,7 +82,6 @@ const Citizens = () => {
   }, [isMobile, selectedVillages]);
 
   useEffect(() => {
-    // filterCitizens();
     setCitizens(
       originalCitizens.filter((item) => {
         const matchesKeyword =
@@ -115,38 +113,6 @@ const Citizens = () => {
   useEffect(() => {
     localStorage.setItem("selectedVillages", JSON.stringify(selectedVillages));
   }, [selectedVillages]);
-
-  // const filterCitizens = useCallback(() => {
-  //   setCitizens(
-  //     originalCitizens.filter((item) => {
-  //       const matchesKeyword =
-  //         searchCriteria === "전체"
-  //           ? item.patientName.includes(finalKeyword) ||
-  //             item.address.includes(finalKeyword)
-  //           : searchCriteria === "name"
-  //           ? item.patientName.includes(finalKeyword)
-  //           : item.address.includes(finalKeyword);
-
-  //       return (
-  //         (isMobile
-  //           ? selectedVillages.length === 0 ||
-  //             selectedVillages.some((village) =>
-  //               villageMappings[village].some((mapping) =>
-  //                 item.address.includes(mapping)
-  //               )
-  //             )
-  //           : true) && matchesKeyword
-  //       );
-  //     })
-  //   );
-  // }, [
-  //   originalCitizens,
-  //   selectedVillages,
-  //   finalKeyword,
-  //   searchCriteria,
-  //   isMobile,
-  //   villageMappings,
-  // ]);
 
   const toggleVillageFilter = (village) => {
     setSelectedVillages((prev) =>
