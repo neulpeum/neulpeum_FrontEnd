@@ -453,22 +453,6 @@ export default function AddCounseling(props) {
                     isOpening={isOpening}
                     drugImageData={drugImageData}
                   />
-                  // <Slider {...settings} className="slider">
-                  //   {isOpening &&
-                  //     selectDrugs.length > 0 &&
-                  //     selectDrugs.map(
-                  //       (drug, drugIndex) =>
-                  //         drug.totalUsableAmount > 0 && (
-                  //           <img
-                  //             key={drug.id}
-                  //             src={`/drugImage/${
-                  //               drugImageData[drug.drugName]
-                  //             }.jpg`}
-                  //             alt={`${drug.drugName}는 이미지가 없습니다.`}
-                  //           ></img>
-                  //         )
-                  //     )}
-                  // </Slider>
                 )}
               </div>
             </div>

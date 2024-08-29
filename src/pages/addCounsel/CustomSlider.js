@@ -61,9 +61,21 @@ const CustomSlider = ({ selectDrugs, isOpening, drugImageData }) => {
           {filteredDrugs.map((drug) => (
             <div key={drug.id} className="slide">
               <img
+                src={
+                  drugImageData[drug.drugName]
+                    ? `/drugImage/${drugImageData[drug.drugName]}.jpg`
+                    : ""
+                }
+                alt={
+                  drugImageData[drug.drugName]
+                    ? `${drug.drugName}`
+                    : ` ${drug.drugName} 이미지가 없습니다.`
+                }
+              />
+              {/* <img
                 src={`/drugImage/${drugImageData[drug.drugName]}.jpg`}
                 alt={`${drug.drugName}는 이미지가 없습니다.`}
-              />
+              /> */}
             </div>
           ))}
         </div>

@@ -16,6 +16,10 @@
     min-width: 100%;
 }
 
+.slide img {
+    display: block;
+}
+
 .dots {
     text-align: center;
     margin-top: 10px;
