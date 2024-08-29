@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SearchBar from "components/SearchBar";
@@ -82,14 +82,6 @@ const Citizens = () => {
   }, [isMobile, selectedVillages]);
 
   useEffect(() => {
-    filterCitizens();
-  }, [selectedVillages, finalKeyword, searchCriteria]);
-
-  useEffect(() => {
-    localStorage.setItem("selectedVillages", JSON.stringify(selectedVillages));
-  }, [selectedVillages]);
-
-  const filterCitizens = useCallback(() => {
     setCitizens(
       originalCitizens.filter((item) => {
         const matchesKeyword =
@@ -112,14 +104,15 @@ const Citizens = () => {
         );
       })
     );
-  }, [
-    originalCitizens,
+  }, [originalCitizens,
     selectedVillages,
     finalKeyword,
     searchCriteria,
-    isMobile,
-    villageMappings,
-  ]);
+    isMobile,]);
+
+  useEffect(() => {
+    localStorage.setItem("selectedVillages", JSON.stringify(selectedVillages));
+  }, [selectedVillages]);
 
   const toggleVillageFilter = (village) => {
     setSelectedVillages((prev) =>

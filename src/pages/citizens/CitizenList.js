@@ -176,8 +176,8 @@ const CitizenList = ({ columns, data, onClickDetail }) => {
                     <td {...cell.getCellProps()}>
                       {cell.column.id === "specialReport" ? (
                         <div className="DetailButtonContainer">
-                          <a className="DetailContext"> {cell.row.values["specialReport"]} </a>
-                          <a className="DetailButton"> {">"} </a>
+                          <span className="DetailContext"> {cell.row.values["specialReport"]} </span>
+                          <span className="DetailButton"> {">"} </span>
                         </div>
                       ) : (
                         cell.render("Cell")

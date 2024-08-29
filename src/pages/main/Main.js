@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CustomInput from "./CustomInput";
@@ -7,27 +7,28 @@ import "styles/ForPages/Main/Main.css";
 
 const Main = () => {
   const navigate = useNavigate();
+  const navigateRef = useRef();
+  navigateRef.current = navigate;
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
-  const checkSession = async () => {
-    try {
-      await axios.get(
-        "/api/patient",
-        {
-          withCredentials: true,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": "*",
-          },
-        },
-        { withCredentials: true }
-      );
-      navigate("/citizens");
-    } catch (e) {}
-  };
-
   useEffect(() => {
+    const checkSession = async () => {
+      try {
+        await axios.get(
+          "/api/patient",
+          {
+            withCredentials: true,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": "*",
+            },
+          },
+          { withCredentials: true }
+        );
+        navigateRef("/citizens");
+      } catch (e) {}
+    };
     checkSession();
   }, []);
 

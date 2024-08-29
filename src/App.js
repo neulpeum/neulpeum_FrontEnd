@@ -6,7 +6,7 @@ import Citizens from "pages/citizens/Citizens";
 import CitizensDetails from "pages/citizensDetails/CitizensDetails";
 import CitizenAdd from "pages/citizenAdd/CitizenAdd";
 import Main from "pages/main/Main";
-import AddCounsel from "pages/addCounsel/AddCounsel";
+import AddCounsel from "pages/addCounsel/AddCounseling";
 import AccountSetting from "pages/accountSettings/AccountSettings";
 
 const App = () => {
