@@ -89,8 +89,8 @@
         display: none;
     }
     .logout {
-        height: 16px;
-        width: 76px;
+        width: 100px;
+        height: 25px;
         margin-top: 2.3vh;
         margin-right: 2vw;
     }
