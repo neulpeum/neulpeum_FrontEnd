@@ -24,7 +24,7 @@
 }
 
 .citizensCounList {
-  font-size: 1.5vw;
+  font-size: 1vw;
   margin: 1rem 0 0 0;
 }
 
@@ -127,7 +127,7 @@
     max-height: 55vh;
   }
   .citizenName {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   .counselTable th,
   .counselTable td {
