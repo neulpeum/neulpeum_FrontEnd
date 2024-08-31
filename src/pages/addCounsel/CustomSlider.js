@@ -58,8 +58,6 @@ const CustomSlider = ({ selectDrugs, isOpening, drugImageData }) => {
             transition: "transform 0.5s ease-in-out",
           }}
         >
-          {/* /drugImage/pas.jpg */}
-          {/* /Users/one/Documents/FrontendWorkSpace/projectsetting/public/drugImage/pas.jpg */}
           {filteredDrugs.map((drug) => (
             <div key={drug.id} className="slide">
               <img
