@@ -58,7 +58,7 @@
 
 .goto-citizensInformation span,
 .goto-counsel span {
-  font-size: 1.25rem;
+  font-size: 1rem;
   margin-left: 0.25rem;
   margin-right: 0.25rem;
   font-weight: 600;
@@ -67,7 +67,6 @@
 
 .goto-citizensInformation {
   float: right;
-  font-size: 1.25rem;
   border: none;
   background-color: white;
   display: none;
@@ -93,6 +92,6 @@
     display: block;
   }
   .components-wrapper {
-    margin-top: 2rem;
+    margin-top: 37px;
   }
 }

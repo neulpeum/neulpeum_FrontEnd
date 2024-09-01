@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 1.8rem 0;
 }
 
 .ment-wrapper p,
@@ -113,12 +113,11 @@
 
 @media (max-width: 768px) {
   .citizenCounselList-wrapper {
-    margin-top: 1rem;
-    margin: 0 auto;
+    margin: 1rem auto 0 auto;
     width: 95%;
   }
   .citizensCounList {
-    font-size: 1.25rem;
+    font-size: 1rem;
     margin: 0.5rem 0 0 0;
   }
   .list-wrapper {
@@ -127,7 +126,7 @@
     max-height: 55vh;
   }
   .citizenName {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   .counselTable th,
   .counselTable td {
