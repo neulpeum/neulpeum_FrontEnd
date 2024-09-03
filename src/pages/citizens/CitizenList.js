@@ -41,8 +41,8 @@ function CitizenItem({ profile, name, address, diseases, onClickDetail }) {
       display: 'flex',
       justifyContent: 'space-evenly',
       marginTop: '20px',
-      marginLeft: '40px',
-      marginRight: '40px',
+      marginLeft: '20px',
+      marginRight: '35px',
       borderRadius: '10px',
       backgroundColor: '#cee6b3',
       paddingLeft: '10px',
@@ -57,7 +57,6 @@ function CitizenItem({ profile, name, address, diseases, onClickDetail }) {
         display: 'flex',
         alignItems: 'center',
       }}>
-        <img src={profile} alt="Profile" style={{ width: '60px', height: '60px', marginRight: '0.2rem', marginLeft: '0.2rem', marginTop: '0.5rem' }} />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ fontSize: '18px', fontWeight: 'bold' }}>{name}</div>
           <div style={{ width: '100%', overflow: 'hidden', display: 'flex', justifyContent: 'flex-start', marginTop: '6px' }}>
@@ -70,7 +69,14 @@ function CitizenItem({ profile, name, address, diseases, onClickDetail }) {
               text={address.substring(6)}
             />
           </div>
-          <div style={{ width: '100%', overflow: 'hidden', display: 'flex', justifyContent: 'flex-start', marginTop: '6px' }}>
+          <div style={{
+            width: '100%',
+            overflow: 'hidden',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'flex-start',
+            marginTop: '6px'
+          }}>
             {diseases.length > 0 && <Item type={"disease"} text={diseases[0]} />}
             {diseases.length > 1 && <Item type={"disease"} text={diseases[1]} />}
           </div>
