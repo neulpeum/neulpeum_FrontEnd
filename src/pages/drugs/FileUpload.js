@@ -71,7 +71,7 @@ const FileUpload = ({ Uploading} ) => {
       const expireDate = MyDate.ConvertedExceltoJsonDate(row[1]);
 
       if (expireDate === null) throw new Error('[유통기한]들 중 존재하지 않는 날짜가 존재합니다. ex) 9999.13.52');
-      if (new Date(expireDate) <= new Date()) throw new Error('유통기한이 지났거나 오늘까지인 약이 감지되었습니다.');
+      // if (new Date(expireDate) <= new Date()) throw new Error('유통기한이 지났거나 오늘까지인 약이 감지되었습니다.'); #유통기한 제한 해제!
 
       row[0] = row[0].split(" ").join('');
       
