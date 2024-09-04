@@ -121,7 +121,6 @@
     margin: 0.5rem 0 0 0;
   }
   .list-wrapper {
-    min-width: 20rem;
     width: 95%;
     max-height: 55vh;
   }
