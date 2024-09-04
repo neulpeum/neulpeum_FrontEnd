@@ -4,6 +4,7 @@ import "styles/ForPages/AddCounseling/Slider.css";
 const CustomSlider = ({ selectDrugs, isOpening, drugImageData }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [dragStartX, setDragStartX] = useState(0);
+  const [dragMoveX, setDragMoveX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
 
@@ -11,30 +12,57 @@ const CustomSlider = ({ selectDrugs, isOpening, drugImageData }) => {
     (drug) => drug.totalUsableAmount > 0
   );
 
+  // 드래그 시작 시 좌표 저장
   const handleMouseDown = (e) => {
     setIsDragging(true);
     setDragStartX(e.clientX);
   };
 
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    setDragStartX(e.touches[0].clientX);
+  };
+
+  // 드래그 중 움직임 계산
   const handleMouseMove = (e) => {
     if (!isDragging) return;
-    const dragMoveX = e.clientX;
+    setDragMoveX(e.clientX);
+  };
 
-    if (dragMoveX < dragStartX) {
-      // 오른쪽으로 드래그
-      setCurrentSlide((prev) => (prev + 1) % filteredDrugs.length);
-    } else if (dragMoveX > dragStartX) {
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    setDragMoveX(e.touches[0].clientX);
+  };
+
+  // 드래그 종료 시 슬라이드 이동 판단
+  const handleMouseUp = () => {
+    handleSlideChange();
+    setIsDragging(false);
+  };
+
+  const handleTouchEnd = () => {
+    handleSlideChange();
+    setIsDragging(false);
+  };
+
+  // 드래그 거리 판단 및 슬라이드 변경
+  const handleSlideChange = () => {
+    const dragDistance = dragMoveX - dragStartX;
+    const minDragDistance = 50; // 슬라이드 변경 최소 드래그 거리
+
+    if (dragDistance > minDragDistance) {
       // 왼쪽으로 드래그
       setCurrentSlide(
         (prev) => (prev - 1 + filteredDrugs.length) % filteredDrugs.length
       );
+    } else if (dragDistance < -minDragDistance) {
+      // 오른쪽으로 드래그
+      setCurrentSlide((prev) => (prev + 1) % filteredDrugs.length);
     }
 
-    setIsDragging(false); // 슬라이드를 한 번 이동시키면 드래그 종료
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
+    // 드래그 상태 초기화
+    setDragMoveX(0);
+    setDragStartX(0);
   };
 
   const handleDotClick = (index) => {
@@ -48,7 +76,10 @@ const CustomSlider = ({ selectDrugs, isOpening, drugImageData }) => {
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp} // 마우스가 슬라이더 밖으로 나갈 때 드래그 종료
+      onMouseLeave={handleMouseUp}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       {isOpening && filteredDrugs.length > 0 && (
         <div
@@ -71,11 +102,8 @@ const CustomSlider = ({ selectDrugs, isOpening, drugImageData }) => {
                     ? `${drug.drugName}`
                     : ` ${drug.drugName} 이미지가 없습니다.`
                 }
+                draggable="false" // 이미지 드래그 방지
               />
-              {/* <img
-                src={`/drugImage/${drugImageData[drug.drugName]}.jpg`}
-                alt={`${drug.drugName}는 이미지가 없습니다.`}
-              /> */}
             </div>
           ))}
         </div>
