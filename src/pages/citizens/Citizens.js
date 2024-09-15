@@ -65,10 +65,10 @@ const Citizens = () => {
           res.data.filter((item) =>
             isMobile
               ? selectedVillages.some((village) =>
-                  villageMappings[village].some((mapping) =>
-                    item.address.includes(mapping)
-                  )
+                villageMappings[village].some((mapping) =>
+                  item.address.includes(mapping)
                 )
+              )
               : true
           )
         );
@@ -87,19 +87,19 @@ const Citizens = () => {
         const matchesKeyword =
           searchCriteria === "전체"
             ? item.patientName.includes(finalKeyword) ||
-              item.address.includes(finalKeyword)
+            item.address.includes(finalKeyword)
             : searchCriteria === "name"
-            ? item.patientName.includes(finalKeyword)
-            : item.address.includes(finalKeyword);
+              ? item.patientName.includes(finalKeyword)
+              : item.address.includes(finalKeyword);
 
         return (
           (isMobile
             ? selectedVillages.length === 0 ||
-              selectedVillages.some((village) =>
-                villageMappings[village].some((mapping) =>
-                  item.address.includes(mapping)
-                )
+            selectedVillages.some((village) =>
+              villageMappings[village].some((mapping) =>
+                item.address.includes(mapping)
               )
+            )
             : true) && matchesKeyword
         );
       })
@@ -217,12 +217,15 @@ const Citizens = () => {
       />
       {isMobile && (
         <div className="filter-buttons">
+          <button className="map-button" alt="" onClick={openMapModal}>
+            <img src={MapIcon} alt="" />
+            {`지도`}
+          </button>
           {["위 1,2", "위 3,4", "아래 1,2", "아래 3,4"].map((village) => (
             <button
               key={village}
-              className={`filter-button ${
-                selectedVillages.includes(village) ? "active" : ""
-              }`}
+              className={`filter-button ${selectedVillages.includes(village) ? "active" : ""
+                }`}
               onClick={() => toggleVillageFilter(village)}
             >
               {selectedVillages.includes(village) && (
@@ -231,10 +234,6 @@ const Citizens = () => {
               {village}
             </button>
           ))}
-          <button className="map-button" alt="" onClick={openMapModal}>
-            <img src={MapIcon} alt="" />
-            {`지도`}
-          </button>
         </div>
       )}
       {mainView}
