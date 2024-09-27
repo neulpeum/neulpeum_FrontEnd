@@ -248,9 +248,9 @@ const Drugs = () => {
 
     const exampleData = [
       { v: "예시) 아스피린", s: rowStyle },
-      { v: "예시) 24.12.31 혹은 2024.12.31", s: rowStyle },
+      { v: "예시) 2024.12.31", s: rowStyle },
       { v: "예시) 100", s: rowStyle },
-      { v: "예시) 5, 빈칸일 시 자동으로 0입니다. ", s: rowStyle },
+      { v: "예시) 5 빈칸일 시 자동으로 0입니다. ", s: rowStyle },
     ];
 
     rowData.unshift(exampleData);
