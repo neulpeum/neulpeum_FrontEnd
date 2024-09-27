@@ -6,7 +6,6 @@ import "styles/ForComps/Search.css";
 export default function Search({ onSubmit }) {
   const [searchCriteria, setSearchCriteria] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
-  // const [isInputFocused, setInputFocused] = useState(false);
   const [name, setName] = useState("");
   const location = useLocation();
   const patientId = location.state.id;
@@ -44,14 +43,6 @@ export default function Search({ onSubmit }) {
     setSearchKeyword(event.target.value);
   };
 
-  // const handleInputFocus = () => {
-  //   setInputFocused(true);
-  // };
-
-  // const handleInputBlur = () => {
-  //   setInputFocused(false);
-  // };
-
   return (
     <form onSubmit={handleSubmit} className="searchForm">
       <select
@@ -71,8 +62,6 @@ export default function Search({ onSubmit }) {
           value={searchKeyword}
           placeholder="검색할 내용을 입력하세요."
           onChange={handleKeywordChange}
-          // onFocus={handleInputFocus}
-          // onBlur={handleInputBlur}
         ></input>
         <button type="submit" className="searchBtn">
           <img

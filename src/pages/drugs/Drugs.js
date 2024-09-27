@@ -45,7 +45,7 @@ const Drugs = () => {
 
   useEffect(() => {
     const getDatafromServer = async () => {
-      setLoading(true); // 로딩 상태 시작
+      setLoading(true);
       await axios
         .get("/api/drug")
         .then((response) => {
