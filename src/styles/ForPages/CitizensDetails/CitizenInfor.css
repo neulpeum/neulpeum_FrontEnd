@@ -76,22 +76,7 @@
 
 .textareaSpan {
     width: 90%;
-    /* height: 2vh;/
-    overflow-y: auto; */
 }
-
-
-/* .textareaSpan::-webkit-scrollbar {
-  border: 0px solid #9b6a2f;
-}
-
-.textareaSpan::-webkit-scrollbar-thumb {
-  background: gray;
-}
-
-.textareaSpan::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-} */
 
 .address-buttons {
     display: flex;
